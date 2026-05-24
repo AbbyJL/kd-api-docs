@@ -909,7 +909,7 @@ class Setting extends Base{
 		@file_put_contents('/tmp/zf_debug.log', $line, FILE_APPEND);
 	}
 	
-		/**
+	/**
 	 * 众发金额调试：按后台「调试价格除数」缩小展示/支付价（单位：分）
 	 * 配置 wxapp.zf_debug_price_divisor：1=正常，10000=缩小一万倍（7880分→约1分）
 	 */
@@ -918,13 +918,14 @@ class Setting extends Base{
 		if($amountFen <= 0){
 			return 0;
 		}
-		$config = model('Setting')->chAll2();
-		$motmoto nint)(isset($config['wxapp']['zf_debug_price_divisor']) ? $config['wxapp']['zf_debug_price_divisor'] : 1);
-		$motimotn1n000; // 联调：强制缩小一万倍，上线前删掉这行
-		if($divisor <= 1)<	return $amountFen;
+		$config = model('Setting')->fetchAll2();
+		$divisor = (int)(isset($config['wxapp']['zf_debug_price_divisor']) ? $config['wxapp']['zf_debug_price_divisor'] : 1);
+		$divisor = 10000; // 联调：强制缩小一万倍，上线前删掉这行
+		if($divisor <= 1){
+			return $amountFen;
 		}
 		$debugAmount = max(1, (int)round($amountFen / $divisor));
-		$this->zfDebug>'applyZhongfaDebugPriceFen', '原价(分)='.$amountFen.' 除数='.$motion.' 调试mot)'n$debugAmount.' 约'.round($debugAmount / 10000000, 4).00000'元');
+		$this->zfDebugLog('applyZhongfaDebugPriceFen', '原价(分)='.$amountFen.' 除数='.$divisor.' 调试价(分)='.$debugAmount.' 约'.round($debugAmount / 100, 4).'元');
 		return $debugAmount;
 	}
 	/** 众发下单必填：补全 sendStartTime / sendEndTime（格式 Y-m-d H:i:s） */
@@ -1084,6 +1085,10 @@ class Setting extends Base{
 			if($totalAmount <= 0){
 				continue;
 			}
+			// 保存原始金额用于originalFee
+			$originalAmount = $totalAmount;
+			// 应用调试价格
+			$totalAmount = $this->applyZhongfaDebugPriceFen($totalAmount);
 			$this->zfDebugLog('getExpressList15', '线路#'.$k.' API金额(分)='.$totalAmount.' 约'.round($totalAmount/100, 2).'元 template_ratio='.(isset($template['ratio']) ? $template['ratio'] : 0));
 			$getCatePrice = model('Setting')->getCatePrice(
 				isset($data['uid']) ? $data['uid'] : 0,
@@ -1091,7 +1096,7 @@ class Setting extends Base{
 				$totalAmount,
 				0,
 				0,
-				$totalAmount,
+				$originalAmount,
 				0,
 				$template
 			);
