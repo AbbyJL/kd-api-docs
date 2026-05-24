@@ -919,8 +919,11 @@ class Setting extends Base{
 			return 0;
 		}
 		$config = model('Setting')->fetchAll2();
+		$this->zfDebugLog('applyZhongfaDebugPriceFen', 'config='.json_encode($config, JSON_UNESCAPED_UNICODE));
 		$divisor = (int)(isset($config['wxapp']['zf_debug_price_divisor']) ? $config['wxapp']['zf_debug_price_divisor'] : 1);
+		$this->zfDebugLog('applyZhongfaDebugPriceFen', '从配置读取的divisor='.$divisor);
 		$divisor = 10000; // 联调：强制缩小一万倍，上线前删掉这行
+		$this->zfDebugLog('applyZhongfaDebugPriceFen', '强制设置后的divisor='.$divisor);
 		if($divisor <= 1){
 			return $amountFen;
 		}
