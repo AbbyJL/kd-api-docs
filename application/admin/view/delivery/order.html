@@ -1,0 +1,231 @@
+{include  file='public:header'}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1"> 当前位置</li>
+        <li class="li2">跑腿订单</li>
+        <li class="li2 li3">订单列表</li>
+    </ul>
+</div>
+<style>
+.admin-attention {
+    height: inherit;
+}
+.checkOrder{ color:#00F}
+.admin-btn-default-order {
+    font-size: 12px;
+    margin-left: 15px;
+    display: inline-block;
+    margin-top: 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #b2b9b9;
+    color: #fff;
+    padding: 2px 8px;
+    height: 22px;
+    line-height: 22px;
+}
+.admin-btn-default-houseMoving {
+    font-size: 12px;
+    margin-left: 15px;
+    display: inline-block;
+    margin-top: 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #0265fe;
+    color: #fff;
+    padding: 2px 8px;
+    height: 22px;
+    line-height: 22px;
+}
+.admin-btn-default-order b.b {
+	margin-top: -15px;
+    position: absolute;
+    background-color: #e33;
+    margin-left:-10px;
+}
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #999;
+    border-radius: 2em;
+}
+.selecteds{
+	background: #906;
+}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+.admin-sele-k .text {
+    width: 100px;
+}
+.admin-input-text {
+    width: 100px!important;
+}
+.admin-sele-k label {
+    margin-right:5px;
+}
+</style>
+
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention">
+        <b>统计信息：
+        订单数量：<a class="red">{$count}</a> 
+        </b>
+    </p>
+  	
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                <a href="{:url('delivery/order')}">刷新</a>
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('delivery/order')}">
+                     <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="{$bg_date|default=''}"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="{$end_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                        </label>
+                           
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                            </label>
+                             <label>
+                                <span>订单状态：</span>
+                                <select class="select w100" name="status">
+                                 <option {eq name="status" value="999"}selected="selected"{/eq} value="999">=请选择=</option>
+                                	{foreach name="getStatus" key="key" item="item"}
+                                        <option {eq name="status" value="$key"}selected="selected"{/eq}  value="{$key}">{$item}</option>
+                                    {/foreach}
+                                </select>
+                            </label>
+                           
+                            <label>
+                                <span>ID：</span>   
+                                <input type="text" name="id" value="{$id|default=''}" class="admin-input-text"/>
+                                <input type="submit" class="admin-input-button" value="搜索"/></label>
+                            </label>    
+                        </div>
+                    </div>
+                </form>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+
+
+
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                    <td><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td>ID</td>
+                    <td>uid</td>
+                    <td>配送员ID</td>
+                    <td>类型</td>
+                    <td>预约时间</td>
+                    <td>出发地</td>
+                    <td>到达地</td>
+                    <td>数量</td>
+                    <td>重量</td>
+                    <td>说明</td>
+                    <td>支付金额</td>
+                    <td>状态</td>
+                    <td>距离</td>
+                    <td>时间</td>
+                    <td>操作</td>
+                </tr>
+                     {foreach name="list" item="var"}
+                        <tr {eq name="var.type" value="2"}style="background-color:#f7f7f7;"{/eq}>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/></td>
+                            <td>{$var.id}</td>
+                            <td>{$var.uid}</td>
+                            <td>{$var.delivery_id}</td>
+                            <td style="color:#00f">{$getTypes[$var['type']]}</td>
+                            <td>{$var.senddate}</td>
+                            <td>{$var.sendaddr}<br>{$var.sendname}-{$var.sendmobile}</td>
+                            <td>{$var.receiveaddr}<br>{$var.receivename}-{$var.receivemobile}</td>
+                            <td>{$var.num}</td>
+                            <td>{$var.wight}</td>
+                            <td>{$var.info}</td>
+                            <td style="color:#00f">&yen;{:round($var['need_pay']/100,2)}元</td>
+                            <td style="color:#00f">{$getStatus[$var['status']]}</td>
+                            <td>{$var.juliKm}</td>
+                            <td>
+                                {if condition="$var[create_time]"}
+                                创建时间：{$var.create_time|date="Y-m-d H:i:s",###}<br>
+                                {/if}
+                                {if condition="$var[delivery_time]"}
+                                接单时间：{$var.delivery_time|date="Y-m-d H:i:s",###}<br>
+                                {/if}
+                                {if condition="$var[refund_time]"}
+                                退款时间：{$var.refund_time|date="Y-m-d H:i:s",###}<br>
+                                {/if}
+                                {if condition="$var[refund_info]"}
+                                退款说明：{$var.refund_info}<br>
+                                {/if}
+                                {if condition="$var[peisong_time]"}
+                                配送时间：{$var.peisong_time|date="Y-m-d H:i:s",###}<br>
+                                {/if}
+                                {if condition="$var[end_time]"}
+                                完成时间：{$var.end_time|date="Y-m-d H:i:s",###}
+                                {/if}
+                            </td>
+                            <td>
+                            	{if condition="$var['status'] eq 0"}
+                                    {:BA('delivery/delete',array("id"=>$var["id"]),'删除','act','admin-btn-small')}
+                                {/if}
+                                {if condition="$var['status'] eq 1"}
+                                   {:BA('delivery/deliver',array("id"=>$var["id"]),'发货','act','admin-btn-small')}
+                                   {:BA('delivery/refund',array("id"=>$var["id"]),'原路退款','act','admin-btn-small_quxiao')}
+                                {/if}
+                                {if condition="$var['status'] eq 2"}
+                                   {:BA('delivery/complete',array("id"=>$var["id"]),'完成','act','admin-btn-small')}
+                                   {:BA('delivery/refund',array("id"=>$var["id"]),'原路退款','act','admin-btn-small_quxiao')}
+                                {/if}
+                                {if condition="$var['status'] eq 3"}
+                                   {:BA('delivery/complete',array("id"=>$var["id"]),'完成','act','admin-btn-small')}
+                                {/if}
+                                {:BA('delivery/detail',array("id"=>$var["id"]),'详情','','admin-btn-small')}
+                            </td> 
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+          <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+    
+{include  file='public:footer'} 
+

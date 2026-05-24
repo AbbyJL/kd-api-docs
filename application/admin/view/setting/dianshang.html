@@ -1,0 +1,76 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">电商寄设置</li>
+    </ul>
+</div>
+<style>
+    .admin-table-left{width:150px !important;}
+    .profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+    .api{text-align: center;color: #ffffff !important;;font-weight: bold;background: #495b6c !important;}
+</style>
+
+<p class="admin-attention"><span>注意</span> 电商寄设置</p>
+<form  target="x-frame" action="{:url('setting/dianshang')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+               	
+                
+                
+                <tr><td class="admin-table-right profit" colspan = "2"> 基本设置</td></tr>
+                <tr>
+                    <td class="admin-table-left">电商寄余额：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[money1]" value="{$CONFIG.dianshang.money1}" class="admin-sc-add-text-name w160">
+                        <code>电商寄余额最低多少钱可下单</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">自定义电商寄余额：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[money2]" value="{$CONFIG.dianshang.money2}" class="admin-sc-add-text-name w160">
+                        <code>自定义电商寄余额最低多少钱可下单</code>
+                    </td>
+                </tr>
+                <tr><td class="admin-table-right profit" colspan = "2"> 弹窗设置</td></tr>
+                <tr>
+                    <td class="admin-table-left">是否开启弹窗：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[pop_open]" {eq name="CONFIG.dianshang.pop_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                        <label><input type="radio" name="data[pop_open]" {eq name="CONFIG.dianshang.pop_open" value="0"}checked="checked"{/eq}  value="0"/>关闭</label>
+                        <code>下单页面是否开启弹窗</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">弹窗标题：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[pop_title]" value="{$CONFIG['dianshang']['pop_title']}" class="admin-sc-add-text-name w360">
+                        <code>下单页面弹窗标题</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">弹窗内容：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[pop_info]" cols="50" rows="10">{$CONFIG.dianshang.pop_info}</textarea>
+                        <code>下单页面弹窗内容</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">弹窗链接：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[pop_url]" value="{$CONFIG['dianshang']['pop_url']}" class="admin-sc-add-text-name w660">
+                        <code>下单页面弹窗了解详情链接内容【配置短链接】</code>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认保存" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+
+{include  file='public:footer'}  

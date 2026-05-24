@@ -1,0 +1,28 @@
+{foreach name="list" item="var"}   
+<li class="line">
+      <dt><a class="x4">{$var.kuaidi}-{$var.id}</a><a class="x8 text-right">UID-{$var.user_id}</a></dt>
+      <dd class="zhong">
+         <div class="x12">
+             <p class="text-gray x6">运单号：{$var.deliveryId}</p>
+             <p class="text-gray x6">运支付金额：&yen;{:round($var['sumMoneyYuan']/100,2)}元</p>
+         </div>
+         <div class="x12">
+            <p class="text-gray x6">原始金额：&yen;{:round($var['sumMoneyYuan_old']/100,2)}元</p>
+         </div>
+         <div class="x12">
+             <p class="text-gray x6">差价金额：&yen;{:round($var['diffMoneyYuan']/100,2)}元</p>
+             <p class="text-gray x6">差价状态：{$getdiffStatus[$var['diffStatus']]}</p>
+         </div>
+      </dd>
+            
+      <dl>
+         <p class="text-right padding-top x12"> 
+         	 <a class="button button-small border-green">{$getorderRightsStatus[$var['orderRightsStatus']]}</a>
+         	 <a class="button button-small border-blue">{$getorderStatus[$var['orderStatus']]}</a>
+             <a href="{:url('order/detail',array('id'=>$var['id']))}" class="button button-small bg-dot">详情</a>
+          </p>
+      </dl>
+    </li>
+ 
+<div class="blank-10 bg"></div>
+{/foreach}   

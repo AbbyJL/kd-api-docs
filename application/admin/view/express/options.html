@@ -1,0 +1,139 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递轨迹</li>
+        <li class="li2">订单轨迹</li>
+        <li class="li2 li3">编辑轨迹</li>
+    </ul>
+</div>
+<style>
+#options{ display:none}
+.form-group{ margin-top:20px;}
+.form-group .input-group{margin-top:10px;}
+.form-group .delOptions{border:1px solid #1881A4;display: inline-block;line-height: 30px;cursor: pointer;background-color: #09c;color: #fff;padding: 0 15px;}
+.form-group .addOptions{margin-top:20px;display:inline-block;cursor:pointer;padding: 0 5px;}
+.form-group .input-group .form-control{border: solid 1px #d5d5d5;height: 30px;line-height: 28px;text-indent: 10px;color: #999;background: 0 0;}
+.form-group .input-group .input-group-addon{padding: 0 5px;float:inherit;}
+</style>
+            
+    {:BA('express/options',array("id"=>$detail["id"]),'刷新','','admin-btn-default')}
+    {:BA('express/detail',array("id"=>$detail["id"]),'详情','','admin-btn-default')}
+    {:BA('express/index','','返回','','admin-btn-default')}
+
+
+    <form target="x-frame" action="{:url('express/options',array('id'=>$detail['id']))}" method="post">
+        <div class="admin-main-sc-add"  style="margin-top:20px">
+        <div class="admin-table-box"> 
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+            	
+          <tr>
+                <td class="admin-table-left">启用规格：</td>
+            	<td class="admin-table-right">
+                <div class="form-group">
+					<div class="col-sm-9 col-xs-12">
+						<div id="options" style="display:block">
+							<div class="tpl">
+                                {if condition="!empty($options)"}
+                                	{foreach name="$options" item="row"}
+										<div class="input-group">
+											<input type="hidden" name="options[id][]" value="{$row['id']}">
+											<span class="input-group-addon">状态</span>
+											<input type="text" name="options[name][]" value="{$row['name']}" class="form-control" placeholder="">
+											<span class="input-group-addon">名称</span>
+											<input type="text" name="options[title][]" value="{$row['title']}" class="form-control" placeholder="">
+                                            <span class="input-group-addon">描述</span>
+											<input type="text" name="options[desc][]" value="{$row['desc']}" class="form-control" placeholder="">
+											<span class="input-group-addon">时间</span>
+											<input type="text" name="options[time][]" value="{$row['time']}" class="form-control" placeholder="">
+											<span class="input-group-addon">排序</span>
+											<input type="text" name="options[sort][]" value="{$row['sort']}" class="form-control" placeholder="">
+											<span class="input-group-addon"><a href="javascript:;" class="delOptions">删除规格</a></span>
+										</div>
+									{/foreach}
+								{else/}
+									<div class="input-group">
+										<input type="hidden" name="options[id][]" value="">
+										<span class="input-group-addon">状态</span>
+										<input type="text" name="options[name][]" class="form-control" placeholder="" value="">
+										<span class="input-group-addon">名称</span>
+										<input type="text" name="options[title][]" class="form-control" placeholder="" value="">
+                                        <span class="input-group-addon">描述</span>
+										<input type="text" name="options[desc][]" class="form-control" placeholder="" value="">
+										<span class="input-group-addon">时间</span>
+										<input type="text" name="options[time][]" class="form-control" placeholder="" vlaue="">
+										<span class="input-group-addon">排序</span>
+										<input type="text" name="options[sort][]" class="form-control" placeholder="" value="0">
+										<span class="input-group-addon"><a href="javascript:;" class="delOptions">删除轨迹</a></span>
+									</div>
+								{/if}
+							</div>
+							<a href="javascript:;" class="addOptions">添加轨迹</a>
+							<span class="help-block">排序数字越大越靠前</span>
+						</div>
+					</div>
+				</div>
+              </td>
+             </tr>  
+        		
+          
+        
+       
+    </table>
+   <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+</form>
+</div>
+</div>
+
+
+<script type="text/javascript">
+$(function(){
+	$('.ajaxForm').submit(function(){
+		var is_options = $(':checkbox[name="is_options"]').prop('checked');
+		if(is_options) {
+			var name_flag = price_flag = false;
+			$.each($(':text[name="options[name][]"]'), function(){
+				if(!$.trim($(this).val())) {
+					name_flag = true;
+				}
+				if(!$.trim($(this).next().next().val())) {
+					price_flag = true;
+				}
+			});
+			if(name_flag) {
+				layer.msg('存在没有设置名称的规格项');
+				return false;
+			}
+			if(price_flag) {
+				layer.msg('存在没有设置价格的规格项');
+				return false;
+			}
+		}
+		
+	});
+});
+
+$('.addOptions').click(function(){
+	var html = '<div class="input-group">'+
+					'<input type="hidden" name="options[id][]" value="">'+
+					'<span class="input-group-addon">状态</span>'+
+					'<input type="text" name="options[name][]" class="form-control" placeholder="" value="">'+
+					'<span class="input-group-addon">名称</span>'+
+					'<input type="text" name="options[name][]" class="form-control" placeholder="" value="">'+
+					'<span class="input-group-addon">描述</span>'+
+					'<input type="text" name="options[desc][]" class="form-control" placeholder="" value="">'+
+					'<span class="input-group-addon">时间</span>'+
+					'<input type="text" name="options[time][]" class="form-control" value="" placeholder="">'+
+					'<span class="input-group-addon">排序</span>'+
+					'<input type="text" name="options[sort][]" class="form-control" value="0" placeholder="">'+
+					'<span class="input-group-addon"><a href="javascript:;" class="" onclick="$(this).parent().parent().remove();"></a></span>'+
+				'</div>';
+	$('#options .tpl').append(html);
+});
+
+$('.delOptions').click(function(){
+	$(this).parent().parent().remove();
+});
+</script>
+
+{include  file='public:footer'}      

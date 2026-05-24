@@ -1,0 +1,418 @@
+.seller-error-img{
+	width: 80%;
+	margin: 2.5rem 10% 0;
+}
+.seller-error-img img{
+	width: 100%;
+}
+.seeler-error-green{
+	background-image: linear-gradient(to right, #65dc78 , #5bc467);
+	margin: 2rem 6% 0;
+}
+.seeler-error-red{
+	background-image: linear-gradient(to right, #f3d269 , #e6ac49);
+	margin: 1rem 6% 0;
+}
+.seller-error-container{
+	display: block;
+	width: 88%;
+	height: 3rem;
+	text-align: center;
+	line-height: 3rem;
+	font-size: 14px;
+	color: #fff;
+	border-radius: 3rem;
+}
+.seller-error-tel{
+	width: 100%;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	text-align: center;
+	color: #999;
+}
+.seller-apply-top {
+	width: 100%;
+	height: 11rem;
+	position: relative;
+	z-index: -1;
+}
+.seller-apply-top img{
+	width: 100%;
+	height: 100%;
+}
+.seller-apply-form{
+	width: 92%;
+	background: #fff;
+	margin: -3rem 4% 0;
+	border-radius: 0.25rem;
+	padding: 0 1rem;
+	box-sizing: border-box;
+	float: left;
+	padding-bottom: 1rem;
+}
+.seller-apply-form-title{
+	width: 100%;
+	height: 2rem;
+	line-height: 2rem;
+	margin-top: 0.5rem;
+}
+.seller-apply-form-title span{
+	width: 0.25rem;
+	height: 1rem;
+	border-radius: 0.5rem;
+	background: #e81223;
+	display: inline-block;
+	float: left;
+	margin-top: 0.5rem;
+}
+.seller-apply-form-title  p{
+	display: inline-block;
+	height: 2rem;
+	line-height: 2rem;
+	color: #666;
+	float: left;
+	margin-left: 0.25rem;
+}
+.seller-apply-form-input{
+	width: 100%;
+	height: 2.5rem;
+	background: #fafafa;
+	margin-top: 0.5rem;
+	border-radius: 0.25rem;
+	position: relative;
+}
+.seller-apply-form-input p{
+	display: inline-block;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	position: absolute;
+	top: 0;
+	color: #333;
+	left: 0.5rem;
+}
+.seller-apply-form-input  input{
+	width: 100%;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	padding-left: 5rem;
+	box-sizing: border-box;
+	color: #999;
+	background: transparent;
+}
+.seller-apply-form-input select {
+	background: transparent !important;
+}
+.seller-apply-form-selct{
+	width: 75%;
+	height: 2.5rem;
+	float: right;
+	display: flex;
+	justify-content: space-around;
+}
+.seller-apply-form-selct option{
+	background: transparent;
+}
+.seller-apply-form-selct a{
+	width: 100%;
+	height: 2.5rem;
+	display: inline-block;
+	line-height: 2.5rem;
+	color: #999;
+	position: relative;
+	z-index: 2;
+}
+.seller-apply-form-address{
+	width: 75%;
+	height: 2.5rem;
+	background: #fafafa;
+	position: absolute;
+	top: 0;
+	right: 0 !important;
+	text-align: left;
+	line-height: 2.5rem;
+	z-index: 1;
+}
+.text-area{
+	background: #fafafa !important;
+	margin-top: 0.5rem;
+	padding: 10px;
+}
+.pay-method{
+	float: left;
+	width: 92%;
+	background: #fff;
+	margin: 1rem 4% 0;
+	border-top: none;
+	overflow: hidden;
+	border-radius: 0.25rem;
+}
+.pay-method li{
+	height: 5rem;
+	background: #fff;
+	padding: 0;
+	padding: 0 16px;
+	border-bottom: 1px #f5f5f5 solid;
+}
+.media.media-x .float-left{
+	height: 3rem;
+	width: 3rem;
+	margin-top: 0;
+	margin-top: 1rem;
+}
+.media.media-x .float-left img{
+	width: 100%;
+	height: 100%;
+}
+.fkfs{
+	height: 3rem;
+	margin-top: 1.1rem;
+}
+.pay-method .radio{
+	width: 1.5rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	float: right;
+	margin-top: 1.75rem;
+	background: #f5f5f5;
+}
+.pay-method .radio{
+	background: #f5f5f5;
+}
+.pay-method .active .radio{
+	background: #e81223;
+}
+.pay-method li:hover{
+	background: #fff !important;
+}
+.method-draw-image{
+	width: 79px;
+	height: 79px;
+	background: url(../img/method-draw-image.svg) #f5f5f5 no-repeat;
+	background-size: 50% 50%;
+	margin-top: 0.5rem;
+	float: left;
+	background-position: 50% 50%;
+	border: 1px #ccc solid;
+	border-radius: 0.25rem;
+	margin-right: 1rem;
+	overflow: hidden;
+}
+.method-draw-image img{
+	width: 100%;
+	height: 100%;
+}
+.method-draw-sc{
+	width: 100%;
+	height: 100%;
+}
+.webuploader-pick{
+	width:100%;
+	height: 100%;
+	padding: 0 !important;
+	opacity: 0;
+}
+.Upload-img .list-img{
+	padding-left: 0;
+	padding-top: 0;
+}
+.fabu-form .row{
+	padding: 0;
+}
+.apply-container-btn{
+	width: 92%;
+}
+.apply-container-btn{
+	width: 92%;
+	height: 3rem;
+	background: #e81223;
+	float: left;
+	margin: 1rem 4%;
+	border-radius: 3rem;
+	text-align: center;
+	line-height: 3rem;
+}
+.apply-container-btn button{
+	width: 100%;
+	height: 3rem;
+	line-height: 3rem;
+	background: transparent;
+	color: #fff;
+}
+.footer-space{
+	float: left;
+}
+.seller-member-top{
+	width: 100%;
+	height: 16rem;
+	background: #e81223;
+	float: left;
+	position: relative;
+}
+.seller-member-top img{
+	width: 5rem;
+	height: 5rem;
+	display: block;
+	margin: 2rem auto 0;
+	border-radius: 3rem;
+	background:#fff;
+}
+.seller-member-top p{
+	text-align: center;
+	font-size: 14px;
+	width: 100%;
+	color: #fff;
+}
+.seller-member-top span{
+	height: 1.6rem;
+	line-height: 1.6rem;
+	display: inline-block;
+	background: #000;
+	font-size: 12px;
+	text-align: center;
+	padding: 0 0.5rem;
+	border-radius: 0.25rem;
+	margin: 0.25rem;
+}
+.seller-member-top p:nth-child(2){
+	margin: 0.75rem auto 0.5rem;
+	font-size: 16px;
+	font-weight: bold;
+}
+.seller-member-top-money{
+	width: 100%;
+	height: 3rem;
+	background: rgba(0,0,0,0.1);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.seller-member-top-money li{
+	width: 25%;
+	height: 3rem;
+	float: left;
+}
+.seller-member-top-money  li p{
+	width: 100%;
+	height: 1.25rem;
+	line-height: 1.25rem;
+	font-size: 12px !important;
+	margin: 0 !important;
+	font-weight: normal !important;
+}
+.seller-member-top-money  li p:nth-child(1){
+	margin-top: 0.25rem !important;
+	font-size: 16px !important;
+}
+.seller-member-nav-list{
+	width: 100%;
+	background: #fff;
+	float: left;
+}
+.seller-member-nav-list li{
+	width: 33.33%;
+	height: 6rem;
+	float: left;
+	background: #fff;
+	border-bottom: 1px #f5f5f5 solid;
+	border-right: 1px #f5f5f5 solid;
+}
+.seller-member-nav-list li a{
+	width: 100%;
+	height: 5rem;
+	display: block;
+	float: left;
+}
+.seller-member-nav-list li img{
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 3rem;
+	margin: 1rem auto 0;
+	display: block;
+}
+.seller-member-nav-list li p{
+	width: 100%;
+	height: 1.5ren;
+	line-height: 1.5rem;
+	font-size: 13px;
+	text-align: center;
+	color: #333;
+	margin-top: 0.25rem;
+}
+.seller-member-btn{
+	width: 92%;
+	height: 2.5rem;
+	background: #e81223;
+	float: left;
+	margin: 1rem 4% 0;
+	border-radius: 3rem;
+	
+}
+.seller-member-btn button{
+	width: 100%;
+	height: 2.5rem;
+	border-radius: 2rem;
+	background: transparent;
+	color: #fff;
+	font-size: 14px;
+}
+.seller-member-set{
+	height: 2rem;
+	line-height: 2rem;
+	display: block;
+	position: absolute;
+	right: .5rem;
+	top: .5rem;
+	padding: 0 .5rem;
+	background: #000;
+	color: #fff;
+	border-radius: 3rem;
+}
+
+.seller-member-set2{
+	height: 2rem;
+	line-height: 2rem;
+	display: block;
+	position: absolute;
+	right: 5.5rem;
+	top: .5rem;
+	padding: 0 .5rem;
+	background: #000;
+	color: #fff;
+	border-radius: 3rem;
+}
+
+
+
+.seller-apply-form-selct label{
+	width: 50%;
+	height: 2.5rem;
+	display: flex;
+	justify-content: center;
+}
+.seller-apply-form-selct label span{
+	height: 2.5rem;
+	line-height: 2.5rem;
+	display: inline-block;
+	float: left;
+	margin-right: 0.5rem;
+}
+.seller-apply-form-selct label input{
+	width: 1rem;
+	height: 1rem;
+	margin-top: 0.75rem;
+}
+.button-smallsss{
+	float: right !important;
+	font-size: 14px;
+	color: #e81223;
+	padding: 0;
+	height: 2rem;
+	line-height: 2rem;
+}
+#shangjia_tab{
+	top: 44px;
+	border-bottom: 1px #f5f5f5 solid;
+}
+#shangjia_tab li a.on{
+	border-color: #e81223 !important;
+}

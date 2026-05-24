@@ -1,0 +1,118 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">会员黑名单</li>
+    </ul>
+</div>
+<style>
+.admin-sele-k{height: 30px;}
+.admin-sele-k label {margin-bottom: 10px;}
+.admin-main-sc .admin-js-nr .admin-select-nr .right span{line-height:30px; height:30px; padding-right: 0;}
+.admin-sele-k .text{height: 28px; width:120px !important;}
+.admin-sele-k .sumit{height:30px;padding-left:27px;background-position:6px center;padding-right:10px;line-height:30px}
+.admin-main-sc .admin-js-nr .admin-select-nr .right .select{height: 30px; line-height: 30px;width: 80px;margin-right:5px}
+.admin-input-text{width: 120px; height: 28px; line-height: 30px;}
+.admin-input-button{height:36px;line-height:30px;background:#495b6c; width:70px;text-align: center;}
+.weixin{ background:#44b549!important;}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+</style>
+
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span>这里是会员黑名单，云洋黑名单是用户下单时候自动检测，检测到就自动添加到本地数据库，易达黑名单是更新官方数据库到本地检测</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                {:BA('user/closeds_edit','','添加黑名单')}
+                {:BA('user/closeds_deletes',array("id"=>$var["id"],"p"=>$p),'清空黑名单','act','admin-btn-small')}
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('user/closeds')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+
+                    <div class="admin-sele-k">
+                     	<label><span>开始时间</span><input type="text" name="bg_date" placeholder=" 注册开始时间" value="{$bg_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                        <label><span>结束时间</span><input type="text" name="end_date"  placeholder=" 注册结束时间" value="{$end_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                        <label>
+                            <span>黑名单类型：</span>
+                            <select class="select w120" name="closed">
+                                <option {eq name="type" value="0"}selected="selected"{/eq} value="0">请选择</option>
+                                <option {eq name="type" value="1"}selected="selected"{/eq}  value="1">易达方数据库</option>
+                                <option {eq name="type" value="2"}selected="selected"{/eq}  value="2">自己网站拉黑</option>
+                                <option {eq name="type" value="3"}selected="selected"{/eq}  value="3">云洋官方数据库</option>
+                             </select>
+                       </label>
+                      
+                        <label>
+                            <span>昵称/手机/账户</span>
+                            <input type="text" placeholder="昵称/手机/账户" name="keyword" value="{$keyword}" class="admin-input-text"/>
+                        </label>
+                        <label>
+                            <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                        </label>
+                    </div>
+                  </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td class="w50">ID</td>
+                    <td>黑名单类型</td>
+                    <td>姓名</td>
+                    <td>手机</td>
+                    <td class="w260">说明</td>
+                    <td>拉黑时间</td>
+                    <td>创建时间</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr>
+                        <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/></td>
+                        <td>{$var.id}</td>
+                        <td>
+                            {eq name="var.type" value="1"}<span class="weixin">官方数据库</span>{/eq}
+                            {eq name="var.type" value="2"}<span class="weibo">自己网站拉黑</span>{/eq}
+                            {eq name="var.type" value="3"}<span class="bookworker">云洋黑名单</span>{/eq}
+                        </td>
+                        <td>{$var['name']}</td>
+                        <td>{$var.phone}</td>
+                        <td class="w260">{$var.remark}</td>
+                        <td>{$var.createTime}</td>
+                        <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                        <td>
+                            {:BA('user/closeds_edit',array("id"=>$var["id"],'p'=>$p),'编辑','','admin-btn-default')}
+                            {:BA('user/closeds_delete',array("id"=>$var["id"],"p"=>$p),'删除','act','admin-btn-small')}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+
+
+
+{include  file='public:footer'/}
+
+

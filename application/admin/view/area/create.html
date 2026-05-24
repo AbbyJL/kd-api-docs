@@ -1,0 +1,69 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="x-frame" action="{:url('area/create')}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                        <tr>
+                            <td class="admin-table-left">区域名称：</td>
+                            <td class="admin-table-right"><input type="text" name="data[area_name]" value="{$detail.area_name|default=''}" class="admin-sc-add-text-name"/>
+                            </td>
+                        </tr>
+
+                         <tr>
+                            <td class="admin-table-left">所在城市：</td>
+                            <td class="admin-table-right">
+                            <select id="data[city_id]" name="data[city_id]" class="admin-select-input">
+                            <option value="0">请选择...</option>
+                            {foreach name="citys" item="var"}
+                                <option value="{$var.city_id}"  {eq name="var.city_id" value="$detail.city_id"}selected="selected"{/eq}>{$var.name}</option>
+                            {/foreach}
+                        </select>
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td class="admin-table-left">代理账户：</td>
+                            <td class="admin-table-right">
+                                <div class="lt">
+                                    <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}" class="admin-manage-input"/>
+                                    <input class="admin-sc-add-text-name sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                                </div>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择账户</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">分成比例：</td>
+                            <td class="admin-table-right"><input type="text" name="data[ratio]" value="{:round($detail['ratio']/100,2)}" class="admin-manage-input"/>%
+                            <code>代理商分成比例</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">VIP分成比例：</td>
+                            <td class="admin-table-right"><input type="text" name="data[ratio_vip]" value="{:round($detail['ratio_vip']/100,2)}" class="admin-manage-input"/>%
+                            <code>如果当前订单的推荐人是VIP情况下分成比例</code>
+                            </td>
+                        </tr>
+                      
+                        <tr>
+                            <td class="admin-table-left">高德地区编码：</td>
+                            <td class="admin-table-right"><input type="text" name="data[areacode]" value="{$detail.areacode|default=''}" class="admin-manage-input"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">排序：</td>
+                            <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default=''}" class="admin-sc-add-text-name"/>
+                                <code>数字越小排序越高</code>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确认保存" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

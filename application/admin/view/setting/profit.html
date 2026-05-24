@@ -1,0 +1,366 @@
+{include  file='public:header'/}
+
+<style>
+.admin-table-left{width: 260px;}
+.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC; }
+</style>
+
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">分销</li>
+        <li class="li2 li3">分销设置</li>
+    </ul>
+</div>
+
+<p class="admin-attention"><span>注意：</span>1：这里开通分销，2：这页面配置分成比例，3：用户确认收货后即可给上级分成</p>
+<form  target="x-frame" action="{:url('setting/profit')}" method="post">
+
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+				<tr>
+                	<td class="admin-table-right profit" colspan="2"> 基本设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">开启分销功能：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[profit]" {eq name="CONFIG.profit.profit" value="1"}checked="checked"{/eq} value="1"/>开启分销</label>
+                    <label><input type="radio" name="data[profit]" {eq name="CONFIG.profit.profit" value="0"}checked="checked"{/eq}  value="0"/>关闭分销</label>
+                    <code>这里暂时没用，如果你不想分成，则在这里订单分成费率都填写0</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" style="color:#F00;font-size:18px;font-weight:bold">分成方式：</td>
+                    <td class="admin-table-right">
+                        <select name="data[moshi2]"  class="admin-sc-add-text-name sogn">
+                            <option value="0" {if condition="$CONFIG['profit']['moshi2'] eq 0"}selected='selected'{/if}>城市代理+传统3级分销</option>
+                            <option value="1" {if condition="$CONFIG['profit']['moshi2'] eq 1"}selected='selected'{/if}>等级代理分成模式</option>
+                            <option value="2" {if condition="$CONFIG['profit']['moshi2'] eq 2"}selected='selected'{/if}>城市代理+传统3级分销+等级代理分成</option>
+                        </select>
+                        <br><code>1：城市代理+传统3级分销：后台导入城市后，一个城市可配置一个代理商，当前城市的用户下单对应的区县，城市，省份代理有分成可配置极差</code>
+                        <br><code>2：等级代理分成模式：后台用户等级为代理级别，高等级的代理可添加下级代理，可编辑代理分成费率，在一条线上可实现多级分销，可配置对应等级额外奖励</code>
+                        <br><code>3：城市代理+传统3级分销+等级代理分成：以上2种功能都兼容</code>
+                        <br><code>4：城市代理外链：/pages/common/content/web?url={$CONFIG.site.host}/agent</code>
+						<br><code>5：等级代理外链：/pages/common/content/web?url={$CONFIG.site.host}/retail</code>
+                     </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">拥有分销权限用户最低等级：</td>
+                    <td class="admin-table-right">
+						<select name="data[profit_min_rank_id]" class="admin-sele-Fl w200">
+							<option value="0">不限制等级</option>
+							{foreach name="ranks" item="item"}           
+								<option {eq name="item.rank_id" value="$CONFIG.profit.profit_min_rank_id"}selected="selected"{/eq} value="{$item.rank_id}">{$item.rank_name}</option>
+							{/foreach}
+						</select>
+					</td>
+                </tr>
+               <tr>
+                    <td class="admin-table-left">城市代理分成模式：</td>
+                    <td class="admin-table-right">
+                        <select name="data[city_agent_type]"  class="admin-sc-add-text-name sogn jq_type">
+                            <option value="0" {if condition="$CONFIG['profit']['city_agent_type'] eq 0"}selected='selected'{/if}>单代理分成</option>
+                            <option value="1" {if condition="$CONFIG['profit']['city_agent_type'] eq 1"}selected='selected'{/if}>多代理分成</option>
+                        </select>
+                        <br><code>1：单代理分成，代理商在后台，城市，编辑设置代理商的会员ID</code>
+                        <br><code>2：多代理分成，代理商在后台，城市，添加代理，添加多个会员ID</code>
+                </tr>
+                
+                <tr>
+                	<td class="admin-table-right profit" colspan="2">直推奖励</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[is_direct_push]" {eq name="CONFIG.profit.is_direct_push" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <label><input type="radio" name="data[is_direct_push]" {eq name="CONFIG.profit.is_direct_push" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <code>全局开启关闭功能此功能默认关闭</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">直推用户下单多少：</td>
+                    <td class="admin-table-right"><input type="number" min="0" max="100" name="data[is_direct_push_num]" value='{$CONFIG.profit.is_direct_push_num}' class="admin-sc-add-text-name w80" >
+                    <code>直推用户下单多少单后才有奖励</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">直推用户奖励金额：</td>
+                    <td class="admin-table-right"><input type="number" min="0" max="100" name="data[is_direct_push_money]" value='{$CONFIG.profit.is_direct_push_money}' class="admin-sc-add-text-name w80" >
+                    <code>直推用户下单多少单后才有奖励金额</code></td>
+                </tr>
+
+              	<tr>
+                	<td class="admin-table-right profit" colspan="2"> 分成原价计算模式</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">分成模式：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[moshi]" {eq name="CONFIG.profit.moshi" value="1"}checked="checked"{/eq} value="1"/>分订单总金额</label>
+                    <label><input type="radio" name="data[moshi]" {eq name="CONFIG.profit.moshi" value="0"}checked="checked"{/eq} value="0"/>分+价金额</label>
+                    <code>这里妥善选择，如果你选择分利润，那么你分成费率可以搞一些，如果你选择分订单总金额，分成费率可以低一些</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">分成价格计算模式：</td>
+                    <td class="admin-table-right">
+                        <select name="data[moshi1]"  class="admin-sc-add-text-name sogn jq_type">
+                            <option value="0" {if condition="$CONFIG['profit']['moshi1'] eq 0"}selected='selected'{/if}>按照费率计算</option>
+                            <option value="1" {if condition="$CONFIG['profit']['moshi1'] eq 1"}selected='selected'{/if}>按照固定金额计算</option>
+                        </select>
+                        <code>分成价格计算模式按照费率跟按照固定价格是不一样的</code></td>
+                </tr>
+                
+                 
+              
+             
+               <tr class="jq_type_0">
+                    <td class="admin-table-left">一级订单分成比例：</td>
+                    <td class="admin-table-right"><input type="number" min="0" max="100" name="data[profit_rate1]" value='{$CONFIG.profit.profit_rate1}' class="admin-sc-add-text-name w80"/>% 
+                    <code>1级分成比例，不填写或者填写0不分成</code></td>
+                </tr>
+                <tr class="jq_type_0">
+                    <td class="admin-table-left">二级订单分成比例：</td>
+                    <td class="admin-table-right"><input type="number" min="0" max="100" name="data[profit_rate2]" value='{$CONFIG.profit.profit_rate2}' class="admin-sc-add-text-name w80"/>% 
+                    <code>2级分成比例，不填写或者填写0不分成</code></td>
+                </tr>
+                <tr class="jq_type_0">
+                    <td class="admin-table-left">三级订单分成比例：</td>
+                    <td class="admin-table-right"><input type="number" min="0" max="100" name="data[profit_rate3]" value='{$CONFIG.profit.profit_rate3}' class="admin-sc-add-text-name w80"/>% 
+                    <code>3级分成比例，不填写或者填写0不分成</code></td>
+                </tr>
+                
+                <tr class="jq_type_1">
+                    <td class="admin-table-left">一级固定分成金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[profit_guding_rate1]" value='{$CONFIG.profit.profit_guding_rate1}' class="admin-sc-add-text-name w80"/>元
+                    <code>一级固定分成金额</code></td>
+                </tr>
+                <tr class="jq_type_1">
+                    <td class="admin-table-left">二级固定分成金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[profit_guding_rate2]" value='{$CONFIG.profit.profit_guding_rate2}' class="admin-sc-add-text-name w80"/>元 
+                    <code>二级固定分成金额</code></td>
+                </tr>
+                <tr class="jq_type_1">
+                    <td class="admin-table-left">三级固定分成金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[profit_guding_rate3]" value='{$CONFIG.profit.profit_guding_rate3}' class="admin-sc-add-text-name w80"/>元 
+                    <code>三级固定分成金额</code></td>
+                </tr>
+               
+               
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> VIP购买分成设置</td>
+                </tr> 
+                <tr>
+                    <td class="admin-table-left">VIP购买一级订单分成比例：</td>
+                    <td class="admin-table-right"><input type="number" min="0" max="100" name="data[profit_vip_rate1]" value='{$CONFIG.profit.profit_vip_rate1}' class="admin-sc-add-text-name w80"/>% 
+                    <code>VIP购买1级分成比例，不填写或者填写0不分成</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">VIP购买二级订单分成比例：</td>
+                    <td class="admin-table-right"><input type="number" min="0" max="100" name="data[profit_vip_rate2]" value='{$CONFIG.profit.profit_vip_rate2}' class="admin-sc-add-text-name w80"/>% 
+                    <code>VIP购买2级分成比例，不填写或者填写0不分成</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">VIP购买三级订单分成比例：</td>
+                    <td class="admin-table-right"><input type="number" min="0" max="100" name="data[profit_vip_rate3]" value='{$CONFIG.profit.profit_vip_rate3}' class="admin-sc-add-text-name w80"/>% 
+                    <code>VIP购买3级分成比例，不填写或者填写0不分成</code></td>
+                </tr>
+                
+                
+                
+               
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> 区县代理配置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">开启区县分成：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[is_area]" {eq name="CONFIG.profit.is_area" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <label><input type="radio" name="data[is_area]" {eq name="CONFIG.profit.is_area" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <code>全站开启区县分成</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">区县代理默认费率：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_area_rate]" value='{$CONFIG.profit.is_area_rate}' class="admin-sc-add-text-name w80"/>%
+                    <code>区县代理默认费率如果区县代理商那么没配置则调用这里的费率【优先级1：区县编辑里面设置的费率2：区县代理默认费率】</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">推荐人是VIP区县代理默认费率：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_area_rate_vip]" value='{$CONFIG.profit.is_area_rate_vip}' class="admin-sc-add-text-name w80"/>%
+                    <code>如果当前订单的推荐人是VIP情况下，区县代理的分成费率【优先级1：区县编辑里面设置的VIP费率2：推荐人是VIP区县代理默认费率】</code></td>
+                </tr>
+                
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> 城市代理配置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">开启城市分成：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[is_city]" {eq name="CONFIG.profit.is_city" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <label><input type="radio" name="data[is_city]" {eq name="CONFIG.profit.is_city" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <code>全站开启城市分成</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">城市代理默认费率：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_city_rate]" value='{$CONFIG.profit.is_city_rate}' class="admin-sc-add-text-name w80"/>%
+                    <code>城市代理默认费率如果城市代理商那么没配置则调用这里的费率【优先级1：城市编辑里面设置的费率2：城市代理默认费率】</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">推荐人是VIP城市代理默认费率：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_city_rate_vip]" value='{$CONFIG.profit.is_city_rate_vip}' class="admin-sc-add-text-name w80"/>%
+                    <code>如果当前订单的推荐人是VIP情况下，城市代理的分成费率【优先级1：城市编辑里面设置的VIP费率2：推荐人是VIP城市代理默认费率】</code></td>
+                </tr>
+                
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> 代理极差配置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">开启极差功能：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[is_jicha]" {eq name="CONFIG.profit.is_jicha" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <label><input type="radio" name="data[is_jicha]" {eq name="CONFIG.profit.is_jicha" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <br><code>比如我设置市代分配 30% ，区代分配50%，在没有区代、只有市代的情况下，市代独享80%</code>
+					<br><code>比如市代下面，有区代出现的时候，那么系统按照正常的设置结算，市代分配30%，区代分配50%</code>
+                    </td>
+                </tr>
+        		
+
+               <tr><td class="admin-table-right profit" colspan = "2"> 分销海报配置 【750PX*1200PX】</td></tr>
+               <tr>
+                 <td class="admin-table-left">海报1底图：</td>
+                 <td class="admin-table-right">
+                    <div style="width:300px;height:100px; float:left;">
+                        <input type="hidden" name="data[qrcode1]" value="{$CONFIG.profit.qrcode1}" id="data_qrcode1">
+                        <div id="fileToUpload1" >上传图片</div>
+                    </div>
+                    <div style="width:300px;height:100px;float:left;">
+                        <img id="qrcode1_img" height="80" src="{:config_img($CONFIG[profit][qrcode1])}">
+                    </div>
+                    <script>
+                        var uploader = WebUploader.create({
+                        auto: true,
+                        swf: '/static/default/webuploader/Uploader.swf',
+                        server: '{:url("app/upload/uploadify",array("model"=>""))}',
+                        pick: '#fileToUpload1',
+                        resize: true,
+                    });
+                    uploader.on('uploadSuccess',function(file,resporse){
+                        $("#data_qrcode1").val(resporse.url);
+                        $("#qrcode1_img").attr('src',resporse.url).show();
+                    });
+                    uploader.on('uploadError',function(file){
+                        alert('上传出错');
+                    });
+                    </script>
+                </td>
+                </tr>
+				<tr>
+                 <td class="admin-table-left">海报2底图：</td>
+                 <td class="admin-table-right">
+                    <div style="width:300px;height:100px; float:left;">
+                        <input type="hidden" name="data[qrcode2]" value="{$CONFIG.profit.qrcode2}" id="data_qrcode2">
+                        <div id="fileToUpload2" >上传图片</div>
+                    </div>
+                    <div style="width:300px;height:100px;float:left;">
+                        <img id="qrcode2_img" height="80" src="{:config_img($CONFIG[profit][qrcode2])}">
+                    </div>
+                    <script>
+                        var uploader = WebUploader.create({
+                        auto: true,
+                        swf: '/static/default/webuploader/Uploader.swf',
+                        server: '{:url("app/upload/uploadify",array("model"=>""))}',
+                        pick: '#fileToUpload2',
+                        resize: true,
+                    });
+                    uploader.on('uploadSuccess',function(file,resporse){
+                        $("#data_qrcode2").val(resporse.url);
+                        $("#qrcode2_img").attr('src',resporse.url).show();
+                    });
+                    uploader.on('uploadError',function(file){
+                        alert('上传出错');
+                    });
+                    </script>
+                </td>
+                </tr>
+               <tr>
+                 <td class="admin-table-left">海报3底图：</td>
+                 <td class="admin-table-right">
+                    <div style="width:300px;height:100px; float:left;">
+                        <input type="hidden" name="data[qrcode3]" value="{$CONFIG.profit.qrcode3}" id="data_qrcode3">
+                        <div id="fileToUpload3" >上传图片</div>
+                    </div>
+                    <div style="width:300px;height:100px;float:left;">
+                        <img id="qrcode3_img" height="80" src="{:config_img($CONFIG[profit][qrcode3])}">
+                    </div>
+                    <script>
+                        var uploader = WebUploader.create({
+                        auto: true,
+                        swf: '/static/default/webuploader/Uploader.swf',
+                        server: '{:url("app/upload/uploadify",array("model"=>""))}',
+                        pick: '#fileToUpload3',
+                        resize: true,
+                    });
+                    uploader.on('uploadSuccess',function(file,resporse){
+                        $("#data_qrcode3").val(resporse.url);
+                        $("#qrcode3_img").attr('src',resporse.url).show();
+                    });
+                    uploader.on('uploadError',function(file){
+                        alert('上传出错');
+                    });
+                    </script>
+                </td>
+                </tr>
+               <tr><td class="admin-table-right profit" colspan = "2"> 分享返佣细则 </td></tr>
+               
+               <tr>
+                    <td class="admin-table-left">分享返佣细则1：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[profit_xize_1]" cols="100" rows="3">{$CONFIG.profit.profit_xize_1}</textarea>
+                        <code>分享返佣细则1</code>
+                    </td>
+               </tr>
+               <tr>
+                    <td class="admin-table-left">分享返佣细则2：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[profit_xize_2]" cols="100" rows="3">{$CONFIG.profit.profit_xize_2}</textarea>
+                        <code>分享返佣细则2</code>
+                    </td>
+               </tr>
+                <tr>
+                    <td class="admin-table-left">分享返佣细则3：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[profit_xize_3]" cols="100" rows="3">{$CONFIG.profit.profit_xize_3}</textarea>
+                        <code>分享返佣细则3</code>
+                    </td>
+                </tr>
+
+
+
+            </table>
+
+        </div>
+
+        <div class="admin-small-qr"><input type="submit" value="确认保存" class="admin-btn-small-quren"/></div>
+
+    </div>
+
+</form>
+<script>
+$(document).ready(function(){
+    $(".jq_type").change(function(){
+	  var name = $(this).val();
+      if(name == '0'){
+          $(".jq_type_0").show();
+          $(".jq_type_1").hide();
+      }else if(name == '1'){
+          $(".jq_type_0").hide();
+          $(".jq_type_1").show();
+      }
+   });
+   $(".jq_type").change();
+});
+</script>
+{include  file='public:footer'/}

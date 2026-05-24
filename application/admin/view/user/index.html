@@ -1,0 +1,181 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">会员管理</li>
+    </ul>
+</div>
+<style>
+.admin-sele-k{height: 30px;}
+.admin-sele-k label {margin-bottom: 10px;}
+.admin-main-sc .admin-js-nr .admin-select-nr .right span{line-height:30px; height:30px; padding-right: 0;}
+.admin-sele-k .text{height: 28px; width:120px !important;}
+.admin-sele-k .sumit{height:30px;padding-left:27px;background-position:6px center;padding-right:10px;line-height:30px}
+.admin-main-sc .admin-js-nr .admin-select-nr .right .select{height: 30px; line-height: 30px;width: 80px;margin-right:5px}
+.admin-input-text{width: 120px; height: 28px; line-height: 30px;}
+.admin-input-button{height:36px;line-height:30px;background:#495b6c; width:70px;text-align: center;}
+.weixin{ background:#44b549!important;}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+</style>
+
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span>会员列表，网站拉黑或者官方拉黑的会员暂时无法下单</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                {:BA('user/create','','添加会员')}
+                <a class="admin-btn-default"  href="{:url('user/export')}"  admin_id="{$admin.admin_id}" info="导出会员">导出会员</a>
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('user/index')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+
+                    <div class="admin-sele-k">
+                     <label><span>开始时间</span><input type="text" name="bg_date" placeholder=" 注册开始时间" value="{$bg_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                        <label><span>结束时间</span><input type="text" name="end_date"  placeholder=" 注册结束时间" value="{$end_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                        
+						
+                         <label>
+                            <span>用户等级：</span>
+                            <select name="rank_id" class="select w100">
+                                <option value="0">请选择</option>
+                                {foreach name="ranks" item="item"}
+                                    <option {eq name="item.rank_id" value="$rank_id"}selected="selected"{/eq}  value="{$item.rank_id}">{$item.rank_name}</option>
+                                {/foreach}
+                            </select>
+                        </label>
+                        
+                        <label>
+                            <span>会员状态：</span>
+                            <select class="select w120" name="closed">
+                                <option {eq name="closed" value="999"}selected="selected"{/eq} value="999">请选择</option>
+                                <option {eq name="closed" value="0"}selected="selected"{/eq}  value="0">正常</option>
+                                <option {eq name="closed" value="1"}selected="selected"{/eq}  value="1">已拉黑</option>
+                             </select>
+                       </label>
+                        
+                       <label>
+                         <span>排序：</span>
+                         <select class="select w120" name="order">
+                              <option value="0">请选择</option>
+                              <option value="1"{if condition="$order eq 1"}selected{/if}>注册时间从高到低</option>
+                              <option value="2"{if condition="$order eq 2"}selected{/if}>注册时间从低到高</option>
+                              <option value="3"{if condition="$order eq 3"}selected{/if}>会员等级从高到低</option>
+                              <option value="4"{if condition="$order eq 4"}selected{/if}>会员等级从低到高</option>
+                              <option value="5"{if condition="$order eq 5"}selected{/if}>余额从高到低</option>
+                              <option value="6"{if condition="$order eq 6"}selected{/if}>余额从低到高</option>
+                         </select>
+                       </label>  
+                        
+                        <label>
+                            <span>用户ID</span>
+                            <input type="text" placeholder="会员ID" name="user_id" value="{$user_id}" class="admin-input-text"/>
+                        </label>
+                        <label>
+                            <span>昵称/手机/账户</span>
+                            <input type="text" placeholder="昵称/手机/账户" name="keyword" value="{$keyword}" class="admin-input-text"/>
+                        </label>
+                        <label>
+                            <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                        </label>
+                        
+                        
+                    </div>
+                     </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="user_id"/></td>
+                    <td class="w50">ID</td>
+                    <td>账户(姓名)</td>
+                    <td>手机</td>
+                    <td>地区</td>
+                    <td>parentId</td>
+                    <td>会员等级</td>
+                    <td>分成比例</td>
+                    <td>余额</td>
+                    <td>抵扣金</td>
+                    <td>积分</td>
+                    <td>直推人数</td>
+                    <td>状态</td>
+                    <td>退货</td>
+                    <td>注册时间</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr {if condition="$var['closeds']"}style="background-color:#f4f4f4"{/if}>
+                        <td><input class="child_user_id" type="checkbox" name="user_id[]" value="{$var.user_id}"/></td>
+                        <td>{$var.user_id}</td>
+                        <td>
+                            {if condition="$var['account']"}{$var.account}{/if}{if condition="$var['nickname']"}({$var.nickname}){/if}
+                            {eq name="var.is_weixin" value="1"}<span class="weixin">微信</span>{/eq}
+                        </td>
+                        <td>
+                            {if condition="$var['user_id'] gt 1"}
+                                {$var['mobile']|default='未绑定'}
+                            {else/}
+                                138****8888
+                            {/if}
+                        </td>
+                        <td>{$var.provinceName} {$var.cityName} {$var.areaName}</td>
+                        <td>{$var.parent_id}</td>
+                        <td>{$rank[$var['rank_id']]['rank_name']|default='无等级'}({$var['rank_id']})</td>
+                        <td style="color:#00F">{:round($var['stock']/100,2)}%</td>
+                        <td style="color:#F00">&yen;{:round($var['money']/100,2)} 元</td>
+                        <td style="color:#00F">&yen;{:round($var['moneys']/100,2)} 元</td>
+                        <td style="color:#F00">{$var['integral']}</td>
+                        <td>{$var['parent']}</td>
+                        <td>
+                            {eq name="var.closeds" value="0"}<span class="weixin">正常</span>{/eq}
+                            {eq name="var.closeds" value="1"}<span class="weibo">官方拉黑</span>{/eq}
+                            {eq name="var.closeds" value="2"}<span class="delivery">网站拉黑</span>{/eq}
+                        </td>
+                        <td>
+                            {eq name="var.is_tuihuo" value="0"}<span class="weixin">关闭</span>{/eq}
+                            {eq name="var.is_tuihuo" value="1"}<span class="weibo">开启</span>{/eq}
+                        </td>
+                        <td>{$var.reg_time|date='Y-m-d H:i:s',###}</td>
+                        <td>
+                            {:BA('user/money',array("user_id"=>$var["user_id"],"p"=>$p),'+-余额','load','admin-btn-small',600,350)}
+                            {:BA('user/moneys',array("user_id"=>$var["user_id"],"p"=>$p),'+-抵扣金','load','admin-btn-small',600,350)}
+                            {:BA('user/integral',array("user_id"=>$var["user_id"],"p"=>$p),'+-积分','load','admin-btn-small',600,350)}
+                            {:BA('user/codes',array("user_id"=>$var["user_id"],"p"=>$p),'兑换等级','load','admin-btn-small_quxiao',600,250)}
+                            {:BA('user/edit',array("user_id"=>$var["user_id"],'p'=>$p),'编辑','','admin-btn-default')}
+                            {:BA('user/delete',array("user_id"=>$var["user_id"],"p"=>$p),'删除','act','admin-btn-small')}
+                            
+                            {:BA('user/tree',array("user_id"=>$var["user_id"],'p'=>$p),'族谱图','','admin-btn-small_quxiao')}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+                {:BA('user/audit','','批量审核','list',' admin-btn-default')}
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<script src="/static/default/wap/js/index.js"></script>
+
+
+
+{include  file='public:footer'/}
+
+

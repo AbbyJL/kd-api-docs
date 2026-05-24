@@ -1,0 +1,66 @@
+{include file='public:header'/}
+<style type="text/css">
+body{background: #f5f5f5;}
+.Upload-img .list-img img {
+width:100%;
+height:auto;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>
+
+{if condition="!$is_weixin"}
+    <div class="headers">
+        <img src="/static/default/newwap/img/return.png" onclick="javascript:history.back(-1);">
+        <p>操作代理信息</p>
+    </div>
+    <div class="headers-space"></div>
+{/if}
+
+
+
+
+<form class="fabu-form" method="post"  id="ajaxForm" action="{:url('team/dailiedit',array('user_id'=>$user_id))}">
+
+
+
+	<div class="seller-apply-form" style="margin-top: 1rem;">
+    
+    
+  
+        
+        
+    	<div class="seller-apply-form-title">
+			<span></span>
+			<p>用户信息</p>
+		</div>
+		<div class="seller-apply-form-input">
+			<p>用户昵称</p>
+			<input type="text" class="text-input" name="data[nickname]" value="{$detail['nickname']}">
+		</div>
+        <div class="seller-apply-form-input">
+			<p>用户手机</p>
+			<input type="text" class="text-input" name="data[mobile]" value="{$detail['mobile']}">
+		</div>
+		<div class="seller-apply-form-title">
+			<span></span>
+			<p>费率信息</p>
+		</div>
+		<div class="seller-apply-form-input">
+			<p>分成费率</p>
+			<input type="text" class="text-input" name="data[stock]" value="{:round($detail['stock']/100,2)}">
+		</div>
+      
+	</div>
+
+
+	
+
+
+	<div class="seller-member-btn">
+		<button type="submit">确定设置</button>
+	</div>
+
+</form>
+
+{include  file='public:footer'/}

@@ -1,0 +1,34 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form target="x-frame" action="{:url('usercash/jujue',array('cash_id'=>$detail['cash_id']))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                      
+            
+            
+                        <tr>
+                            <td class="admin-table-left">拒绝理由：</td>
+                            <td class="admin-table-right">
+                                <textarea name="value" cols="50" rows="5">{$detail.value|default=''}</textarea>
+                                <code>必填</code>
+                            </td>
+                        </tr>
+            
+                        
+                         <tr>
+                            <td class="admin-table-left">二级密码：</td>
+                             <td class="admin-table-right">
+                                  <input type="text" name="password2" value=""  class="admin-sc-add-text-name w150"/>
+                                  <code>请输入您账户的二级密码</code>
+                            </td>
+                        </tr>
+                
+                
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确认操作" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>

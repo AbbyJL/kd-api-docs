@@ -1,0 +1,157 @@
+{include file='public:header'/}
+{if condition="!$is_weixin"}
+    <div class="headers">
+        <img src="/static/default/newwap/img/return.png" onclick="javascript:history.back(-1);">
+        <p>订单详情</p>
+    </div>
+    <div class="headers-space"></div>
+{/if}
+
+
+<style>
+	.list-media-x{ margin-top:0rem;}
+	.panel-sub{margin-top:2.2rem;}
+	.list-media-x h3.list-shop-x{ margin:5px 10px;}
+	.text-gray, .attr-list { float:inherit;}
+	em{ font-style:normal}
+</style>
+
+
+<div class="blank-10 bg"></div>
+
+<div class="panel-list">
+	<ul>
+            
+              <table  bordercolor="#dbdbdb" cellspacing="0" width="95%" border="0px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF; margin:10px">  
+                <tr>
+                    <td class="admin-table-left">订单ID：</td>
+                    <td class="admin-table-right">{$detail.id}</td>
+                </tr>
+              
+                <tr>
+                    <td class="admin-table-left">团队信息：</td>
+                    <td class="admin-table-right">
+                    	UID-{$var.user_id}
+                    </td>
+                </tr>
+                {if condition="$var['msg']"}
+                    <tr>
+                        <td class="admin-table-left">配送员接单说明</td>
+                        <td class="admin-table-right">{$var['msg']}</td>
+                    </tr>
+                {/if}
+                
+                
+                
+                {if condition="$var['deliveryId']"}
+                    <tr>
+                        <td class="admin-table-left">运单号：</td>
+                        <td class="admin-table-right">{$var.deliveryId}</td>
+                    </tr>
+                {/if}
+               
+                {if condition="$var['realOrderState']"}
+                    <tr>
+                        <td class="admin-table-left">快递员：</td>
+                        <td class="admin-table-right">{$var.realOrderState}</td>
+                    </tr>
+                {/if}
+              
+                
+                <tr>
+                    <td class="admin-table-left">用户下单ID：</td>
+                    <td class="admin-table-right">{$detail.user_id}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">物品信息：</td>
+                    <td class="admin-table-right">{$detail.cargoName}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">重量【KG】：</td>
+                    <td class="admin-table-right">{$detail.wight}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">物品数量：</td>
+                    <td class="admin-table-right">{$detail.totalNumber}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">物品体积：</td>
+                    <td class="admin-table-right">{$detail.long}CM+{$detail.width}CM+{$detail.height}CM={$detail.totalVolume}m³
+                    <br><code>物品体积【长CM+宽CM+高CM=体积m³】</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">金额</td>
+                    <td class="admin-table-right">
+                        支付金额 &yen;{:round($var['sumMoneyYuan']/100,2)}元<br>
+                        优惠券抵扣金额 &yen;{:round($var['coupon_pmt']/100,2)}元<br>
+                    </td>
+                </tr>
+             
+               
+             
+                <tr>
+                    <td class="admin-table-left">快递公司</td>
+                    <td class="admin-table-right">{$var['kuaidi']}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">订单状态：</td>
+                    <td class="admin-table-right">{$getorderStatus[$var['orderStatus']]}</td>
+                </tr>
+                
+                {if condition="$var['orderStatus'] eq 9"}
+                    <tr>
+                        <td class="admin-table-left" style="color:#F00; font-size:24px;">订单异常说明</td>
+                        <td class="admin-table-right" style="color:#F00; font-size:24px;">{$var['message']}</td>
+                    </tr>
+                {/if}
+                
+                {if condition="$var['msg']"}
+                    <tr>
+                        <td class="admin-table-left" style="color:#F00; font-size:24px;">类型说明</td>
+                        <td class="admin-table-right" style="color:#F00; font-size:24px;">{$var['msg']}</td>
+                    </tr>
+                {/if}
+                
+                
+                <tr>
+                    <td class="admin-table-left">退款状态：</td>
+                    <td class="admin-table-right">{$getorderRightsStatus[$var['orderRightsStatus']]}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">差价状态：</td>
+                    <td class="admin-table-right">{$getdiffStatus[$var['diffStatus']]}</td>
+                </tr>
+                {if condition="$var['cancel_reason']"}
+                    <tr>
+                        <td class="admin-table-left">取消订单理由：</td>
+                        <td class="admin-table-right">{$var['cancel_reason']}</td>
+                    </tr>
+                {/if}
+                
+               
+                
+                <tr>
+                    <td class="admin-table-left">订单时间：</td>
+                    <td class="admin-table-right">
+                        下单时间：{$detail.create_time|date='Y-m-d H:i',###}
+                        {if condition="!empty($detail['pay_time'])"}
+                            付款时间：{$detail.pay_time|date='Y-m-d H:i',###}
+                        {/if}
+                        {if condition="!empty($detail['cancel_time'])"}
+                            取消时间：{$detail.cancel_time|date='Y-m-d H:i',###}
+                        {/if}
+                    </td>
+                </tr>
+           </table>     
+	</ul>
+</div>
+
+
+<div class="blank-10 bg"></div>
+<div class="blank-40"></div>
+
+
+
+
+{include  file='public:footer'}   

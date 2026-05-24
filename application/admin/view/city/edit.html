@@ -1,0 +1,207 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+     <li class="li1">设置</li>
+        <li class="li2">区域设置</li>
+        <li class="li2 li3">城市站点</li>
+    </ul>
+</div>
+<style>
+.admin-table-left{width: 200px;}
+.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC; }
+</style>
+
+<form target="x-frame" action="{:url('city/edit',array('city_id'=>$detail['city_id']))}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            	<tr><td class="admin-table-right profit" colspan = "2"> 城市设置 </td></tr>  
+                <tr>
+                    <td class="admin-table-left">城市名称：</td>
+                    <td class="admin-table-right"><input type="text" name="data[name]" value="{$detail.name|default=''}" class="admin-manage-input"/>
+					<code>当前城市的名称</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">城市拼音：</td>
+                    <td class="admin-table-right"><input type="text" name="data[pinyin]" value="{$detail.pinyin|default=''}" class="admin-manage-input"/>
+					<code>不要用大写字母，这里是全部小写</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">高德地区编码：</td>
+                    <td class="admin-table-right"><input type="text" name="data[areacode]" value="{$detail.areacode|default=''}" class="admin-manage-input"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">百度地区编码：</td>
+                    <td class="admin-table-right"><input type="text" name="data[CityCode]" value="{$detail.CityCode|default=''}" class="admin-manage-input"/>
+                    </td>
+                </tr>
+				<tr><td class="admin-table-right profit" colspan = "2"> 代理设置 </td></tr> 					
+                <tr>
+                    <td class="admin-table-left">代理账户：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}" class="admin-manage-input"/>
+                            <input class="admin-sc-add-text-name sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                        </div>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择账户</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">分成比例：</td>
+                    <td class="admin-table-right"><input type="text" name="data[ratio]" value="{:round($detail['ratio']/100,2)}" class="admin-manage-input"/>%
+					<code>代理商分成比例</code>
+                    </td>
+                </tr>
+               <tr>
+                    <td class="admin-table-left">VIP分成比例：</td>
+                    <td class="admin-table-right"><input type="text" name="data[ratio_vip]" value="{:round($detail['ratio_vip']/100,2)}" class="admin-manage-input"/>%
+					<code>如果当前订单的推荐人是VIP情况下分成比例</code>
+                    </td>
+                </tr>
+                
+
+                 <tr>
+                    <td class="admin-table-left">首字母：</td>
+                    <td class="admin-table-right"><input type="text" name="data[first_letter]" value="{$detail.first_letter|default=''}" class="admin-manage-input"/>
+                        <code>大写字母</code>
+                    </td>
+                </tr>
+              	<tr>
+                <td class="admin-table-left">城市中心坐标：</td>
+                <td class="admin-table-right">
+                    <div class="lt">
+                        经度<input type="text" name="data[lng]" id="data_lng" value="{$detail.lng|default=''}" class="admin-sc-add-text-name w200" />
+                        纬度 <input type="text" name="data[lat]" id="data_lat" value="{$detail.lat|default=''}" class="admin-sc-add-text-name w200" />
+                    </div>
+                    <a style="margin-left: 10px;" mini="select"  w="880" h="630" href="{:url('index/maps',array('lat'=>$detail['lat'],'lng'=>$detail['lng']))}" class="admin-sele-xuanze">选择地图</a>
+                </tr>
+                
+                
+                <tr><td class="admin-table-right profit" colspan = "2"> 本地取件设置 </td></tr>  
+                <tr>
+                    <td class="admin-table-left">是否开启当前城市本地取件</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[open]" value="0" {if condition="$detail[open] eq 0"}checked="checked"{/if}/>否
+                    <input type="radio" name="data[open]" value="1" {if condition="$detail[open] eq 1"}checked="checked"{/if}/>是
+                    <code>开启后用户寄件地址为当前城市则不会第三方接口</code>
+                    </td>
+               </tr>
+               <tr>
+                    <td class="admin-table-left">快递公司名字：</td>
+                    <td class="admin-table-right"><input type="text" name="data[cate_name]" value="{$detail.cate_name|default=''}" class="admin-manage-input"/>
+                    <code>快递公司名字</code>
+                    </td>
+               </tr>
+               <tr>
+                    <td class="admin-table-left">快递公司说明：</td>
+                    <td class="admin-table-right"><input type="text" name="data[tag]" value="{$detail.tag|default=''}" class="admin-manage-input"/>
+                    <code>快递公司说明</code>
+                    </td>
+               </tr>
+               <tr>
+                    <td class="admin-table-left">快递公司图片</td>
+                    <td class="admin-table-right">
+                    {php}echo tpl_form_field_image('data[img]',$detail['img'],$detail['img'],'img','',$options = array());{/php}
+                    </td>
+               </tr>
+               <tr>
+                    <td class="admin-table-left">首重：</td>
+                    <td class="admin-table-right"><input type="text" name="data[shou]" value="{:round($detail['shou']/100,2)}" class="admin-manage-input w80">
+                    <code>本地取件首重</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">续重：</td>
+                    <td class="admin-table-right"><input type="text" name="data[xu]" value="{:round($detail['xu']/100,2)}" class="admin-manage-input w80">
+                    <code>本地取续重</code>
+                    </td>
+                </tr>
+                
+                <tr><td class="admin-table-right profit" colspan = "2"> 加价设置 </td></tr>  
+               <tr>
+                    <td class="admin-table-left">加价百分比：</td>
+                    <td class="admin-table-right"><input type="text" name="data[ratio1]" value="{$detail.ratio1|default=''}" class="admin-manage-input w80"/>%
+                    <code>加价百分比【总返回价格加上百分比，易达部分渠道采用这里的百分比】</code>
+                    </td>
+                </tr>
+                
+               <tr><td class="admin-table-right profit" colspan = "2"> 首重加价设置 </td></tr> 
+               <tr>
+                    <td class="admin-table-left">首重加价模式</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[priceA_type]" value="0" {if condition="$detail[priceA_type] eq 0"}checked="checked"{/if}/>百分比加价
+                    <input type="radio" name="data[priceA_type]" value="1" {if condition="$detail[priceA_type] eq 1"}checked="checked"{/if}/>固定加价
+                    <code>直接返回首重续重，部分渠道返回首重续重，如返回首重续重的加价模式为总重的百分比【{$detail.ratio|default=''}%】</code>
+                    </td>
+               </tr> 
+               <tr>
+                    <td class="admin-table-left">首重价格加价百分比：</td>
+                    <td class="admin-table-right"><input type="text" name="data[priceA_ratio]" value="{$detail.priceA_ratio|default=''}" class="admin-manage-input w80"/>%
+                    <code>首重价格加价百分比</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">首重价格加价固定金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[priceA_price]" value="{$detail.priceA_price|default=''}" class="admin-manage-input w80"/>元
+                    <code>首重价格加价固定金额</code>
+                    </td>
+               </tr>
+               <tr><td class="admin-table-right profit" colspan = "2"> 续重加价设置 </td></tr> 
+               <tr>
+                    <td class="admin-table-left">续重加价模式</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[priceB_type]" value="0" {if condition="$detail[priceB_type] eq 0"}checked="checked"{/if}/>百分比加价
+                    <input type="radio" name="data[priceB_type]" value="1" {if condition="$detail[priceB_type] eq 1"}checked="checked"{/if}/>固定加价
+                    <code>续重加价模式</code>
+                    </td>
+               </tr> 
+               <tr>
+                    <td class="admin-table-left">续重价格加价百分比：</td>
+                    <td class="admin-table-right"><input type="text" name="data[priceB_ratio]" value="{$detail.priceB_ratio|default=''}" class="admin-manage-input w80"/>%
+                    <code>续重价格加价百分比</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">续重价格加价固定金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[priceB_price]" value="{$detail.priceB_price|default=''}" class="admin-manage-input w80"/>元
+                    <code>续重价格加价固定金额</code>
+                    </td>
+                </tr>
+               
+               <tr><td class="admin-table-right profit" colspan = "2"> 预约设置 </td></tr> 
+                <tr>
+                    <td class="admin-table-left">是否开启预约时间</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[is_yuyue]" value="0" {if condition="$detail[is_yuyue] eq 0"}checked="checked"{/if} />关闭预约时间
+                    <input type="radio" name="data[is_yuyue]" value="1" {if condition="$detail[is_yuyue] eq 1"}checked="checked"{/if} />开启预约时间
+                    <code>建议顺丰开启，其他关闭</code>
+                    </td>
+               </tr> 
+               
+               <tr><td class="admin-table-right profit" colspan = "2"> 揽收率设置 </td></tr> 
+               <tr>
+                    <td class="admin-table-left">48小时揽收率：</td>
+                    <td class="admin-table-right"><input type="text" name="data[lanshou]" value="{$detail.lanshou|default=''}" class="admin-manage-input w80"/>%
+                    <code>留空或者填写0不展示</code>
+                    </td>
+                </tr>
+                
+				<tr><td class="admin-table-right profit" colspan = "2"> 其他设置 </td></tr>
+                <tr>
+                    <td class="admin-table-left">排序：</td>
+                    <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default=''}" class="admin-manage-input"/>
+                    <code>城市排序</code>
+                    </td>
+                </tr>
+                
+
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}
+

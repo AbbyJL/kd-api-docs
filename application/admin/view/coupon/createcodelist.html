@@ -1,0 +1,53 @@
+{include  file='public:header'}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">兑换码</li>
+        <li class="li2">VIP兑换</li>
+        <li class="li2 li3">添加VIP兑换券</li>
+    </ul>
+</div>
+<div class="admin-main-sc-add">
+	<p class="admin-attention"><span>说明：</span> VIP标题{$detail.rank_name}</p>
+    <div class="admin-table-box">
+
+        <form target="x-frame" action="{:url('coupon/createCodeList',array('rank_id'=>$detail['rank_id']))}" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+                <tr>
+                    <td class="admin-table-left">有效期</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[day]" value="0" {if condition="$detail[day] eq 0"}checked="checked"{/if} />不选择
+                    <input type="radio" name="data[day]" value="30" {if condition="$detail[day] eq 30"}checked="checked"{/if} />1个月
+                    <input type="radio" name="data[day]" value="60" {if condition="$detail[day] eq 60"}checked="checked"{/if} />2个月
+                    <input type="radio" name="data[day]" value="90" {if condition="$detail[day] eq 90"}checked="checked"{/if} />3个月
+                    <input type="radio" name="data[day]" value="180" {if condition="$detail[day] eq 180"}checked="checked"{/if} />半年
+                    <input type="radio" name="data[day]" value="365" {if condition="$detail[day] eq 365"}checked="checked"{/if} />1年
+                    <input type="radio" name="data[day]" value="720" {if condition="$detail[day] eq 720"}checked="checked"{/if} />2年
+                    <input type="radio" name="data[day]" value="1095" {if condition="$detail[day] eq 1095"}checked="checked"{/if} />3年
+                    <input type="radio" name="data[day]" value="9999" {if condition="$detail[day] eq 9999"}checked="checked"{/if} />永久
+                    <code>该买该等级有效期</code>
+                    </td>
+               </tr> 
+                <tr>
+                    <td  class="admin-table-left">总数量：</td>
+                    <td class="admin-table-right"><input type="text" name="data[num]" value="{$detail.num|default=''}"   class="admin-manage-input"/>
+                        <code>1-1000数量范围，建议500张</code>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td  class="admin-table-left">描述：</td>
+                    <td class="admin-table-right"><textarea  name="data[intro]" cols="50" rows="10" >{$detail.intro|default=''}</textarea>
+    				<code>添加简短的描述</code>
+                    </td>
+                </tr>
+    
+        	</table>
+            <div style="margin-left:140px;margin-top:20px">
+                <input type="submit" value="确认添加" class="admin-btn-small-quren"/>
+            <div>
+</form>
+</div>
+</div>
+{include  file='public:footer'}      

@@ -1,0 +1,69 @@
+{include  file='public:header'/}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">模板消息</li>
+    </ul>
+</div>
+
+<style>
+.weixin{ background:#44b549!important;}
+.shang, .delivery, .weibo, .qq, .weixin{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+</style>
+
+<div class="admin-main-js admin-main-sc">
+
+	<p class="admin-attention"><span>注意：</span>
+    1:订阅消息开通类目：物流服务->查件</b>
+    2:公众号模板消息IT科技/互联网|电子商务-IT科技/IT软件与服务1:配置好公众号2对接好开放平台3用户关注公众号4导入公众号模板消息</b>
+    </p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="border-top: none; margin-top: 0px;">
+        	<div class="left">
+                {:BA('Weixintmpl/mangeTemplateAuto',array("type"=>1),'一键导入全部订阅消息','act','')}
+                {:BA('Weixintmpl/mangeTemplateAuto',array("type"=>2),'一键导入全部公众号模板消息','act','')}
+            </div>
+        </div>
+
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="tmpl_id"/></td>
+                        <td>序号</td>
+                        <td>类型</td>
+                        <td>标题</td>
+                        <td>类目</td>
+                        <td>tid</td>
+                        <td>备注</td>
+                        <td>排序</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                        <td><input class="child_tmpl_id" type="checkbox" name="tmpl_id[]" value="{$var.tmpl_id}" /></td>
+                        <td>{$var['tmpl_id']}</td>
+                        <td>
+                            {eq name="var.type" value="1"}<span class="shang">小程序订阅消息</span>{/eq}
+                            {eq name="var.type" value="2"}<span class="weixin">公众号模板消息</span>{/eq}
+                        </td>
+                        <td>{$var['title']}</td>
+                        <td>{$var['serial']}</td>
+                        <td>{$var['template_id']}</td>
+                        <td>{$var['info']}</td>
+                        <td>{$var['sort']}</td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+        </form>
+    </div>
+</div>
+    
+

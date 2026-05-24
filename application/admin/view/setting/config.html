@@ -1,0 +1,507 @@
+{include  file='public:header'/}
+<style>
+.admin-table-left { width: 200px;}
+.profit{ text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+</style>
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">常用功能</li>
+        <li class="li2 li3">功能设置</li>
+    </ul>
+</div>
+<div class="admin-main-cate">
+    <p class="admin-attention"><span>注意：</span>这里配置的是网站常用API</p>
+</div>       
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/config')}" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+
+                
+                <tr>
+                    <td class="admin-table-right profit" colspan="2"> 登录注册设置</td>
+                </tr>
+                <tr>
+                     <td class="admin-table-left">强制用户绑定昵称头像：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[check_face]" {eq name="CONFIG.config.check_face" value="0"}checked="checked"{/eq} value="0"/>否</label>
+                        <label><input type="radio" name="data[check_face]" {eq name="CONFIG.config.check_face" value="1"}checked="checked"{/eq} value="1"/>是</label>
+                        <code>开启强制后未上传头像的会自动跳转到上传页面</code>
+                      </td>
+                </tr>
+                <tr>
+                     <td class="admin-table-left">用户登录模式：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[check_login]" {eq name="CONFIG.config.check_login" value="0"}checked="checked"{/eq} value="0"/>手机号登录</label>
+                        <label><input type="radio" name="data[check_login]" {eq name="CONFIG.config.check_login" value="1"}checked="checked"{/eq} value="1"/>微信登录</label>
+                        <code>政策原因如果部分客户手机号登录被封可选择微信登录</code>
+                      </td>
+                </tr>
+              
+                <tr>
+                     <td class="admin-table-left">强制用户获取手机登录：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[check_mobile]" {eq name="CONFIG.config.check_mobile" value="0"}checked="checked"{/eq} value="0"/>否</label>
+                        <label><input type="radio" name="data[check_mobile]" {eq name="CONFIG.config.check_mobile" value="1"}checked="checked"{/eq} value="1"/>是</label>
+                        <code>强制用户获取手机登录</code>
+                      </td>
+                </tr>
+                <tr>
+                     <td class="admin-table-left">用户注册页默认勾选注册协议：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[default_option_siright]" {eq name="CONFIG.config.default_option_siright" value="0"}checked="checked"{/eq} value="0"/>否</label>
+                        <label><input type="radio" name="data[default_option_siright]" {eq name="CONFIG.config.default_option_siright" value="1"}checked="checked"{/eq} value="1"/>是</label>
+                        <code>用户注册页默认勾选用户注册协议</code>
+                      </td>
+                </tr>
+                <tr>
+                     <td class="admin-table-left">用户注册页强制勾选协议：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[force_choice_siright]" {eq name="CONFIG.config.force_choice_siright" value="0"}checked="checked"{/eq} value="0"/>否</label>
+                        <label><input type="radio" name="data[force_choice_siright]" {eq name="CONFIG.config.force_choice_siright" value="1"}checked="checked"{/eq} value="1"/>是</label>
+                        <code>用户注册页强制用户勾选协议</code>
+                      </td>
+                </tr>
+                    
+                    
+                    
+            	<tr>
+                    <td class="admin-table-right profit" colspan="2"> 订单设置</td>
+                </tr>
+                
+                <tr>
+                     <td class="admin-table-left">快递公司列表数据模式：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[company_moshi]" {eq name="CONFIG.config.company_moshi" value="0"}checked="checked"{/eq} value="0"/>快递公司指定接口默认模式</label>
+                        <label><input type="radio" name="data[company_moshi]" {eq name="CONFIG.config.company_moshi" value="1"}checked="checked"{/eq} value="1"/>快递公司指定接口比价模式</label>
+                        <label><input type="radio" name="data[company_moshi]" {eq name="CONFIG.config.company_moshi" value="3"}checked="checked"{/eq} value="3"/>快递公司全部接口全部渠道展示模式</label>
+                        <br><code>1：快递公司指定接口默认模式则后台快递公司选择哪一个接口则返回哪一个接口的渠道</code>
+                        <br><code>2：快递公司指定接口比价模式则是全部筛选出来全部渠道并按照价格最低排序【建议最多同时开启3个接口】</code>
+                        <br><code>3：快递公司全部接口展示模式则会出现多个快递公司【建议最多同时开启3个接口】</code>
+                        <br><code>4：快递公司全部接口全部渠道展示模式则展示出来全部渠道这样一个快递公司会展示多个渠道，当前模式下面显示渠道详细名称【建议最多同时开启3个接口】</code>
+                        <br><code>特别说明：一般选择1或者2那么3跟4按需选择</code>
+                      </td>
+                </tr>
+                <tr>
+                     <td class="admin-table-left">快递公司列表排序模式：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[company_sort]" {eq name="CONFIG.config.company_sort" value="0"}checked="checked"{/eq} value="0"/>后台快递公司升序模式</label>
+                        <label><input type="radio" name="data[company_sort]" {eq name="CONFIG.config.company_sort" value="1"}checked="checked"{/eq} value="1"/>支付价格升序模式</label>
+                        <label><input type="radio" name="data[company_sort]" {eq name="CONFIG.config.company_sort" value="2"}checked="checked"{/eq} value="2"/>支付价格降序模式</label>
+                        <label><input type="radio" name="data[company_sort]" {eq name="CONFIG.config.company_sort" value="3"}checked="checked"{/eq} value="3"/>揽件率升序模式</label>
+                        <label><input type="radio" name="data[company_sort]" {eq name="CONFIG.config.company_sort" value="4"}checked="checked"{/eq} value="4"/>揽件率降序模式</label>
+                        <br><code>1：后台快递公司升序模式则是按照我们后台编辑快递公司排序值大小升序排序适合于大部分场景</code>
+                        <br><code>2：支付价格升序模式则是让用户从低价格选择到高的价格</code>
+                        <br><code>3：支付价格降序模式则是让用户选择从高价格到低价格</code>
+                        <br><code>4：揽件率升序模式一般不会选择建议非要选择可以选择揽件率从高到低避免退货</code>
+                        <br><code>5：随机模式一般不选择用处不大</code>
+                      </td>
+                </tr>
+                
+                <tr>
+                     <td class="admin-table-left">用户下单失败自动退款：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[add_order_cancel]" {eq name="CONFIG.config.add_order_cancel" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                        <label><input type="radio" name="data[add_order_cancel]" {eq name="CONFIG.config.add_order_cancel" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                        <code>下单失败自动退款，因为疫情，超区，余额不足下单失败自动退款给客户，如果觉得不安全就不开启自动退款</code>
+                      </td>
+                </tr>
+                <tr>
+                     <td class="admin-table-left">平台取消订单自动退款：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[plan_order_cancel]" {eq name="CONFIG.config.plan_order_cancel" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                        <label><input type="radio" name="data[plan_order_cancel]" {eq name="CONFIG.config.plan_order_cancel" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                        <code>配送员取消订单或者平台取消订单自动退款</code>
+                      </td>
+                </tr>
+                
+                
+                 	<tr>
+                        <td class="admin-table-right profit" colspan="2"> 首页设置</td>
+                    </tr>
+
+                    <tr>
+                        <td class="admin-table-left">首页是否跳转：</td>
+                        <td class="admin-table-right">
+                            <label><input type="radio" name="data[index_to]" {eq name="CONFIG.config.index_to" value="0"}checked="checked"{/eq} value="0"/>默认首页</label>
+                            <label><input type="radio" name="data[index_to]" {eq name="CONFIG.config.index_to" value="1"}checked="checked"{/eq} value="1"/>退货工单页面</label>
+                            <label><input type="radio" name="data[index_to]" {eq name="CONFIG.config.index_to" value="2"}checked="checked"{/eq} value="2"/>拍照上传页面</label>
+                            <code>首页是否跳转【为了方便审核，系统运营模式下面有元宵】</code>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                         <td class="admin-table-left">首页顶部最后一个导航：</td>
+                         <td class="admin-table-right">
+                            <label><input type="radio" name="data[index_jijian_2]" {eq name="CONFIG.config.index_jijian_2" value="0"}checked="checked"{/eq} value="0"/>查运费</label>
+                            <label><input type="radio" name="data[index_jijian_2]" {eq name="CONFIG.config.index_jijian_2" value="1"}checked="checked"{/eq} value="1"/>国际寄件</label>
+                            <label><input type="radio" name="data[index_jijian_2]" {eq name="CONFIG.config.index_jijian_2" value="2"}checked="checked"{/eq} value="2"/>同城寄件</label>
+                            <code>首页顶部最后一个导航，国际寄件在小程序包包达接口配置参数</code>
+                          </td>
+                    </tr>
+
+
+                <tr>
+                    <td class="admin-table-right profit" colspan="2"> 下面界面分享立减</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">功能开启关闭：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[place_order_open]" {eq name="CONFIG.config.place_order_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                        <label><input type="radio" name="data[place_order_open]" {eq name="CONFIG.config.place_order_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                        <br><code style="color:#F00;font-size:12px; font-weight:bold">开启下单时候分享到人群立减功能</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">下单分享减多少钱1：</td>
+                    <td class="admin-table-right">
+                        <input style="width:800px" type="text" name="data[place_order_money_1]" value="{$CONFIG.config.place_order_money_1}" class="admin-sc-add-text-name w80"/>
+                        <code>分享1-2群获取减多少钱</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">下单分享减多少钱2：</td>
+                    <td class="admin-table-right">
+                        <input style="width:800px" type="text" name="data[place_order_money_2]" value="{$CONFIG.config.place_order_money_2}" class="admin-sc-add-text-name w80"/>
+                        <code>分享3-5群获取减多少钱</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">下单分享减多少钱3：</td>
+                    <td class="admin-table-right">
+                        <input style="width:800px" type="text" name="data[place_order_money_3]" value="{$CONFIG.config.place_order_money_3}" class="admin-sc-add-text-name w80"/>
+                        <code>分享6-10群获取减多少钱</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">下单分享减多少钱4：</td>
+                    <td class="admin-table-right">
+                        <input style="width:800px" type="text" name="data[place_order_money_4]" value="{$CONFIG.config.place_order_money_4}" class="admin-sc-add-text-name w80"/>
+                        <code>分享10-20群获取减多少钱</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">下单分享减多少钱5：</td>
+                    <td class="admin-table-right">
+                        <input style="width:800px" type="text" name="data[place_order_money_5]" value="{$CONFIG.config.place_order_money_5}" class="admin-sc-add-text-name w80"/>
+                        <code>分享21群以上获取减多少钱</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">下单分享标题：</td>
+                    <td class="admin-table-right">
+                        <input style="width:800px" type="text" name="data[place_share_title2]" value="{$CONFIG.config.index_share_title2}" class="admin-sc-add-text-name w460"/>
+                        <code>{$CONFIG.site.sitename}-分享越多立减金额越多</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">下单分享图片</td>
+                    <td class="admin-table-right">
+                        {php}echo tpl_form_field_image('data[place_photo]',$CONFIG['config']['place_photo'],$CONFIG['config']['place_photo'],'place_photo','',$options = array());{/php}
+                    </td>
+                </tr>
+                
+                 	<tr>
+                        <td class="admin-table-right profit" colspan="2"> 分享图片设置</td>
+                    </tr>
+                    
+
+                    
+                    <tr>
+                        <td  class="admin-table-left">首页分享标题：</td>
+                        <td class="admin-table-right">
+                            <input style="width:800px" type="text" name="data[index_share_title]" value="{$CONFIG.config.index_share_title}" class="admin-sc-add-text-name w460"/>
+                            <code>{$CONFIG.site.sitename}快递寄件折扣平台 运费低至5元起</code>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td class="admin-table-left">首页分享图片：</td>
+                        <td class="admin-table-right">
+                            <div style="width:200px;height:100px; float: left;">
+                                <input type="hidden" name="data[index_share]" value="{$CONFIG.config.index_share}" id="data_index_share" />
+                                <div id="fileToUpload1">
+                                    首页分享图片
+                                </div>
+                            </div>
+                            <div style="width:200px;height:100px; float:left;">
+                                <img id="index_share_img" width="100" src="{:config_img($CONFIG['config']['index_share'])}"/>
+                            </div>
+                            <script>
+                                var uploader = WebUploader.create({
+                                auto: true,
+                                swf: '/static/default/webuploader/Uploader.swf',
+                                server: '{:url("app/upload/uploadify",array("model"=>""))}',
+                                pick: '#fileToUpload1',
+                                resize: true,
+                            });
+                            uploader.on('uploadSuccess',function(file,resporse){
+                                $("#data_index_share").val(resporse.url);
+                                $("#index_share_img").attr('src',resporse.url).show();
+                            });
+                            uploader.on('uploadError',function(file){
+                                layer.msg('上传出错', {icon: 5});
+                            });
+                            </script>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td class="admin-table-left">订单详情分享图片：</td>
+                    <td class="admin-table-right">
+                         <div style="width:200px;height:100px; float: left;">
+                            <input type="hidden" name="data[order_share]" value="{$CONFIG.config.order_share}" id="data_order_share" />
+                            <div id="fileToUpload2">
+                                订单详情分享图片
+                            </div>
+                        </div>
+                        <div style="width:200px;height:100px; float:left;">
+                            <img id="order_share_img" width="100" src="{:config_img($CONFIG['config']['order_share'])}"/>
+                        </div>
+                        <script>
+                            var uploader = WebUploader.create({
+                            auto: true,
+                            swf: '/static/default/webuploader/Uploader.swf',
+                            server: '{:url("app/upload/uploadify",array("model"=>""))}',
+                            pick: '#fileToUpload2',
+                            resize: true,
+                        });
+                        uploader.on('uploadSuccess',function(file,resporse){
+                            $("#data_order_share").val(resporse.url);
+                            $("#order_share_img").attr('src',resporse.url).show();
+                        });
+                        uploader.on('uploadError',function(file){
+                            layer.msg('上传出错', {icon: 5});
+                        });
+                        </script>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> 快递查询接口设置</td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">快递接口选择：</td>
+                    <td class="admin-table-right">
+                        <select name="data[express_api_type]" class="admin-sc-add-text-name sogn">
+                            <option value="">请选择快递接口</option>
+                            <option {eq name="CONFIG.config.express_api_type" value="2"}selected="selected"{/eq} value="2">快递100企业接口</option>
+                            <option {eq name="CONFIG.config.express_api_type" value="3"}selected="selected"{/eq} value="3">快递鸟接口</option>
+                        </select>
+					    <code>请先选择接口类型然后再填写快递100的api</code>
+                    </td>
+                </tr>   
+                <tr>
+                    <td class="admin-table-left" >快递100key/customer：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[express_api_key]" value="{$CONFIG.config.express_api_key}" class="admin-sc-add-text-name"/>
+                        <code>←这里填写KEY</code>
+                        <input type="text" name="data[express_api_customer]" value="{$CONFIG.config.express_api_customer}" class="admin-sc-add-text-name"/>
+                        <code>←这里填写customer,免费版本接口无需填写customer  接口申请：<a href="https://www.kuaidi100.com/openapi/applypoll.shtml" target="_blank">https://www.kuaidi100.com/openapi/applypoll.shtml</a></code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" >快递鸟物流查询api：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[niao_app_id]" value="{$CONFIG.config.niao_app_id}" class="admin-sc-add-text-name"/>
+                        <code>←这里填写appid</code>
+                        <input type="text" name="data[niao_app_key]" value="{$CONFIG.config.niao_app_key}" class="admin-sc-add-text-name"/>
+                        <code>←这里填写appkey  接口申请：<a href="http://www.kdniao.com/UserCenter" target="_blank">http://www.kdniao.com/UserCenter</a></code>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="admin-table-left">快递鸟/用户ID/APIKEY：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[kdn_EBusinessID]" value="{$CONFIG.config.kdn_EBusinessID}" class="admin-sc-add-text-name">
+                        <code>←用户ID</code>
+                        <input type="text" name="data[kdn_ApiKey]" value="{$CONFIG.config.kdn_ApiKey}" class="admin-sc-add-text-name">
+                        <code>←APIKEY<a href="https://biz.kdniao.com" target="_blank">点击申请</a></code>
+                    </td>
+                </tr>
+                
+                
+                
+                 <tr>
+                	<td class="admin-table-right profit" colspan="2"> 钉钉群/企业微信群/机器人设置</td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">推送方式</td>
+                    <td class="admin-table-right">
+                         <label><input type="radio" name="data[webhook_type]" {eq name="CONFIG.config.webhook_type" value="1"}checked="checked"{/eq} value="1"/>钉钉机器人</label>
+                         <label><input type="radio" name="data[webhook_type]" {eq name="CONFIG.config.webhook_type" value="2"}checked="checked"{/eq} value="2"/>腾讯企业微信群机器人</label>
+                         <label><input type="radio" name="data[webhook_type]" {eq name="CONFIG.config.webhook_type" value="3"}checked="checked"{/eq} value="3"/>钉钉机器人/腾讯企业微信群机器人</label>
+                         <code>3种模式选择默认钉钉机器人</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="admin-table-left">设置选项【通知管理员】：</td>
+                    <td class="admin-table-right">                                  
+                        <label><span class="dd">用户注册：</span><input class="dd-input" type="checkbox" name="data[dd_msg_1]" {if condition="$CONFIG['config']['dd_msg_1'] eq 1"}checked="checked"{/if} value="1"/></label>
+                        <label><span class="dd">积分兑换：</span><input class="dd-input" type="checkbox" name="data[dd_msg_2]" {if condition="$CONFIG['config']['dd_msg_2'] eq 1"}checked="checked"{/if} value="1"/></label>
+                        <label><span class="dd">用户充值：</span><input class="dd-input" type="checkbox" name="data[dd_msg_3]" {if condition="$CONFIG['config']['dd_msg_3'] eq 1"}checked="checked"{/if} value="1"/></label>
+                        <label><span class="dd">购买VIP：</span><input class="dd-input" type="checkbox" name="data[dd_msg_4]" {if condition="$CONFIG['config']['dd_msg_4'] eq 1"}checked="checked"{/if} value="1"/></label>
+                        <label><span class="dd">订单接单：</span><input class="dd-input" type="checkbox" name="data[dd_msg_5]" {if condition="$CONFIG['config']['dd_msg_5'] eq 1"}checked="checked"{/if} value="1"/></label>
+                    	<label><span class="dd">订单取消：</span><input class="dd-input" type="checkbox" name="data[dd_msg_6]" {if condition="$CONFIG['config']['dd_msg_6'] eq 1"}checked="checked"{/if} value="1"/></label>
+                        <label><span class="dd">订单差价：</span><input class="dd-input" type="checkbox" name="data[dd_msg_7]" {if condition="$CONFIG['config']['dd_msg_7'] eq 1"}checked="checked"{/if} value="1"/></label>
+                        <label><span class="dd">订单完成：</span><input class="dd-input" type="checkbox" name="data[dd_msg_8]" {if condition="$CONFIG['config']['dd_msg_8'] eq 1"}checked="checked"{/if} value="1"/></label>
+                        <label><span class="dd">订单未付款：</span><input class="dd-input" type="checkbox" name="data[dd_msg_8]" {if condition="$CONFIG['config']['dd_msg_9'] eq 9"}checked="checked"{/if} value="1"/></label>
+                    </td>
+                </tr>  
+             
+                <tr>
+                    <td  class="admin-table-left">钉钉群机器人webhook：</td>
+                    <td class="admin-table-right">
+                        <input style="width:800px" type="text" name="data[webhook]" value="{$CONFIG.config.webhook}" class="admin-sc-add-text-name">
+                        <code>钉钉群机器人webhook，钉钉新建群后可查看</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td  class="admin-table-left">钉钉群机器人secret：</td>
+                    <td class="admin-table-right">
+                        <input style="width:600px" type="text" name="data[webhooksecret]" value="{$CONFIG.config.webhooksecret}" class="admin-sc-add-text-name w160">
+                        <code>钉钉群机器人secret</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td  class="admin-table-left">群机器人推送webhook默认@手机号：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[webhookmobile]" value="{$CONFIG.config.webhookmobile}" class="admin-sc-add-text-name w120">
+                        <code>群机器人推送webhook默认@手机号</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td  class="admin-table-left">腾讯企业微信群机器人webhook：</td>
+                    <td class="admin-table-right">
+                        <input type="text" style="width:800px" name="data[qqwebhook]" value="{$CONFIG.config.qqwebhook}" class="admin-sc-add-text-name admin-sc-add-text-name">
+                        <code>腾讯企业微信机器人群webhook</code>
+                    </td>
+                </tr> 
+             
+             
+             
+                
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> 选用高德地图</td>
+                </tr>
+                
+                 <tr>
+                    <td class="admin-table-left">网站地图选择：</td>
+                    <td class="admin-table-right">
+                        <select name="data[map]" class="admin-sc-add-text-name sogn">
+                            <option value="">请选择地图</option>
+                            <option {eq name="CONFIG.config.map" value="1"}selected="selected"{/eq} value="1">百度地图</option>
+                            <option {eq name="CONFIG.config.map" value="2"}selected="selected"{/eq} value="2">高德地图</option>
+                            <option {eq name="CONFIG.config.map" value="3"}selected="selected"{/eq} value="3">腾讯地图</option>
+                            <option {eq name="CONFIG.config.map" value="4"}selected="selected"{/eq} value="4">谷歌地图</option>
+                        </select>
+					    <code>新版必须选择地图，否则失效，一旦选择数据将不可逆更改，请第一次就选择好地图，否则中途更换地图后数据混乱后概不负责</code>
+                    </td>
+                </tr>  
+                
+                
+                <tr>
+                    <td  class="admin-table-left" >百度LBS地图API接口：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[baidu_map_api]" value="{$CONFIG.config.baidu_map_api}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>
+                        	接口申请 
+                            <a href="http://lbsyun.baidu.com/" target="_blank">http://lbsyun.baidu.com</a> 
+                            由于百度最新必须是https所以这里可配置百度地图接口，默认连接：https://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8
+                        </code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td  class="admin-table-left" >高德地图KEY：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[amap_map_api]" value="{$CONFIG.config.amap_map_api}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>
+                        	接口申请 
+                            <a href="http://lbs.amap.com/dev/key/app" target="_blank">http://lbs.amap.com/dev/key/app</a> 
+                            默认KEY：e17c8c7648b49bf5a85663cab16de375
+                        </code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left" >高德地图webservice：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[map_webservice_key]" value="{$CONFIG.config.map_webservice_key}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>调度中心使用webservice</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left" >高德地图javascript：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[map_javascript_key]" value="{$CONFIG.config.map_javascript_key}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>调度中心使用javascript</code>
+                    </td>
+                </tr>
+                
+                
+               
+                
+                <tr>
+                	<td class="admin-table-right profit" colspan="2">iconfont连接配置</td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left" >iconfont连接：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[iconfont]" value="{$CONFIG.config.iconfont}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>
+                        配置您在iconfont网站申请的图标连接，用来显示全站图标
+                        <a target="_blank" href="http://www.iconfont.cn">点击申请</a>
+                        iocnfont连接是什么？
+                        <a id="getinonfont" class="admin-btn-small">查看默认连接</a> 
+                        </code>
+                    </td>
+                </tr>
+                
+                <script>
+				$(document).ready(function(){
+					$("#getinonfont").click(function(){
+						var url2 = "http://demo.yanjiu007.com/app/api/getInonfont";
+						var url = "{$CONFIG.site.host}";
+						var qq = "{$CONFIG.site.qq}";
+						$.ajax({
+							url: url2,
+							type: 'post',
+							data: 'url=' + url + '&qq=' + qq,
+							success: function(data){
+							  if(data.code == '1'){
+								 layer.alert(data.msg,{
+								  skin: 'layui-layer-molv',
+								  closeBtn: 0
+								});
+							  }else{
+								  layer.msg(data.msg,{icon:1})
+							  }
+							}
+						});
+					});
+				});
+				</script>
+                
+                 <tr>
+                    <td  class="admin-table-left" >iconfont2副连接：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[iconfont2]" value="{$CONFIG.config.iconfont2}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>不懂css的亲这里留空，这里你额外增加的css阿里云的iocnfont图标cnd连接放在这里，然后自己就可以在模板中调用了，这样您可以不管基础库的css</code>
+                    </td>
+                </tr>
+                
+               
+            </table>
+            <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+        </form>
+    </div>
+</div>
+
+
+
+{include  file='public:footer'/}      

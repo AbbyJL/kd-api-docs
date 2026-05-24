@@ -1,0 +1,93 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">区域设置</li>
+        <li class="li2 li3">区域管理</li>
+    </ul>
+</div>
+<div class="admin-main-js  admin-main-sc">
+
+	<p class="admin-attention"><span>注意：</span>这里是区域列表，支持设置区县代理商</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin: 10px 20px;">
+            <div class="left">
+                {:BA('area/create','','新增区域','load','',600,400)}
+                {:BA('city/index',array('city_id'=>'0'),'返回城市','','',600,360)}
+                {:BA('area/index',array('city_id'=>$city_id),'刷新','','',600,360)}
+            </div>
+            <form method="post" action="{:url('area/index',array('city_id'=>$city_id))}">
+                <div class="right">
+                 <div class="admin-sele-k">
+                 
+                   <span>城市</span>
+                        <select id="city_id" name="city_id" class="select">
+                        <option value="0">请选择...</option>
+                        {foreach name="citys" item="var"}
+                          <option value="{$var.city_id}"  {eq name="var.city_id" value="$city_id"}selected="selected"{/eq}>{$var.name}</option>                           
+                        {/foreach}
+                     </select>
+                    <input type="text" name="keyword" placeholder=" 输入区域名称"  value="{$keyword}" class="admin-input-text"/>
+                    <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                </div>
+                
+                </div>
+            </form>
+        </div>
+        
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="area_id"/></td>
+                        <td>ID</td>
+                        <td>区域名称</td>
+                        <td>所在城市</td>
+                        <td>代理ID</td>
+                        <td>代理昵称</td>
+                        <td>代理分成费率</td>
+                        <td>VIP分成费率</td>
+                        <td class="w50">是否本地取件</td>
+                        <td class="w50">首重</td>
+                        <td class="w50">续重</td>
+                        <td>排序</td>
+                        <td>操作</td>   
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_area_id" type="checkbox" name="area_id[]" value="{$var.area_id}"/></td>
+                            <td>{$var.area_id}</td>
+                            <td>{$var.area_name}</td>
+                            <td>{$var['city']['name']}-{$var.area_name}</td>
+                            <td>{$var.user_id}</td>
+                            <td>{$var.user.nickname}</td>
+                            <td>{:round($var['ratio']/100,2)}%</td>
+                            <td>{:round($var['ratio_vip']/100,2)}%</td>
+                            <td>
+                            	{eq name="var.open" value="0"}<span class="weixin">否</span>{/eq}
+                                {eq name="var.open" value="1"}<span class="weibo">是</span>{/eq}
+                            </td>
+                            <td style="color:#F00">¥{:round($var['shou']/100,2)}</td>
+                            <td style="color:#00f">¥{:round($var['xu']/100,2)}</td>
+                            <td>{$var.orderby}</td>
+                            <td>
+                                {:BA('area/edit',array("area_id"=>$var["area_id"]),'编辑','','admin-btn-default')}
+                                {:BA('business/index',array("area_id"=>$var["area_id"]),'商圈列表','','admin-btn-default')}
+                                {:BA('city/agent',array("city_id"=>0,"area_id"=>$var["area_id"],"type"=>3),'添加代理','','admin-btn-small_quxiao')}
+                                {:BA('area/delete',array("area_id"=>$var["area_id"]),'删除','act','admin-btn-default')}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                  {$page}
+            </div>
+            <div class="admin-select-nr">
+                <div class="left">
+                    {:BA('area/delete','','批量删除','list',' a2')}
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{include  file='public:footer'/}      

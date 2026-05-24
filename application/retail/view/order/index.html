@@ -1,0 +1,46 @@
+{include file='public:header'/}
+
+
+	
+{if condition="!$is_weixin"}
+    <div class="headers">
+        <img src="/static/default/newwap/img/return.png" onclick="javascript:history.back(-1);">
+        <p>{$detail[nickname]}代理订单</p>
+    </div>
+    <div class="headers-space"></div>
+{/if}
+
+<style>
+	ul{ padding-left: 0px;}
+	.xiaoqu-search {margin-top:0rem;}
+	.input-group .input {height: 35px;}
+.list-media-x ul {margin-top:0rem;}
+.list-media-x li {margin-bottom:0rem;}
+</style>
+
+
+<div class="line xiaoqu-search">
+    <form method="post"  action="{:url('order/index',array('user_id'=>$user_id))}" id="form1" class="form1">
+        <div class="form-group">
+            <div class="field">
+                <div class="input-group">
+                    <span class="addbtn"><button type="button" class="button iconfont icon-search"></button></span>
+                    <input type="text" class="input" name="keyword" size="50" value="{$keyword}" placeholder="订单号/运单号">
+                    <span class="addbtn"><button type="submit" class="button">搜索</button></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="list-media-x" id="list-media">
+	<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	    
+<script>
+	$(document).ready(function(){	 
+		loaddata('{:url("order/load",array("user_id"=>$user_id,"orderStatus"=>$orderStatus,"keyword"=>$keyword,"t"=>$nowtime,"p"=>"0000"))}',$("#list-media ul"), true);
+	});
+</script>
+{include file="public:footer"}

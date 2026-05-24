@@ -1,0 +1,133 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">系统</li>
+        <li class="li2">管理员管理</li>
+        <li class="li2 li3">管理员列表</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+    <p class="admin-attention"><span>注意：</span>1：密码请设置复杂一点2：首先添加角色，选择类型、城市、必须选择3：添加角色权限4：添加管理员选择类型5：管理员类型如果是分站管理员可设置城市并支持设置当前分站下面的角色权限6：管理员可登录后台</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr">
+            <div class="left">
+                {:BA('admin/create','','添加管理员')}
+            </div>
+            <div class="right">
+                <form method="post" action="{:url('admin/index')}">
+                 <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                        
+                        
+                           <label>
+                                <span>管理员类型：</span>
+                                <select class="select w120" name="type">
+                                    <option {eq name="type" value="0"}selected="selected"{/eq} value="0">请选择类型</option>
+                                    <option {eq name="type" value="1"}selected="selected"{/eq}  value="2">系统管理员</option>
+                                    <option {eq name="type" value="2"}selected="selected"{/eq}  value="3">分站管理员</option>
+                                </select>
+                            </label>
+                            
+                            <label>
+                                <span>城市：</span>
+                                <select name="city_id" id="city_id"  class="select w100"></select>
+                        	</label>
+						    <script src="{:url('app/datas/onecity',array('name'=>'cityareas'))}"></script> 
+                            <script>
+								var city_id = <?php echo (int)$city_id;?>;
+								$(document).ready(function(){
+									var city_str = '<option value="0">请选择...</option>';
+									for(a in cityareas.city){
+										if(city_id == cityareas.city[a].city_id){
+											city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+										}else{
+											city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+										}
+									}
+									$("#city_id").html(city_str);
+								});
+                             </script> 
+                        
+                        
+                			<label>
+                                <span>冻结状态：</span>
+                                <select class="select w120" name="is_username_lock">
+                                    <option {eq name="is_username_lock" value="999"}selected="selected"{/eq} value="999">请选择</option>
+                                    <option {eq name="is_username_lock" value="0"}selected="selected"{/eq}  value="0">未冻结</option>
+                                    <option {eq name="is_username_lock" value="1"}selected="selected"{/eq}  value="1">已冻结</option>
+                                </select>
+                            </label>
+                            
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"   class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择管理员</a>
+                           </label>
+                       
+                            <input type="text"  class="admin-input-text" name="keyword" value="{$keyword}"/>
+                    		<input type="submit" value=" 搜索"  class="admin-input-button"/>
+                            
+                            </div>
+        				</div> 
+                </form>
+            </div>
+        </div>
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50">ID</td>
+                        <td>类型</td>
+                        <td>用户名</td>
+                        <td>绑定会员ID</td>
+                        <td>绑定会员姓名</td>
+                        <td>角色</td>
+                        <td>手机</td>
+                        <td>是否锁定</td>
+                        <td>创建时间</td>
+                        <td>登录时间</td>
+                        <td>操作</td>   
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td>{$var.admin_id}</td>
+                            <td>
+                                {eq name="var.type" value="1"}系统管理员{/eq}
+                                {eq name="var.type" value="2"}分站管理员{/eq}
+                                {eq name="var.type" value="2"}
+                                    {if condition="$var.city_id"} {$var['city']['name']}{/if}
+                                    {if condition="$var.area_id"} {$var['area']['area_name']}{/if}
+                                    {if condition="$var.business_id"}{$var['business']['business_name']}{/if}
+                                {/eq}
+                            </td>
+                            <td>{$var.username}</td>
+                            <td>{$var.user_id}</td>
+                            <td>{$var.user.nickname}</td>
+                            {php}
+                            	$Role = model('Role')->find($var['role_id']);
+                            {/php}
+                            <td>{$Role.role_name}</td>
+                            <td>{$var.mobile}</td>
+                            <td>{eq name="var.is_username_lock" value="0"}否{else/}是{/eq}</td>
+                            <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                            <td>{$var.last_time|date="Y-m-d H:i:s",###}</td>
+                            <td>
+                                {eq name="var.is_username_lock" value="0"} 
+                                    {:BA('admin/is_username_lock',array("admin_id"=>$var["admin_id"]),'冻结','act','admin-btn-default')}
+                                {else/}
+                                    {:BA('admin/is_username_lock',array("admin_id"=>$var["admin_id"]),'解冻','act','admin-btn-small_quxiao')}
+                                {/eq}
+                                {:BA('admin/edit',array("admin_id"=>$var["admin_id"],'p'=>$p),'编辑','','admin-btn-default')}
+                                {:BA('admin/delete',array("admin_id"=>$var["admin_id"]),'删除','act','admin-btn-default')}
+                            </td>
+                        </tr>
+                    {/foreach}
+
+                </table>
+                {$page}
+            </div>
+        </form>
+
+    </div>
+</div>
+{include  file='public:footer'/}      

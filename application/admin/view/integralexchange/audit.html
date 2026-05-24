@@ -1,0 +1,70 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="x-frame" action="{:url('integralexchange/audit',array('exchange_id'=>$exchange_id,'p'=>$p))}" method="post">
+        
+    
+		
+			
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                        <tr>
+                            <td class="admin-table-left">姓名：</td>
+                            <td class="admin-table-right">
+                                <input name="name" type="text" value="{$detail.name}" class="admin-sc-add-text-name w210">
+                                <code>姓名</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">电话：</td>
+                            <td class="admin-table-right">
+                                <input name="mobile" type="text" value="{$detail.mobile}"  class="admin-sc-add-text-name w210">
+                                <code>电话</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">地址：</td>
+                            <td class="admin-table-right">
+                                <input name="addr" type="text" value="{$detail.addr}"  class="admin-sc-add-text-name w260">
+                                <code>地址</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">审核状态</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="audit" value="0" {if condition="$detail[audit] eq 0"}checked="checked"{/if} />未审核
+                            <input type="radio" name="audit" value="1" {if condition="$detail[audit] eq 1"}checked="checked"{/if} />已审核
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td class="admin-table-left">付款状态</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="status" value="0" {if condition="$detail[status] eq 0"}checked="checked"{/if} />未付款
+                            <input type="radio" name="status" value="1" {if condition="$detail[status] eq 1"}checked="checked"{/if} />已付款
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">快递公司：</td>
+                            <td class="admin-table-right">
+                                <input name="expressName" type="text" value="{$detail.expressName}"  class="admin-sc-add-text-name w210">
+                                <code>快递公司</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">快递单号：</td>
+                            <td class="admin-table-right">
+                                <input name="mailNo" type="text" value="{$detail.mailNo}"  class="admin-sc-add-text-name w260">
+                                <code>快递单号</code>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确定保存" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

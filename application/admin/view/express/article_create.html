@@ -1,0 +1,57 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">帮助文章</li>
+        <li class="li2 li3">新增文章</li>
+    </ul>
+</div>
+<form  target="x-frame" action="{:url('express/article_create')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+            
+              
+                <tr>
+                    <td class="admin-table-left">标题：</td>
+                    <td class="admin-table-right"><input type="text" name="data[title]" value="{$detail.title|default=''}" class="admin-manage-input"/>
+					<code>输入文章标题</code>
+                    </td>
+                </tr>
+               
+           
+            
+            <tr>
+                <td class="admin-table-left">详细内容：</td>
+                <td class="admin-table-right">
+                    <script type="text/plain" id="data_details" name="data[details]" style="width:800px;height:360px;">{$detail.details}</script>
+                </td>
+            </tr>
+                {include  file='public:ueditorjs'} 
+                
+                <script>
+                    um = UE.getEditor('data_details',{
+                        lang: 'zh-cn',
+						  toolbars:[['fullscreen','source','undo','redo','bold','italic','underline','fontborder','backcolor','fontsize','fontfamily','justifyleft','justifyright','justifycenter','justifyjustify','strikethrough', 'superscript','subscript','removeformat','formatmatch','autotypeset', 'blockquote','pasteplain','|','forecolor','backcolor','insertorderedlist','insertunorderedlist','selectall','cleardoc','link','unlink','background','inserttable','emotion','insertimage']],  
+                });
+                </script>
+                
+                
+         
+            
+             <tr>
+                <td class="admin-table-left">排序：</td>
+                <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default=''}" class="admin-manage-input"/>
+                <code>默认100，可以不修改，数字越小，排名越前面！</code>
+                </td>
+            </tr>
+        
+        
+       
+    </table>
+<div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+</form>
+</div>
+</div>
+{include  file='public:footer'}      

@@ -1,0 +1,170 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员等级</li>
+        <li class="li2 li3">编辑等级</li>
+    </ul>
+</div>
+<style>
+.admin-table-left { width: 200px;}
+.profit{ text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+</style>
+
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form target="x-frame" action="{:url('userrank/edit',array('rank_id'=>$detail['rank_id']))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    	<tr><td class="admin-table-right profit" colspan = "2"> 等级名称 </td></tr>
+                        <tr>
+                            <td class="admin-table-left">等级名称：</td>
+                            <td class="admin-table-right"><input type="text" name="data[rank_name]" value="{$detail.rank_name|default=''}" class="admin-sc-add-text-name w150"/>
+                            <code>等级名称必填</code>
+                            </td>
+                        </tr>
+                        
+                        <tr><td class="admin-table-right profit" colspan = "2"> 购买金额</td></tr>
+                		<tr class="jq_type_1">
+                            <td class="admin-table-left">购买金额：</td>
+                            <td class="admin-table-right"><input type="text" name="data[price]" value="{:round($detail['price']/100,2)}" class="admin-sc-add-text-name w80"/>
+                            <code>购买金额</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">是否支持前台购买</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[is_buy]" value="0" {if condition="$detail[is_buy] eq 0"}checked="checked"{/if} />支持
+                            <input type="radio" name="data[is_buy]" value="1" {if condition="$detail[is_buy] eq 1"}checked="checked"{/if} />不支持
+                            <code>是否支持前台购买</code>
+                            </td>
+                       </tr> 
+                       <tr><td class="admin-table-right profit" colspan = "2"> 团队收益 </td></tr>
+                        <tr>
+                            <td class="admin-table-left">开启此等级团队收益：</td>
+                            <td class="admin-table-right">
+                            <label><input type="radio" name="data[is_prestige]" {eq name="detail.is_prestige" value="1"}checked="checked"{/eq} value="1"/>开通</label>
+                            <label><input type="radio" name="data[is_prestige]" {eq name="detail.is_prestige" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                            <code>只能一个等级等级开通建议等级最高的开通，权重低的开通无效</code>
+                            </td>
+                        </tr>
+                        
+                        <tr class="jq_type_1">
+                            <td class="admin-table-left">额外享受团队每笔订单奖励：</td>
+                            <td class="admin-table-right"><input type="text" name="data[prestige]" value="{:round($detail['prestige']/100,2)}" class="admin-sc-add-text-name w80"/>
+                            <code>额外享受团队每笔订单多少元平台补贴奖励不开启填写0</code>
+                            </td>
+                        </tr>
+                        
+                         <tr><td class="admin-table-right profit" colspan = "2"> 邀请奖励 </td></tr>
+                    	   <tr class="jq_type_1">
+                                <td class="admin-table-left">直推首单奖励：</td>
+                                <td class="admin-table-right"><input type="text" name="data[total]" value="{:round($detail['total']/100,2)}" class="admin-sc-add-text-name w80"/>
+                                <code>直推首单奖励</code>
+                                </td>
+                            </tr>
+                            <tr class="jq_type_1">
+                                <td class="admin-table-left">间推首单奖励：</td>
+                                <td class="admin-table-right"><input type="text" name="data[total1]" value="{:round($detail['total1']/100,2)}" class="admin-sc-add-text-name w80"/>
+                                <code>间推首单奖励</code>
+                                </td>
+                            </tr>
+                        
+                         <tr>
+                            <td class="admin-table-left">有效期</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[day]" value="0" {if condition="$detail[day] eq 0"}checked="checked"{/if} />不选择
+                            <input type="radio" name="data[day]" value="30" {if condition="$detail[day] eq 30"}checked="checked"{/if} />1个月
+                            <input type="radio" name="data[day]" value="60" {if condition="$detail[day] eq 60"}checked="checked"{/if} />2个月
+                            <input type="radio" name="data[day]" value="90" {if condition="$detail[day] eq 90"}checked="checked"{/if} />3个月
+                            <input type="radio" name="data[day]" value="180" {if condition="$detail[day] eq 180"}checked="checked"{/if} />半年
+                            <input type="radio" name="data[day]" value="365" {if condition="$detail[day] eq 365"}checked="checked"{/if} />1年
+                            <input type="radio" name="data[day]" value="720" {if condition="$detail[day] eq 720"}checked="checked"{/if} />2年
+                            <input type="radio" name="data[day]" value="1095" {if condition="$detail[day] eq 1095"}checked="checked"{/if} />3年
+                            <input type="radio" name="data[day]" value="9999" {if condition="$detail[day] eq 9999"}checked="checked"{/if} />永久
+                            <code>该买该等级有效期</code>
+                            </td>
+                       </tr> 
+                       
+                        <tr><td class="admin-table-right profit" colspan = "2"> 分销设置</td></tr>
+                        <tr class="jq_type_1">
+                            <td class="admin-table-left">1级订单分成比例：</td>
+                            <td class="admin-table-right"><input type="text" name="data[rate1]" value="{$detail['rate1']}" class="admin-sc-add-text-name w80">%
+                            <code>填写整数，1级订单分成比例</code>
+                            </td>
+                        </tr>
+                        <tr class="jq_type_1">
+                            <td class="admin-table-left">2级订单分成比例：</td>
+                            <td class="admin-table-right"><input type="text" name="data[rate2]" value="{$detail['rate2']}" class="admin-sc-add-text-name w80">%
+                            <code>填写整数，2级订单分成比例</code>
+                            </td>
+                        </tr>
+                        <tr class="jq_type_1">
+                            <td class="admin-table-left">3级订单分成比例：</td>
+                            <td class="admin-table-right"><input type="text" name="data[rate3]" value="{$detail['rate3']}" class="admin-sc-add-text-name w80">%
+                            <code>填写整数，3级订单分成比例</code>
+                            </td>
+                        </tr>
+                        
+                        <tr><td class="admin-table-right profit" colspan = "2"> 其他设置</td></tr>
+                         
+                        <tr>
+                        <td class="admin-table-left">等级图标：</td>
+                         <td class="admin-table-right">
+                            <div class="admin-table-right-div">
+                                <input type="hidden" name="data[photo]" value="{$detail.photo}" id="data_photo"/>
+                                <div id="fileToUpload" >上传缩略图</div>
+                            </div>
+                            <div style="width:100px;height:80px; float:left;">
+                                <img id="photo_img" width="60" height="60"  src="{:config_img($detail['photo'])}"/>
+                            </div>
+                            <script>                                            
+                                var uploader = WebUploader.create({                             
+                                auto: true,                             
+                                swf: '/static/default/webuploader/Uploader.swf',                             
+                                server: '{:url("app/upload/uploadify",array("model"=>""))}',                             
+                                pick: '#fileToUpload',                             
+                                resize: true,  
+                            });                                                 
+                            uploader.on('uploadSuccess',function(file,resporse){                            
+                                $("#data_photo").val(resporse.url);                             
+                                $("#photo_img").attr('src',resporse.url).show();                         
+                            });                                                
+                            uploader.on( 'uploadError', function(file){                             
+                                layer.msg('上传出错', {icon: 5});                         
+                            });                     
+                            </script>
+                        </td>
+                   
+                   
+                   		<tr>
+                       		<td class="admin-table-left">权益介绍：</td><td class="admin-table-right">
+						  <script type="text/plain" id="xieyi" name="data[xieyi]" style="width:800px;height:360px;">{$detail.xieyi}</script>
+                        	</td>
+                        </tr>
+                        {include  file='public:ueditorjs'}
+                        <script>
+                           um = UE.getEditor('xieyi',{
+                           lang: 'zh-cn',
+                           toolbars:[['fullscreen','source','undo','redo','bold','italic','underline','forecolor','fontborder','backcolor','fontsize','justifyleft','justifyright','justifycenter','link','insertimage']],
+                           });
+                       </script> 
+                        
+                   
+                        
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确定编辑" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{include  file='public:footer'/}
+
+
+
+

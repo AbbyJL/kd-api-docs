@@ -1,0 +1,263 @@
+{include  file='public:header'}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1"> 当前位置</li>
+        <li class="li2">快递订单</li>
+        <li class="li2 li3">订单列表</li>
+    </ul>
+</div>
+<style>
+.admin-attention {
+    height: inherit;
+}
+.checkOrder{ color:#00F}
+.admin-btn-default-order {
+    font-size: 12px;
+    margin-left: 15px;
+    display: inline-block;
+    margin-top: 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #b2b9b9;
+    color: #fff;
+    padding: 2px 8px;
+    height: 22px;
+    line-height: 22px;
+}
+
+.admin-btn-default-order b.b {
+	margin-top: -15px;
+    position: absolute;
+    background-color: #e33;
+    margin-left:-10px;
+}
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #999;
+    border-radius: 2em;
+}
+.selecteds{
+	background: #906;
+}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+.admin-sele-k .text {
+    width: 100px;
+}
+.admin-input-text {
+    width: 100px!important;
+}
+.admin-sele-k label {
+    margin-right:5px;
+}
+</style>
+
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention">
+        <b>统计信息：
+        订单数量：<a class="red">{$count}</a> 
+        -支付金额：<a class="red">{:round($sumMoneyYuan/100,2)}</a>元
+        -原始金额：<a class="red">{:round($sumMoneyYuan_old/100,2)}</a>元 
+        -加价金额：<a class="red">{:round($sumMoneyYuan_jia/100,2)}</a>元
+        -差价金额：<a class="red">{:round($diffMoneyYuan/100,2)}元</a>
+        </b>
+    </p>
+  	<p class="attention" style="margin-bottom:20px; margin-left:15px;">
+        <a class="admin-btn-default" href="{:url('express/index')}">全部订单</a>
+        {foreach name="getOrderStatus" item="item"}
+            <a class="admin-btn-default-order tudoukuaijie {eq name="orderStatus" value="$item['id']"}selecteds{/eq}" href="{:url('express/index',array('orderStatus'=>$item['id']))}">
+            {$item.name}<b class="b badge"> {$item.count}</b></a>
+        {/foreach}
+    </p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                <a href="{:url('express/index')}">刷新</a>            
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('express/index')}"> 
+                     <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="{$bg_date|default=''}"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="{$end_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                        </label>
+                           
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                            </label>
+                            <label>
+                                <span>订单状态：</span>
+                                <select class="select w100" name="orderStatus">
+                                 <option {eq name="orderStatus" value="999"}selected="selected"{/eq} value="999">=请选择=</option>
+                                	{foreach name="getorderStatus" key="key" item="item"}
+                                        <option {eq name="orderStatus" value="$key"}selected="selected"{/eq}  value="{$key}">{$item}</option>
+                                    {/foreach}
+                                </select>
+                            </label>
+                            <label>
+                                <span>差价状态：</span>
+                                <select class="select w100" name="diffStatus">
+                                 <option {eq name="diffStatus" value="999"}selected="selected"{/eq} value="999">=请选择=</option>
+                                	{foreach name="getdiffStatus" key="key" item="item"}
+                                        <option {eq name="diffStatus" value="$key"}selected="selected"{/eq}  value="{$key}">{$item}</option>
+                                    {/foreach}
+                                </select>
+                            </label>
+                            <label>
+                                <span>退款状态：</span>
+                                <select class="select w100" name="orderRightsStatus">
+                                 <option {eq name="orderRightsStatus" value="999"}selected="selected"{/eq} value="999">=请选择=</option>
+                                	{foreach name="getorderRightsStatus" key="key" item="item"}
+                                        <option {eq name="orderRightsStatus" value="$key"}selected="selected"{/eq}  value="{$key}">{$item}</option>
+                                    {/foreach}
+                                </select>
+                            </label>
+                         
+                            <label>
+                                <span>ID：</span>   
+                                <input type="text" name="id" value="{$id|default=''}" class="admin-input-text"/>
+                                <span>运单号：</span>   
+                                <input type="text" name="deliveryId" value="{$deliveryId|default=''}" class="admin-input-text"/>
+                                <input type="submit" class="admin-input-button" value="搜索"/></label>
+                                <a href="{:url('export')}" class="admin-input-button">&nbsp;&nbsp;&nbsp;导出</a></label>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+
+
+
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td>ID</td>
+                    <th>接口名称</th>
+                    <td>运单号</td>
+                    <td>用户ID</td>
+                    <td>用户手机</td>
+                    <td>官方原价</td>
+                    <td>抵扣金</td>
+                    <td>支付金额</td>
+                    <td>原始金额</td>
+                    <td>加价金额</td>
+                    <td>差价金额</td>
+                    <td>平台收费</td>
+                    <td>差价状态</td>
+                    <td>快递</td>
+                    <td>寄件-收件城市</td>
+                    <td>订单状态</td>
+                    <td>退款状态</td>
+                    <td>差价状态</td>
+                    <td>时间</td>
+                    <td>操作</td>
+                </tr>
+                     {foreach name="list" item="var"}
+                        <tr {eq name="var.type" value="2"}style="background-color:#f7f7f7;"{/eq}>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/></td>
+                            <td>{$var.id}</td>
+                            <td>
+                                {eq name="var.type" value="1"}<span class="weixin">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="2"}<span class="bookworker">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="3"}<span class="weibo">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="4"}<span class="qq">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="5"}<span class="weixin">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="6"}<span class="bookworker">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="7}<span class="weibo">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="8"}<span class="qq">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="9"}<span class="weibo">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="10"}<span class="qq">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                                {eq name="var.type" value="11"}<span class="qq">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            </td>
+                            <td>{$var.deliveryId}</td>
+                            <td>{$var.user_id}</td>
+                            <td>
+                                {eq name="var.user_id" value="1"}
+                                    ******
+                                {else/}
+                                    {$var.user.mobile}
+                                {/eq}
+                            </td>
+                            
+                            <td>&yen;{:round($var['originalFee']/100,2)}元</td>
+                            <td>&yen;{:round($var['moneys']/100,2)}元</td>
+                            <td style="color:#F00">&yen;{:round($var['sumMoneyYuan']/100,2)}元</td>
+                            <td>&yen;{:round($var['sumMoneyYuan_old']/100,2)}元</td>
+                            <td>&yen;{:round($var['sumMoneyYuan_jia']/100,2)}元</td>
+                            <td style="color:#00f">&yen;{:round($var['diffMoneyYuan']/100,2)}元</td>
+                            <td style="color:#F00">&yen;{:round($var['TotalFee']/100,2)}元</td>
+                            <td style="color:#00f">{$getdiffStatus[$var['diffStatus']]}</td>
+                            <td>{$var.kuaidi}</td>
+                            <td>{$var.sendCity}-{$var.receiveCity}</td>
+                            <td style="color:#F00">{$getorderStatus[$var['orderStatus']]}</td>
+                            <td>{$getorderRightsStatus[$var['orderRightsStatus']]}</td>
+                            <td>{$getdiffStatus[$var['diffStatus']]}</td>
+                            <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                            <td>
+                            	{include  file='express:operation'}
+                            </td> 
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+          <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                    {:BA('express/delete',array('area_id'=>$area_id),'批量删除未付款','list',' a2')}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+	$("#checkOrder").click(function(){
+		var url = "{:url('app/express/checkOrder')}";
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: '',
+			success: function(data){
+			  if(data.c == 0){
+				 layer.msg(data.msg,{icon:1})
+			  }else{
+				  layer.msg(data.msg,{icon:1})
+			  }
+			}
+		});
+	});
+});
+</script>
+    
+{include  file='public:footer'} 
+

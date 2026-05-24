@@ -1,0 +1,185 @@
+{include  file='public:header'/}
+<link href="__PUBLIC__/admin/css/public.css" rel="stylesheet" type="text/css">
+<script src="/public/plugs/layui-v2.7.6/layui.js"></script>
+<style>
+.version{padding:25px 14px;background:#fff;text-align:center;font-size:23px;}
+.getnew_version{display:block;margin:29px auto;margin-top:30px;padding:3px 14px;width:35vh;border-radius:5px;background:#0097a7;color:#fff;font-size:16px;}
+.msg{padding:18px 0;text-align:center;}
+.desc{text-align:center;}
+.one{padding-bottom:4rem;}
+.one .a{margin:auto;}
+.one .a img{width:70%;}
+.one .b{color:#000;font-weight:600;font-size:2rem;}
+.one .c{padding:2rem 0;}
+.one .d button{padding:.6rem 2rem;border-radius:.6rem;}
+.one .e{overflow:hidden;margin:auto;margin-top:3rem;border:1px solid #4877e7;border-radius:.7rem;}
+.two .e{overflow:hidden;margin:auto;margin-bottom:2rem;border:1px solid #4877e7;border-radius:.7rem;}
+.one .e1,.two .e1{padding:1rem;border-bottom:1px solid #4877e7;background-color:#f6f8f9;font-size:1.1rem;}
+.one .e1 span,.two .e1{font-weight:600;}
+.one .e2,.two .e2{padding:1rem;}
+.one .e2>div,.two .e2>div{margin-bottom:.5rem;}
+.one .e2>div:last-child,.two .e2>div:last-child{margin-bottom:0;}
+.one .e21,.two .e21{font-weight:600;}
+.yellow{color:#fbaf38!important;}
+.blue{color:#4977e8!important;}
+.green{color:#13b622!important;}
+.two{display:none;}
+.sj_none{display:none;}
+.layui-show{ padding:10px;}
+.float-none{ margin-bottom:20px;}
+.sj_a{font-size:18px;}
+</style>
+
+
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <h3>系统升级</h3>
+        <hr>
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">系统升级</li>
+                <li>历史更新功能列表</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div class="col-lg-3 col-sm-6 col-xs-10 float-none text-center a">
+                        <img style="height:100px;width:100px;" src="/public/admin/statics/images/update.png">
+                    </div>
+                    <div class="text-center b" style="margin-bottom:20px;">
+                        <span class="sj_a">V{$version}</span>
+                        <span class="sj_c sj_none">当前版本为最新版本</span>
+                        <span class="sj_b sj_none">发现新的系统版本更新，是否更新？</span>
+                    </div>
+                    <div class="font-size-base text-center" style="display:block">
+                        <div class="sj_a">系统当前版本: <span>V{$version}</span></div>
+                        <div class="progress w-75 m-auto sj_f2 sj_none">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                        </div>
+                    </div>
+                    <div class="text-center d" style="display:block; margin-top:20px;">
+                        <button type="button" class="layui-btn layui-bg-green sj_d1">检查最新版本</button>
+                        <button type="button" class="layui-btn layui-bg-blue sj_none">检查中 <i
+                                class="fa fa-spin fa-spinner"></i></button>
+                        <button type="button" class="layui-btn layui-bg-red sj_d2 sj_none">立即更新</button>
+                        <button type="button" class="layui-btn layui-bg-cyan  sj_none">更新中 <i
+                                class="fa fa-spin fa-spinner"></i></button>
+                        <button type="button" class="layui-btn layui-bg-blue sj_d3  sj_none">更新完成</button>
+                    </div>
+                    <div class="col-lg-8 col-sm-10 col-xs-12 float-none   p-0  e  sj_b sj_none">
+                        <div class="d-sm-flex align-items-center justify-content-between e1">
+                            <div><span>最新版本：</span><span class="sj_e newver"></span></div>
+                        </div>
+                        <div class="e2 newdesc">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="row">
+                    	{$data}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include  file='public:footer'/}
+<script type="text/javascript">
+    window.onload = function() {
+
+        $('.nav-item').removeClass('active');
+        $('.nav-item').removeClass('open');
+        $('.nav-item4').addClass('open')
+        $('.nav-item4').addClass('active')
+        $('.menu-item4').addClass('active')
+
+        $('.getnew_version').click(function(){
+            layer.load(2);
+            var url = "{:url('index/checkversion')}";
+            $.get(url, function(e){
+                layer.closeAll();
+                console.log(e);
+                if(e.code == '0'){
+                    layer.msg(e.msg)
+                }else{
+                    layer.open({
+                        type: 1,
+                        title: '提醒',
+                        content: "<div class='msg'>" + e.msg + "</div><div class='desc'>更新内容:" + e
+                            .desc + "</div>",
+                        btn: ['确认更新', '取消'],
+                        area: ['500px', '300px'],
+                        yes: function(e) {
+                            layer.load(2);
+                            var url2 = "{:url('index/start_upgrade')}";
+                            $.get(url2, function(e){
+                                console.log(e);
+                                layer.msg(e.msg,{
+                                    time: 1000
+                                },function(){
+                                    layer.closeAll();
+                                    window.location.reload();
+                                })
+                            })
+                        }
+                    })
+                }
+            })
+        })
+        $('.xuanx li').click(function() {
+            $('.xuanx li a').removeClass('active')
+            $(this).children('a').addClass('active')
+            var num = $(this).data('id')
+            if (num == 1) {
+                $('.one').show()
+                $('.two').hide()
+            } else {
+                $('.two').show()
+                $('.one').hide()
+            }
+        })
+
+        //检查新版
+        $(".sj_d1").click(function(){
+            $(this).hide()
+            $(this).next().show().siblings().hide()
+            var url = "{:url('index/checkversion')}";
+            $.get(url, function(e){
+                layer.closeAll();
+                if(e.code == '0'){ //已经是最新版
+                    $('.sj_d1').show().siblings().hide()
+                    layer.msg(e.msg)
+                }else{
+                    setTimeout(function(){
+                        console.log(e);
+                        $('.newver').html('V' + e.data.version);
+                        $('.newdesc').html(e.data.desc);
+                        $(".sj_a").hide()
+                        $(".sj_b").fadeIn()
+                        $('.sj_d2').fadeIn().siblings().hide()
+                    }, 1000)
+                }
+            })
+
+
+        })
+
+        $(".sj_d2").click(function(){
+            $(this).next().show().siblings().hide()
+            var url2 = "{:url('index/start_upgrade')}";
+            setTimeout(function(){
+                $.get(url2, function(e){
+                    console.log(e);
+                    if(e.code == '1'){
+                        $('.sj_d3').show().siblings().hide();
+                    }
+                    layer.msg(e.msg,{
+                        time: 1200
+                    }, function() {
+                        layer.closeAll();
+                        window.location.reload();
+                    })
+                })
+            }, 1000)
+        })
+    }
+</script>

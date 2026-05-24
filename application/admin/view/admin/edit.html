@@ -1,0 +1,246 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">管理员设置</li>
+        <li class="li2 li3">编辑管理员</li>
+    </ul>
+</div>
+<p class="admin-attention"><span>说明：</span> 编辑管理员如果选择分站管理员请选择城市</p>
+
+<div class="listBox clfx" style="width:800px;">
+
+    <div class="menuManage">
+        <form target="x-frame" action="{:url('admin/edit',array('admin_id'=>$detail['admin_id']))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+
+                        <tr>
+                            <td class="admin-table-left">用户名：</td>
+                            <td class="admin-table-right">{$detail.username|default=''}
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">密码：</td>
+                            <td class="admin-table-right"><input type="password" name="data[password]" value="******" class="admin-sc-add-text-name w150"/>
+							<code>后台登录密码，建议越复杂越好</code>>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="admin-table-left">绑定会员账户：</td>
+                            <td class="admin-table-right">
+                                <div class="lt">
+                                    <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}"/>
+                                    <input class="admin-sc-add-text-name w210 sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                                </div>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择管理员</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">管理员类型：</td>
+                            <td class="tu-right-td">
+                                <select name="data[type]" class="admin-sele-Fl w150" id="type">
+                                   <option value="0" {eq name="detail.type" value="0"}selected="selected"{/eq} >==请选择管理员==</option>
+                                   <option value="1" {eq name="detail.type" value="1"}selected="selected"{/eq} >系统管理员</option>
+                                   <option value="2" {eq name="detail.type" value="2"}selected="selected"{/eq} >分站管理员</option>
+                                </select>
+                                <code>管理员类型必须选择</code>
+                            </td>
+                        </tr>
+                        
+                       </table>
+                       
+                       <table class="city" style="display:none;"  bordercolor="#dbdbdb" cellspacing="0" width="100%" style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                            <tr>
+                                <td class="admin-table-left">绑定城市：</td>
+                                <td class="admin-table-right">
+                                    <select name="data[city_id]" style="float:left;"  id="city_id" class="admin-sele-Fl w210"></select>
+                                </td>
+                            </tr>
+                            </table>
+                            
+                            
+                         <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                            <tr>
+                                <td class="admin-table-left">管理员角色：</td>
+                                <td class="admin-table-right">
+                                    <select name="data[role_id]" class="admin-sele-Fl w150" id="role_id">
+                                    <option value="0">==请选择角色==</option> 
+                                    </select>
+                                    <code>必须选择正确的角色</code>
+                                </td>
+                            </tr>
+                          </table>  
+                            
+                            
+                            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                            <tr>
+                                <td class="admin-table-left">手机：</td>
+                                <td class="admin-table-right"><input type="text" name="data[mobile]" value="{$detail.mobile|default=''}" class="admin-sc-add-text-name  w150" />
+                                    <code>手机不能为空</code>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确定编辑" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{:url('app/datas/onecity',array('name'=>'cityareas'))}"></script> 
+<script>
+	
+	var city_id = <?php echo (int)$detail['city_id'];?>;
+	var area_id = <?php echo (int)$detail['area_id'];?>;
+	var business_id = <?php echo (int)$detail['business_id'];?>;
+	$(document).ready(function (){
+		var city_str = ' <option value="0">请选择...</option>';
+		for (a in cityareas.city){
+			if(city_id == cityareas.city[a].city_id){
+				city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+			}else{
+				city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+			}
+		}
+		$("#city_id").html(city_str);
+		$("#city_id").change(function(){
+			if($("#city_id").val() > 0){
+				city_id = $("#city_id").val();
+				
+				//执行函数
+				var type =$('#type').val();
+				_getRoleIdHtml(type,city_id);
+				
+				$.ajax({
+						  type: 'POST',
+						  url: "{:url('app/datas/twoarea')}",
+						  data:{cid:city_id},
+						  dataType: 'json',
+						  success: function(result){
+							 var area_str = ' <option value="0">请选择...</option>';
+							for (a in result) {
+							  area_str += '<option value="' + result[a].area_id + '">' + result[a].area_name + '</option>';                                                        }
+						   $("#area_id").html(area_str);
+							$("#business_id").html('<option value="0">请选择...</option>');
+						  }
+					});
+				$("#area_id").html(area_str);
+				$("#business_id").html('<option value="0">请选择...</option>');
+			} else {
+				$("#area_id").html('<option value="0">请选择...</option>');
+				$("#business_id").html('<option value="0">请选择...</option>');
+			}
+		});
+		if(city_id > 0){
+			var area_str = ' <option value="0">请选择...</option>';
+			$.ajax({
+			  type: 'POST',
+			  url: "{:url('app/datas/twoarea')}",
+			  data:{cid:city_id},
+			  dataType: 'json',
+			  success: function(result){
+				 for(a in result){
+					if(area_id == result[a].area_id){
+						area_str += '<option selected="selected" value="' + result[a].area_id + '">' + result[a].area_name + '</option>';
+					}else{
+						area_str += '<option value="' + result[a].area_id + '">' + result[a].area_name + '</option>';
+					}
+				  }
+				 $("#area_id").html(area_str);
+				}
+			});
+		}
+		$("#area_id").change(function(){
+			if($("#area_id").val() > 0){
+				area_id = $("#area_id").val();
+					$.ajax({
+						  type: 'POST',
+						  url: "{:url('app/datas/tbusiness')}",
+						  data:{bid:area_id},
+						  dataType: 'json',
+						  success: function(result){
+							 var business_str = ' <option value="0">请选择...</option>';
+							 for(a in result){
+								business_str += '<option value="' + result[a].business_id + '">' + result[a].business_name + '</option>';
+							 }
+							$("#business_id").html(business_str);
+						 }
+					   });
+			}else{
+				$("#business_id").html('<option value="0">请选择...</option>');
+			}
+		});
+		if(area_id > 0){                                    
+		   $.ajax({
+			  type: 'POST',
+			  url: "{:url('app/datas/tbusiness')}",
+			  data:{bid:area_id},
+			  dataType: 'json',
+			  success: function(result){
+				var business_str = ' <option value="0">请选择...</option>';
+				for(a in result){
+						if(business_id == result[a].business_id){
+							business_str += '<option selected="selected" value="' + result[a].business_id + '">' + result[a].business_name + '</option>';
+						}else{
+						  business_str += '<option value="' + result[a].business_id + '">' + result[a].business_name + '</option>';
+						}
+				}
+				 $("#business_id").html(business_str);
+			  }
+		   });
+		}
+		$("#business_id").change(function(){
+			business_id = $(this).val();
+		});
+	});
+	
+	
+	
+	$(document).ready(function(e){
+		
+		var city_id =$('#city_id').val();
+		var type =$('#type').val();
+		_getRoleIdHtml(type,city_id);
+		
+
+		
+		$("#type").change(function(){
+			var type = $(this).val();
+			if(type == '2'){
+				$('.city').css('display','block'); 
+			}else{
+				$('.city').css('display','none'); 
+			}
+			var city_id = $('#city_id').val();
+			_getRoleIdHtml(type,city_id);
+		});
+	});		
+	
+	//获取表单
+	function _getRoleIdHtml(type,city_id){
+		
+		if(type == '2'){
+			$('.city').css('display','block'); 
+		}
+			
+		var admin_id ="{$detail.admin_id}";
+		var url = '/admin/admin/getRoles/admin_id/'+admin_id+'/type/'+type+'/city_id/'+city_id;
+		$.get(url,function (data){
+			$("#role_id").html(data);
+		}, 'html');
+	}
+	
+	
+</script>
+
+
+{include  file='public:footer'/} 

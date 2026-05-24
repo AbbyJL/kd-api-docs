@@ -1,0 +1,110 @@
+.nav{border:1px solid #e9e9e9;padding:18px 20px 7px;background:#fff;zoom:1;font-size:14px;font-family:microsoft yahei}
+.nav .type{padding-left:54px;position:relative;zoom:1}
+.nav .type .name{position:absolute;left:0;top:2px;color:#999}
+.nav .type .choice-wrap{line-height:20px}
+.nav .type .choice-wrap a{color:#333;display:inline-block;text-decoration:none;padding:0 5px;-webkit-border-radius:2px;border-radius:2px;position:relative;margin-right:20px;margin-bottom:18px;cursor:pointer;line-height:24px}
+.nav .type .choice-wrap a.cur{background-color:#c3522f;color:#fff}
+.nav .type .gray{background:#fafafa;margin-top:-5px;margin-left:-30px;border:1px solid #eee;padding:10px 15px 0 30px;margin-bottom:10px}
+.nav .type .gray a{margin-bottom:0px}
+.nav .type .gray .nav-2nd{padding-bottom:10px}
+
+.arrow{display:inline-block;width:12px;height:6px;background-position:-10px 0;position:absolute;left:12px;bottom:-14px}
+/*dzapp_page*/
+.dzapp_page>.pg a:hover, .dzapp_page>.pgb a:hover {border: 1px solid #c3522f;color: #c3522f;}
+.dzapp_page>.pg strong {border-color: #c3522f;background-color: #c3522f;color: #FFF;}
+.slidebox, .block-name{ display: block;}
+/*zhe_view*/
+.zhe_view{ width: 100%; margin-top: 20px;}
+.zhe_view>.zhe_viewLeft{ width: 880px; float: left;}
+.zhe_view>.zhe_viewRight{ width: 300px; float: right;}
+
+/*dzapp_view_info*/
+.zhe_viewAll{position: relative; border: 1px solid #f1f1f1; padding: 10px;box-sizing: content-box;}
+.address-comment>div{ display: block;}
+.dzapp_view_info .logo{ width: 560px;}
+.dzapp_view_info .logo img {width: 370px;margin:10px auto auto; display: block;}
+.dzapp_view_info_tit{ width: 560px;border-left: 1px solid #f1f1f1; margin-left: 20px;padding-left: 30px; padding-bottom: 20px; box-sizing: content-box;}
+.viewRight-moBtn{ position: relative; width: 160px; height: 40px; line-height: 40px; border: 1px solid #eaeaea; box-sizing: content-box; background: #fff;border-radius: 4px; cursor: pointer;}
+.viewRight-moBtn canvas{ display: none}
+.viewRight-moBtn i.iconfont.z {font-size: 30px;color: #74775A;margin-left: 10px;}
+.viewRight-moBtn>em{ font-size: 22px; margin-top: 2px;}
+.viewRight-moBtn:hover canvas{ width:260px; height:260px; position: absolute; left:0; top: 42px; z-index: 51;display: block; box-shadow: 0 0 8px 1px #f1f1f1;}
+
+.dzapp_view_info_tit>h2{ line-height: 30px; max-height: 60px; margin-bottom: 10px;}
+.dzapp_view_info_tit>h2>em{ font-size: 14px; color: #333;}
+.dzapp_view_info_tit>h2>em>i{ font-size: 20px; color: #dd2727;}
+.dzapp_zhe_shop li>img{ width: 60px; height: 60px;}
+.dzapp_zhe_shop li>div{ width: 370px; line-height: 20px; margin-left: 10px;}
+.dzapp_zhe_shop li>p {font-size: 14px;color: #999;line-height: 26px;}
+.dzapp_btn_info>a{ display: block; width: 160px; height: 40px; line-height: 40px; text-align: center; color: #fff; background: #FF9420; border-radius: 4px; font-size: 16px;}
+.dzapp_parameter .d_week>span{ display: block; border-bottom: 1px dashed #f1f1f1; line-height: 44px;}
+.dzapp_parameter .d_week>span>em{ display: inline-block; line-height: 24px; background: #54B8E8; padding: 0 10px; border-radius: 2px; margin: 0 5px; color: #fff;}
+.dzapp_parameter>ul>li{ width:100%; float: left; line-height: 30px;}
+.address-tab>div{ background: #c3522f !important; color: #fff;}
+.credit{font-size: 26px;}
+.credit-price .f_18{ color: #dd2727;}
+.slidebar{position: absolute; left: 48% !important; bottom: 50px!important;top: inherit!important;}
+.slidebar li{ background: #fff; color: #fff; border-radius: 50%; width: 10px; height: 10px; margin: 0 3px;}
+.slidebar li.on{ color: #FF9420; background: #FF9420; border-radius: 50%;}
+/*zhe_tab*/
+.zhe_tab{border-bottom: 2px solid #c3522f;line-height: 44px;height: 44px;border-left: 0;}
+.zhe_tab>a{ cursor: pointer; padding: 0 30px; font-size: 16px; float: left;}
+.zhe_tab>a.a,.zhe_tab>a:hover{ background: #c3522f; color: #fff}
+.zhe_comment{ border: 1px solid #eaeaea;}
+.zhe_comment>div{ margin: 10px; line-height: 30px;font-size: 14px;color: #999}
+.zhe_comment>div>h2{ line-height: 34px; background: #f1f1f1; text-indent: 10px; color: #666; font-size: 14px; margin-bottom: 10px;}
+.zhe_comment img{ max-width: 100%; margin: 0 auto; text-align: center; display: block;}
+.viewLeft-show{ width: 418px; height: 520px;}
+
+
+/*zhe_viewRight*/
+.sd .my_5zhe{position:relative;margin-bottom:10px}
+.sd .my_5zhe a{position:absolute;bottom:15px;right:40px;border:1px solid #FFFFFF;color:#FFFFFF;font-size:14px;padding:3px 12px;border-radius:3px}
+.sd .my_5zhe a:hover{background:#fff;color:#f50}
+.sd .my_5zhe i{position:absolute;bottom:55px;right:10px;padding:0 8px;background:#c3522f;-moz-border-radius:1em;-webkit-border-radius:1em;border-radius:1em;font-size:.8rem;font-style:normal;color:#e24a3e}
+.sd .my_5zhe i:before{content:"";position:absolute;left:10px;bottom:-6px;width:0;height:0;border-right:8px solid transparent;border-top:6px solid #c3522f}
+.sd .my_5zhe .card_info {position:absolute;bottom: 0;right: 10px;width: 160px;padding: 10px 0;color: #FFFFFF;border-width: 1px 0 0 0;}
+.sd .my_5zhe .card_info p b {font-weight: 300;font-size: 16px;font-family: cursive;text-shadow: #9C5100 1px 0px 1px;}
+.hot_shop{border:1px solid #F1F1F1}
+.hot_shop h2{background:#FAFAFA;font-size:16px;line-height:40px;border-bottom:1px solid #F1F1F1;padding-left:10px;font-weight:300}
+.hot_shop .hot_list li{margin:0 10px;border-bottom:1px dashed #F1F1F1;padding:10px 0}
+.hot_shop .hot_list li:last-child {border: 0}
+.hot_shop .hot_list li a {display: block}
+.hot_shop .hot_list li img{float:left}
+.hot_shop .hot_list li .shop_info{margin-left:80px}
+.hot_shop .hot_list li .shop_info h3{font-size:14px;font-weight:300;color:#000}
+.hot_shop .hot_list li .shop_info p{color:#999999}
+
+/*zhe_viewRight*/
+
+.zhe_return{ width: 100%; text-align: center; min-height: 500px;}
+.zhe_return>div>img{ height: 120px;}
+.zhe_return_info h2{line-height: 40px; font-size: 18px; margin-top: 10px;}
+.zhe_return_info>div>p{ line-height: 40px;  font-size: 16px; color: #333;}
+.zhe_return_info>a{width: 120px; height: 36px; line-height: 36px;display:block; margin: auto; background: #dd2727; color: #fff; border-radius: 6px; font-size: 16px; margin-top: 20px;}
+
+
+.shopListUL {margin-left: -10px}
+.shopListUL>li{ width:222px; padding: 5px; margin-left: 10px; height: 318px;box-sizing: content-box; margin-bottom: 10px; float: left; overflow: hidden;background: #fafafa; }
+.shopListUL>li>div{width:220px; height: 316px;border: 1px solid #f1f1f1; box-sizing: content-box; background: #fff;position: relative;overflow: hidden;}
+.shopListUL>li>div>.vip {position: absolute;padding: 0 6px;text-align: center;background: #c3522f;color: #FFF;font-size: 12px;opacity: .85;filter:Alpha(Opacity=85);height: 24px;line-height: 24px;top: 10px;right: 10px;border-radius: 3px; z-index: 99;}
+.shopListUL>li>div>.week-date{position: absolute; left:10px; top: 5px; background: #c3522f; color: #fff;line-height: 24px; z-index: 99;}
+.shopListUL>li>div>.week-date em{ display:block; min-width: 60px; text-align: center; padding: 0 10px; }
+.shopListUL>li>div>.week-date em:last-child{ background: #fff; color: #333;}
+.shopListUL .shopList-img{ width: 210px; height: 210px;margin:5px 0 0 5px; overflow: hidden;}
+.shopListUL .shopList-img img{ width: 210px; height:210px; float: left;}
+.shopList-money,.shopList-other,.shopListUL h5{ width: 200px; margin-left:10px;}
+.shopList-money{ line-height: 30px; overflow: hidden;}
+.shopList-money i{ color: #dd2727; font-size: 14px; font-weight: bold;}
+.shopList-money em{ font-weight: bold;}
+.shopList-money em,.shopList-money span{ float: left; color: #c3522f;}
+.shopList-money span{ border: 1px dotted #c3522f; line-height: 18px; margin-top: 6px; padding: 0 5px;}
+.shopList-money s{ float: right; color: #b6b6b6; line-height: 32px; text-align: right; width: 60px; overflow: hidden; white-space: nowrap;}
+.shopListUL h5{line-height: 30px;height: 30px; border-bottom: 1px dashed #eaeaea; overflow: hidden;}
+.shopList-other{line-height: 22px;overflow:visible;}
+.shopList-other i{ background: #c3522f; color: #fff; padding: 0 10px; line-height: 22px; float: left;}
+.shopList-other em{ color: #c3522f;}
+.shopList-other>img{ width: 30px; height:30px; margin-top: 7px; border-radius: 50%;}
+.sort_price>span i.a{ color: #c3522f;}
+.sort_price{ padding: 0 !important;}
+.dzapp_shop_view{width: 150px; margin-left: 10px;}

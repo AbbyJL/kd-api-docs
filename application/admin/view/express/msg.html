@@ -1,0 +1,77 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">快递管理</li>
+        <li class="li2 li3">反馈管理</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span> 新功能</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                {:BA('express/index','','快递订单管理')}
+            </div>
+            <div class="right">
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                        <td>ID</td>  
+                        <td>订单类型</td>
+                        <td>订单号</td>
+                        <td>姓名</td>
+                        <td>电话</td>
+                        <td>类型</td>
+                        <td>内容</td>
+                        <td>联系方式</td>
+                        <td>图片</td>
+                        <td>时间</td>
+                        <td>操作</td>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}" /></td>
+                            <td>{$var.id}</td>
+                            <td>
+                                {if condition="$var['type'] eq 1"}
+                                   会员中心反馈
+                                {/if}
+                                {if condition="$var['type'] eq 2"}
+                                    订单列表反馈
+                                {/if}
+                            </td>
+                            <td>{$var.logisticID}</td>
+                            <td>{$var.username}</td>
+                            <td>{$var.phone}</td>
+                            <td>{$var.types}</td>
+                            <td>{$var.content}</td>
+                            <td>{$var.contact}</td>
+                            <td>
+                             {foreach name="var.img" item="v"}
+                                <img src="{:config_img($v)}" class="w80">
+                             {/foreach}
+                            </td>
+                           <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                        <td>
+                            {:BA('express/msg_delete',array("id"=>$var["id"]),'删除','act','admin-btn-default')}
+                        </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                    {:BA('express/msg_delete','','批量删除','list',' a2')}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/} 

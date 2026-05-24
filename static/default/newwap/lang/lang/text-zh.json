@@ -1,0 +1,22 @@
+﻿{
+  "Gene": {
+    "Gene": "基因",
+    "Synonyms": "别名",
+    "Description": "描述",
+    "GeneID": "基因ID",
+    "Chromosome": "染色体",
+    "MapLocation": "Map位置",
+    "CanonicalTranscript": "转入本号"
+  },
+  "TabPage": {
+    "GeneVariants_tab": "基因变异",
+    "MolecularProfiles_tab": "分子图谱",
+    "AssociatedEvidence_tab": "基因证据"
+  },
+  "acc": {
+    "HelpCenter": "帮助中心",
+    "BusinessCenter": "商家中心",
+    "Exit": "[退出]",
+    "BusinessSupport": "商家支持"
+  }
+}

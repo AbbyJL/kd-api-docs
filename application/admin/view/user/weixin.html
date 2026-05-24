@@ -1,0 +1,65 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">微信绑定信息</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('user/weixin')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <label>
+                            <span>UID</span>
+                            <input type="text" name="uid" value="{$uid}" class="admin-input-text"/>
+                        </label>
+                        <label>
+                            <span>账户</span>
+                            <input type="text" name="account" value="{$account}" class="admin-input-text"/>
+                            <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                        </label>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="user_id"/></td>
+                    <td class="w50">ID</td>
+                    <td>账户(UID)</td>
+                    <td>姓名</td>
+                    <td>删除绑定信息</td>
+                </tr>
+                {foreach name="connects" item="var"}
+                    <tr>
+                        <td><input class="child_user_id" type="checkbox" name="connect_id[]" value="{$var.connect_id}"/></td>
+                        <td>{$var.connect_id}</td>
+                        <td>{$var[user].account}({$var[user].user_id})</td>
+                        <td>{$var[user].nickname}</td>
+	                    <td>
+	                        {:BA('user/weixin_delete',array("connect_id"=>$var["connect_id"]),'删除','act','admin-btn-default')}
+	                    </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+                {:BA('user/weixin_delete','','批量删除','list',' a2')}
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'/} 
+
+

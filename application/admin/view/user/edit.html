@@ -1,0 +1,215 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">编辑会员</li>
+    </ul>
+</div>
+
+<style>
+input[readonly]{background-color:#EEEEEE;}
+</style>
+<p class="admin-attention"><span>说明：</span> 编辑会员，编辑的时候请不要修改推荐人ID</p>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form target="x-frame" action="{:url('user/edit',array('user_id'=>$detail['user_id'],'p'=>$p))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    
+                    
+                    	<tr>
+                            <td class="admin-table-left">上级推荐人：</td>
+                            <td class="admin-table-right">
+                                <div class="lt">
+                                    <input type="hidden" id="user_id" name="data[parent_id]" value="{$detail.parent_id|default=''}"/>
+                                    <input class="admin-sc-add-text-name w210 sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                                </div>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择用户</a>
+                            </td>
+                        </tr>  
+                        
+                        <tr>
+                            <td class="admin-table-left">账户：</td>
+                            <td class="admin-table-right"><input type="text" name="data[account]" value="{$detail.account|default=''}" readonly = "readonly" class="admin-sc-add-text-name w200" />
+                                <code>账号只允许手机或邮件</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">密码：</td>
+                            <td class="admin-table-right"><input type="password" name="data[password]" value="******" class="admin-sc-add-text-name w200" />
+                            <code>建议6位以上的密码</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">支付密码：</td>
+                            <td class="admin-table-right"><input type="password" name="data[pay_password]" value="******" class="admin-sc-add-text-name w200" />
+                            <code>当用户忘记支付密码后管理员可在后台重新修改支付密码，会员可在用户中心设置里面重置</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">姓名：</td>
+                            <td class="admin-table-right"><input type="text" name="data[nickname]" value="{$detail.nickname|default=''}" class="admin-sc-add-text-name w200"/>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="admin-table-left">地区：</td>
+                            <td class="admin-table-right">
+                                <span class="x3">
+                                        <select name="data[province]" id="province" class="admin-sele-Fl w210" onchange="getCity();">
+                                            <option value="0">选择省</option>
+                                          {foreach name="provinceList" item="var"}
+                                            <option value="{$var.id}"{if condition="$detail.province eq $var['id']"}selected{/if}>{$var.name}</option>
+                                            {/foreach}
+                                        </select>
+                                    </label>
+                                </span>
+                                <span class="x3">
+                                    <select  name="data[city]" id="city"  class="admin-sele-Fl w210"onchange="javascript:getArea();">
+                                        <option value="0">选择城市</option>
+                                        {foreach name="cityList" item="var"}
+                                        <option value="{$var.city_id}"{if condition="$detail.city eq $var['city_id']"}selected{/if}>{$var.name}</option>
+                                        {/foreach}
+                                    </select>
+                                    </label>
+                                  </span>
+                                  <span class="x3">
+                                   <select name="data[area]" id="area" class="admin-sele-Fl w210">
+                                        <option value="0">选择区/县</option>
+                                         {foreach name="areaList" item="var"}
+                                        <option value="{$var.area_id}"{if condition="$detail.area eq $var['area_id']"}selected{/if}>{$var.area_name}</option>
+                                        {/foreach}
+                                    </select>
+                                    </span>
+                                </span>  
+							<code>用户地区修改</code>
+                            </td>
+                        </tr>
+                        
+                        
+                       <tr>
+                            <td class="admin-table-left">分成比例：</td>
+                            <td class="admin-table-right"><input type="text" name="data[stock]" value="{:round($detail['stock']/100,2)}" class="admin-manage-input  w80"/>%
+                            <code>分成比例</code>
+                            </td>
+                        </tr>
+                        
+
+
+						{if condition="$detail['user_id'] gt 1"}
+                              <tr>
+                                <td class="admin-table-left">用户手机号：</td>
+                                <td class="admin-table-right"><input type="text" name="data[mobile]" value="{$detail.mobile|default=''}" class="admin-sc-add-text-name w200"/>
+                                <code>除非特殊情况，一般不要去修改</code>
+                                </td>
+                            </tr>
+                        {else/}
+                            <tr>
+                                <td class="admin-table-left">用户手机号：</td>
+                                <td class="admin-table-right"><input type="text" name="data[mobile]" value="" class="admin-sc-add-text-name w200"/>
+                                <code>除非特殊情况，一般不要去修改</code>
+                                </td>
+                            </tr>
+                        {/if}
+                        
+                       
+
+                        <tr>
+                            <td class="admin-table-left">用户等级：</td>
+                            <td class="admin-table-right">
+                                <select name="data[rank_id]" class="admin-sele-Fl w200">
+                                <option value="0">请选择等级</option>
+                                    {foreach name="ranks" item="item"}           
+                                        <option {eq name="item.rank_id" value="$detail.rank_id"}selected="selected"{/eq}  value="{$item.rank_id}">{$item.rank_name}</option>
+                                    {/foreach}
+                                </select>
+                            </td>
+                        </tr>
+                        
+                      
+                       <tr>
+                            <td class="admin-table-left">头像：</td>
+                         <td class="admin-table-right">
+                            <div class="admin-table-right-div">
+                                <input type="hidden" name="data[face]" value="{$detail.face}" id="data_face" />
+                                <div id="fileToUpload" >上传头像</div>
+                            </div>
+                            <div class="admin-table-right-div">
+                                <img id="face_img" class="admin-table-right-img"  src="{:config_img($detail['face'])}" />
+                            </div>
+                            <script>                                            
+                            var uploader = WebUploader.create({                             
+                                auto: true,                             
+                                swf: '/static/default/webuploader/Uploader.swf',                             
+                                server: '{:url("app/upload/uploadify",array("model"=>""))}',                             
+                                pick: '#fileToUpload',                             
+                                resize: true,  
+                            });                                                 
+                            uploader.on('uploadSuccess',function(file,resporse){                            
+                                $("#data_face").val(resporse.url);                             
+                                $("#face_img").attr('src',resporse.url).show();                         
+                            });                                                
+                            uploader.on('uploadError',function(file){                             
+                                layer.msg('上传出错', {icon: 5});                         
+                            });                     
+                            </script>
+                        </td>
+                    </tr>
+
+                        <tr>
+                            <td class="admin-table-left">是否开启退货上传：</td>
+                            <td class="admin-table-right">
+                                <label><input type="radio" name="data[is_tuihuo]" {eq name="detail.is_tuihuo" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                                <label><input type="radio" name="data[is_tuihuo]" {eq name="detail.is_tuihuo" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                                <code>是否开启退货上传功能</code>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确定编辑" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function getCity(){
+  var province = $("#province").val();
+  $.ajax({
+        type: "GET",
+        url: "{$CONFIG.site.host}/app/api/dailicity/province_id/"+province,
+        dataType : "json",
+        cache : false,
+        success: function(json){
+            var cityHtml = '<option value="0">选择城市</option>';
+            $.each(json,function(k,v){
+                cityHtml+= '<option value="'+v.city_id+'">'+v.name+'</option>';
+            })
+            $("#city").html(cityHtml);
+            $("#city").show();
+        }
+    });
+}   
+
+function getArea(){
+  var city = $("#city").val();
+  $.ajax({
+        type: "GET",
+        url: "{$CONFIG.site.host}/app/api/dailiarea/city_id/"+city,
+        dataType : "json",
+        cache : false,
+        success: function(json){
+            var areaHtml = '<option value="0">选择区/县</option>';
+            $.each(json,function(k,v){
+                areaHtml+= '<option value="'+v.area_id+'">'+v.area_name+'</option>';
+            })
+            $("#area").html(areaHtml);
+            $("#area").show();
+        }
+    });
+}
+</script>
+

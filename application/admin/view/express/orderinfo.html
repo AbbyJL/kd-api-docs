@@ -1,0 +1,49 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">航空订单</li>
+        <li class="li2 li3">航空订单详情</li>
+    </ul>
+</div>
+<p class="admin-attention"><span>说明：</span> 航空订单详情</p>
+
+{:BA('express/detail',array("id"=>$detail["id"]),'刷新','','admin-btn-default')}
+{:BA('express/index','','返回列表','','admin-btn-default')}
+
+
+<div class="admin-main-sc-add" style="margin-top:20px">
+    <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+            	<tr>
+                    <td class="admin-table-left">其他操作</td>
+                    <td class="admin-table-right">
+                       {include  file='express:operation'}
+                    </td>
+                </tr>
+                
+                {if condition="$var['deliveryId']"}
+                    <tr>
+                        <td class="admin-table-left">运单号deliveryId：</td>
+                        <td class="admin-table-right">{$var.deliveryId}</td>
+                    </tr>
+                {/if}
+                
+               
+                
+                {volist name="luggageOrder" id="vo"}
+                    <tr>
+                        <td class="admin-table-left">{$key}：</td>
+                        <td class="admin-table-right">{$vo}</td>
+                    </tr>
+                {/volist} 
+                
+                
+            </table>
+    </div>
+</div>
+
+
+{include file='public:footer'}
+

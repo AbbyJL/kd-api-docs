@@ -1,0 +1,45 @@
+{include  file='public:header'}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">优惠券</li>
+        <li class="li2">优惠券管理</li>
+        <li class="li2 li3">赠送优惠券</li>
+    </ul>
+</div>
+<p class="admin-attention"><span>说明：</span> 平台可对赠送优惠券给用户</p>
+
+<div class="listBox clfx" style="width:800px;">
+
+    <div class="menuManage">
+        <form target="x-frame" action="{:url('coupon/give',array('coupon_id'=>$detail['coupon_id']))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+
+                       
+                        
+                        <tr>
+                            <td class="admin-table-left">选择账户：</td>
+                            <td class="admin-table-right">
+                                <div class="lt">
+                                    <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}"/>
+                                    <input class="admin-sc-add-text-name w210 sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                                </div>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择用户</a>
+                            </td>
+                        </tr>
+                        
+
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确定赠送" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+{include  file='public:footer'} 

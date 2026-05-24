@@ -1,0 +1,51 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <div class="admin-main-sc-add">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="admin-table-left">订单ID：</td>
+                        <td class="admin-table-right">{$var.log_id}</td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-left">支付方式：</td>
+                        <td class="admin-table-right">
+                        	{eq name="var.code" value="weixin"}公众号支付{/eq}
+                            {eq name="var.code" value="weixinh5"}微信h5{/eq}
+                            {eq name="var.code" value="native"}微信扫码{/eq}
+                            {eq name="var.code" value="money"}余额支付{/eq}
+                            {eq name="var.code" value="alipay"}支付宝{/eq}
+                       </td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-left">支付类型：</td>
+                        <td class="admin-table-right">{$var.type}</td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-left">支付时间：</td>
+                        <td class="admin-table-right">{if condition="$var['pay_time']"}{$var.pay_time|date='Y-m-d H:i:s',###}{else/}未支付{/if}</td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-left">交易号：</td>
+                        <td class="admin-table-right">{$var.return_order_id}</td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-left">订单号：</td>
+                        <td class="admin-table-right">{$var.return_trade_no}</td>
+                    </tr>
+                    
+
+					{volist name="list" id="vo"}
+                        <tr>
+                            <td class="admin-table-left">{$key}：</td>
+                            <td class="admin-table-right">{$vo}</td>
+                        </tr>
+                    {/volist} 
+                    
+                    
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div>

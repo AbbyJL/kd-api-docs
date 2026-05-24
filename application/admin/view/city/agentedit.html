@@ -1,0 +1,63 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+     <li class="li1">设置</li>
+        <li class="li2">代理</li>
+        <li class="li2 li3">编辑代理</li>
+    </ul>
+</div>
+<form target="x-frame" action="{:url('city/agentEdit',array('id'=>$id,'city_id'=>$city_id,'area_id'=>$area_id,'type'=>$type))}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+               
+               
+                <tr>
+                    <td class="admin-table-left">城市ID：</td>
+                    <td class="admin-table-right">{$city_id}
+                    </td>
+                </tr>
+				<tr>
+                    <td class="admin-table-left">区县ID：</td>
+                    <td class="admin-table-right">{$area_id}
+                    </td>
+                </tr>
+				<tr>
+                    <td class="admin-table-left">类型：</td>
+                    <td class="admin-table-right">{$type}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">代理账户：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}" class="admin-manage-input"/>
+                            <input class="admin-sc-add-text-name sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                        </div>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择账户</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">分成比例：</td>
+                    <td class="admin-table-right"><input type="text" name="data[ratio]" value="{:round($detail['ratio']/100,2)}" class="admin-manage-input"/>%
+					<code>代理商分成比例</code>
+                    </td>
+                </tr>
+               <tr>
+                    <td class="admin-table-left">VIP分成比例：</td>
+                    <td class="admin-table-right"><input type="text" name="data[ratio_vip]" value="{:round($detail['ratio_vip']/100,2)}" class="admin-manage-input"/>%
+					<code>如果当前订单的推荐人是VIP情况下分成比例</code>
+                    </td>
+                </tr>
+                
+
+                
+                
+
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}
+

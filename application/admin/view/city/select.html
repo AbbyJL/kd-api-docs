@@ -1,0 +1,66 @@
+{include  file='public:header'/}
+<style>
+.admin-main-js .admin-js-nr table tr td {height:20px;padding-top:7px;line-height:20px;padding-bottom:7px;}
+</style>
+<div class="admin-main-js admin-main-sc">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('city/select',array('id'=>$id,'city_id'=>$city_id))}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    	<div class="admin-sele-k">
+                        <span>UID/账户/手机号</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/>
+                        <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                        </div>
+                    </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50">ID</td>
+                    <td>姓名</td>
+                    <td>手机</td>
+                    <td>地址</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr>
+                        <td><input type="radio" name="id"  rel="{$var.name}" value="{$var.id}" />{$var.id}</td>
+                        <td>{$var.name}</td>
+                        <td>{$var.mobile}</td>
+                        <td>{$var.addr}</td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+                <input style="border:1px solid #dbdbdb; width: 100px; height: 38px; line-height: 38px; text-align: center;" type="button" id="select_btn" class="admin-btn-default" value="确定选择" />
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+    $(document).ready(function (e) {
+        $("#select_btn").click(function () {
+            $("input[name='id']").each(function (a) {
+                if ($(this).prop("checked") == true) {
+                    parent.selectCallBack('delivery_id', 'nickname', $(this).val(), $(this).attr('rel'));
+                }
+            });
+        });
+
+    });
+</script>
+{include  file='public:footer'/}
+
+

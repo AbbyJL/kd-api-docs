@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{$CONFIG.site.sitename}管理后台</title>
+        <meta name="description" content="{$CONFIG.site.sitename}管理后台" />
+        <meta name="keywords" content="{$CONFIG.site.sitename}管理后台" />
+        
+        <link href="__PUBLIC__/admin/statics/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="__PUBLIC__/js/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+        <script src="__PUBLIC__/js/jquery.js"></script>
+        <script src="__PUBLIC__/js/layer/layer.js"></script>
+        <script src="__PUBLIC__/js/jquery-ui.min.js"></script>
+        <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+        <script src="__PUBLIC__/js/admin.js"></script>
+        
+        <link href="__PUBLIC__/js/chosen/chosen.min.css" rel="stylesheet" type="text/css" />
+        <script src="__PUBLIC__/js/chosen/chosen.jquery.min.js"></script>
+        
+        
+        <link rel="stylesheet" href="/static/default/wap/zoomify/zoomify.min.css">
+        <script src="/static/default/wap/zoomify/zoomify.min.js"></script>
+        
+        <script src="/static/default/wap/js/clipboard.min.js"></script>
+        
+        
+    </head>
+    <body>
+        <iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".admin-left-menu_a").click(function (){
+                    if($(this).hasClass("admin-left-currents")){
+                        $(this).removeClass("admin-left-currents");
+                    }else{
+                        $(this).addClass("admin-left-currents");
+                    }
+                    $(this).parent().find(".admin-left-nav-2").slideToggle();
+                });
+                $(".admin-left-nav-2 li").click(function (){
+                    $(".admin-left-nav-2 li a").removeClass('admin-left-cur');
+                    $(this).find('a').addClass('admin-left-cur');
+                });
+            });
+        </script> 
+        <div class="top">
+            <div class="left">
+                <div class="admin-top-bg">{if condition="$admin.type eq 2"}分站{/if}管理中心<a>源码版</a></div>
+            </div>
+            <div class="center">
+                
+                <div class="t2">
+                    <ul>
+                        {foreach name="menuList" item="var"}
+                            {if condition="($var.parent_id eq 0) and ($var.is_show eq 1) "}  
+                                <li><a href="javascript:void(0);" class="admin-jq-menu" rel="{$var.menu_id}" >{$var.menu_name}</a></li>
+                            {/if}
+                       {/foreach}
+                        <div class="clear"></div>
+                        <script>
+                            $(document).ready(function (e){
+                                $(".admin-jq-menu").click(function (){
+                                    var rel = $(this).attr('rel');
+                                    $(".admin-jq-menu").removeClass('cur');
+                                    $(this).addClass('cur');
+                                    $(".admin-left-menu_ul ul .admin-left-menu_li").each(function (a){
+                                        if($(this).attr('rel') == rel){
+                                            $(this).show();
+                                        }else{
+                                            $(this).hide();
+                                        }
+                                    });
+                                });
+                                $(".t2 li").eq(0).find('.admin-jq-menu').click();
+                            });
+                        </script>
+                    </ul>
+                </div>
+                
+                
+                <div class="t3">
+                    <ul>
+                    	 <li><a href="{:url('index/index')}" class="admin-jq-menu">后台首页</a></li>	
+                         <li><a href="{:url('login/logout')}" class="admin-jq-menu">退出</a></li>
+                         <li class=" admin-jq-menu2" ><a href="/" target="_blank" class="admin-jq-menu">网站首页</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="admin-bottom-box">
+            <div class="admin-left-menu">
+                <div class="admin-menu-clik">
+                
+                <div class="admin-side-user">
+                  <div class="info">
+                  
+                  
+                    <a>您好：{$admin.username}</a>
+                    {if condition="$admin.type eq 2"}
+                    	<a>管理城市【{$ADMINCITY.name}】</a>
+                    {/if}
+                    <a class="confirm-rst-btn" data-info="你确定要更新缓存吗？"  href="{:url('index/clear')}">更新缓存</a>
+                    <span>{$ROLE.role_name}</span>
+                   
+                  </div>
+                </div>              
+                </div>
+                <div class="admin-left-menu_ul">
+                    <ul>
+                        {foreach name="menuList" item="var"}
+                            {if condition="($var.parent_id eq 0) and ($var.is_show eq 1) "} 
+                                {foreach name="menuList" item="var2"}
+                                    {eq name="var2.parent_id" value="$var.menu_id"}
+                                        {if condition="$var2.is_show eq 1"}
+                                            <li rel="{$var.menu_id}" class="admin-left-menu_li"><a class="admin-left-menu_a" href="javascript:void(0);" >{$var2.menu_name}</a>
+                                                <div class="admin-left-nav-2">
+                                                    <ul>
+                                                        {foreach name="menuList" item="var3"}
+                                                            {eq name="var3.parent_id" value="$var2.menu_id"}
+                                                                {if condition="$var3.is_show eq 1"}   
+                                                                    <li><a href="{:url($var3['menu_action'])}" target="admin-main-iframe">{$var3.menu_name}</a></li>
+                                                                {/if}
+                                                            {/eq}
+                                                        {/foreach}   
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        {/if}     
+                                    {/eq}
+                                {/foreach}       
+                            {/if}
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+            <div class="admin-menu-right">
+                <iframe id="admin-main-iframe" name="admin-main-iframe" src="{:url('index/main')}" frameborder="0" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+        
+ 
+        
+{php}
+	$admin_notice_time = $CONFIG['config']['admin_notice_time']*1000;
+    if($admin_notice_time <= 1000){
+    	$admin_notice_time  = 5000;
+    }
+{/php} 
+
+
+
+<script src="/static/default/wap/js/jquery.timers-1.2.js"></script>      
+<script>
+$(document).ready(function(){
+    $('<audio id="btnMp3"><source src="/static/default/mp3/2.mp3" type="audio/mpeg"></audio>').appendTo('body');
+	
+	var admin_notice_show = "{$CONFIG['config']['admin_notice_show']}";
+	var admin_notice_show_play = "{$CONFIG['config']['admin_notice_show_play']}";
+	var admin_notice_time = "{$admin_notice_time}";
+	
+	
+	if(admin_notice_show == '1'){
+		function showReminds(){
+		   var admin_id = "1";
+		   $.post('{:url("app/api/adminNotice")}',{admin_id:admin_id},function(result){
+			  if(result.code == '1'){
+				showlayer(result.msg);
+				if(admin_notice_show_play == '1'){
+					$('#btnMp3')[0].play();
+				}
+			  }else{
+				 return false;
+			  }
+		  },'json');
+		}
+	}
+
+	$('body').everyTime('2das','B',function(){
+		showReminds()//执行函数
+	},50);
+	
+	//Show函数
+	function showlayer(msg){
+		layer.open({
+		  type: 1,time:admin_notice_time,offset:'rb',content: '<div style="padding: 20px 80px;">'+msg+'</div>',btn: '关闭',btnAlign: 'c' ,shade: 0 ,yes: function(){
+			layer.closeAll();
+		  }
+		});		  
+				  
+	}
+})
+
+
+</script>
+
+
+  
+{include  file='public:footer'/} 
+

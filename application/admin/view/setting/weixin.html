@@ -1,0 +1,87 @@
+{include  file='public:header'/}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">微信</li>
+        <li class="li2 li3">微信配置</li>
+    </ul>
+</div>
+
+<style>
+	.admin-table-left{width:180px !important;}
+	.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+</style>
+
+<div class="admin-main-cate">
+</div>       
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/weixin')}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="admin-table-left" width="160">特别说明：</td>
+                    <td class="admin-table-right">
+                        <a style="font-size:18px;color:#F00;font-weight:bold">默认这里无需配置，如果有开通微信开放平台+公众号的话</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" width="160" >服务器地址：</td>
+                    <td class="admin-table-right">
+                        <a style="font-size:18px;color:#00F;font-weight:bold">地址：{$CONFIG.site.host}/weixin</a>
+                        <br><code>1:先注册认证开放平台并绑定您的小程序跟当前公众号【认证需要给腾讯给300元】</code>
+                        <br><code>2:复制这里的连接{$CONFIG.site.host}/weixin，登录https://mp.weixin.qq.com》设置与开发》服务器配置》服务器地址(URL)</code>
+                        <br><code>3:启用服务器配置</code>
+                        {php}$ip = getServerIp();{/php}
+                        <br><code>4:设置IP白名单【添加授权IP：116.62.22.88】【添加授权IP：{$ip}】</code>
+                        <br><code>5:设置与开发》接口权限》网页授权（网页授权获取用户基本信息）[修改]设置【业务域名】【JS接口安全域名】【网页授权域名】分别都是：{$CONFIG.site.host}</code>
+                        <br><code>6:公众号模板息类目：IT科技/互联网|电子商务-IT科技/IT软件与服务</code>
+                        <br><code>7：后台微信》模板消息》订阅消息》一键导入全部公众号模板消息</code>
+                        <br><code>8：用户在小程序首页绑定公众号然后长按识别公众号二维码关注返回才能收到消息</code>
+                        <br><code>9：设置宝塔计划任务为3分钟一次访问URL{$CONFIG.site.host}/app/message/Send订阅号没推送成功的消息转为公众号推送</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" >TOKEN：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[token]" value="{$CONFIG.weixin.token|default=''}" class="admin-sc-add-text-name  w360">
+                        <code>32位的MD5值最适合！但是一般不限制！可以随意填写！登录https://mp.weixin.qq.com》设置与开发》服务器配置》令牌(Token)</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" >APPID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[appid]" value="{$CONFIG.weixin.appid}" class="admin-sc-add-text-name">
+                        <code>登录https://mp.weixin.qq.com》设置与开发》服务器配置》开发者ID(AppID)</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left" >APPSECRET：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[appsecret]" value="{$CONFIG.weixin.appsecret}" class="admin-sc-add-text-name w360">
+                        <code>登录https://mp.weixin.qq.com》设置与开发》服务器配置》开发者密码(AppSecret)</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" >原始ID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[id]" value="{$CONFIG.weixin.id}" class="admin-sc-add-text-name ">
+                        <code>在您微信公众号那边可找到，这个可不填写</code>
+                    </td>
+                </tr>
+               
+                <tr class="jq_type_1">
+                    <td class="admin-table-left" >回复内容：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[description]" cols="50" rows="10">{$CONFIG.weixin.description}</textarea>
+                        <code>文字不要太多，不建议超过80字</code>
+                    </td>
+                </tr>
+              
+                </td>
+            </table>
+            <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/}      

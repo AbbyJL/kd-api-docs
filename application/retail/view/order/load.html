@@ -1,0 +1,43 @@
+{foreach name="list" item="var"}   
+<li class="line">
+      <dt><a class="x4">{$var.kuaidi}-{$var.id}</a><a class="x8 text-right">UID-{$var.user_id}</a></dt>
+      <dd class="zhong">
+         <div class="x12">
+             <p class="text-gray x6">运单号：{$var.deliveryId}</p>
+             <p class="text-gray x6">运支付金额：&yen;{:round($var['sumMoneyYuan']/100,2)}元</p>
+         </div>
+        
+         <div class="x12">
+             <p class="text-gray x6">差价金额：&yen;{:round($var['diffMoneyYuan']/100,2)}元</p>
+             <p class="text-gray x6">差价状态：{$getdiffStatus[$var['diffStatus']]}</p>
+         </div>
+         
+       	 {if condition="$var['user1']['nickname']"}
+             <div class="x12">
+                 <p class="text-gray x12">{$var['rank1']['rank_name']}-{$var['user1']['nickname']} -{$var['user2']['user_id']}</p>
+             </div>
+         {/if} 
+         {if condition="$var['user2']['nickname']"}
+             <div class="x12">
+                 <p class="text-gray x12">{$var['rank2']['rank_name']}-{$var['user2']['nickname']}-{$var['user2']['user_id']} </p>
+             </div>
+         {/if} 
+         {if condition="$var['user3']['nickname']"}
+             <div class="x12">
+                 <p class="text-gray x12">{$var['rank3']['rank_name']}-{$var['user3']['nickname']} -{$var['user2']['user_id']}</p>
+             </div>
+         {/if} 
+         
+      </dd>
+            
+      <dl>
+         <p class="text-right padding-top x12"> 
+         	 <a class="button button-small border-green">{$getorderRightsStatus[$var['orderRightsStatus']]}</a>
+         	 <a class="button button-small border-blue">{$getorderStatus[$var['orderStatus']]}</a>
+             <a href="{:url('order/detail',array('id'=>$var['id']))}" class="button button-small bg-dot">详情</a>
+          </p>
+      </dl>
+    </li>
+ 
+<div class="blank-10 bg"></div>
+{/foreach}   

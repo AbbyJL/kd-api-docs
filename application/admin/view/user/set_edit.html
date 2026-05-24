@@ -1,0 +1,93 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员代理</li>
+        <li class="li2 li3">代理信息</li>
+    </ul>
+</div>
+<div class="admin-main-sc-add ">
+    <div class="admin-table-box">
+        <form target="x-frame" action="{:url('user/set_edit',array('id'=>$detail['id']))}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+              
+                <tr>
+                    <td class="admin-table-left">会员账户：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}" class="admin-manage-input"/>
+                            <input class="admin-sc-add-text-name sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                        </div>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择账户</a>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="admin-table-left">图片</td>
+                    <td class="admin-table-right">
+                    {php}echo tpl_form_field_image('data[img]',$detail['img'],$detail['img'],'img','',$options = array());{/php}
+                    </td>
+               </tr>
+                
+                <tr>
+                    <td class="admin-table-left">姓名：</td>
+                    <td class="admin-table-right"><input type="text" name="data[name]" value="{$detail.name|default=''}" class="admin-manage-input w160">
+                    <code>姓名</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">电话：</td>
+                    <td class="admin-table-right"><input type="text" name="data[mobile]" value="{$detail.mobile|default=''}" class="admin-manage-input w160">
+                    <code>电话</code>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="admin-table-left">详细地址：</td>
+                    <td class="admin-table-right"><input type="text" name="data[addr]" value="{$detail.addr|default=''}" class="admin-manage-input">
+                    <code>详细地址</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="admin-table-left">微信：</td>
+                    <td class="admin-table-right"><input type="text" name="data[weixin]" value="{$detail.weixin|default=''}" class="admin-manage-input">
+                    <code>微信</code>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="admin-table-left">是否审核</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[status]" value="1" {if condition="$detail[status] eq 1"}checked="checked"{/if}/>未审核
+                    <input type="radio" name="data[status]" value="2" {if condition="$detail[status] eq 2"}checked="checked"{/if}/>已审核
+                    <code>是否审核</code>
+                    </td>
+               </tr>
+               
+               <tr>
+                    <td class="admin-table-left">备注：</td>
+                    <td class="admin-table-right">
+                        <script type="text/plain" id="data_info" name="data[info]" style="width:800px;height:360px;">{$detail.info}</script>
+                    </td>
+                </tr>
+                    {include  file='public:ueditorjs'} 
+                    
+                    <script>
+                        um = UE.getEditor('data_info',{
+                            lang: 'zh-cn',
+                              toolbars:[['fullscreen','source','undo','redo','bold','italic','underline','fontborder','backcolor','fontsize','fontfamily','justifyleft','justifyright','justifycenter','justifyjustify','strikethrough', 'superscript','subscript','removeformat','formatmatch','autotypeset', 'blockquote','pasteplain','|','forecolor','backcolor','insertorderedlist','insertunorderedlist','selectall','cleardoc','link','unlink','background','inserttable','emotion','insertimage']],  
+                    });
+                    </script>
+                
+            </table>
+            <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+        </form>
+    </div>
+</div>
+
+
+
+
+{include file="public:footer"}

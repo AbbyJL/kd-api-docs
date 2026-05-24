@@ -1,0 +1,132 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">微信管理</li>
+        <li class="li2">微信消息</li>
+        <li class="li2 li3">发送日志</li>
+    </ul>
+</div>
+
+<style>
+.tips{color: #fff; background: #1ca290; padding: 0px 5px; border-radius:0px; margin-left:0 5px; display: inline-block; float: right; height: 20px; line-height: 20px;}
+.admin-attention{line-height: inherit;height: auto;}
+.weixin{ background:#44b549!important;}
+.shang, .delivery, .weibo, .qq, .weixin{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+</style>
+
+<div class="admin-main-js admin-main-sc">
+	<p class="admin-attention"><span>注意：</span>
+    总条数{$count}全新的推送系统
+    弥补小程序订阅消息推送失败可启动宝塔计划任务【1分钟执行一次】: <b><a target="_blank" style="color:#F00" href="{$CONFIG.site.host}/app/message/Send">{$CONFIG.site.host}/app/message/Send</a></b>
+    </p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="border-top: none; margin-top: 0px;">
+        	<div class="left">
+                <a mini="act" href="{:url('weixinmsg/delete_drop')}">清空微信模板日志【谨慎操作】</a>  
+            </div>
+            
+            <div class="right">
+                <form method="post" action="{:url('weixinmsg/index')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                            </label>
+                            <label>
+                                 <span>推送类型：</span>
+                                 <select class="select w120" name="cate">
+                                  <option {eq name="cate" value="0"}selected="selected"{/eq}  value="0">请选择</option>
+                                  <option {eq name="cate" value="2"}selected="selected"{/eq}  value="1">小程序订阅消息</option>
+                                  <option {eq name="cate" value="3"}selected="selected"{/eq}  value="2">公众号模板消息</option>
+                                 </select>
+                            </label>
+                            <label>
+                                 <span>推送状态：</span>
+                                 <select class="select w120" name="is_send">
+                                  <option {eq name="is_send" value="999"}selected="selected"{/eq} value="999">请选择</option>
+                                  <option {eq name="is_send" value="0"}selected="selected"{/eq}  value="0">未推送</option>
+                                  <option {eq name="is_send" value="1"}selected="selected"{/eq}  value="1">已推送</option>
+                                 </select>
+                            </label>
+                            
+                            <label>
+                                <span>  ID：</span>   <input type="text" name="order_id" value="{$msg_id|default=''}" class="admin-input-text"/>
+                                <input type="submit" class="admin-input-button" value=" 搜索">
+                          </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="msg_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>类型</td>
+                        <td>UID</td>
+                        <td>原始订单ID</td>
+                        <td>模板标题</td>
+                        <td>返回码</td>
+                        <td>返回内容</td>
+                        <td>发送内容</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr {if condition="$var['cate'] eq 1"}style="background-color:#f5f5f5"{/if}>
+                        <td><input class="child_msg_id" type="checkbox" name="msg_id[]" value="{$var.msg_id}"/></td>
+                        <td>{$var.msg_id}</td>
+                        <td>
+                            {eq name="var.cate" value="1"}<span class="shang">小程序订阅消息</span>{/eq}
+                            {eq name="var.cate" value="2"}<span class="weixin">公众号模板消息</span>{/eq}
+                        </td>
+                        <td>{$var.user_id}</td>
+                        <td>{$var.order_id}</td>
+                        <td>{$var.serial.title}</td>
+                        <td>{$var.status}</td>
+                        <td>
+                            {php}
+                            	$info = @explode('rid',$var['info']);
+                            {/php}
+                            {$info[0]}
+                        </td>
+                        <td style="font-size:10px;height:20px;line-height:20px;">{$var.comment}</td>
+                        <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                        <td>
+                            {:BA('weixinmsg/delete',array("msg_id"=>$var["msg_id"]),'删除','act','admin-btn-small_quxiao')}
+                        </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                    {:BA('weixinmsg/delete','','批量删除','list',' a2')}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+  <script>
+       $(document).ready(function (e) {
+			$(".tips").click(function () {
+				var tipnr = $(this).attr('rel');
+				layer.tips(tipnr, $(this), {
+					tips: [4, '#1ca290'],
+					time: 4000
+				});
+			})
+		});
+    </script>
+{include  file='public:footer'/}      

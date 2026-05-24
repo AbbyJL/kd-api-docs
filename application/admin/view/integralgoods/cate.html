@@ -1,0 +1,62 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">{$CONFIG.integral.name}</li>
+        <li class="li2">{$CONFIG.integral.name}商城</li>
+        <li class="li2 li3">{$CONFIG.integral.name}商城分类</li>
+    </ul>
+</div>
+<div class="admin-main-cate">
+    <p class="admin-attention"><span>注意：</span>最新的{$CONFIG.integral.name}商城列表，建议只添加二级分类</p>
+    <div class="admin-js-nr">
+        <form id="cate_action" action="" target="x-frame" method="post">
+            <div class="admin-select-nr" style="border-top: 1px solid #dbdbdb;">
+                <div class="left">
+                    {:BA('Integralgoods/cate_edit','','添加分类','load','',600,350)}
+                </div>
+                <div class="right">
+                    {:BA('Integralgoods/cate_update','','更新','list','admin-btn-default')}
+                </div>
+            </div>
+            <div class="admin-table-box">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle; background-color:#FFF;text-align:center;">
+                    <tr bgcolor="#f3f3f3" height="48px;" style="color:#333; font-size:16px; line-height:48px;">
+                    	<td>分类ID</td>
+                        <td>分类名称</td>
+                        <td>排序</td>
+                        <td>图标</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        {if condition="($var.parent_id eq 0)"}  
+                            <tr style="height:48px">
+                            	<td>{$var.cate_id}</td>
+                                <td>{$var.cate_name}</td>
+                                <td><input name="orderby[{$var.cate_id}]" value="{$var.orderby}" type="text" class="admin-menber-input w80"/></td> 
+                                <td>
+                                    {if condition="!empty($var['photo'])"}  
+                                        <img style="padding:5px;width:48px;" src="{:config_img($var['photo'])}"/>
+                                    {else/}
+                                        无图标
+                                    {/if}
+                                </td>
+                                <td style="text-align: center;">
+                                    {:BA('Integralgoods/cate_edit',array("cate_id"=>$var["cate_id"]),'编辑','load','admin-btn-default',600,350)}
+                                    {:BA('Integralgoods/cate_delete',array("cate_id"=>$var["cate_id"]),'删除','act','admin-btn-default')}
+                                </td>
+                            </tr>
+                        {/if}
+                    {/foreach}        
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'}
+
+
+
+
+
+
+

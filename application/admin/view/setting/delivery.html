@@ -1,0 +1,198 @@
+{include  file='public:header'/}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">同城跑腿</li>
+        <li class="li2 li3">跑腿配置</li>
+    </ul>
+</div>
+
+
+<style>
+	.admin-table-left{width:180px !important;}
+	.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+</style>
+
+<div class="admin-main-cate">
+</div>
+
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/delivery')}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+
+
+
+                <tr>
+                    <td class="admin-table-right profit" colspan="2">云洋同城参数配置接口</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启云洋API：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[yy_open]" {eq name="CONFIG.delivery.yy_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                        <label><input type="radio" name="data[yy_open]" {eq name="CONFIG.delivery.yy_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                        <code>点击开启后才有效</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云洋同城API：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_url]" value="{$CONFIG['delivery']['yy_url']}" class="admin-sc-add-text-name w460"/>
+                        <code>正式环境：https://api.yunyangwl.com/api/wuliu/cityService</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云洋同城APPID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_appid]" value="{$CONFIG['delivery']['yy_appid']}" class="admin-sc-add-text-name  w360"/>
+                        <code>【{$CONFIG['wxapp']['yy_appid']}】云洋物流平台方提供的独立的APPID，作为唯一接入认证标识一般默认32位</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云洋同城密室：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_secretKey]" value="{$CONFIG['delivery']['yy_secretKey']}" class="admin-sc-add-text-name w360"/>
+                        <code>【{$CONFIG['wxapp']['yy_secretKey']}】每个APPID对应一个secretKey一般默认32位</code>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="admin-table-right profit" colspan="2">同城订单配置</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">最大下单距离：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[distance]" value="{$CONFIG['delivery']['distance']}" class="admin-sc-add-text-name w80">KM
+                        <code>最大下单距离KM</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">云洋同城加价百分比：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_tc_feilu]" value="{$CONFIG['delivery']['yy_tc_feilu']}" class="admin-sc-add-text-name w80">%
+                        <code>云洋同城加价百分比，比如云洋返回10元跑腿费，(10*20%)+10=12元</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-right profit" colspan="2"> 价格设置</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">取快递基础价格：</td>
+                    <td class="admin-table-right">
+                        <code>3KM多少钱</code>
+                        <input type="text" name="data[status_money_1]" value="{$CONFIG['delivery']['status_money_1']}" class="admin-sc-add-text-name w80">
+                        <code>超出1KM多少钱</code>
+                        <input type="text" name="data[status_money_kg_1]" value="{$CONFIG['delivery']['status_money_kg_1']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">帮我买基础价格：</td>
+                    <td class="admin-table-right">
+                        <code>3KM多少钱</code>
+                        <input type="text" name="data[status_money_2]" value="{$CONFIG['delivery']['status_money_2']}" class="admin-sc-add-text-name w80">
+                        <code>超出1KM多少钱</code>
+                        <input type="text" name="data[status_money_kg_2]" value="{$CONFIG['delivery']['status_money_kg_2']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">帮我取基础价格：</td>
+                    <td class="admin-table-right">
+                        <code>3KM多少钱</code>
+                        <input type="text" name="data[status_money_3]" value="{$CONFIG['delivery']['status_money_3']}" class="admin-sc-add-text-name w80">
+                        <code>超出1KM多少钱</code>
+                        <input type="text" name="data[status_money_kg_3]" value="{$CONFIG['delivery']['status_money_kg_3']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">帮我送基础价格：</td>
+                    <td class="admin-table-right">
+                        <code>3KM多少钱</code>
+                        <input type="text" name="data[status_money_4]" value="{$CONFIG['delivery']['status_money_4']}" class="admin-sc-add-text-name w80">
+                        <code>超出1KM多少钱</code>
+                        <input type="text" name="data[status_money_kg_4]" value="{$CONFIG['delivery']['status_money_kg_4']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">帮排队基础价格：</td>
+                    <td class="admin-table-right">
+                        <code>3KM多少钱</code>
+                        <input type="text" name="data[status_money_5]" value="{$CONFIG['delivery']['status_money_5']}" class="admin-sc-add-text-name w80">
+                        <code>超出1KM多少钱</code>
+                        <input type="text" name="data[status_money_kg_5]" value="{$CONFIG['delivery']['status_money_kg_5']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">万能帮手基础价格：</td>
+                    <td class="admin-table-right">
+                        <code>3KM多少钱</code>
+                        <input type="text" name="data[status_money_6]" value="{$CONFIG['delivery']['status_money_6']}" class="admin-sc-add-text-name w80">
+                        <code>超出1KM多少钱</code>
+                        <input type="text" name="data[status_money_kg_6]" value="{$CONFIG['delivery']['status_money_kg_6']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-right profit" colspan="2"> 重量价格设置</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">5KG以内加价：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[status_wight_1]" value="{$CONFIG['delivery']['status_wight_1']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">10KG以内加价：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[status_wight_2]" value="{$CONFIG['delivery']['status_wight_2']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">20KG以内加价：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[status_wight_3]" value="{$CONFIG['delivery']['status_wight_3']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">30KG以内加价：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[status_wight_4]" value="{$CONFIG['delivery']['status_wight_4']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">50KG以内加价：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[status_wight_5]" value="{$CONFIG['delivery']['status_wight_5']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">100KG以内加价：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[status_wight_6]" value="{$CONFIG['delivery']['status_wight_6']}" class="admin-sc-add-text-name w80">
+                    </td>
+                </tr>
+
+
+
+
+
+            </table>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+  </div>
+</div>
+
+
+{include  file='public:footer'/}
+
+

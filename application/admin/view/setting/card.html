@@ -1,0 +1,64 @@
+{include  file='public:header'/}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">常用设置</li>
+        <li class="li2 li3">卡密系统</li>
+    </ul>
+</div>
+
+
+<style>
+	.admin-table-left{width:180px !important;}
+	.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+	.api{text-align: center;color: #ffffff !important;;font-weight: bold;background: #495b6c !important;}
+</style>
+
+<div class="admin-main-cate">
+</div>
+
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/card')}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+
+            	<tr>
+                  <td class="admin-table-right profit" colspan="2">卡密系统参数配置</td>
+                </tr>
+				<tr>
+                     <td class="admin-table-left">卡密兑换菜单URL：</td>
+                     <td class="admin-table-right">
+                        <code>/subpages/pages/cashPrize2/cashPrize2可配置到导航海报广告</code>
+                      </td>
+                </tr>
+                <tr>
+                     <td class="admin-table-left">个人中心显示抵扣金：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[member_moneys_show]" {eq name="CONFIG.card.member_moneys_show" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                        <label><input type="radio" name="data[member_moneys_show]" {eq name="CONFIG.card.member_moneys_show" value="1"}checked="checked"{/eq} value="1"/>显示</label>
+                        <code>开启后用户个人中心显示抵扣金</code>
+                      </td>
+                </tr>
+                <tr>
+                     <td class="admin-table-left">下单时候开启卡密抵扣金兑换：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[order_duihuan_open]" {eq name="CONFIG.card.order_duihuan_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                        <label><input type="radio" name="data[order_duihuan_open]" {eq name="CONFIG.card.order_duihuan_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                        <code>下单时候开启卡密抵扣金兑换【开启后会出现抵扣金按钮并快递列表会展示抵扣金抵扣】</code>
+                      </td>
+                </tr>
+                
+
+            </table>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+  </div>
+</div>
+
+
+{include  file='public:footer'/}
+
+

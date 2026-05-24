@@ -1,0 +1,28 @@
+<div class="listBox clfx" style="width: 500px;">
+    <div class="menuManage">
+        <form  target="x-frame" action="{:url('admin/createip')}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+
+                        <tr>
+                            <td class="admin-table-left">禁止访问IP段：</td>
+                            <td class="admin-table-right">
+                            
+                                <input type="text" name="data[start]" value="{$detail.start|default=''}" class="scAddTextName w150" />
+                                <code>开始IP</code>
+                                <input type="text" name="data[end]" value="{$detail.end|default=''}" class="scAddTextName w150" />
+                                <code>结束IP</code>
+                                
+                                
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="添加" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+

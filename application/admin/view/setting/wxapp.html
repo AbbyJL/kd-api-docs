@@ -1,0 +1,819 @@
+{include  file='public:header'/}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">常用设置</li>
+        <li class="li2 li3">同城小程序</li>
+    </ul>
+</div>
+
+
+<style>
+	.admin-table-left{width:220px !important;}
+	.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+	.api{text-align: center;color: #ffffff !important;;font-weight: bold;background: #495b6c !important;}
+</style>
+
+<div class="admin-main-cate">
+</div>
+
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/wxapp')}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+
+            	<tr>
+                  <td class="admin-table-right profit" colspan="2">小程序参数配置</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">小程序appid：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[appid]" value="{$CONFIG['wxapp']['appid']}" class="admin-sc-add-text-name w360"/>
+                        <code>小程序appid不要有前后空格</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">小程序appsecret：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[appsecret]" value="{$CONFIG['wxapp']['appsecret']}" class="admin-sc-add-text-name w360"/>
+                        <code>小程序appsecret不要有前后空格</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-right profit" colspan="2">审核配置</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">版本选择很关键：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[model]" {eq name="CONFIG.wxapp.model" value="2"}checked="checked"{/eq} value="2"/>过审版</label>
+                        <label><input type="radio" name="data[model]" {eq name="CONFIG.wxapp.model" value="1"}checked="checked"{/eq} value="1"/>运营版本</label>
+                        <code>审核不过请选择过审核版</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">地址识别API接口</td>
+                </tr>
+                <tr>
+                     <td class="admin-table-left">版本选择很关键：</td>
+                     <td class="admin-table-right">
+                     	<label><input type="radio" name="data[addr_type]" {eq name="CONFIG.wxapp.addr_type" value="0"}checked="checked"{/eq} value="0"/>天行数据物流地址解析</label>
+                    	<label><input type="radio" name="data[addr_type]" {eq name="CONFIG.wxapp.addr_type" value="1"}checked="checked"{/eq} value="1"/>万维易源【阿里云】收费接口</label>
+                        <label><input type="radio" name="data[addr_type]" {eq name="CONFIG.wxapp.addr_type" value="2"}checked="checked"{/eq} value="2"/>百度云收费接口</label>
+                        <code>地址识别成功率百度云>阿里云>免费接口</code>
+                      </td>
+			    </tr>
+                <tr>
+                    <td class="admin-table-left">天行数据：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[addr_key]" value="{$CONFIG['wxapp']['addr_key']}" class="admin-sc-add-text-name w360">
+                        <code>【天行数据】物流地址解析需要购买VIP最低120一年，免费会员每天调用100次免费 接口网址：https://www.tianapi.com/apiview/175</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">万维易源AppCode：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[addr_app_code]" value="{$CONFIG['wxapp']['addr_app_code']}" class="admin-sc-add-text-name w360">
+                        <code>【收费接口】万维易源-快递地址解析接口 接口网址：https://market.aliyun.com/products/57126001/cmapi00047454.html</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">百度云APIKey：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[client_id]" value="{$CONFIG['wxapp']['client_id']}" class="admin-sc-add-text-name w360">
+                        <code>【收费接口】百度云自然语言处理接口APIKey 申请链接https://login.bce.baidu.com</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">百度云SecretKey：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[client_secret]" value="{$CONFIG['wxapp']['client_secret']}" class="admin-sc-add-text-name w360">
+                        <code>【收费接口】百度云自然语言处理接口SecretKey 申请链接https://login.bce.baidu.com</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">面单OCR识别</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">快递面单OCR识别：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[order_app_code]" value="{$CONFIG['wxapp']['order_app_code']}" class="admin-sc-add-text-name w360">
+                        <code>【收费接口】【聚美智数】快递面单OCR识别 接口网址：https://market.aliyun.com/apimarket/detail/cmapi00061108</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">快递面单OCR识别绑定UID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[order_app_code_uid]" value="{$CONFIG['wxapp']['order_app_code_uid']}" class="admin-sc-add-text-name w360">
+                        <code>【收费接口】【聚美智数】快递面单OCR识别绑定的UID非当前ID无法调用</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit api" colspan="2">众发物流接口参数配置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启众发物流API：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[zf_open]" {eq name="CONFIG.wxapp.zf_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[zf_open]" {eq name="CONFIG.wxapp.zf_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>点击开启后才有效</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_1">
+                    <td class="admin-table-left">是否可以选取件时间：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[zf_pickup_time]" {eq name="CONFIG.wxapp.zf_pickup_time" value="0"}checked="checked"{/eq} value="0"/>否</label>
+                    <label><input type="radio" name="data[zf_pickup_time]" {eq name="CONFIG.wxapp.zf_pickup_time|default='1'" value="1"}checked="checked"{/eq} value="1"/>是</label>
+                    <code>选「是」时小程序下单页显示「期望上门时间」并需用户选择；选「否」时隐藏该选项，下单由系统自动填充默认预约时段</code>
+                    </td>
+                </tr>
+				<tr class="jq_type_1">
+                    <td class="admin-table-left">众发物流API_URL：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[zf_url]" value="{$CONFIG['wxapp']['zf_url']}" class="admin-sc-add-text-name w460"/>
+                        <code>众发物流API_URL 例如：https://1d2hwcy1iy.apifox.cn</code>
+                    </td>
+                </tr>
+            	<tr class="jq_type_1">
+                    <td class="admin-table-left">众发物流AppKey：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[zf_appkey]" value="{$CONFIG['wxapp']['zf_appkey']}" class="admin-sc-add-text-name w150"/>
+                        <code>众发物流AppKey【接口提供方获取】</code>
+                    </td>
+                </tr>
+            	<tr class="jq_type_1">
+                    <td class="admin-table-left">众发物流AppSecret：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[zf_appsecret]" value="{$CONFIG['wxapp']['zf_appsecret']}" class="admin-sc-add-text-name w150"/>
+                        <code>众发物流AppSecret【接口提供方获取】</code>
+                    </td>
+                </tr>
+                  	<tr class="jq_type_1">
+                    <td class="admin-table-left">众发调试价格除数：</td>
+                    <td class="admin-table-right">
+                        <input type="number" min="1" name="data[zf_debug_price_divisor]" value="{$CONFIG.wxapp.zf_debug_price_divisor|default='1'}" class="admin-sc-add-text-name w150"/>
+                        <code>仅联调：填 <b>10000</b> 或 <b>100000</b> 缩小展示/支付价（7880分÷100000≈1分）；正式上线务必改回 <b>1</b>。或在服务器执行：<b>echo 100000 &gt; /tmp/zf_debug_price_divisor</b>（优先于后台配置）</code>
+                    </td>
+                </tr>
+            	<tr class="jq_type_1">
+                    <td class="admin-table-left">众发 Mock 固定价(分)：</td>
+                    <td class="admin-table-right">
+                        <input type="number" min="0" name="data[zf_mock_price_fen]" value="{$CONFIG.wxapp.zf_mock_price_fen|default='0'}" class="admin-sc-add-text-name w150"/>
+                        <code>仅联调：填 <b>100</b>=固定展示 1 元；填 <b>0</b> 则使用「调试除数」处理后的 API 价。询价列表 sumMoneyYuan/yuanMoney 以此为准</code>
+                    </td>
+                </tr>
+            	<tr class="jq_type_1">
+                    <td class="admin-table-left">众发回调地址：</td>
+                    <td class="admin-table-right">
+                        <code>{$CONFIG.site.host}{:url('app/api/push8')}</code>
+                        <code>提供给众发平台配置的统一 Webhook 回调地址，需公网 HTTPS 可访问；接收成功后返回 HTTP 200</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit api" colspan="2">云洋参数配置接口</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启云洋API：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[yy_open]" {eq name="CONFIG.wxapp.yy_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[yy_open]" {eq name="CONFIG.wxapp.yy_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>点击开启后才有效</code>
+                    </td>
+                </tr>
+              
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云洋物流url：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_url]" value="{$CONFIG['wxapp']['yy_url']}" class="admin-sc-add-text-name w460"/>
+                        <code>正式环境：https://api.yunyangwl.com/api/wuliu/openService 测试环境：https://api.yunyangwl.com/api/sandbox/openService</code>
+                    </td>
+                </tr>
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云洋物流APPID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_appid]" value="{$CONFIG['wxapp']['yy_appid']}" class="admin-sc-add-text-name  w460"/>
+                        <code>云洋物流平台方提供的独立的APPID，作为唯一接入认证标识一般默认32位</code>
+                    </td>
+                </tr>
+                
+            	 <tr class="jq_type_2">
+                    <td class="admin-table-left">云洋密室：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_secretKey]" value="{$CONFIG['wxapp']['yy_secretKey']}" class="admin-sc-add-text-name  w460"/>
+                        <code>【对应是运云洋的密室】每个APPID对应一个secretKey一般默认32位</code>
+                    </td>
+                </tr>
+                
+                
+                
+                <tr>
+                  <td class="admin-table-right profit api" colspan="2">京东接口参数配置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启京东API：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[jd_open]" {eq name="CONFIG.wxapp.jd_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[jd_open]" {eq name="CONFIG.wxapp.jd_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>点击开启后才有效</code>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="admin-table-left">开发环境：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[jd_type]" {eq name="CONFIG.wxapp.jd_type" value="0"}checked="checked"{/eq} value="0"/>生产环境</label>
+                    <label><input type="radio" name="data[jd_type]" {eq name="CONFIG.wxapp.jd_type" value="1"}checked="checked"{/eq} value="1"/>预发环境</label>
+                    <label><input type="radio" name="data[jd_type]" {eq name="CONFIG.wxapp.jd_type" value="2"}checked="checked"{/eq} value="2"/>业务联调</label>
+                    <code>需要测试的朋友可开启预发环境</code>
+                    </td>
+                </tr>
+            	<tr class="jq_type_1">
+                    <td class="admin-table-left">京东AppKey：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[jd_AppKey]" value="{$CONFIG['wxapp']['jd_AppKey']}" class="admin-sc-add-text-name w360"/>
+                        <code>京东物流开放平台>商家自研应用>获取</code>
+                    </td>
+                </tr>
+            	<tr class="jq_type_1">
+                    <td class="admin-table-left">京东AppSecret：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[jd_AppSecret]" value="{$CONFIG['wxapp']['jd_AppSecret']}" class="admin-sc-add-text-name w360"/>
+                        <code>京东物流开放平台>商家自研应用>获取</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_1">
+                    <td class="admin-table-left">京东月结编码：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[jd_customerCode]" value="{$CONFIG['wxapp']['jd_customerCode']}" class="admin-sc-add-text-name w260"/>
+                        <code>京东月结编码</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_1">
+                    <td class="admin-table-left">生产环境京东KOKEN：</td>
+                    <td class="admin-table-right">
+                    	<code>生产环境TOKEN过期时间：{$data0['accessExpire']}</code><BR>
+                        <code>生产环境TOKEN：{$data0['accessToken']}</code><BR>
+                        <code>生产环境clientId：{$data0['clientId']}</code><BR>
+                        <code>生产环境code：{$data0['code']}</code><BR>
+                        <code>生产环境refreshExpire：{$data0['refreshExpire']}</code><BR>
+                        <code>生产环境refreshToken：{$data0['refreshToken']}</code><BR>
+                        <code>生产环境sellerId：{$data0['sellerId']}</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_1">
+                    <td class="admin-table-left">预发环境京东KOKEN：</td>
+                    <td class="admin-table-right">
+                    	<code>预发环境TOKEN过期时间：{$data1['accessExpire']}</code><BR>
+                        <code>预发环境TOKEN：{$data1['accessToken']}</code><BR>
+                        <code>预发环境clientId：{$data1['clientId']}</code><BR>
+                        <code>预发环境code：{$data1['code']}</code><BR>
+                        <code>预发环境refreshExpire：{$data1['refreshExpire']}</code><BR>
+                        <code>预发环境refreshToken：{$data1['refreshToken']}</code><BR>
+                        <code>预发环境sellerId：{$data1['sellerId']}</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_1">
+                    <td class="admin-table-left">获取授权：</td>
+                    <td class="admin-table-right">
+                        {eq name="CONFIG.wxapp.jd_type" value="0"}<a target="_blank" href="{:url('app/app/jd/jdLogin')}" class="admin-sele-xuanze">获取生产环境TOKRN</a>{/eq}
+                        {eq name="CONFIG.wxapp.jd_type" value="1"}<a target="_blank" href="{:url('app/app/jd/jdLogin')}" class="admin-sele-xuanze">获取预发环境TOKRN</a>{/eq}
+                    </td>
+                </tr>
+               
+                <tr>
+                  <td class="admin-table-right profit api" colspan="2">快递鸟参数配置接口</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启快递鸟API：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[kdn_open]" {eq name="CONFIG.wxapp.kdn_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[kdn_open]" {eq name="CONFIG.wxapp.kdn_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>点击开启后才有效</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启调试模式：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[kdn_test]" {eq name="CONFIG.wxapp.kdn_test" value="0"}checked="checked"{/eq} value="0"/>运营模式</label>
+                    <label><input type="radio" name="data[kdn_test]" {eq name="CONFIG.wxapp.kdn_test" value="1"}checked="checked"{/eq} value="1"/>调试模式</label>
+                    <code>开启调试模式情况下需要配置测试用户ID密室才能下单，运营模式则需要填写正式的用户ID跟密室</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">快递鸟EBusinessID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[kdn_EBusinessID]" value="{$CONFIG['wxapp']['kdn_EBusinessID']}" class="admin-sc-add-text-name  w260"/>
+                        <code>快递鸟用户ID</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">快递鸟ApiKey：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[kdn_ApiKey]" value="{$CONFIG['wxapp']['kdn_ApiKey']}" class="admin-sc-add-text-name  w360"/>
+                        <code>快递鸟ApiKey</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                  <td class="admin-table-right profit api" colspan="2">跨越参数配置接口</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否跨越：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[ky_open]" {eq name="CONFIG.wxapp.ky_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[ky_open]" {eq name="CONFIG.wxapp.ky_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>点击开启后才有效</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启调试模式：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[ky_isSandbox]" {eq name="CONFIG.wxapp.ky_isSandbox" value="0"}checked="checked"{/eq} value="0"/>生产</label>
+                    <label><input type="radio" name="data[ky_isSandbox]" {eq name="CONFIG.wxapp.ky_isSandbox" value="1"}checked="checked"{/eq} value="1"/>沙盒</label>
+                    <code>模式选择</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">跨越appkey：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ky_appkey]" value="{$CONFIG['wxapp']['ky_appkey']}" class="admin-sc-add-text-name  w260"/>
+                        <code>跨越appkey示例值</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">跨越appsecret：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ky_appsecret]" value="{$CONFIG['wxapp']['ky_appsecret']}" class="admin-sc-add-text-name  w360"/>
+                        <code>跨越piKey</code>
+                    </td>
+                </tr>
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">客户/平台标识：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ky_platformFlag]" value="{$CONFIG['wxapp']['ky_platformFlag']}" class="admin-sc-add-text-name  w360"/>
+                        <code>测试环境统一用示例值的参数6820933B508C2977269F78B2DCD329CB，固定值，正式环境“platformFlag客户/平台标识”，需联系跨越 IT提供</code>
+                    </td>
+                </tr>
+                
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">客户编码（寄件公司月结账号）1：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ky_customerCode_1]" value="{$CONFIG['wxapp']['ky_customerCode_1']}" class="admin-sc-add-text-name  w360"/>
+                        <code>测试环境统一用示例值的参数075525131031，寄方在跨越走货的客户编码</code>
+                    </td>
+                </tr> 
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">客户编码（寄件公司月结账号）2：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ky_customerCode_2]" value="{$CONFIG['wxapp']['ky_customerCode_2']}" class="admin-sc-add-text-name  w360"/>
+                        <code>测试环境统一用示例值的参数，寄方在跨越走货的客户编码</code>
+                    </td>
+                </tr> 
+                
+                
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">跨越付款账号1：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ky_paymentCustomer_1]" value="{$CONFIG['wxapp']['ky_paymentCustomer_1']}" class="admin-sc-add-text-name  w360"/>
+                        <code>当付款方式=10-寄方付 或者 30-第三方付 时，付款账号必填075525131031</code>
+                    </td>
+                </tr>
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">跨越付款账号2：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ky_paymentCustomer_2]" value="{$CONFIG['wxapp']['ky_paymentCustomer_2']}" class="admin-sc-add-text-name  w360"/>
+                        <code>当付款方式=10-寄方付 或者 30-第三方付 时，付款账号必填075525131031</code>
+                    </td>
+                </tr>
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">折扣1：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ky_zhekou_1]" value="{$CONFIG['wxapp']['ky_zhekou_1']}" class="admin-sc-add-text-name  w80"/>
+                        <code>折扣1，用来计算差价，数字50-100以内，65折就填写65，不支持小数点</code>
+                    </td>
+                </tr> 
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">折扣2：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ky_zhekou_2]" value="{$CONFIG['wxapp']['ky_zhekou_2']}" class="admin-sc-add-text-name  w80"/>
+                        <code>折扣2，用来计算差价，数字50-100以内，65折就填写65，不支持小数点</code>
+                    </td>
+                </tr> 
+                
+                
+                 <tr id="type_17">
+                	<td class="admin-table-right profit api" colspan="2"> 领航当日达接口</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">领航当日达开启：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[hangkong_open]" {eq name="CONFIG.wxapp.hangkong_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                        <label><input type="radio" name="data[hangkong_open]" {eq name="CONFIG.wxapp.hangkong_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                        <br><code>开启才会调用领航当日达接口</code>
+                      </td>
+               </tr>
+             
+               <tr>
+                    <td  class="admin-table-left">领航当日达appId：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[hangkong_appId]" value="{$CONFIG.wxapp.hangkong_appId}" class="admin-sc-add-text-name w260">
+                        <code>领航当日达appId</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td  class="admin-table-left">领航当日达Key：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[hangkong_Key]" value="{$CONFIG.wxapp.hangkong_Key}" class="admin-sc-add-text-name w360">
+                        <code>领航当日达Key</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td  class="admin-table-left">领航当日达一口价Money：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[hangkong_Money]" value="{$CONFIG.wxapp.hangkong_Money}" class="admin-sc-add-text-name w80">
+                        <code>领航当日达一口价</code>
+                    </td>
+                </tr> 
+                
+                
+                 <tr id="type_6">
+                  <td class="admin-table-right profit api" colspan="2">Q必达2.0参数配置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启q必达API：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[ulifego_open]" {eq name="CONFIG.wxapp.ulifego_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[ulifego_open]" {eq name="CONFIG.wxapp.ulifego_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>点击开启后才有效</code>
+                    </td>
+                </tr>
+                
+            	<tr class="jq_type_2">
+                    <td class="admin-table-left">q必达appid：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ulifego_appid]" value="{$CONFIG['wxapp']['ulifego_appid']}" class="admin-sc-add-text-name w120"/>
+                        <code>q必达appid</code>
+                    </td>
+                </tr>
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">q必达secretKey：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ulifego_secretKey]" value="{$CONFIG['wxapp']['ulifego_secretKey']}" class="admin-sc-add-text-name w260"/>
+                        <code>q必达secretKey</code>
+                    </td>
+                </tr>
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">对接域名：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[ulifego_url]" value="{$CONFIG['wxapp']['ulifego_url']}" class="admin-sc-add-text-name w360"/>
+                        <code>q必达填写：https://api.wanhuida888.com  亿速API【http://open.yisuopen.com】 留空则调用q必达API</code>
+                    </td>
+                </tr>
+
+
+                <tr id="type_18">
+                    <td class="admin-table-right profit api" colspan="2">云腾旺店管家</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启云腾旺店管家下单API：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[yt_open]" {eq name="CONFIG.wxapp.yt_open" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                        <label><input type="radio" name="data[yt_open]" {eq name="CONFIG.wxapp.yt_open" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                        <code>点击开启后才有效【只适合电商寄】开启</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td  class="admin-table-left">云腾旺店管家测试UID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yt_uid]" value="{$CONFIG.wxapp.yt_uid}" class="admin-sc-add-text-name w80">
+                        <code>云腾旺店管家测试UID【不填写默认全部会员可用该渠道，填写后则是当前会员可用该渠道】</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云腾旺店管家url：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yt_url]" value="{$CONFIG['wxapp']['yt_url']}" class="admin-sc-add-text-name w460"/>
+                        <code>正式环境：https://www.yuntengwd.com/yuntenghost/api/wuliu/openService</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云腾旺店管家APPID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yt_appid]" value="{$CONFIG['wxapp']['yt_appid']}" class="admin-sc-add-text-name  w460"/>
+                        <code>云洋物流平台方提供的独立的APPID，作为唯一接入认证标识一般默认32位</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云腾旺店管家密室：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yt_secretKey]" value="{$CONFIG['wxapp']['yt_secretKey']}" class="admin-sc-add-text-name  w460"/>
+                        <code>每个APPID对应一个secretKey一般默认32位</code>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> 下单设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启下单条件限制：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[is_add_order]" {eq name="CONFIG.wxapp.is_add_order" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[is_add_order]" {eq name="CONFIG.wxapp.is_add_order" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>是否开启下单条件限制【VIP会员不受此限制有需要的可以开启默认关闭】</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">下单是否必须绑定手机号：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[is_bind_mobile]" {eq name="CONFIG.wxapp.is_bind_mobile" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[is_bind_mobile]" {eq name="CONFIG.wxapp.is_bind_mobile" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>下单是否必须绑定手机号</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">下单最低充值余额：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_add_order_money]" value='{$CONFIG.wxapp.is_add_order_money}' class="admin-sc-add-text-name w80"/>元
+                    <code>下单最低充值余额</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">用户差价几日不补催收：</td>
+                    <td class="admin-table-right"><input type="number" name="data[diff_money_day]" value='{$CONFIG.wxapp.diff_money_day}' class="admin-sc-add-text-name w80"/>天
+                    <code>关闭这个功能填写0用户差价几日不补催收</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">{$CONFIG.wxapp.diff_money_day}日不补差价拉黑寄件手机：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[diff_money_day_mobile_1]" {eq name="CONFIG.wxapp.diff_money_day_mobile_1" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[diff_money_day_mobile_1]" {eq name="CONFIG.wxapp.diff_money_day_mobile_1" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>{$CONFIG.wxapp.diff_money_day}日不补差价拉黑寄件手机</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">{$CONFIG.wxapp.diff_money_day}日不补差价拉黑收件手机：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[diff_money_day_mobile_2]" {eq name="CONFIG.wxapp.diff_money_day_mobile_2" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[diff_money_day_mobile_2]" {eq name="CONFIG.wxapp.diff_money_day_mobile_2" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>{$CONFIG.wxapp.diff_money_day}日不补差价拉黑收件手机</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">{$CONFIG.wxapp.diff_money_day}日不补差价通知管理员：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[diff_money_day_mobile_3]" {eq name="CONFIG.wxapp.diff_money_day_mobile_3" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[diff_money_day_mobile_3]" {eq name="CONFIG.wxapp.diff_money_day_mobile_3" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>{$CONFIG.wxapp.diff_money_day}日不补差价通知管理员这里差价大于5元才会通知【默认短信宝】</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">下单最高限制重量：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_add_order_weight]" value='{$CONFIG.wxapp.is_add_order_weight}' class="admin-sc-add-text-name w80"/>KG
+                    <code>填写0默认限制50KG，建议填写10-50的整数</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">超过KG不启动自定义接口：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_add_order_weight_zidingyi]" value='{$CONFIG.wxapp.is_add_order_weight_zidingyi}' class="admin-sc-add-text-name w80"/>KG
+                    <code>超过KG不启动自定义接口【快递公司列表有一个自定义接口选择，用户下单超过多少KG后，则不显示自定义接口的渠道，多少KG内显示自定义渠道，自定义渠道需要自己后台设置价格】</code></td>
+                </tr>
+                
+               	<tr>
+                    <td class="admin-table-left">已签收0笔订单可下多少订单：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_new_order0]" value='{$CONFIG.wxapp.is_new_order0}' class="admin-sc-add-text-name w80"/>
+                    <code>已签收0笔订单可下多少订单-VIP会员不受限制-余额大于{$CONFIG.wxapp.is_add_order_money}元不受限制</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">已签收1笔订单可下多少订单：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_new_order1]" value='{$CONFIG.wxapp.is_new_order1}' class="admin-sc-add-text-name w80"/>
+                    <code>已签收1笔订单可下多少订单-VIP会员不受限制-余额大于{$CONFIG.wxapp.is_add_order_money}元不受限制</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">已签收2笔订单可下多少订单：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_new_order2]" value='{$CONFIG.wxapp.is_new_order2}' class="admin-sc-add-text-name w80"/>
+                    <code>已签收2笔订单可下多少订单-VIP会员不受限制-余额大于{$CONFIG.wxapp.is_add_order_money}元不受限制</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">已签收3笔订单可下多少订单：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_new_order3]" value='{$CONFIG.wxapp.is_new_order3}' class="admin-sc-add-text-name w80"/>
+                    <code>已签收3笔订单可下多少订单-VIP会员不受限制-余额大于{$CONFIG.wxapp.is_add_order_money}元不受限制</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">已签收5笔+订单可下多少订单：</td>
+                    <td class="admin-table-right"><input type="number" name="data[is_new_order4]" value='{$CONFIG.wxapp.is_new_order4}' class="admin-sc-add-text-name w80"/>
+                    <code>已签收5笔+订单可下多少订单-VIP会员不受限制-余额大于{$CONFIG.wxapp.is_add_order_money}元不受限制</code></td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">提现设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">开启微信提现：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[is_cash_weixin]" {eq name="CONFIG.wxapp.is_cash_weixin" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[is_cash_weixin]" {eq name="CONFIG.wxapp.is_cash_weixin" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>开启微信提现</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">开启支付宝提现：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[is_cash_alipay]" {eq name="CONFIG.wxapp.is_cash_alipay" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                    <label><input type="radio" name="data[is_cash_alipay]" {eq name="CONFIG.wxapp.is_cash_alipay" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <code>开启提现</code>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">保价费率</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">保价费率：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[baojia_rate]" value="{$CONFIG['wxapp']['baojia_rate']}" class="admin-sc-add-text-name w80">
+                        <code>不填写为0.005一般快递公司都差不多有上浮下浮，方便计算，就取一个中间值，如果你想赚钱，设置0.01就算非常高的了</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">运费计算规则说明</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明1：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_1]" value="{$CONFIG['wxapp']['first_gz_1']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明1</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明2：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_2]" value="{$CONFIG['wxapp']['first_gz_2']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明2</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明3：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_3]" value="{$CONFIG['wxapp']['first_gz_3']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明3</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明4：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_4]" value="{$CONFIG['wxapp']['first_gz_4']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明4</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明5：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_5]" value="{$CONFIG['wxapp']['first_gz_5']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明5</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明6：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_6]" value="{$CONFIG['wxapp']['first_gz_6']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明6</code>
+                    </td>
+                </tr>
+                
+				<tr>
+                  <td class="admin-table-right profit" colspan="2">小程序页面常用设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">关注我们引导连接：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[official_account]" value="{$CONFIG['wxapp']['official_account']}" class="admin-sc-add-text-name w360">
+                        <code>关注我们引导连接，用户点击关注跳转的页面，您已可以自己开发一个H5页面链接或者链接到您的公众号文章进行引导关注</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="admin-table-left">下单页面提示语：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[tip1]" cols="80" rows="5">{$CONFIG.wxapp.tip1}</textarea>
+                        <code>下单页面提示语  页面链接pages/delivery/delivery</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> 首页在线客服</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">首页右侧显示在线客服：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[onlineServiceShow]" {eq name="CONFIG.wxapp.onlineServiceShow" value="1"}checked="checked"{/eq} value="1"/>关闭客服</label>
+                    <label><input type="radio" name="data[onlineServiceShow]" {eq name="CONFIG.wxapp.onlineServiceShow" value="0"}checked="checked"{/eq}  value="0"/>显示客服</label>
+                    <code>首页右侧在线客服开启与关闭这里可控制</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">在线客服模式：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[onlineServiceType]" {eq name="CONFIG.wxapp.onlineServiceType" value="1"}checked="checked"{/eq} value="1"/>企业微信客服</label>
+                    <label><input type="radio" name="data[onlineServiceType]" {eq name="CONFIG.wxapp.onlineServiceType" value="0"}checked="checked"{/eq}  value="0"/>小程序客服</label>
+                    <code>在线客服模式，小程序客服无需配置下面的选项</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">企业微信corpId：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[corpId]" value="{$CONFIG['wxapp']['corpId']}" class="admin-sc-add-text-name w160">
+                        <code>corpId企业ID</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="admin-table-left">企业微信客服连接：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[extInfo]" value="{$CONFIG['wxapp']['extInfo']}" class="admin-sc-add-text-name w360">
+                        <code>extInfo企业微信客服的连接</code>
+                    </td>
+                </tr> 
+                
+               	<tr>
+                	<td class="admin-table-right profit" colspan="2"> 弹窗设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启弹窗：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[defendpop]" {eq name="CONFIG.wxapp.defendpop" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <label><input type="radio" name="data[defendpop]" {eq name="CONFIG.wxapp.defendpop" value="0"}checked="checked"{/eq}  value="0"/>关闭</label>
+                    <code>是否开启弹窗</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">弹窗标题：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[defendpop_title]" value="{$CONFIG['wxapp']['defendpop_title']}" class="admin-sc-add-text-name w360">
+                        <code>弹窗标题</code>
+                    </td>
+                </tr> 
+               <tr>
+                    <td class="admin-table-left">弹窗内容：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[defendpop_info]" cols="50" rows="5">{$CONFIG.wxapp.defendpop_info}</textarea>
+                        <code>弹窗内容</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">其他设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">快递服务协议：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[xieyi]" cols="80" rows="10">{$CONFIG.wxapp.xieyi}</textarea>
+                        <code>文字不能超过80</code>
+                    </td>
+                </tr>
+
+            </table>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+	$(".jq_type").change(function (){
+		if($(this).val() == 1){
+			$(".jq_type_1").show();
+			$(".jq_type_2").hide();
+			$(".jq_type_3").hide();
+		}else if($(this).val() == 2){
+			$(".jq_type_1").hide();
+			$(".jq_type_2").show();
+			$(".jq_type_3").hide();
+		}else{
+			$(".jq_type_1").hide();
+			$(".jq_type_2").hide();
+			$(".jq_type_3").show();
+		}
+	});
+	$(".jq_type").change();
+});
+</script>
+<script src="/static/default/wap/js/index.js"></script>
+{include  file='public:footer'/}
+
+

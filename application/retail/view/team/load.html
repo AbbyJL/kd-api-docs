@@ -1,0 +1,28 @@
+{foreach name="list" item="item"}
+       <li class="line">
+      
+         <dd class="zhong">
+             <div class="x2"><img src="{:config_img($item['face'])}" style="width:90%;border-radius:50%"></div>
+             <div class="10">
+                <p>账户：{$item['account']}- UID({$item['user_id']})</p>
+                <p>昵称：{$item['nickname']}</p>
+                <p>注册时间：{$item.reg_time|date='Y-m-d H:i',###}</p>
+             </div>
+         </dd> 
+        <dd class="zhong">
+                <div class="x12">
+                    <p class="text-small"></p>
+                    <p class="text-red"> 余额：&yen;{:round($item['money']/100,2)} 元</p>
+                    <p class="text-red"> 费率：{:round($item['stock']/100,2)}%</p>
+              </div>
+          </dd>
+         <dl> 
+           <p class="text-right padding-top">
+            	<a class="order_detail button button-little bg-yellow" href="{:url('team/useredit',array('city_id'=>$item['city_id'],'user_id'=>$item['user_id']))}">编辑</a> 
+            </p>
+        </dl>
+      
+    </li>
+    <div class="blank-10 bg"></div>
+{/foreach}
+

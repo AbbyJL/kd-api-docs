@@ -1,0 +1,35 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">搜索关键字设置</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+<form  target="x-frame" action="{:url('keyword/edit',array('key_id'=>$detail['key_id']))}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="admin-table-left">关键字：</td>
+                    <td class="admin-table-right"><input type="text" name="data[keyword]" value="{$detail.keyword|default=''}" class="admin-manage-input w200"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">类型：</td>
+                    <td class="admin-table-right"><select name="data[type]" id="type" class="admin-manage-select-2 w200">
+                            {foreach name="types" item="item" key="i"}
+                                <option  {eq name="i" value="$detail.type"}selected="selected"{/eq} value="{$i}">
+                                {$item}
+                                </option>
+                            {/foreach} 
+
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}      

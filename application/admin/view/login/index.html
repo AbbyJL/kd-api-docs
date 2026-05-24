@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>{$CONFIG.site.sitename}管理后台</title>
+<meta name="description" content="{$CONFIG.site.sitename}管理后台"/>
+<meta name="keywords" content="{$CONFIG.site.sitename}管理后台"/>
+<meta name="author" content="DeathGhost"/>
+<link rel="stylesheet" type="text/css" href="/public/admin/statics/css/login.css" tppabs="css/style.css" />
+<style>
+body{height:100%;background:#16a085;overflow:hidden;}
+canvas{z-index:-1;position:absolute;}
+.admin_login dd .checkcode { background: none;}
+.admin_login dd p {margin:0;}
+.admin_login dt em{font-style:normal}
+.admin_login dd .submit-layer-btn {width:100%;height:42px;border:none;font-size:16px;background:#b5b176;color:#f8f8f8;display:block;line-height:42px;text-align:center;cursor:pointer;}
+</style>
+
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+<script src="__PUBLIC__/js/jquery.js"></script>
+<script src="__PUBLIC__/admin/js/verificationNumbers.js" tppabs="js/verificationNumbers.js"></script>
+<script src="__PUBLIC__/admin/js/Particleground.js" tppabs="js/Particleground.js"></script>
+<script src="__PUBLIC__/js/layer/layer.js"></script>
+<script src="__PUBLIC__/js/admin.js"></script>
+<script>
+	$(document).ready(function(){
+	  $('body').particleground({
+		dotColor: '#5cbdaa',
+		lineColor: '#5cbdaa'
+	  });
+	});
+</script>
+</head>
+<body>
+<dl class="admin_login">
+ <dt>
+  <strong>{$CONFIG.site.sitename}总后台管理系统</strong>
+ </dt>
+ <form method="post" action="{:url('login/loging')}" target="x-frame" >
+ <dd class="user_icon">
+  <input type="text" placeholder="后台账号" name="username"  id="username" class="login_txtbx"/>
+ </dd>
+ <dd class="pwd_icon">
+  <input type="password" placeholder="后台密码"  name="password"   id="password"  class="login_txtbx"/>
+ </dd>
+ 
+ <dd class="val_icon">
+      <div class="checkcode">
+        <input type="text"  placeholder="验证码"  name="verify"  id="verify"  maxlength="4" class="login_txtbx">
+      </div>
+      <span class="yzm_code" style="margin:2px 0 0px; display:block; cursor:pointer;"><img class="yzm_verify" src="{:url('Login/verify')}" onClick="this.src='{:url('Login/verify')}'+'?'+Math.random()"></span>
+ </dd>
+
+ {eq name="CONFIG.register.admin_login_sms" value="1"}  
+     <dd>
+        <a class="submit-layer-btn layer-mobile-send" id="layer-mobile-send">获取手机验证码</a>
+     </dd>
+     <dd class="pwd_icon">
+        <input type="text" placeholder="输入手机验证码"  name="scode" class="login_txtbx" id="scode"/>
+     </dd>
+ {/eq} 
+ 
+ <dd>
+ 	<input type="submit" value="立即登陆" class="submit_btn"/>
+ </dd>
+ </form> 
+ <dd>
+  <p>© 2015-2018  技术支持：{$CONFIG.site.sitename}</p>
+ </dd>
+</dl>
+
+<script>
+	var mobile_timeout;
+	var mobile_count = 100;
+	var mobile_lock = 0;
+	$(function (){
+		
+		
+		
+		$("#layer-mobile-send").click(function(){
+			if(mobile_lock == 0){
+				mobile_lock = 1;
+				
+				var username = $("#username").val();
+				if(username==""){
+					layer.msg('请输入后台账号');
+					mobile_lock = 0;
+					return false;
+				}
+				var password = $("#password").val();
+				if(password==""){
+					layer.msg('请输入后台密码');
+					mobile_lock = 0;
+					return false;
+				}
+				var verify = $("#verify").val();
+				if(verify==""){
+					layer.msg('请输入图片验证码');
+					mobile_lock = 0;
+					return false;
+				}
+				$.post('{:url("app/api/adminLoginSms")}',{username:username},function(data){
+					if(data.code == '1'){
+						mobile_count = 60;
+						layer.msg(data.msg);
+						BtnCount();
+					}else{
+						mobile_lock = 0;
+						layer.msg(data.msg);
+					}
+				},'json');
+			}
+		});
+	});
+	BtnCount = function (){
+		if(mobile_count == 0) {
+			$('.layer-mobile-send').val("重新发送");
+			mobile_lock = 0;
+			clearTimeout(mobile_timeout);
+		}else{
+			mobile_count--;
+			$('.layer-mobile-send').html("重新发送(" + mobile_count.toString() + ")秒");
+			mobile_timeout = setTimeout(BtnCount, 1000);
+		}
+	};
+</script>
+
+</body>
+</html>

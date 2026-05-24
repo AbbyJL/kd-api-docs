@@ -1,0 +1,55 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递公司</li>
+        <li class="li2">快递公司管理</li>
+        <li class="li2 li3">{$business.business_name}价格</li>
+    </ul>
+</div>
+
+<style>
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px; border:0px solid #dbdbdb!important;}
+.shang{ background:#F00!important; }
+.delivery{ background: #00F!important;}
+.weibo{ background:#903!important;}
+.qq{ background:#09F!important}
+.weixin{ background:#0C0!important;}
+.bookworker{ background:#F0C!important}
+</style>
+
+<div class="admin-main-cate">
+    <p class="admin-attention"><span>注意：</span>【{$business.business_name}】-【{$community.name}】运费需要从省份点击进去</p>
+    <div class="admin-js-nr">
+        <form  target="x-frame" method="post">
+            <div class="admin-select-nr" style="border-top: 1px solid #e1e6eb;">
+                <div class="left">
+                    {:BA('business/cate_province',array("business_id"=>$business_id,'community_id'=>$community_id),'刷新','','',600,300)}
+                </div>
+            </div>
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle; background-color:#FFF;text-align:center;">
+                    <tr bgcolor="#F5F6FA" height="35px;" style="color:#333; font-size:16px; line-height:35px;">
+						<th>ID</th>
+                        <th>名称</th>
+                        <th>行政区划</th>
+                        <th>adcode</th>
+                        <th>操作</th>
+                    </tr>
+                    {foreach name="provinceList" item="var"}
+                        <tr height="48px" style="font-size:14px; color:#545454;  line-height:48px;">
+                        	<td>{$var.id}</td>
+                            <td>{$var.name}</td>
+                            <td>{$city.name}-{$area.area_name}-{$business.business_name}-{$community.name}</td>
+                            <td>{$var.adcode}</td>
+                            <td>
+                                {:BA('business/cate_edit_province',array("id"=>$var["id"],"business_id"=>$business_id,'community_id'=>$community_id),'设置价格','','admin-btn-default',600,300)}
+                            </td>  
+                        </tr>
+                    {/foreach}       
+                </table>
+                {$page}
+        </form>
+    </div>
+    
+    
+{include  file='public:footer'}      

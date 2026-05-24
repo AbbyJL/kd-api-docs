@@ -1,0 +1,125 @@
+{include  file='public:header'}
+
+<style>
+.weixin{ background:#44b549!important;}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+</style>
+
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">{$CONFIG.integral.name}</li>
+        <li class="li2">{$CONFIG.integral.name}商城</li>
+        <li class="li2 li3">{$CONFIG.integral.name}兑换</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('integralexchange/index')}"> 
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k"> 
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"   class="text" />
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                            </label>
+                         
+                            <label>
+                                <span>开始时间</span>
+    
+                                <input type="text" name="bg_date" value="{$bg_date|default=''}"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text"/>
+                            </label>
+                            <label>
+                                <span>结束时间</span>
+                                <input type="text" name="end_date" value="{$end_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text"/>
+                            </label>
+                        
+                            <label>
+                                <span>审核状态</span>
+                                <select name="audit" class="select">
+                                    <option value="0"}>请选择状态</option>
+                                    <option value="0" {eq name="audit" value="0"}selected="selected"{/eq}>待审核</option>
+                                    <option value="1" {eq name="audit" value="1"}selected="selected"{/eq}>已审核</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span>商品名称</span>
+                                <input type="text"  class="admin-input-text"   name="keyword" value="{$keyword|default=''}"/><input type="submit" value=" 搜索"  class="admin-input-button"/>
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="exchange_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>用户ID</td>
+                        <td>所属分类</td>
+                        <td>用户名称</td>
+                        <td>用户手机</td>
+                        <td>用户地址</td>
+                        <td>支付积分</td>
+                        <td>支付金额</td>
+                        <td>支付状态</td>
+                        <td>商品名称</td>
+                        <td>商品数量</td>
+                        <td>兑换时间</td>
+                        <td>兑换状态</td>
+                        <td>物流信息</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_exchange_id" type="checkbox" name="exchange_id[]" value="{$var.exchange_id}"/></td>
+                            <td>{$var.exchange_id}</td>
+                            <td>{$var.user_id}</td>
+                            <td>{$var.cate.cate_name}</td>
+                            <td>{$var.name}</td>
+                            <td>{$var.mobile}</td>
+                            <td>{$var.addr}</td>
+                            <td>{$var.integral}</td>
+                            <td>¥{:round($var['money']/100,2)}</td>
+                            <td>
+                                {eq name="var.status" value="1"}未支付{/eq}
+                                {eq name="var.status" value="2"}已支付{/eq}
+                            </td>
+                            <td>{$goods[$var['goods_id']]['title']}</td>
+                            <td>{$var.num}</td>
+                            <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                            <td>
+                                {eq name="var.audit" value="0"}<span class="weixin">未审核</span>{/eq}
+                                {eq name="var.audit" value="1"}<span class="weibo">已审核</span>{/eq}
+                            </td>
+                            <td>{$var.expressName}-{$var.mailNo}</td>
+                            <td>
+                                {:BA('integralexchange/audit',array("exchange_id"=>$var["exchange_id"],"p"=>$p),'编辑','load','admin-btn-small',800,550)}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'} 
+

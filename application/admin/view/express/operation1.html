@@ -1,0 +1,53 @@
+
+{if condition="$var['orderStatus'] eq 0"}
+    {:BA('express/delete',array("id"=>$var["id"]),'删除','act','admin-btn-default')}
+{/if}
+{if condition="$var['orderStatus'] eq 1"}
+   {:BA('express/deliver',array("id"=>$var["id"]),'发货','act','admin-btn-default')}
+   {:BA('express/remove',array("id"=>$var["id"]),'取消订单1','act','admin-btn-default')}
+{/if}
+
+{if condition="$var['orderStatus'] eq 2"}
+   {:BA('express/complete',array("id"=>$var["id"]),'完成','act','admin-btn-default')}
+   {:BA('express/remove',array("id"=>$var["id"]),'取消订单2','act','admin-btn-default')}
+{/if}
+
+{if condition="$var['orderStatus'] eq 3"}
+   {:BA('express/complete',array("id"=>$var["id"]),'完成','act','admin-btn-default')}
+{/if}
+{if condition="$var['orderStatus'] eq 4"}
+   {:BA('express/complete',array("id"=>$var["id"]),'完成','act','admin-btn-default')}
+{/if}
+
+{if condition="$var['orderStatus'] eq 9"}
+   {:BA('express/cancel',array("id"=>$var["id"]),'订单异常退款','act','admin-btn-default')}
+{/if}
+{if condition="$var['orderStatus'] eq -1 AND $var['orderRightsStatus'] eq 1"}
+   {:BA('express/cancel',array("id"=>$var["id"]),'确认退款','act','admin-btn-default')}
+{/if}
+
+{eq name="var.type" value="3"}
+	{if condition="$var['subscribe'] eq 0"}
+    	{:BA('express/subscribe',array("id"=>$var["id"]),'京东订阅','act','admin-btn-default')}
+    {/if}
+{/eq}
+{eq name="var.type" value="3"}
+	{if condition="$var['orderStatus'] eq 2"}
+    	{:BA('express/updateActualfee',array("id"=>$var["id"]),'京东更新运费','act','admin-btn-default')}
+    {/if}
+    {if condition="$var['orderStatus'] eq 3"}
+    	{:BA('express/updateActualfee',array("id"=>$var["id"]),'京东更新运费','act','admin-btn-default')}
+    {/if}
+    {if condition="$var['orderStatus'] eq 4"}
+    	{:BA('express/updateActualfee',array("id"=>$var["id"]),'京东更新运费','act','admin-btn-default')}
+    {/if}
+{/eq}
+
+
+{if condition="$var['type'] neq 8"}
+    {:BA('express/push',array("deliveryId"=>$var["deliveryId"]),'推送','','admin-btn-small_quxiao')}
+{/if}
+
+{:BA('express/options',array("id"=>$var["id"]),'轨迹','','admin-btn-small')}
+{:BA('express/edit',array("id"=>$var["id"]),'编辑','','admin-btn-small')}
+{:BA('express/detail',array("id"=>$var["id"]),'详情','','admin-btn-small')}

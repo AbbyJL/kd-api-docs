@@ -1,0 +1,111 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员日志</li>
+        <li class="li2 li3">抽奖额度日志</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span>抽奖额度日志</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('usermoneylogs/edu')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                    
+                    <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="{$bg_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text"/>
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="{$end_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text"/>
+                        </label>
+                        
+                        
+                        <label>
+                            <span>收入支出状态：</span>
+                            <select class="select w120" name="types">
+                                <option {eq name="types" value="999"}selected="selected"{/eq} value="999">请选择</option>
+                                <option {eq name="types" value="1"}selected="selected"{/eq}  value="1">收入</option>
+                                <option {eq name="types" value="2"}selected="selected"{/eq}  value="2">支出</option>
+                             </select>
+                       </label>
+                            
+                      <label>
+                         <span>排序：</span>
+                         <select class="select w120" name="order">
+                              <option value="999">请选择</option>
+                              <option value="1">从高到低</option>
+                              <option value="2">从低到高</option>
+                         </select>
+                       </label>   
+                        
+                    	<label>
+                            <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                            <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                            <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                        </label>
+                        
+                        <label>
+                        <span>订单编号</span>
+                        
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/>
+                        <input type="submit" value="   搜索"  class="admin-input-button"/></label>
+                         </div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="log_id"/></td>
+                    <td class="w50">日志ID</td>
+                    <td>用户姓名</td>
+                    <td>用户ID</td>
+                    <td>类型</td>
+                    <td>抽奖池金额</td>
+                    <td>变动前数据</td>
+                    <td>变动后数据</td>
+                    <td>说明</td>
+                    <td>使用时间</td>
+                    <td>操作</td>   
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr {if condition="$var['status'] eq 1"}style="background-color:#f5f5f5"{/if}>
+                        <td><input class="child_log_id" type="checkbox" name="log_id[]" value="{$var.log_id}"/></td>
+                        <td>{$var.log_id}</td>
+                        <td>{$users[$var['user_id']]['nickname']}</td>
+                        <td>{$users[$var['user_id']]['user_id']}</td>
+                        <td style="color:#F00">{$getMoneyTypes[$var['type']]|default="无"}</td>
+                        <td>
+                            {if condition="$var['money'] gt 0"}
+                                <b style="color:#00F">+{:round($var['money']/100,2)}</b>
+                            {else/}  
+                                <b style="color:#666">{:round($var['money']/100,2)}</b>
+                            {/if}
+                        </td>
+                        <td>&yen;{:round($var['old_num']/100,2)}</td>
+                        <td>&yen;{:round($var['new_num']/100,2)}</td>
+                        <td>{$var.intro}</td>
+                        <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                        <td>
+                        	{:BA('user/index',array("user_id"=>$var["user_id"],'p'=>$p),'管理用户','','admin-btn-small')}
+                            {:BA('usermoneylogs/index',array("user_id"=>$var["user_id"],'p'=>$p),'全部记录','','admin-btn-small')}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'/} 

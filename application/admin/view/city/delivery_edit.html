@@ -1,0 +1,174 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">城市快递</li>
+        <li class="li2 li3">操作业务员</li>
+    </ul>
+</div>
+<div class="admin-main-sc-add ">
+    <div class="admin-table-box">
+        <form target="x-frame" action="{:url('city/delivery_edit',array('id'=>$detail['id']))}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+              
+                <tr>
+                    <td class="admin-table-left">会员账户：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}" class="admin-manage-input"/>
+                            <input class="admin-sc-add-text-name sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                        </div>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择账户</a>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="admin-table-left">证件图</td>
+                    <td class="admin-table-right">
+                    {php}echo tpl_form_field_image('data[photo]',$detail['photo'],$detail['photo'],'photo','',$options = array());{/php}
+                    </td>
+               </tr>
+                
+                <tr>
+                    <td class="admin-table-left">姓名：</td>
+                    <td class="admin-table-right"><input type="text" name="data[name]" value="{$detail.name|default=''}" class="admin-manage-input w160">
+                    <code>姓名</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">电话：</td>
+                    <td class="admin-table-right"><input type="text" name="data[mobile]" value="{$detail.mobile|default=''}" class="admin-manage-input w160">
+                    <code>电话</code>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="admin-table-left">详细地址：</td>
+                    <td class="admin-table-right"><input type="text" name="data[addr]" value="{$detail.addr|default=''}" class="admin-manage-input">
+                    <code>详细地址</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="admin-table-left">每单奖励：</td>
+                    <td class="admin-table-right"><input type="text" name="data[money]" value="{:round($detail['money']/100,2)}" class="admin-manage-input  w80"/>元
+					<code>订单结束后每单奖励，留空则不填写</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">地区：</td>
+                    <td class="admin-table-right">
+                        <span class="x3">
+                                <select name="data[city_id]" id="city" class="admin-sele-Fl w210" onchange="getarea();">
+                                 <option value="0">选择城市</option>
+                                  {foreach name="cityList" item="var"}
+                                    <option value="{$var.city_id}"{if condition="$detail.city_id eq $var['city_id']"}selected{/if}>{$var.name}</option>
+                                    {/foreach}
+                                </select>
+                            </label>
+                        </span>
+                        <span class="x3">
+                            <select  name="data[area_id]" id="area"  class="admin-sele-Fl w210" onchange="javascript:getbusiness();">
+                                <option value="0">选择区县</option>
+                                {foreach name="areaList" item="var"}
+                                <option value="{$var.area_id}"{if condition="$detail.area_id eq $var['area_id']"}selected{/if}>{$var.area_name}</option>
+                                {/foreach}
+                            </select>
+                        </span>
+                        <span class="x3">
+                           <select name="data[business_id]" id="business" class="admin-sele-Fl w210" onchange="javascript:getcommunity();">
+                                <option value="0">选择乡镇</option>
+                                 {foreach name="businessList" item="var"}
+                                <option value="{$var.business_id}"{if condition="$detail.business_id eq $var['business_id']"}selected{/if}>{$var.business_name}</option>
+                               {/foreach}
+                            </select>
+                            </span>
+                        </span>
+                        <span class="x3">
+                           <select name="data[community_id]" id="community" class="admin-sele-Fl w210">
+                                <option value="0">选择小区</option>
+                                 {foreach name="communityList" item="var"}
+                                <option value="{$var.community_id}"{if condition="$detail.community_id eq $var['community_id']"}selected{/if}>{$var.name}</option>
+                               {/foreach}
+                            </select>
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="admin-table-left">是否审核</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[status]" value="0" {if condition="$detail[status] eq 0"}checked="checked"{/if}/>未审核
+                    <input type="radio" name="data[status]" value="1" {if condition="$detail[status] eq 1"}checked="checked"{/if}/>已审核
+                    <code>是否审核</code>
+                    </td>
+               </tr>
+                
+            </table>
+            <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function getarea(){
+        var city = $("#city").val();
+        console.log('----city----',city);
+        $.ajax({
+            type: "GET",
+            url: "{$CONFIG.site.host}/app/api/dailiarea/city_id/"+city,
+            dataType : "json",
+            cache : false,
+            success: function(json){
+                var areaHtml = '<option value="0">选择区/县</option>';
+                $.each(json,function(k,v){
+                    areaHtml+= '<option value="'+v.area_id+'">'+v.area_name+'</option>';
+                })
+                $("#area").html(areaHtml);
+                $("#area").show();
+            }
+        });
+    }
+
+    function getbusiness(){
+        var area = $("#area").val();
+        $.ajax({
+            type: "GET",
+            url: "{$CONFIG.site.host}/app/api/dailibusiness/area_id/"+area,
+            dataType : "json",
+            cache : false,
+            success: function(json){
+                var businessHtml = '<option value="0">选择乡镇</option>';
+                $.each(json,function(k,v){
+                    businessHtml+= '<option value="'+v.business_id+'">'+v.business_name+'</option>';
+                })
+                $("#business").html(businessHtml);
+                $("#business").show();
+            }
+        });
+    }
+    function getcommunity(){
+        var business = $("#business").val();
+        $.ajax({
+            type: "GET",
+            url: "{$CONFIG.site.host}/app/api/dailicommunity/business_id/"+business,
+            dataType : "json",
+            cache : false,
+            success: function(json){
+                var communityHtml = '<option value="0">选择小区</option>';
+                $.each(json,function(k,v){
+                    communityHtml+= '<option value="'+v.community_id+'">'+v.name+'</option>';
+                })
+                $("#community").html(communityHtml);
+                $("#community").show();
+            }
+        });
+    }
+</script>
+
+
+{include file="public:footer"}

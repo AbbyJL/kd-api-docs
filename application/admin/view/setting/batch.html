@@ -1,0 +1,49 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">批量下单</li>
+    </ul>
+</div>
+<style>
+.admin-table-left{width:200px;}
+.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC; }
+</style>
+<p class="admin-attention"><span>注意</span> 批量下单设置，这里的加价是单独设置的哦</p>
+<form  target="x-frame" action="{:url('setting/batch')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+               	
+                
+                
+                <tr><td class="admin-table-right profit" colspan = "2"> 批量下单设置</td></tr>
+                <tr>
+                    <td class="admin-table-left">批量下单名称：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[name]" value="{$CONFIG.batch.name}" class="admin-sc-add-text-name w160">
+                        <code>批量下单名称</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" >API接口选择：</td>
+                    <td class="admin-table-right">
+                        <select name="data[type]" class="admin-sele-Fl jq_type" style="display: inline-block;">
+                            {volist name="getBatchApiTypes" id="var"} 
+                                <option value="{$i}" {eq name="i" value="$CONFIG.batch.type"}selected="selected"{/eq}>{$var}</option>
+                            {/volist}
+                        </select>
+                        <code>批量下单只能选择一个接口不能多个选择不参与多个接口比价【暂时只支持快递鸟】</code>
+                    </td>
+                </tr>
+                
+               
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认保存" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+
+{include  file='public:footer'}  

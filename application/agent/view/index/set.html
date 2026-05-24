@@ -1,0 +1,66 @@
+{include file='public:header'/}
+<style type="text/css">
+body{background: #f5f5f5;}
+.Upload-img .list-img img {
+width:100%;
+height:auto;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>
+
+
+
+
+
+{if condition="!$is_weixin"}
+    <div class="headers">
+        <img src="/static/default/newwap/img/return.png" onclick="javascript:history.back(-1);">
+        <p>基本设置</p>
+    </div>
+    <div class="headers-space"></div>
+{/if}
+
+
+
+
+
+
+<form class="fabu-form" method="post"  id="ajaxForm" action="{:url('index/set')}">
+
+
+
+	
+
+	<div class="seller-apply-form" style="margin-top: 1rem;">
+		<div class="seller-apply-form-title">
+			<span></span>
+			<p>会员基本信息</p>
+		</div>
+		<div class="seller-apply-form-input">
+			<p>昵称</p>
+			<input type="text" class="text-input" name="data[nickname]" value="{$MEMBER.nickname|default=''}">
+		</div>
+	</div>
+
+
+	
+
+	<div class="seller-apply-form" style="margin-top: 1rem;">
+		<div class="seller-apply-form-title">
+			<span></span>
+			<p>会员介绍[15字内]</p>
+		</div>
+		<div class="row" style="border-bottom:none;padding:0;">
+		    <textarea rows="2" name="data[ext0]" class="text-area" placeholder="15字以内介绍">{:cleanhtml($MEMBER['ext0'])}</textarea>
+		</div>
+	</div>
+
+
+	<div class="seller-member-btn">
+		<button type="submit">确定设置</button>
+	</div>
+
+</form>
+
+{include  file='public:footer'/}

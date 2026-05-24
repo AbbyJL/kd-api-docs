@@ -1,0 +1,54 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">敏感词过滤</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr">
+            <div class="left">
+                {:BA('sensitives/create','','添加内容','load','',700,500)}
+                {:BA('sensitives/delete_drop','','清空敏感词','act','admin-btn-default')}
+            </div>
+            <div class="right">
+                <form method="post" action="{:url('sensitives/index')}">
+                    <input type="text"  class="admin-input-text" name="keyword" value="{$keyword}"/><input type="submit" value=" 搜索"  class="admin-input-button"/>
+                </form>
+            </div>
+        </div>
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="words_id"/></td>
+                        <td>ID</td>
+                        <td>关键字</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_words_id" type="checkbox" name="words_id[]" value="{$var.words_id}"/></td>
+                            <td>{$var.words_id}</td>
+                            <td>{$var.words}</td>
+                            <td>
+                                {:BA('sensitives/edit',array("words_id"=>$var["words_id"]),'编辑','load','admin-btn-default',600,200)}
+                                {:BA('sensitives/delete',array("words_id"=>$var["words_id"]),'删除','act','admin-btn-default')}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr">
+                <div class="left">
+                  {:BA('sensitives/delete','','批量删除','list',' a2')}
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{include  file='public:footer'/}

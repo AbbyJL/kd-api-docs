@@ -1,0 +1,56 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">城市设置</li>
+        <li class="li2 li3">百度地区编码</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+    <p class="admin-attention"><span>注意：</span>这里是百度地区编码</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin: 10px 20px;">
+            <div class="left">
+                {:BA('city/citycode','','刷新')}
+                {:BA('city/index','','返回城市列表')}
+            </div>
+            <form method="post" action="{:url('city/citycode')}">
+                <div class="right">
+                 <div class="admin-sele-k">
+                    <input type="text" name="keyword" placeholder=" 输入编码或者城市名称"  value="{$keyword}" class="admin-input-text"/>
+                    <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                </div>
+                </div>
+            </form>
+        </div>
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                        <td class="w50">ID</td>
+                        <td>城市名称</td>
+                        <td>百度地区编码</td>
+                        <td>首字母大写</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/></td>
+                            <td>{$var.id}</td>
+                            <td>{$var.city}</td>
+                            <td>{$var.citycode}</td>
+                            <td>{$var.initial}</td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/}      
+

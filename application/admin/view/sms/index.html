@@ -1,0 +1,66 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">短信模板</li>
+        <li class="li2 li3">短信宝模版</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin: 10px 20px;">
+            <div class="left">
+                {:BA('sms/create','','添加内容')}
+                {:BA('sms/daoru',array('aready'=>$aready),'导入默认数据','act','admin-btn-default')}
+                {:BA('smsbao/index','','短信发送记录')}
+            </div>
+        </div>
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="sms_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>标签</td>
+                        <td>说明</td>
+                        <td>短信宝模版</td>
+                        <td>飞鸽模版</td>
+                        <td>飞鸽模版ID</td>
+                        <td class="w80">是否开启</td>
+                        <td class="w120">操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_sms_id" type="checkbox" name="sms_id[]" value="{$var.sms_id}"/></td>
+                            <td>{$var.sms_id}</td>
+                            <td>{$var.sms_key}</td>
+                            <td>{$var.sms_explain}</td>
+                            <td>{$var.sms_tmpl}</td>
+                            <td>{$var.sms_tmp}</td>
+                            <td>{$var.sms_tmpl1}</td>
+                            <td>{eq name="var.is_open" value="1"}是{else/}否{/eq}</td>
+                            <td>
+                                {:BA('sms/edit',array("sms_id"=>$var["sms_id"]),'编辑','','admin-btn-default')}
+                                	{eq name="var.is_open" value="0"} {:BA('sms/audit',array("sms_id"=>$var["sms_id"]),'开启','act','admin-btn-default')} 
+                                {else/}
+                                	{:BA('sms/delete',array("sms_id"=>$var["sms_id"]),'关闭','act','admin-btn-default')}
+                                {/eq}
+
+                        </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr">
+                <div class="left">
+                    {:BA('sms/delete','','批量关闭','list','a2')}
+                    {:BA('sms/audit','','批量开启','list','admin-btn-default')}
+                    {:BA('sms/delete2','','批量删除','list','a2')}
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{include  file='public:footer'/}      

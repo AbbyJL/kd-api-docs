@@ -1,0 +1,135 @@
+{include  file='public:header'}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">优惠券</li>
+        <li class="li2">优惠券管理</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<div class="admin-main-sc-add ">
+
+    <div class="admin-table-box">
+
+        <form target="x-frame" action="{:url('coupon/edit',array('coupon_id'=>$detail['coupon_id']))}" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+            
+                <tr>
+                    <td class="admin-table-left">优惠券类型</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[type]" value="0" {if condition="$detail[type] eq 0"}checked="checked"{/if} />未知类型<br>
+                    <input type="radio" name="data[type]" value="1" {if condition="$detail[type] eq 1"}checked="checked"{/if} />满额返礼<br>
+                    <input type="radio" name="data[type]" value="2" {if condition="$detail[type] eq 2"}checked="checked"{/if} />寄件返礼<br>
+                    <input type="radio" name="data[type]" value="3" {if condition="$detail[type] eq 3"}checked="checked"{/if} />新人有礼<br>
+                    <input type="radio" name="data[type]" value="4" {if condition="$detail[type] eq 4"}checked="checked"{/if} />超值券包<br>
+                    <input type="radio" name="data[type]" value="5" {if condition="$detail[type] eq 5"}checked="checked"{/if} />积分兑换<br>
+                    <code>优惠券类型必须选择，请看下面说明</code><br>
+                    <code>展示到小程序首页必须条件：1：类型选择【新人有礼】2：优惠券如果未过期3：优惠券已审核4：优惠券有库存5：当前用户未领取过当前优惠券</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">标题：</td>
+                    <td class="admin-table-right"><input type="text" name="data[title]" value="{$detail.title|default=''}" class="admin-manage-input"/>
+                    <code>优惠券标题</code>
+                    </td>
+                </tr>
+                
+                
+               <tr>
+                    <td class="admin-table-left">上传图片</td>
+                    <td class="admin-table-right">
+                    {php}echo tpl_form_field_image('data[photo]',$detail['photo'],$detail['photo'],'photo','',$options = array());{/php}
+                    </td>
+                </tr> 
+                
+                
+                <tr>
+                    <td  class="admin-table-left">总数量：</td>
+                    <td class="admin-table-right"><input type="text" name="data[num]" value="{$detail.num|default=''}"   class="admin-manage-input"/>
+                        <code>总数量为0的时候，就不能下载了</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left">单次下载张数：</td>
+                    <td class="admin-table-right"><input type="text" name="data[number]" value="{$detail.number|default='1'}"   class="admin-manage-input"/>
+                        <code>单次下载张数</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="admin-table-left">优惠券下载后过期时间</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[day]" value="0" {if condition="$detail[day] eq 0"}checked="checked"{/if} />不选择
+                    <input type="radio" name="data[day]" value="30" {if condition="$detail[day] eq 30"}checked="checked"{/if} />1个月
+                    <input type="radio" name="data[day]" value="60" {if condition="$detail[day] eq 60"}checked="checked"{/if} />2个月
+                    <input type="radio" name="data[day]" value="90" {if condition="$detail[day] eq 90"}checked="checked"{/if} />3个月
+                    <input type="radio" name="data[day]" value="180" {if condition="$detail[day] eq 180"}checked="checked"{/if} />半年
+                    <input type="radio" name="data[day]" value="365" {if condition="$detail[day] eq 365"}checked="checked"{/if} />1年
+                    <code>领取/下载/赠送/兑换该优惠券后的有效期天数</code>
+                    </td>
+                </tr> 
+                
+                <tr>
+                    <td  class="admin-table-left">限制第几单使用：</td>
+                    <td class="admin-table-right"><input type="text" name="data[limit_num]" value="{$detail.limit_num|default=''}"   class="admin-manage-input"/>
+                        <code>0不限制填写数字则用户前面几个单子确认完成后才能使用</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">原价：</td>
+                    <td class="admin-table-right"><input type="text" name="data[price]" value="{:round($detail['price']/100,2)}"   class="admin-manage-input"/>
+                    <code>优惠券【优惠券为超值券包类型下面可用】</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left">销售价：</td>
+                    <td class="admin-table-right"><input type="text" name="data[money]" value="{:round($detail['money']/100,2)}"   class="admin-manage-input"/>
+                    <code>销售价【优惠券为超值券包类型下面可用】</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">积分兑换：</td>
+                    <td class="admin-table-right"><input type="text" name="data[integral]" value="{:round($detail['integral']/1,2)}"   class="admin-manage-input"/>
+                    <code>积分兑换【优惠券为积分兑换类型下面可用】</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">满多少钱：</td>
+                    <td class="admin-table-right"><input type="text" name="data[full_price]" value="{:round($detail['full_price']/100,2)}"   class="admin-manage-input"/>
+                    <code>就是当前优惠劵满多钱，满多少钱才能使用</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td  class="admin-table-left">减多少钱：</td>
+                    <td class="admin-table-right"><input type="text" name="data[reduce_price]" value="{:round($detail['reduce_price']/100,2)}"   class="admin-manage-input"/>
+                    <code>用户付款的时候减去多少钱</code>
+                    </td>
+                </tr>
+    		
+                
+                <tr>
+                    <td  class="admin-table-left">过期日期：</td>
+                    <td class="admin-table-right"><input type="text" name="data[expire_date]" value="{$detail.expire_date|default=''}" onfocus="WdatePicker();"  class="admin-input-data"/>
+    				<code>有效期</code>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td  class="admin-table-left">描述须知：</td>
+                    <td class="admin-table-right"><textarea  name="data[intro]" cols="50" rows="10" >{$detail.intro|default=''}</textarea>
+    				<code>描述须知</code>
+                    </td>
+                </tr>
+    
+        </table>
+                 <div style="margin-left:140px;margin-top:20px">
+                <input type="submit" value="确认编辑" class="admin-btn-small-quren"/>
+                <div>
+</form>
+</div>
+</div>
+{include  file='public:footer'}      

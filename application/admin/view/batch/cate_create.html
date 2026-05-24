@@ -1,0 +1,134 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">批量下单</li>
+        <li class="li2">快递公司</li>
+        <li class="li2 li3">添加快递公司</li>
+    </ul>
+</div>
+
+
+<style>
+.admin-table-left{width: 200px;}
+.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC; }
+</style>
+
+<p class="admin-attention"><span>说明：</span> 请不要自己添加快递公司</p>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="x-frame" action="{:url('batch/cate_create',array('parent_id'=>$parent_id))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                        
+                        <tr>
+                            <td class="admin-table-left">易达大写标识符：</td>
+                            <td class="admin-table-right"><input type="text" name="data[pinyin]" value="{$detail.pinyin|default=''}" class="admin-manage-input w160"/>
+                            <code>易达大写标识符：京东:JD 圆通:YTO 申通新:STO-INT 德邦:DOP  极兔:JT 顺丰:SF</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">云洋billType：</td>
+                            <td class="admin-table-right"><input type="text" name="data[pinyin2]" value="{$detail.pinyin2|default=''}" class="admin-manage-input w160"/>
+                            <code>云洋billType：京东:1 圆通:3 申通新:4 德邦:2 极兔:5 顺丰:6 智能：0</code>
+                            </td>
+                        </tr>
+                      
+                        
+                        <tr>
+                            <td class="admin-table-left">公司名称：</td>
+                            <td class="admin-table-right"><input type="text" name="data[cate_name]" value="{$detail.cate_name|default=''}" class="admin-manage-input w160"/>
+                            <code>快递公司名称</code>
+                            </td>
+                        </tr>
+                        
+                    
+                      
+                       <tr><td class="admin-table-right profit" colspan = "2"> 加价设置【德邦+易达部分渠道】 </td></tr>  
+                       <tr>
+                            <td class="admin-table-left">加价百分比：</td>
+                            <td class="admin-table-right"><input type="text" name="data[ratio]" value="{$detail.ratio|default=''}" class="admin-manage-input w80"/>%
+                            <code>加价百分比【总返回价格加上百分比，易达部分渠道采用这里的百分比】</code>
+                            </td>
+                        </tr>
+                        
+                       <tr><td class="admin-table-right profit" colspan = "2"> 首重加价设置【q必达+快递鸟+云洋+易达】 </td></tr> 
+                       <tr>
+                            <td class="admin-table-left">首重加价模式</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[priceA_type]" value="0" {if condition="$detail[priceA_type] eq 0"}checked="checked"{/if}/>百分比加价
+                            <input type="radio" name="data[priceA_type]" value="1" {if condition="$detail[priceA_type] eq 1"}checked="checked"{/if}/>固定加价
+                            <code>q必达，快递鸟，易达，云洋会直接返回首重续重，易达部分渠道返回首重续重，如返回首重续重的加价模式为总重的百分比【{$detail.ratio|default=''}%】</code>
+                            </td>
+                       </tr> 
+                       <tr>
+                            <td class="admin-table-left">首重价格加价百分比：</td>
+                            <td class="admin-table-right"><input type="text" name="data[priceA_ratio]" value="{$detail.priceA_ratio|default=''}" class="admin-manage-input w80"/>%
+                            <code>首重价格加价百分比</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">首重价格加价固定金额：</td>
+                            <td class="admin-table-right"><input type="text" name="data[priceA_price]" value="{$detail.priceA_price|default=''}" class="admin-manage-input w80"/>元
+                            <code>首重价格加价固定金额</code>
+                            </td>
+                       </tr>
+                       <tr><td class="admin-table-right profit" colspan = "2"> 续重加价设置【q必达+快递鸟+云洋+易达】 </td></tr> 
+                       <tr>
+                            <td class="admin-table-left">续重加价模式</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[priceB_type]" value="0" {if condition="$detail[priceB_type] eq 0"}checked="checked"{/if}/>百分比加价
+                            <input type="radio" name="data[priceB_type]" value="1" {if condition="$detail[priceB_type] eq 1"}checked="checked"{/if}/>固定加价
+                            <code>续重加价模式</code>
+                            </td>
+                       </tr> 
+                       <tr>
+                            <td class="admin-table-left">续重价格加价百分比：</td>
+                            <td class="admin-table-right"><input type="text" name="data[priceB_ratio]" value="{$detail.priceB_ratio|default=''}" class="admin-manage-input w80"/>%
+                            <code>续重价格加价百分比</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">续重价格加价固定金额：</td>
+                            <td class="admin-table-right"><input type="text" name="data[priceB_price]" value="{$detail.priceB_price|default=''}" class="admin-manage-input w80"/>元
+                            <code>续重价格加价固定金额</code>
+                            </td>
+                        </tr>
+                      
+                        
+                       <tr><td class="admin-table-right profit" colspan = "2">其他设置</td></tr> 
+                        
+                       <tr>
+                            <td class="admin-table-left">是否开启</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[charging]" value="0" {if condition="$detail[charging] eq 0"}checked="checked"{/if}/>不开启
+                            <input type="radio" name="data[charging]" value="1" {if condition="$detail[charging] eq 1"}checked="checked"{/if}/>开启
+                            <code>是否开启</code>
+                            </td>
+                       </tr> 
+                       
+            
+                        <tr>
+                            <td class="admin-table-left">上传图片</td>
+                            <td class="admin-table-right">
+                            {php}echo tpl_form_field_image('data[photo]',$detail['photo'],$detail['photo'],'photo','',$options = array());{/php}
+                            </td>
+                        </tr> 
+                        
+                       
+                        
+                        <tr><td class="admin-table-right profit" colspan = "2"> 排序设置 </td></tr> 
+                        <tr>
+                            <td class="admin-table-left">排序：</td>
+                            <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default=''}" class="admin-manage-input"/>
+                                <code>数字越小越高</code>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>  

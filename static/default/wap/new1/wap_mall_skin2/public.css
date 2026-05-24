@@ -1,0 +1,83 @@
+/*查看更多*/
+.morebox{height: .66rem;line-height: .66rem;border-radius: .04rem;background: #fff;text-align: center;}
+.morebox a{font-size: .28rem;color:#808080;}
+
+/*微信 返回顶部*/
+.wechat,.gocart,.my,.gotop{width:.9rem;height:.9rem;z-index:209;text-align:center;border-radius:50%;box-shadow: 0px 3px 11px 0px rgba(203, 203, 203, .5)}
+.wechat i,.gocart i,.my i,.gotop i{display:block;width:.9rem;height:.9rem;}
+.wechat{position:fixed;bottom:4.8rem;right:.3rem;background:#fff;bottom: calc(4.8rem + constant(safe-area-inset-bottom));bottom: calc(4.8rem + env(safe-area-inset-bottom))}
+.wechat i{background: url(../images/wechat.png) no-repeat center;background-size:.9rem;}
+.gocart{position:fixed;bottom:3.6rem;right:.3rem;background:#ff3451;bottom: calc(3.6rem + constant(safe-area-inset-bottom));bottom: calc(3.6rem + env(safe-area-inset-bottom))}
+.gocart i{background: url(../images/cart.png) no-repeat center;background-size:.9rem;}
+.my{position:fixed;bottom:2.4rem;right:.3rem;z-index:209;background:#fff;border:1px solid#eee;bottom: calc(2.4rem + constant(safe-area-inset-bottom));bottom: calc(2.4rem + env(safe-area-inset-bottom))}
+.my i{background: url(../images/myIcon.png) no-repeat center;background-size:.9rem;}
+.gotop{position:fixed;bottom:1.2rem;right:.3rem;z-index:209;background:#fff;border:1px solid#eee;bottom: calc(1.2rem + constant(safe-area-inset-bottom));bottom: calc(1.2rem + env(safe-area-inset-bottom))}
+.gotop i{background: url(../images/gotop.png) no-repeat center;background-size:.9rem;}
+.gocart em.cart{position: absolute;background: #fff;color: #ff3451;min-height: .4rem;min-width: .4rem;border-radius: .3rem;line-height: .4rem;font-size: .26rem;top: -.05rem;left: .6rem;}
+.gocart b{position: absolute;color:#ff3451;}
+
+/* 浏览器端扫码提示 */
+.wechat-popup {position: fixed; width: 6.8rem; top: calc(50% - 3rem); left: calc(50% - 3.4rem); z-index: 99999; visibility: hidden;}
+.wechat-popup:before {position: fixed; z-index: 1; display: block; content: ''; left: 0; top: 0; right: 0; bottom: 0; background: rgba(0,0,0,.5);}
+.wechat-popup .con {display: -webkit-box; position: relative; z-index: 2; padding: 50px 10px 20px; background: #fff; -webkit-animation: topFadeIn .3s ease-out; -moz-animation: topFadeIn .3s ease-out; animation: topFadeIn .3s ease-out;}
+.wechat-popup .close {position: absolute; right: .2rem; top: .2rem; width: .5rem; height: .5rem; border: 1px solid #dcdcdc; border-radius: 50%; line-height: .4rem; text-align: center; color: #dcdcdc; font-size: .5rem; font-weight: 100;}
+.wechat-popup dl {-webkit-box-flex: 1; text-align: center; margin: 0 5px;}
+.wechat-popup dl img {width: 94%; height: 94%; max-width: 3rem; max-height: 3rem; margin: 0 auto; padding: 3%; border: 1px solid #eee; display: block;}
+.wechat-popup dd {line-height: 1.5em; padding-top: 5px;}
+
+/*加载中样式*/
+.loading{height: .4rem; margin: .5rem auto;line-height: .4rem;text-align: center;font-size: .26rem;color:#ff3451;}
+.loading span{display: inline-block;width: .09rem;height: .09rem;margin-right: .1rem;border-radius: 50%;background: #ff3451;-webkit-animation: load 1.04s ease infinite;}
+.loading span:last-child{margin-right: 0; }
+@-webkit-keyframes load{0%{opacity: 1;}100%{opacity: 0;}}
+.loading span:nth-child(1){-webkit-animation-delay:0.06s;}
+.loading span:nth-child(2){-webkit-animation-delay:0.12s;}
+.loading span:nth-child(3){-webkit-animation-delay:0.18s;}
+.loading span:nth-child(4){-webkit-animation-delay:0.24s;}
+.loading span:nth-child(5){-webkit-animation-delay:0.3s;}
+.loading span:nth-child(6){-webkit-animation-delay:0.36s;}
+
+
+/*选择规格*/
+.flyer-img{width: 1.5rem; height: 1.5rem; border-radius: 100%;z-index: 999;}
+.size-box{position: fixed; bottom: -200%; left: 0; right: 0; background: #fff;border-radius: .12rem .12rem 0 0; z-index: 100003; font-size: .28rem; transition: all .1s;}
+.size-selected{position: relative;height: 2rem;padding: .3rem .2rem;overflow: hidden;}
+.size-selected .closed{position: absolute; width: .25rem; height: .25rem; display: block; background: url(../images/mclose.png) center center no-repeat; background-size: .25rem auto; right: .22rem; top: .22rem;}
+.size-img{float:left;width: 2rem; height: 2rem;  background: #fff;margin-right:.2rem;}
+.size-img img{display: block; width: 100%; height: 100%;}
+.size-txt{float:left; font-size: .3rem;width:69%;margin-top: .5rem;}
+.size-txt p{margin-top: .08rem;}
+.size-txt .price{color: #ff3451; font-size: .32rem; margin-top: .2rem;}
+.size-txt .price em{font-size: .28rem;}
+.size-txt .count,.size-txt .guige{color:#404040;font-size: .24rem;}
+.scrollbox{height: 6rem; overflow-y: auto;}
+.sys_item{padding: 0 .3rem;}
+.sys_item dt{font-size: .28rem; margin: .3rem 0 .3rem;color:#808080;}
+.sys_item dd{padding-bottom: .1rem;}
+.sys_item dd a{padding: .08rem .25rem; background: #f5f5f5; border:solid 1px #f5f5f5;border-radius: .4rem; display: block; float: left; margin: 0 .2rem .2rem 0;}
+.sys_item dd a.selected{border:solid 1px #ff3451; color: #ff3451;}
+.size-count{padding: .2rem 0 1rem; margin: 0 .3rem 0 .3rem;}
+.size-count-tit{float: left; line-height: .8rem;}
+.sizeBtn{float: right;border:solid 1px #f2f2f2; border-radius: .08rem;}
+.sizeBtn .numbtn{font-size: .3rem; background: #f5f5f5; border-radius: .08rem; display: inline-block; width: .52rem; height: .52rem; text-align: center;line-height: .5rem;}
+.sizeBtn .shop-count,.sizeBtn .count{ -webkit-appearance: none;display: inline-block;border:none;width: .88rem;text-align: center; font-size: .28rem;line-height: .5rem;}
+
+.size-confirm a{display: block; text-align: center;height:.9rem;line-height: .9rem;  background-image: -moz-linear-gradient( 0deg, rgb(255,58,114) 0%, rgb(255,52,81) 100%); background-image: -webkit-linear-gradient( 0deg, rgb(255,58,114) 0%, rgb(255,52,81) 100%); background-image: -ms-linear-gradient( 0deg, rgb(255,58,114) 0%, rgb(255,52,81) 100%);color: #fff; font-size: .32rem;}
+
+.size-confirm a{padding-bottom:calc(-.45rem + constant(safe-area-inset-bottom));padding-bottom: calc(-.45rem + env(safe-area-inset-bottom));}
+.size-html.on{border: 1px dashed #ff3451; box-sizing: border-box;}
+.guige-tips{display: none; color: #ff3451; position: absolute; right: .2rem; background: #fff; z-index: 99;}
+
+
+
+.sizeHide{animation: sizebox_hide .5s;-moz-animation: sizebox_hide .5s;-webkit-animation: sizebox_hide .5s;-o-animation: sizebox_hide .5s;animation-fill-mode: forwards;}
+.sizeShow{animation: sizebox_show .5s;-moz-animation: sizebox_show .5s;-webkit-animation: sizebox_show .5s;-o-animation: sizebox_show .5s;animation-fill-mode: forwards;}
+
+@keyframes sizebox_hide {0% {bottom: 0;}100% {bottom: -200%;}}
+@keyframes sizebox_show {0% {bottom: -200%;}100% {bottom: 0;}}
+
+
+/*遮罩层*/
+.mask{height: 100%;width: 100%;background: rgba(0,0,0,.6);position: fixed;top: 0;right: 0;z-index: -1;transition: all .4s;opacity: 0;}
+.disk{height: 100%;width: 100%;background: rgba(0,0,0,.6);position: fixed;top: 0;right: 0;z-index: 9;display: none;}
+

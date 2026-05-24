@@ -1,0 +1,63 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+     <li class="li1">设置</li>
+        <li class="li2">商圈设置</li>
+        <li class="li2 li3">编辑商圈</li>
+    </ul>
+</div>
+
+<style>
+    .admin-table-left{width: 200px;}
+    .profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC; }
+</style>
+
+    <div class="menuManage">
+        <form target="x-frame" action="{:url('business/edit',array('business_id'=>$detail['business_id'],'area_id'=>$area_id))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                        <tr>
+                            <td class="admin-table-left">商圈名称：</td>
+                            <td class="admin-table-right"><input type="text" name="data[business_name]" value="{$detail.business_name|default=''}" class="admin-manage-input"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="admin-table-left">代理账户：</td>
+                            <td class="admin-table-right">
+                                <div class="lt">
+                                    <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}" class="admin-manage-input"/>
+                                    <input class="admin-sc-add-text-name sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                                </div>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择账户</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">分成比例：</td>
+                            <td class="admin-table-right"><input type="text" name="data[ratio]" value="{:round($detail['ratio']/100,2)}" class="admin-manage-input"/>%
+                                <code>代理商分成比例</code>
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                        <td class="admin-table-left">坐标：</td>
+                        <td class="admin-table-right">
+                            <div class="lt">
+                                经度<input type="text" name="data[lng]" id="data_lng" value="{$detail.lng|default=''}" class="admin-manage-input w200"/>
+                                纬度 <input type="text" name="data[lat]" id="data_lat" value="{$detail.lat|default=''}" class="admin-manage-input w200"/>
+                            </div>
+                            <a style="margin-left: 10px;" mini="select"  w="880" h="630" href="{:url('index/maps',array('lat'=>$detail['lat'],'lng'=>$detail['lng']))}" class="admin-sele-xuanze">选择坐标</a>
+                    	</tr>
+
+
+                    </table>
+                </div>
+                <div class="admin-small-qr">
+                	<input type="submit" value="确定编辑" class="admin-btn-small-quren"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/}

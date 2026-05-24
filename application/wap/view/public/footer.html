@@ -1,0 +1,48 @@
+<div class="blank-20"></div>
+
+
+{php}
+    $footerNum = $CONFIG['other']['footer_menu'] ? $CONFIG['other']['footer_menu'] : '5';
+{/php}
+    	
+  
+    
+<style>
+   .footer-search{padding:15px;background:#fff;border-bottom:thin solid #eee;padding-bottom:5px}
+	{if condition="$footerNum eq 1"}
+	  	.foot-fixed .foot-item {width:100%!important;}
+	{elseif condition="$footerNum eq 2" /}
+	  	.foot-fixed .foot-item {width:50%!important;}
+	{elseif condition="$footerNum eq 3" /}
+	   	.foot-fixed .foot-item {width:33.3333333336%!important;}
+	{elseif condition="$footerNum eq 4" /}
+	   	.foot-fixed .foot-item {width:25%!important;}
+	{elseif condition="$footerNum eq 5" /}
+	   	.foot-fixed .foot-item {width:20%!important;}
+	{elseif condition="$footerNum eq 6" /}
+	   	.foot-fixed .foot-item {width:16.666666667%!important;}
+	{/if}
+</style>  
+
+
+<footer class="foot-fixed">
+{php}$k4=0;{/php}
+    {volist name="footer_nav" id="item"}
+    {php}$k4++;if($k4 <= $footerNum){ {/php}
+       <a class="foot-item {if condition="$ctl eq $item['title']"}active{/if} ctl-{$ctl}" href="{:config_navigation_url($item['url'],2)}?nav_id={$item['nav_id']}">		
+       <span class="{$item.ioc} iconfont"></span>
+       <span class="foot-label">{:cut_msubstr($item['nav_name'],0,4,false)}</span>
+     </a>
+     {php} } {/php}
+   {/volist}
+</footer>
+   
+   
+   
+<!--统计代码-->
+{if condition="$CONFIG['site']['tongji']"}
+	{$CONFIG['site']['tongji']}
+{/if}
+   
+</body>
+</html>

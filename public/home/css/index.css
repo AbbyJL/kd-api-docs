@@ -1,0 +1,128 @@
+.shop_index_diy>.cl{margin-top:15px}
+
+.shop_index_shop{position:relative}
+
+.shop_index_shop>a.attend{position:absolute;right:0;display:block;top:-15px}
+
+.shop_index_shop>a.attend>img{height:50px}
+
+.frame-title,.frametitle,.tab-title{background:0 0;border-bottom:2px solid #4fc0ea;height:38px}
+
+.frame-tab .tab-title .titletext{width:232px;font-size:18px;font-weight:300;margin:0}
+
+.frame-tab .tab-title .subtitle>a{font-size:14px;font-weight:300;color:#666}
+
+.frame-tab .tb li a{padding:0 15px;font-size:16px;font-weight:300;line-height:38px}
+
+.frame-tab .tb li.a a{background:#4FC0EA;font-weight:300;color:#FFF}
+
+.cate_top_5{width:480px}
+
+.cate_top_5 img{width:100%}
+
+.cate_top_5>.banner{position:relative}
+
+.cate_top_5>.banner>a{display:block;position:absolute;top:50px;left:50%;margin-left:-190px}
+
+.cate_top_5>.banner>a>h3{text-align:center;font-size:26px;color:#FFF;margin-top:10px;text-shadow:0 3px 5px #B1B0B0}
+
+.cate_top_5>.best_shop{margin:5px -5px 0 -5px}
+
+.cate_top_5>.best_shop>li{width:20%;float:left}
+
+.cate_top_5>.best_shop>li>a{padding:5px;display:block}
+
+.cate_top_5>.best_shop>li>a>h2{margin-top:5px;color:#999;text-align:center}
+
+.shop-hCenter .frame{background:0 0!important}
+
+.shop-hCenter .dxb_bc>.run_bottom{position:relative}
+
+.shop-hCenter .dxb_bc>.run_bottom>.slideshow{background:#FFF;height:145px}
+
+.shop-hCenter .dxb_bc>.run_bottom>.slideshow>li{padding:0;margin-left:5px;margin-top:5px;float:left}
+
+.shop-hCenter .dxb_bc>.run_bottom>.slideshow>li>a{display:block}
+
+.shop-hCenter .dxb_bc>.run_bottom>.slideshow>li>a>img{width:227px;height:135px}
+
+.shop-hCenter .dxb_bc>.run_bottom>.leftbtn,.shop-hCenter .dxb_bc>.run_bottom>.rightbtn{position:absolute;z-index:1;top:48px;opacity:.6}
+
+.shop-hCenter .dxb_bc>.run_bottom:hover>.leftbtn,.shop-hCenter .dxb_bc>.run_bottom:hover>.rightbtn{opacity:1}
+
+.shop-hCenter .dxb_bc>.run_bottom>.leftbtn{left:10px}
+
+.shop-hCenter .dxb_bc>.run_bottom>.rightbtn{right:10px}
+
+.shop-hCenter .dxb_bc>.run_bottom>.leftbtn>a,.shop-hCenter .dxb_bc>.run_bottom>.rightbtn>a{background:url(../images/arrow_fff.png) 0 0 no-repeat;width:27px;height:44px;display:block}
+
+.shop-hCenter .dxb_bc>.run_bottom>.leftbtn>a{background-position:center bottom}
+
+.shop_index_shop ul.shop_list{margin-left:-15px}
+
+.shop_index_shop ul.shop_list>li{width:228px;float:left;margin-left:15px;margin-top:15px;position:relative}
+
+.shop_index_shop ul.shop_list>li>a{display:block;padding:5px;background:#FAFAFA}
+
+.shop_index_shop ul.shop_list>li>a>.summary{opacity:0;position:absolute;top:5px;width:218px;left:5px;height:270px;background:rgba(0,0,0,.3);color:#FFF;font-size:14px}
+
+.shop_index_shop ul.shop_list>li>a>.summary>p{padding:40px 20px 0}
+
+.shop_index_shop ul.shop_list>li>a:hover .summary{opacity:1}
+
+.shop_index_shop ul.shop_list>li>a>img{width:100%}
+
+.shop_index_shop ul.shop_list>li>a>h2{font-size:14px;color:#333;line-height:24px;padding:5px 5px 0 5px}
+
+.shop_index_shop ul.shop_list>li>a>h3{color:#999;margin-bottom:5px;padding:0 5px}
+
+.shop-hCenter .slidebar{margin-top:310px;width:695px;text-align:center}
+
+.shop-hCenter .slidebar>ul{display:inline-flex}
+
+.shop-hCenter .slidebar>ul>li{border-radius:50%;line-height:500px;width:14px;height:14px;background:rgba(255,255,255,.48);margin-left:3px}
+
+.shop-hCenter .slidebar>ul>li.on{background:rgba(255,68,0,.79)}
+
+.hRight-hot .area .module>ul>li>a{display:block}
+
+.hRight-hot .area .module>ul>li{font-size:14px;color:#333;margin-bottom:6px}
+
+.hRight-hot .area .module>ul>li>p{font-size:12px;color:#888}
+
+#diy_shop .tab-title{border-bottom-color:#f60}
+
+#diy_shop .frame-tab .tb li.a a{background:#f60}
+
+#diy_tuan .tab-title{border-bottom-color:#ff5e89}
+
+#diy_tuan .frame-tab .tb li.a a{background:#ff5e89}
+
+#diy_goods .tab-title{border-bottom-color:#dd2727}
+
+#diy_goods .frame-tab .tb li.a a{background:#dd2727}
+
+#diy_jifen .tab-title{border-bottom-color:#fea501}
+
+#diy_jifen .frame-tab .tb li.a a{background:#fea501}
+
+
+
+
+
+.dzapp_position1{top:200px}
+
+.dzapp_position2{top:260px}
+
+.dzapp_position3{top:320px}
+
+.dzapp_position4{top:380px}
+
+.dzapp_position5{top:440px}
+
+.dzapp_position6{top:500px}
+
+
+
+ .banner .banner-h-img{ display: none;}
+

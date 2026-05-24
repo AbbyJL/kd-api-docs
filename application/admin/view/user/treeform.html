@@ -1,0 +1,114 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员管理</li>
+        <li class="li2">会员关系</li>
+        <li class="li2 li3">会员关系列表</li>
+    </ul>
+</div>
+<style>
+table.t_info{width:175px;background:#65cea7;border-collapse:collapse;border:1px solid #65cea7}
+table.t_info tr{border:0}
+table.t_info th{color:#fff;text-align:center;height:25px;line-height:25px;border-top:0;border:1px solid #65cea7;background:0 0}
+table.t_info th a{color:#fff}
+table.t_info ._span{color:red;cursor:pointer}
+table.t_info ._span:hover{text-decoration:underline}
+table.t_info td{height:20px;background:#fff;text-align:center;border:1px solid #65cea7;line-height:20px}
+td.tleft,th.tleft{text-align:left;padding-left:10px}
+input.datatime{width:90px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+table.database{width:95%;margin:15px auto;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+table.database td.right,table.database th.right{padding:0;border-left:1px solid #c7ced4;padding-left:10px;text-align:left;height:15px}
+table.database td._right,table.database th._right{border-right:1px solid #c7ced4}
+
+#treeform tr {
+    line-height: normal;
+    height: auto;
+    clear: none;
+}
+#treeform td {
+    border-bottom: 0;
+}
+.table_td tr td {
+    line-height: 32px;
+}
+</style>
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span>会员【{$users.nickname}】下级关系列表</p>
+
+    
+
+<table width="100%" align="left" cellpadding="0" cellspacing="0" id="treeform">
+  <tbody><tr>
+    <td><table width="1200" border="0" cellspacing="0" cellpadding="0" align="center" style="margin:0 auto;">
+        <!--第一层-->
+        
+        <tbody>
+        <tr>
+          <td colspan="27" align="center"><table class="t_info" border="0" cellspacing="0" cellpadding="0">
+              <tbody><tr>
+                <th colspan="27"> 
+                    <a href="javascript:;">{$users.nickname}</a>
+                   </th>
+              </tr>
+              <tr>
+                <td colspan="27">{$users.user_id}</td>
+              </tr>
+              <tr>
+                <td colspan="27">{$users.reg_time|date='Y-m-d H:i',###}</td>
+              </tr>
+            </tbody></table></td>
+        </tr>
+        
+        
+        <tr>
+          <td colspan="9" align="center"><img src="/static/default/wap/img/line_1.gif"></td>
+        </tr>
+        
+        
+        <tr>
+        {foreach name="list" item="var"}
+          <td align="center"> 
+              <table class="t_info" border="0" cellspacing="0" cellpadding="0">
+                  <tbody>
+                      <tr>
+                        <th colspan="6"><a href="{:url('user/treeform',array('user_id'=>$var['user_id']))}">{$var.nickname}</a></th>
+                      </tr>
+                      <tr>
+                        <td colspan="6">{$var.user_id}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="6">{$var.reg_time|date='Y-m-d H:i',###}</td>
+                      </tr>
+                    </tbody>
+                </table>
+                
+               {foreach name="var.children" item="var2"}
+                  <table class="t_info" border="0" cellspacing="0" cellpadding="0" style="float:left;width:90px; margin-top:20px; margin-left:10px;">
+                      <tbody>
+                          <tr>
+                            <th colspan="0"><a href="{:url('user/treeform',array('user_id'=>$var2['user_id']))}">{$var2.nickname}</a></th>
+                          </tr>
+                          <tr>
+                            <td colspan="0">{$var2.user_id}</td>
+                          </tr>
+                          <tr>
+                            <td colspan="0">{$var2.reg_time|date='Y-m-d H:i',###}</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                {/foreach}
+            </td>
+            {/foreach}
+        </tr>
+      </tbody>
+      </table>
+      </td>
+  </tr>
+</tbody></table>
+
+
+
+</div>
+{include  file='public:footer'/} 
+
+

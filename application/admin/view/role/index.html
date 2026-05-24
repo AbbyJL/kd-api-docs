@@ -1,0 +1,99 @@
+{include  file='public:header'/}    
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">系统</li>
+        <li class="li2">管理员管理</li>
+        <li class="li2 li3">角色管理</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+    <p class="admin-attention"><span>注意：</span>每个角色有对应的权限，默认超级管理员角色不能删除！添加角色请选择城市，选择类型，这样才可添加管理员的时候配置类型跟城市</p>
+    <div class="admin-js-nr" style="  border-top: 1px solid #e1e6eb;">
+        <div class="admin-select-nr">
+            <div class="left">
+                {:BA('role/create','','添加角色')}
+            </div>
+            <form method="post" action="{:url('role/index')}">
+                 <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                        
+                           <label>
+                                <span>管理员类型：</span>
+                                <select class="select w120" name="type">
+                                    <option {eq name="type" value="0"}selected="selected"{/eq} value="0">请选择类型</option>
+                                    <option {eq name="type" value="1"}selected="selected"{/eq}  value="2">系统管理员</option>
+                                    <option {eq name="type" value="2"}selected="selected"{/eq}  value="3">分站管理员</option>
+                                </select>
+                            </label>
+                            
+                            <label>
+                                <span>城市：</span>
+                                <select name="city_id" id="city_id"  class="select w100"></select>
+                        	</label>
+						    <script src="{:url('app/datas/onecity',array('name'=>'cityareas'))}"></script> 
+                            <script>
+								var city_id = <?php echo (int)$city_id;?>;
+								$(document).ready(function(){
+									var city_str = '<option value="0">请选择...</option>';
+									for(a in cityareas.city){
+										if(city_id == cityareas.city[a].city_id){
+											city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+										}else{
+											city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+										}
+									}
+									$("#city_id").html(city_str);
+								});
+                             </script> 
+                        
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"   class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择管理员</a>
+                           </label>
+                       
+                            <input type="text"  class="admin-input-text" name="keyword" value="{$keyword}"/>
+                    		<input type="submit" value=" 搜索"  class="admin-input-button"/>
+                            
+                            </div>
+        				</div> 
+            </form>
+        </div>
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td>角色ID</td>
+                    <td>类型</td>
+                    <td>角色名称</td>
+                    <td>城市ID</td>
+                    <td>城市名称</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr>
+                        <td>{$var.role_id}</td>
+                        <td>
+                            {eq name="var.type" value="1"}系统管理员{/eq}
+                            {eq name="var.type" value="2"}分站管理员{/eq}
+                        </td>
+                        <td>{$var.role_name}</td>
+                        <td>{$var.city_id}</td>
+                        <td>{$var.city.name}</td>
+                        
+                        <td>
+                        	{eq name='var.role_id' value="1"}
+                            	系统管理员不能编辑
+                            {else/}
+                                {:BA('role/auth',array("role_id"=>$var['role_id']),'角色权限','','admin-btn-default')}
+                                {:BA('role/edit',array("role_id"=>$var["role_id"]),'编辑','','admin-btn-default')}
+                                {:BA('role/delete',array("role_id"=>$var['role_id']),'删除','act','admin-btn-default')}
+                            {/eq}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+    </div>
+</div>
+{include  file='public:footer'/}      

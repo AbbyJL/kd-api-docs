@@ -1,0 +1,52 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">上传设置</li>
+		<li class="li2 li3">配置列表</li>
+    </ul>
+</div>
+<style>
+.admin-main-js .admin-js-nr, .admin-main-sc-add .admin-js-nr { border: 0px solid #dbdbdb;}
+</style>
+<div class="admin-main-js">
+    <p class="admin-attention"><span>注意：</span>只能开启一种上传方式，不能都设置为启用状态qq联系:9792494,66</p>
+    <div class="admin-js-nr">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50">ID</td>
+                        <td>名称</td>
+                        <td>accessKey</td>
+                        <td>secrectKey</td>
+                        <td>域名</td>
+                        <td>空间名</td>
+                        <td>超时时间</td>
+                        <td>是否开启(0关闭1开启)</td>                
+                        <td class="w120">操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            {php}
+                            	$config = (json_decode($var['para'], true)); 
+                            {/php}
+                            
+                            <td>{$var.id}</td>
+                            <td>{$var.type}</td>
+                            <td>{$config.accessKey}</td>
+                            <td>{$config.secrectKey}</td>
+                            <td>{$config.domain}</td> 
+                            <td>{$config.bucket}</td> 
+                            <td>{$config.timeout}</td>  
+                            <td>{$var.status}</td>         
+                            <td>
+                                {:BA('upset/edit',array("id"=>$var["id"]),'编辑','','admin-btn-default')}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
+    </div>
+</div>
+{include  file='public:footer'/}       
+

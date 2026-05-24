@@ -1,0 +1,175 @@
+{include  file='public:header'}
+<script src="/public/js/clipboard.min.js"></script>
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">跑腿</li>
+        <li class="li2">跑腿订单</li>
+        <li class="li2 li3">跑腿详情</li>
+    </ul>
+</div>
+<p class="admin-attention"><span>说明：</span> 跑腿订单详情</p>
+
+{:BA('delivery/detail',array("id"=>$var["id"]),'刷新','','admin-btn-default')}
+{:BA('delivery/order','','返回列表','','admin-btn-default')}
+
+
+<style>
+.shang,.delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+.admin-table-right span {color:#FFF;}
+.i{margin-right:10px;}
+.admin-main-sc-add .admin-table-box table tr td {padding-top:0px;padding-bottom:0px;}
+</style>
+
+<div class="admin-main-sc-add" style="margin-top:20px">
+    <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+                <tr>
+                    <td class="admin-table-left">订单信息</td>
+                    <td class="admin-table-right"><span class="bookworker">{$var.id}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">订单状态</td>
+                    <td class="admin-table-right"><span class="qq">{$getStatus[$var['status']]}</span></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">uid</td>
+                    <td class="admin-table-right">{$var.uid}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">支付ID</td>
+                    <td class="admin-table-right">{$var.log_id}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">配送ID</td>
+                    <td class="admin-table-right">{$var.delivery_id}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">配送姓名</td>
+                    <td class="admin-table-right">{$var.name}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">配送电话</td>
+                    <td class="admin-table-right">{$var.mobile}</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">配送图片</td>
+                    <td class="admin-table-right"><a target="_blank" href="{:config_img($var.img1)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($var.img1)}"></a></td>
+                </tr>
+
+
+                <tr>
+                    <td class="admin-table-left">重量</td>
+                    <td class="admin-table-right">{$var.wight}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">数量</td>
+                    <td class="admin-table-right">{$var.num}</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">取件图片</td>
+                    <td class="admin-table-right"><a target="_blank" href="{:config_img($var.img)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($var.img)}"></a></td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">类型</td>
+                    <td class="admin-table-right">{$getTypes[$var['type']]}</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">说明</td>
+                    <td class="admin-table-right">{$var.info}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">寄件地址</td>
+                    <td class="admin-table-right">
+                        {$var.sendaddr}<br>{$var.sendname}-{$var.sendmobile}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">预约取件时间</td>
+                    <td class="admin-table-right">{$var.senddate}</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">收件地址</td>
+                    <td class="admin-table-right">
+                    {$var.receiveaddr}<br>{$var.receivename}-{$var.receivemobile}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">预约送件时间</td>
+                    <td class="admin-table-right">{$var.receivedate}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">距离</td>
+                    <td class="admin-table-right">{$var.juliKm}</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">订单价格</td>
+                    <td class="admin-table-right">&yen;{:round($var['need_pay']/100,2)}元</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">时间</td>
+                    <td class="admin-table-right">
+                        {if condition="$var[create_time]"}
+                        创建时间：{$var.create_time|date="Y-m-d H:i:s",###}<br>
+                        {/if}
+                        {if condition="$var[delivery_time]"}
+                        接单时间：{$var.delivery_time|date="Y-m-d H:i:s",###}<br>
+                        {/if}
+                        {if condition="$var[refund_time]"}
+                        退款时间：{$var.refund_time|date="Y-m-d H:i:s",###}<br>
+                        {/if}
+                        {if condition="$var[refund_info]"}
+                        退款说明：{$var.refund_info}<br>
+                        {/if}
+                        {if condition="$var[peisong_time]"}
+                        配送时间：{$var.peisong_time|date="Y-m-d H:i:s",###}<br>
+                        {/if}
+                        {if condition="$var[end_time]"}
+                        完成时间：{$var.end_time|date="Y-m-d H:i:s",###}
+                        {/if}
+                    </td>
+                </tr>
+
+
+                {if condition="$payment_logs['is_paid'] eq 1"}
+                    <tr>
+                        <td class="admin-table-left" style="background-color:#ffe9e9">微信支付信息</td>
+                        <td class="admin-table-right" style="background-color:#ffe9e9">
+                            {$payment_logs['return_order_id']}
+                            <a class="clipboard_btn" data-clipboard-text="{$payment_logs['return_order_id']}"><b style="color:#06F">[复制订单号]</b></a>
+                            {$payment_logs['return_trade_no']}
+                            <a class="clipboard_btn" data-clipboard-text="{$payment_logs['return_trade_no']}"><b style="color:#06F">[复制交易号]</b></a>
+                            退款单号：{$payment_logs['out_refund_no']}-退款说明：{$payment_logs['refund_info']}-退款时间：{$payment_logs['refund_time']}
+                        </td>
+                    </tr>
+                {/if}
+                {if condition="$payment_logs['is_paid'] eq 0"}
+                    <tr>
+                        <td class="admin-table-left" style="background-color:#ffe9e9">微信支付信息</td>
+                        <td class="admin-table-right" style="background-color:#ffe9e9">未支付...</td>
+                    </tr>
+                {/if}
+
+
+            </table>
+    </div>
+</div>
+
+
+{include file='public:footer'}
+
+
+</script>

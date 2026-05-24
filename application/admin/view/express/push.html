@@ -1,0 +1,175 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">订单</li>
+        <li class="li2">推送</li>
+        <li class="li2 li3">推送列表</li>
+    </ul>
+</div>
+<style>
+.admin-attention {
+    height: inherit;
+}
+.checkOrder{ color:#00F}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+.admin-sele-k .text {
+    width: 100px;
+}
+.admin-input-text {
+    width: 100px!important;
+}
+.admin-sele-k label {
+    margin-right:5px;
+}
+</style>
+
+
+<div class="admin-main-js admin-main-sc">
+ 	<p class="admin-attention">
+        <b style="color:#F00">新版更新订推送单状态：宝塔计划任务访问URL：{$CONFIG.site.host}{:url('app/api/handlePush')} [设置3分钟更新一次]</b><br>
+    </p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+            	<a href="{:url('express/index')}">订单列表</a>  
+            	<a href="{:url('express/push')}">刷新[共{$count}条数据]</a>  
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('express/push')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="{$bg_date|default=''}"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="{$end_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                        </label>
+                        <label>
+                            <span>接口类型：</span>
+                            <select class="select w100" name="type">
+                             	<option {eq name="type" value="999"}selected="selected"{/eq} value="999">=请选择=</option>
+                                <option {eq name="type" value="1"}selected="selected"{/eq}  value="1">易达</option>
+                                <option {eq name="type" value="2"}selected="selected"{/eq}  value="2">云洋</option>
+                                <option {eq name="type" value="3"}selected="selected"{/eq}  value="3">京东</option>
+                                <option {eq name="type" value="4"}selected="selected"{/eq}  value="4">快递鸟</option>
+                                <option {eq name="type" value="5"}selected="selected"{/eq}  value="5">跨越</option>
+                                <option {eq name="type" value="6"}selected="selected"{/eq}  value="6">领航当日达</option>
+                                <option {eq name="type" value="7"}selected="selected"{/eq}  value="7">q必达</option>
+                                <option {eq name="type" value="8"}selected="selected"{/eq}  value="8">自定义</option>
+                                <option {eq name="type" value="9"}selected="selected"{/eq}  value="9">电商寄</option>
+                                <option {eq name="type" value="10"}selected="selected"{/eq}  value="10">自定义电商寄</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>推送类型：</span>
+                            <select class="select w100" name="pushType">
+                             	<option {eq name="pushType" value="999"}selected="selected"{/eq} value="999">=请选择=</option>
+                                <option {eq name="pushType" value="1"}selected="selected"{/eq}  value="1">状态推送</option>
+                                <option {eq name="pushType" value="2"}selected="selected"{/eq}  value="2">重量推送</option>
+                                <option {eq name="pushType" value="3"}selected="selected"{/eq}  value="3">揽收推送</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>信息处理状态：</span>
+                            <select class="select w100" name="status">
+                             	<option {eq name="status" value="999"}selected="selected"{/eq} value="999">=请选择=</option>
+                                <option {eq name="status" value="1"}selected="selected"{/eq}  value="1">未处理</option>
+                                <option {eq name="status" value="2"}selected="selected"{/eq}  value="2">已处理</option>
+                            </select>
+                        </label>
+                        
+                        
+                        <span>关键字</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/><input type="submit" value=" 搜索"  class="admin-input-button"/>
+                    </div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td class="w50">ID</td>
+                    <th>接口名称</th>
+                    <td>运单编号</td>
+                    <td>订单编号</td>
+                    <td>快递列表 </td>
+                    <td>推送类型</td>
+                    <td>推送时间</td>
+                    <td>信息处理状态</td>
+                    <td>信息处理时间</td>
+                    <td>信息处理说明</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr {eq name="var.status" value="2"}style="background-color:#f1f1f1"{/eq}>
+                        <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/></td>
+                        <td>{$var.id}</td>
+                        <td>
+                            {eq name="var.type" value="1"}<span class="weixin">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            {eq name="var.type" value="2"}<span class="bookworker">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            {eq name="var.type" value="3"}<span class="weibo">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            {eq name="var.type" value="4"}<span class="delivery">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            {eq name="var.type" value="5"}<span class="qq">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            {eq name="var.type" value="6"}<span class="bookworker">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            {eq name="var.type" value="7"}<span class="bookworker">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            {eq name="var.type" value="8"}<span class="weibo">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            {eq name="var.type" value="9"}<span class="delivery">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                            {eq name="var.type" value="10"}<span class="qq">{$getCompanyApiTypes[$var['type']]}</span>{/eq}
+                        </td>
+                        <td>{$var.deliveryId}</td>
+                        <td>{$var.orderNo}</td>
+                        <td>{$var.deliveryType}</td>
+                        <td>
+                        	{eq name="var.pushType" value="0"}<span class="shang">未知0</span>{/eq}
+                        	{eq name="var.pushType" value=""}<span class="shang">未知1</span>{/eq}
+                            {eq name="var.pushType" value="1"}<span class="weixin">状态推送</span>{/eq}
+                            {eq name="var.pushType" value="2"}<span class="bookworker">重量推送</span>{/eq}
+                            {eq name="var.pushType" value="3"}<span class="qq">揽收推送</span>{/eq}
+                        </td>
+                        <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                        <td>
+                            {eq name="var.status" value="1"}未处理{/eq}
+                            {eq name="var.status" value="2"}已处理{/eq}
+                        </td>
+                        <td>{$var.handle_time|date='Y-m-d H:i:s',###}</td>
+                        <td>{$var.handle_info}</td>
+                        <td>
+                            {eq name="var.status" value="1"}
+                                 {if condition="$var['deliveryId']"}
+                                     <a target="_blank" href="{:url('app/api/handlePush',array('id'=>$var['id']))}" class="admin-btn-small_quxiao">执行状态更新</a>
+                                 {/if}
+                            {/eq}
+                            {:BA('express/push_detail',array("id"=>$var["id"],"p"=>$p),'详细数据','load','admin-btn-small',800,550)}
+                            {:BA('express/push_delete',array("id"=>$var["id"]),'删除','act','admin-btn-default')}
+                            <a target="_blank" href="{:url('app/api/handlePush',array('id'=>$var['id'],'bug'=>1))}" class="admin-btn-small_quxiao">调试</a>
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+            	{:BA('express/push_delete','','批量删除','list',' a2')}
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'} 
+
+

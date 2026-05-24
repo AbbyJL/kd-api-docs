@@ -1,0 +1,119 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">城市快递</li>
+        <li class="li2 li3">业务员列表</li>
+    </ul>
+</div>
+
+<style>
+.selecteds{
+	background: #906;
+}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+.admin-btn-default-houseMoving {
+    font-size: 12px;
+    margin-left: 15px;
+    display: inline-block;
+    margin-top: 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #0265fe;
+    color: #fff;
+    padding: 2px 8px;
+    height: 22px;
+    line-height: 22px;
+}
+</style>
+
+
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span> 业务员列表 </p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+            	<a class="admin-btn-default-houseMoving tudoukuaijie" href="{:url('city/delivery_edit',array('id'=>0))}">添加</a>
+            	<a class="admin-btn-default-houseMoving tudoukuaijie" href="{:url('city/delivery',array('type'=>1))}">刷新</a>
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('city/delivery')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                        <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                            </label>
+                        <span>关键字</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/><input type="submit" value=" 搜索"  class="admin-input-button"/>
+                    </div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td class="w50">ID</td>
+                    <td>用户信息</td>
+                    <td>姓名</td>
+                    <td>手机</td>
+                    <td>省市区</td>
+                    <td>每单奖励</td>
+                    <td>具体地址</td>
+                    <td>证件图</td>
+                    <td>是否审核</td>
+                    <td>时间</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr {eq name="var.status" value="0"}style="background-color:#f4f4f4"{/eq}>
+                        <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/></td>
+                        <td>{$var.id}</td>
+                        <td>{$var.user.nickname}-{$var.user_id}</td>
+                        <td>{$var.name}</td>
+                        <td>{$var.mobile}</td>
+                        <td><span class="qq">{$var.city.name}-{$var.area.area_name}-{$var.business.business_name}-{$var.community.name}</span></td>
+                        <td style="color:#F00">¥{:round($var['money']/100,2)}</td>
+                        <td>{$var.addr}</td>
+                        <td>
+                        	{if condition="$var['photo']"}
+                            	<a target="_blank" href="{:config_img($var.photo)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($var.photo)}"></a>
+                            {/if}
+                        </td>
+                        <td>
+                            {eq name="var.status" value="0"}<span class="delivery">未审核</span>{/eq}
+                            {eq name="var.status" value="1"}<span class="weixin">已审核</span>{/eq}
+                        </td>
+                        <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                        <td>
+                        	{eq name="var.status" value="0"}
+                            	{:BA('city/delivery_status',array("id"=>$var["id"]),'审核','act','admin-btn-default')}
+                            {/eq}
+                        	{:BA('city/delivery_edit',array("id"=>$var["id"],"p"=>$p),'编辑','','admin-btn-default')}
+                            {:BA('city/delivery_delete',array("id"=>$var["id"]),'删除','act','admin-btn-default')}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'} 
+
+

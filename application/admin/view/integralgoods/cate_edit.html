@@ -1,0 +1,36 @@
+<div class="admin-main-sc-add ">
+    <div class="admin-table-box">
+        <form target="x-frame" action="{:url('Integralgoods/cate_edit',array('cate_id'=>$detail['cate_id'],'parent_id'=>$parent_id))}" method="post">
+        
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+            
+            		<input type="hidden" name="data[cate_id]" value="{$detail.cate_id}"/>
+                	<tr>
+                        <td class="admin-table-left">分类：</td>
+                        <td class="admin-table-right"><input type="text" name="data[cate_name]" value="{$detail.cate_name|default=''}" class="admin-manage-input"/>
+                        <code>商品分类名字</code>
+                        </td>
+                    </tr>
+                   
+                   
+                   <tr>
+                    <td class="admin-table-left">上传图片</td>
+                    <td class="admin-table-right">
+                    {php}echo tpl_form_field_image('data[photo]',$detail['photo'],$detail['photo'],'photo','',$options = array());{/php}
+                    </td>
+                </tr>
+                
+                
+            
+                <tr>
+                    <td class="admin-table-left">排序：</td>
+                    <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default=''}" class="admin-manage-input"/>
+                        <code>数字越小越高</code>
+                    </td>
+                </tr>
+            </table>
+            <div class="admin-small-qr"><input type="submit" value="确认保存" class="admin-btn-small-quren"/></div>
+        </form>
+    </div>
+</div>

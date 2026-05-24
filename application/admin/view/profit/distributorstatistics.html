@@ -1,0 +1,65 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">分销</li>
+        <li class="li2">分销商管理</li>
+        <li class="li2 li3">商家统计</li>
+    </ul>
+</div>
+
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span> 这里统计分销商绑定信息统计报表</p>
+   
+    
+    <div id="www_hatudou_com" style="width: 800px;height:450px;"></div>
+    <script type="text/javascript">
+		var dom = document.getElementById("www_hatudou_com");
+		var myChart = echarts.init(dom);
+var app = {};
+option = null;
+        option = {
+			title : {
+				text: '分销商数据统计',
+				subtext: '数据',
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: ['绑定微信分销商','绑定QQ分销商','绑定微博分销商','已验证手机分销商','已验证邮箱分销商']
+			},
+			series : [
+				{
+					name: '绑定来源',
+					type: 'pie',
+					radius : '55%',
+					center: ['50%', '60%'],
+					data:[
+						{value:"{$count_weixin}", name:'已绑定微信分销商'},
+						{value:"{$count_qq}", name:'已绑定QQ分销商'},
+						{value:"{$count_weibo}", name:'已绑定微博分销商'},
+						{value:"{$count_mobile}", name:'已验证手机分销商'},
+						{value:"{$count_mail}", name:'已验证邮箱分销商'}
+					],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+       if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+    </script>
+    
+</div>
+
+{include  file='public:footer'/}      

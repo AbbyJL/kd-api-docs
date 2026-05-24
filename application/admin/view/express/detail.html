@@ -1,0 +1,264 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">快递订单</li>
+        <li class="li2 li3">订单详情</li>
+    </ul>
+</div>
+<p class="admin-attention"><span>说明：</span> 快递订单详情</p>
+
+{:BA('express/detail',array("id"=>$detail["id"]),'刷新','','admin-btn-default')}
+{:BA('express/index','','返回列表','','admin-btn-default')}
+
+
+<div class="admin-main-sc-add" style="margin-top:20px">
+    <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+            	<tr>
+                    <td class="admin-table-left">其他操作</td>
+                    <td class="admin-table-right">
+                       {include  file='express:operation'}
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="admin-table-left">订单ID：</td>
+                    <td class="admin-table-right">{$detail.id}</td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">等级推荐人关系ID：</td>
+                    <td class="admin-table-right">{$detail.rank1_uid}-{$detail.rank2_uid}-{$detail.rank3_uid}</td>
+                </tr>
+                
+                {if condition="$var['deliveryId']"}
+                    <tr>
+                        <td class="admin-table-left">单号deliveryId：</td>
+                        <td class="admin-table-right">{$var.deliveryId}</td>
+                    </tr>
+                {/if}
+                {if condition="$var['expressId']"}
+                    <tr>
+                        <td class="admin-table-left">单号expressId：</td>
+                        <td class="admin-table-right">{$var.expressId}</td>
+                    </tr>
+                {/if}
+                {if condition="$var['realOrderState']"}
+                    <tr>
+                        <td class="admin-table-left">快递员：</td>
+                        <td class="admin-table-right">{$var.realOrderState}</td>
+                    </tr>
+                {/if}
+                <tr>
+                    <td class="admin-table-left">单号expressNo：</td>
+                    <td class="admin-table-right">{$var.expressNo}</td>
+                </tr>
+                
+                
+                {eq name="var.type" value="3"}
+                    <tr>
+                        <td class="admin-table-left">京东订阅推送：</td>
+                        <td class="admin-table-right" style="color:#F00; font-size:24px;">
+                            {if condition="$var['subscribe'] eq 0"}
+                                未订阅
+                                {:BA('express/subscribe',array("id"=>$var["id"]),'京东订阅','act','admin-btn-default')}
+                            {/if}
+                            {if condition="$var['subscribe'] eq 1"}
+                                已订阅
+                            {/if}
+                        </td>
+                    </tr>
+                {/eq}
+                
+                
+                {if condition="$var['pdfUrl']"}
+                    <tr>
+                        <td class="admin-table-left">电子面单PDF：</td>
+                        <td class="admin-table-right"><a target="_blank" href="{$var['pdfUrl']}">电子面单连接</a></td>
+                    </tr>
+                {/if}
+                
+                <tr>
+                    <td class="admin-table-left">用户下单ID：</td>
+                    <td class="admin-table-right">{$detail.user_id}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">重量【KG】：</td>
+                    <td class="admin-table-right">{$detail.wight}</td>
+                </tr>
+                 <tr>
+                    <td class="admin-table-left">体积</td>
+                    <td class="admin-table-right">{$detail.totalVolume}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" style="color:#F00; font-size:14px;">开单重量</td>
+                    <td class="admin-table-right" style="color:#F00; font-size:24px;">{$detail.review_weight}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" style="color:#F00; font-size:14px;">差价金额</td>
+                    <td class="admin-table-right" style="color:#F00; font-size:24px;"> &yen;{:round($var['diffMoneyYuan']/100,2)}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">金额</td>
+                    <td class="admin-table-right">
+                        官方原价 &yen;{:round($var['originalFee']/100,2)}元<br>
+                        抵扣金 &yen;{:round($var['moneys']/100,2)}元<br>
+                        支付金额 &yen;{:round($var['sumMoneyYuan']/100,2)}元<br>
+                        原始金额 &yen;{:round($var['sumMoneyYuan_old']/100,2)}元<br>
+                        优惠券抵扣金额 &yen;{:round($var['coupon_pmt']/100,2)}元<br>
+                        分享立减 &yen;{:round($var['discountmoney']/100,2)}元<br>
+                        优惠券ID-{$var['coupon_download_id']}<br>
+                        加价金额 &yen;{:round($var['sumMoneyYuan_jia']/100,2)}元<br>
+                        差价金额 &yen;{:round($var['diffMoneyYuan']/100,2)}元<br>
+                        平台收费 &yen;{:round($var['TotalFee']/100,2)}元<br>
+                        首重价格 &yen;{:round($var['firstPrice']/100,2)}元<br>
+                        首重价格+ &yen;{:round($var['firstPrice_jia']/100,2)}元<br>
+                        续重价格 &yen;{:round($var['addPrice']/100,2)}元<br>
+                        续重价格+ &yen;{:round($var['addPrice_jia']/100,2)}元
+                    </td>
+                </tr>
+             
+               
+                <tr>
+                    <td class="admin-table-left">寄件信息</td>
+                    <td class="admin-table-right">{$var['sendName']} - {$var['sendMobile']} - {$var['sendAddress']}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">收件信息</td>
+                    <td class="admin-table-right">{$var['receiveName']} - {$var['receiveMobile']} - {$var['receiveAddress']}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">快递公司</td>
+                    <td class="admin-table-right">{$var['kuaidi']}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">订单状态：</td>
+                    <td class="admin-table-right">{$getorderStatus[$var['orderStatus']]}</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left" style="color:#F00; font-size:24px;">寄件图片</td>
+                    <td class="admin-table-right" style="color:#F00; font-size:24px;">
+                        {foreach name="photos" item="v"}
+                            <a target="_blank" href="{:config_img($v.photo)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($v.photo)}"></a>
+                        {/foreach}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left" style="color:#F00; font-size:24px;">收件人回单图片</td>
+                    <td class="admin-table-right" style="color:#F00; font-size:24px;">
+                        {foreach name="photos2" item="v"}
+                        <a target="_blank" href="{:config_img($v.photo)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($v.photo)}"></a>
+                        {/foreach}
+                    </td>
+                </tr>
+               
+                <tr>
+                    <td class="admin-table-left" style="color:#F00; font-size:24px;">异常说明</td>
+                    <td class="admin-table-right" style="color:#F00; font-size:24px;">{$var['message']}</td>
+                </tr>
+              
+                <tr>
+                    <td class="admin-table-left">退款状态：</td>
+                    <td class="admin-table-right">{$getorderRightsStatus[$var['orderRightsStatus']]}</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">差价状态：</td>
+                    <td class="admin-table-right">{$getdiffStatus[$var['diffStatus']]}</td>
+                </tr>
+                {if condition="$var['cancel_reason']"}
+                    <tr>
+                        <td class="admin-table-left">取消订单理由：</td>
+                        <td class="admin-table-right">{$var['cancel_reason']}</td>
+                    </tr>
+                {/if}
+                
+                {if condition="$pressList"}
+                    <tr>
+                        <td class="admin-table-left">物流信息：</td>
+                        <td class="admin-table-right">
+                            {if condition="$var['type'] eq 1"}
+                                 {foreach name="pressList" item="item"}
+                                    <p>{$item.time} - {$item.desc}</p><br>
+                                {/foreach}
+                            {/if}
+                            {if condition="$var['type'] eq 2"}
+                                 {foreach name="pressList" item="item"}
+                                    <p>{$item}</p><br>
+                                    <p>{$item.time} - {$item.desc}</p><br>
+                                {/foreach}
+                            {/if}
+                            {if condition="$var['type'] eq 3"}
+                                 {foreach name="pressList" item="item"}
+                                    <p>{$item.categoryName}-{$item.operationRemark}-{$item.operationTime}</p><br>
+                                {/foreach}
+                            {/if}
+                            {if condition="$var['type'] eq 4"}
+                                {foreach name="pressList" item="item"}
+                                    <p>【{$item.pushTime}】-{$item.reason}</p><br>
+                                {/foreach}
+                            {/if}
+                            {if condition="$var['type'] eq 5"}
+                                {foreach name="pressList" item="item"}
+                                    <p>【{$item.uploadDate}】-{$item.routeDescription}-{$item.routeStep}</p><br>
+                                {/foreach}
+                            {/if}
+                            {if condition="$var['type'] eq 6"}
+                                {foreach name="pressList" item="item"}
+                                    <p>{$item.statusDesc}-{$item.statusTime}</p><br>
+                                {/foreach}
+                            {/if}
+                            {if condition="$var['type'] eq 7"}
+                                {foreach name="pressList" item="item"}
+                                    <p>{$item.opeTimeAll}-{$item.opeRemark}</p><br>
+                                {/foreach}
+                            {/if}
+                            {if condition="$var['type'] eq 8"}
+                                {foreach name="pressList" item="item"}
+                                <p>【{$item.time}】-{$item.context}</p><br>
+                                {/foreach}
+                            {/if}
+
+                            {if condition="$var['type'] eq 9"}
+                                {foreach name="pressList" item="item"}
+                                <p>{$item.time} - {$item.title} - {$item.desc}</p><br>
+                                {/foreach}
+                            {/if}
+
+                            {if condition="$var['type'] eq 10"}
+                                {foreach name="pressList" item="item"}
+                                <p>【{$item.time}】-{$item.context}</p><br>
+                                {/foreach}
+                            {/if}
+
+                        </td>
+                    </tr>
+                {/if}
+                
+                <tr>
+                    <td class="admin-table-left">订单时间：</td>
+                    <td class="admin-table-right">
+                        下单时间：{$detail.create_time|date='Y-m-d H:i',###}
+                        {if condition="!empty($detail['pay_time'])"}
+                            付款时间：{$detail.pay_time|date='Y-m-d H:i',###}
+                        {/if}
+                        {if condition="!empty($detail['cancel_time'])"}
+                            取消时间：{$detail.cancel_time|date='Y-m-d H:i',###}
+                        {/if}
+                    </td>
+                </tr>
+            </table>
+    </div>
+</div>
+
+
+   
+                
+
+
+{include file='public:footer'}
+

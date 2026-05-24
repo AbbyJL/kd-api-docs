@@ -1,0 +1,102 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递公司</li>
+        <li class="li2">{$getCompanyApiTypes[$type]}管理</li>
+        <li class="li2 li3">{$getCompanyApiTypes[$type]}分类</li>
+    </ul>
+</div>
+
+<style>
+.admin-main-cate .admin-js-nr .admin-select-nr .left a {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 36px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+.admin-main-cate .admin-js-nr .admin-select-nr .right a {
+    height: 28px;
+    font-size: 14px;
+    line-height: 28px;
+    color: grey;
+    background-position: 12px center;
+    width:auto;
+    padding-left: 36px;
+    border-radius: 3px;
+}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px; border:0px solid #dbdbdb!important;}
+.shang{ background:#F00!important; }
+.delivery{ background: #00F!important;}
+.weibo{ background:#903!important;}
+.qq{ background:#09F!important}
+.weixin{ background:#0C0!important;}
+.bookworker{ background:#F0C!important}
+</style>
+
+<div class="admin-main-cate">
+    <p class="admin-attention"><span>注意：</span>【不能添加编辑】【ID不能修改】新版支持首重续重单独设置请一定先设置好【特别注意一个快递公司只能添加一个不要重复】需要添加多个快递公司联系</p>
+    <div class="admin-js-nr">
+        <form  target="x-frame" method="post">
+            <div class="admin-select-nr" style="border-top: 1px solid #e1e6eb;">
+                <div class="left">
+                    <a href="{:url('express/cate_create',array('type'=>$type))}">添加{$getCompanyApiTypes[$type]}</a>
+                    {volist name="getCompanyApiTypes" id="var"} 
+                    	<a {eq name='i' value='$type'}class="on"{/eq} href="{:url('express/cate',array('type'=>$i))}">{$var}</a>
+                    {/volist}
+                </div>
+                <div class="right">
+                    <div class="right">
+                	<a href="{:url('express/cate_import',array('type'=>$type))}" mini="list" class="admin-btn-default">导入{$getCompanyApiTypes[$type]}默认数据</a>
+                    <a href="{:url('express/cate_update',array('type'=>$type))}" mini="list" class="admin-btn-default">更新{$getCompanyApiTypes[$type]}排序</a>
+                </div>
+                </div>
+            </div>
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle; background-color:#FFF;text-align:center;">
+                    <tr bgcolor="#F5F6FA" height="35px;" style="color:#333; font-size:16px; line-height:35px;">
+						<th>ID</th>
+                        <th>名称</th>
+                        <th>接口名称</th>
+                        <th>图标</th>
+                        <th>加价%</th>
+                        <th>揽收率</th>
+                        <th>排序</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr height="48px" style="font-size:14px; color:#545454;line-height:48px; {eq name="var.firstPrice" value="1"}background-color:#f1f1f1{/eq}">
+                        	<td>{$var.cate_id}</td>
+                            <td>{$var.cate_name}</td>
+                            <td>{$getCompanyApiTypes[$var['type']]}</td>
+                            <td><img src="{$var['photo']}" width="44" height="44"/></td>
+                            <td style="color:#F00">{$var.ratio}%</td>
+                            <td>{$var.lanshou}%</td>
+                            <td><input name="orderby[{$var.cate_id}]" value="{$var.orderby}" type="text" class="admin-menber-input w80"/></td>
+                            <td>
+                            	 {eq name="var.firstPrice" value=""}开启{/eq}
+                                 {eq name="var.firstPrice" value="0"}开启{/eq}
+                                 {eq name="var.firstPrice" value="1"}关闭{/eq}
+                            </td>
+                            <td>
+                                {eq name="var.type" value="10"}
+                                    {:BA('express/cate_province',array("cate_id"=>$var["cate_id"],"type"=>$var["type"]),'电商寄价格','','admin-btn-default_quxiao',600,300)}
+                                {/eq}
+                                {eq name="var.type" value="8"}
+                                    {:BA('express/cate_province',array("cate_id"=>$var["cate_id"],"type"=>$var["type"]),'区域价格','','admin-btn-default_quxiao',600,300)}
+                                {/eq}
+                                {:BA('express/cate_edit',array("cate_id"=>$var["cate_id"]),'编辑','','admin-btn-default',600,300)}
+                                {:BA('express/cate_delete',array("cate_id"=>$var["cate_id"]),'删除','act','admin-btn-default')}
+                            </td>  
+                        </tr>
+                    {/foreach}       
+                </table>
+                {$page}
+        </form>
+    </div>
+    
+    
+{include  file='public:footer'}      

@@ -1,0 +1,143 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">短信设置</li>
+    </ul>
+</div>
+
+<style>
+	.admin-table-left,.sogn{ width:180px !important;}
+	.profit{text-align: center;color: #333;font-weight: bold; background: #F5F5FB;}
+	.sogn{width:120px; margin:5px 0;height: 30px;}
+</style>
+
+<form  target="x-frame" action="{:url('setting/sms')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+             	<tr>
+                	<td class="admin-table-right profit" colspan="2"> 短信接口选择</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">短信接口选择：</td>
+                    <td class="admin-table-right">
+                        <select name="data[dxapi]"  class="admin-sc-add-text-name sogn jq_type">
+                        	<option value="0">=请选择短信接口=</option>
+                            <option value="bo" {if condition="$CONFIG['sms']['dxapi'] eq bo"}selected='selected'{/if}>短信宝接口</option>
+
+                            <option value="bo" {if condition="$CONFIG['sms']['dxapi'] eq bo"}selected='selected'{/if}>短信宝接口</option>
+
+
+                            <option value="feige" {if condition="$CONFIG['sms']['dxapi'] eq feige"}selected='selected'{/if}>飞鸽传书接口</option>
+                        </select>
+                        <code>短信宝连接smsbao.com飞鸽传书连接www.feige.cn</code></td>
+                </tr>
+
+                <tr class="jq_type_bo">
+                	<td class="admin-table-right profit" colspan="2"> 下面是万能接口【短信宝】短信配置URL配置不会的请去论坛看教程</td>
+                </tr>
+
+
+                <tr class="jq_type_bo">
+                    <td class="admin-table-left">内容编码：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[charset]" {eq name="CONFIG.sms.charset" value="0"}checked="checked"{/eq}  value="0">UTF-8</label>
+                        <code>默认UTF-8</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_bo">
+                    <td class="admin-table-left">短信请求模式：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[curl]" {eq name="CONFIG.sms.curl" value="file"}checked="checked"{/eq}  value="file"/>file</label>
+                        <code>选择file</code>
+                    </td>
+                </tr>
+
+
+                <tr class="jq_type_bo">
+                 <td class="admin-table-left">短信宝信息：</td>
+                 <td class="admin-table-right">短信宝账户： <input type="text" name="data[sms_bao_account]" value="{$CONFIG.sms.sms_bao_account}" class="admin-sc-add-text-name sogn" />
+                 &nbsp;&nbsp;短信宝密码：  <input type="text" name="data[sms_bao_password]" value="{$CONFIG.sms.sms_bao_password}" class="admin-sc-add-text-name sogn" />
+                 <code>这里写短信宝的账户密码，记得不要有空格哦</code>
+                 <a class="admin-btn-small_quxiao " id="sms_bao">测试一下</a>
+                 </td>
+                </tr>
+                <tr class="jq_type_bo">
+                    <td class="admin-table-left">成功状态值：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[code]" value="{$CONFIG.sms.code}"  class="admin-sc-add-text-name sogn">
+                        <code>填写0<a style="color:#F00;font-weight:bold;font-size:18px;">当前短信宝剩余短信数量：{$number}</a></code>
+                    </td>
+                </tr>
+                
+                
+                <tr class="jq_type_feige">
+                 <td class="admin-table-left">飞鸽信息：</td>
+                 <td class="admin-table-right">飞鸽账户apikey： <input type="text" name="data[sms_apikey]" value="{$CONFIG.sms.sms_apikey}" class="admin-sc-add-text-name sogn">
+                 &nbsp;&nbsp;飞鸽secret：  <input type="text" name="data[sms_secret]" value="{$CONFIG.sms.sms_secret}" class="admin-sc-add-text-name sogn">
+                 &nbsp;&nbsp;飞鸽签名ID：  <input type="text" name="data[sms_sign_id]" value="{$CONFIG.sms.sms_sign_id}" class="admin-sc-add-text-name sogn">
+                 <a class="admin-btn-small_quxiao " id="sms_feige">测试一下</a>
+                </tr>
+              
+
+               
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认保存" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+<script>
+$(document).ready(function(){
+    $(".jq_type").change(function(){
+	  var name = $(this).val();
+      if(name == 'feige'){
+          $(".jq_type_feige").show();
+          $(".jq_type_bo").hide();
+      }else if(name == 'bo'){
+          $(".jq_type_feige").hide();
+          $(".jq_type_bo").show();
+      }
+   });
+   $(".jq_type").change();
+});
+</script>
+
+<script>
+$(document).ready(function(){
+	$("#sms_bao").click(function(){
+		var url = "{:url('setting/sms_bao')}";
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: '',
+			success: function(data){
+			  if(data.c == 0){
+				 parent.layer.msg(data.msg,{icon:1})
+			  }else{
+				  parent.layer.msg(data.msg,{icon:2})
+			  }
+			}
+		});
+	});
+	$("#sms_feige").click(function(){
+		var url = "{:url('setting/sms_feige')}";
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: '',
+			success: function(data){
+			  if(data.c == 0){
+				 parent.layer.msg(data.msg,{icon:1})
+			  }else{
+				  parent.layer.msg(data.msg,{icon:2})
+			  }
+			}
+		});
+	});
+});
+</script>
+{include  file='public:footer'/}

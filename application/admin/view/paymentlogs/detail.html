@@ -1,0 +1,59 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <div class="admin-main-sc-add">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="admin-table-left">订单ID：</td>
+                        <td class="admin-table-right">{$var.log_id}</td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-left">支付方式：</td>
+                        <td class="admin-table-right">
+                        	{eq name="var.code" value="weixin"}公众号支付{/eq}
+                            {eq name="var.code" value="weixinh5"}微信h5{/eq}
+                            {eq name="var.code" value="native"}微信扫码{/eq}
+                            {eq name="var.code" value="money"}余额支付{/eq}
+                            {eq name="var.code" value="alipay"}支付宝{/eq}
+                            {eq name="var.code" value="bank"}线下打款{/eq}
+                       </td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-left">支付类型：</td>
+                        <td class="admin-table-right">{$var.type}</td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-left">支付时间：</td>
+                        <td class="admin-table-right">{if condition="$var['pay_time']"}{$var.pay_time|date='Y-m-d H:i:s',###}{else/}未支付{/if}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="admin-table-left">付款方式：</td>
+                        <td class="admin-table-right">{$var.name}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="admin-table-left">付款账户：</td>
+                        <td class="admin-table-right">{$var.account}</td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-left">付款说明：</td>
+                        <td class="admin-table-right">{$var.info}</td>
+                    </tr>
+
+					<tr>
+                        <td class="admin-table-left">截图信息：</td>
+                        <td class="admin-table-right">
+                        {foreach name="photos" item="item"}
+                            <a href="{:config_weixin_img($item)}" class="tooltip"><img src="{:config_img($item)}" class="w80"></a>
+                        {/foreach}
+                        </td>
+                    </tr>
+                    
+                    
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div>

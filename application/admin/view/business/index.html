@@ -1,0 +1,71 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">区域设置</li>
+        <li class="li2 li3">乡镇管理</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+	{php}
+        $city = model('area')->find($area_id);
+    {/php}
+    <div class="admin-js-nr">
+        <div class="admin-select-nr">
+            <div class="left">
+                {:BA('area/index',array('city_id'=>$city['city_id']),'返回区域','','',600,360)}
+                {:BA('business/index',array('area_id'=>$area_id),'刷新','','',600,360)}
+            </div>
+            <div class="right">
+
+              <form class="admin-search-form" method="post" action="{:url('business/index')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                      <input type="text" name="keyword" placeholder=" 输入乡镇名称拼音"  value="{$keyword}" class="admin-input-text"/>
+                       <input type="submit" value="  搜索"  class="admin-input-button"/>
+                    </div>
+                </div>
+            </form>
+           </div> 
+        </div>
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="business_id"/></td>
+                        <td>ID</td>
+                        <td>行政名称</td>
+                        <td>代理ID</td>
+                        <td>代理昵称</td>
+                        <td>代理分成费率</td>
+                        <td>排序</td>
+                        <td>操作</td>   
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_business_id" type="checkbox" name="business_id[]" value="{$var.business_id}"/></td>
+                            <td>{$var.business_id}</td>
+                            <td>{$var.province.name}-{$var.city.name}-{$var.area.area_name}-{$var.business_name}</td>
+                            <td>{$var.user_id}</td>
+                            <td>{$var.user.nickname}</td>
+                            <td>{:round($var['ratio']/100,2)}%</td>
+                            <td>{$var.orderby}</td>
+                            <td>
+                                {:BA('business/edit',array("business_id"=>$var["business_id"],'area_id'=>$area_id),'编辑','','admin-btn-default',600,360)}
+                                {:BA('business/delete',array("business_id"=>$var["business_id"],'area_id'=>$area_id),'删除','act','admin-btn-default')}
+                                {:BA('business/community',array("business_id"=>$var["business_id"],"type"=>$var["type"]),'小区列表','','admin-btn-default',600,300)}
+                          </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr">
+                <div class="left">
+                    {:BA('business/delete',array('area_id'=>$area_id),'批量删除','list',' a2')}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/}        

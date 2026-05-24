@@ -1,0 +1,49 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">编辑会员黑名单</li>
+    </ul>
+</div>
+
+<style>
+input[readonly]{background-color:#EEEEEE;}
+</style>
+<p class="admin-attention"><span>说明：</span> 编辑黑名单</p>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form target="x-frame" action="{:url('user/closeds_edit',array('id'=>$detail['id'],'p'=>$p))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    
+                        <tr>
+                            <td class="admin-table-left">姓名：</td>
+                            <td class="admin-table-right"><input type="text" name="data[name]" value="{$detail.name|default=''}"  class="admin-sc-add-text-name w200" />
+                                <code>姓名</code>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="admin-table-left">手机：</td>
+                            <td class="admin-table-right"><input type="text" name="data[phone]" value="{$detail.phone|default=''}"  class="admin-sc-add-text-name w200" />
+                                <code>手机</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">说明：</td>
+                            <td class="admin-table-right">
+                                <textarea name="data[remark]" cols="50" rows="5">{$detail.remark}</textarea>
+                                <code>拉黑说明</code>
+                            </td>
+                        </tr>
+                        
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确定操作" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+

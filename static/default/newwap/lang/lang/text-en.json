@@ -1,0 +1,22 @@
+﻿{
+  "Gene": {
+    "Gene": "Gene Symbol",
+    "Synonyms": "Synonyms",
+    "Description": "Gene Description",
+    "GeneID": "Entrez Id",
+    "Chromosome": "Chromosome",
+    "MapLocation": "Map Location",
+    "CanonicalTranscript": "Canonical Transcript"
+  },
+  "TabPage": {
+    "GeneVariants_tab": "Gene Variants",
+    "MolecularProfiles_tab": "Molecular Profiles",
+    "AssociatedEvidence_tab": "Gene Level Evidence"
+  },
+  "acc": {
+    "HelpCenter": "Help center",
+    "BusinessCenter": "Business Center",
+    "Exit": "[Exit]",
+    "BusinessSupport": "Business Support"
+  }
+}

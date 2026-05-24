@@ -1,0 +1,177 @@
+{
+	"code": 200,
+	"data": {
+		"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MjMxNzIxNzQsInVzZXJJZCI6MzA1MDMsImlhdCI6MTcyMjkxMjk3NCwianRpIjoiNDJmNDY4ZjgtYzVmNS00MGM0LTk2YzgtNTgzZDhmNDQwMzI3In0.GxJArpUauQninS2usn9k2wHJYOf13IAZpnpR1yDrcVs",
+		"config": {
+			"banners": [{
+				"sort": 0,
+				"src": "https://static.jishengsheng.com/statics/banner/banner-1.png",
+				"type": 4,
+				"action": "",
+				"actionExtra": ""
+			}, {
+				"sort": 1,
+				"src": "https://static.jishengsheng.com/statics/banner/banner-2.png",
+				"type": 4,
+				"action": "",
+				"actionExtra": ""
+			}],
+			"expresses": {
+				"11": {
+					"id": 11,
+					"name": "顺心捷达",
+					"icon": "https://static.jishengsheng.com/statics/express/sxjd.png",
+					"des": "取件快 服务一般",
+					"tags": []
+				},
+				"12": {
+					"id": 12,
+					"name": "菜鸟裹裹",
+					"icon": "https://static.jishengsheng.com/statics/express/cainiao.png",
+					"des": "取件率高 服务好",
+					"tags": []
+				},
+				"13": {
+					"id": 13,
+					"name": "邮政速递",
+					"icon": "",
+					"des": "",
+					"tags": []
+				},
+				"14": {
+					"id": 14,
+					"name": "菜鸟直送",
+					"icon": "https://static.jishengsheng.com/statics/express/dblwl.png",
+					"des": "上门取件最快 服务好",
+					"tags": []
+				},
+				"15": {
+					"id": 15,
+					"name": "德邦物流",
+					"icon": "https://static.jishengsheng.com/statics/express/db.png",
+					"des": "寄大件推荐 服务好 取件快",
+					"tags": []
+				},
+				"1": {
+					"id": 1,
+					"name": "京东快递",
+					"icon": "https://static.jishengsheng.com/statics/express/jd.png",
+					"des": "服务最好 取件快 送达快",
+					"tags": []
+				},
+				"2": {
+					"id": 2,
+					"name": "德邦快递",
+					"icon": "https://static.jishengsheng.com/statics/express/db.png",
+					"des": "寄大件推荐 服务好 取件快",
+					"tags": []
+				},
+				"3": {
+					"id": 3,
+					"name": "圆通速递",
+					"icon": "https://static.jishengsheng.com/statics/express/yto.png",
+					"des": "取件率最高 上门快 服务好",
+					"tags": []
+				},
+				"4": {
+					"id": 4,
+					"name": "申通快递",
+					"icon": "https://static.jishengsheng.com/statics/express/sto.png",
+					"des": "价格较低 取件率一般",
+					"tags": []
+				},
+				"5": {
+					"id": 5,
+					"name": "极兔速递",
+					"icon": "https://static.jishengsheng.com/statics/express/jt.png",
+					"des": "取件慢 服务一般",
+					"tags": []
+				},
+				"6": {
+					"id": 6,
+					"name": "顺丰速运",
+					"icon": "https://static.jishengsheng.com/statics/express/sf.png",
+					"des": "",
+					"tags": []
+				},
+				"7": {
+					"id": 7,
+					"name": "中通快递",
+					"icon": "https://static.jishengsheng.com/statics/express/zto.png",
+					"des": "取件率低 服务一般",
+					"tags": []
+				},
+				"8": {
+					"id": 8,
+					"name": "韵达快递",
+					"icon": "https://static.jishengsheng.com/statics/express/yd.png",
+					"des": "取件率低 服务一般",
+					"tags": []
+				},
+				"9": {
+					"id": 9,
+					"name": "丹鸟",
+					"icon": "",
+					"des": "",
+					"tags": []
+				},
+				"10": {
+					"id": 10,
+					"name": "跨越速运",
+					"icon": "",
+					"des": "",
+					"tags": []
+				}
+			},
+			"posterInfo": {
+				"src": "https://static.jishengsheng.com/statics/poster/jxz_20240612_poster-min.png",
+				"type": 0,
+				"action": "https://mp.weixin.qq.com/s/xRvkq9Ygncy3_WV6pFJhpQ",
+				"actionExtra": "寄件教程",
+				"condition": ""
+			},
+			"normalInfo": {
+				"itemType": ["普货", "服装鞋帽", "食品", "美妆用品", "吧唧", "明星小卡", "谷子", "明星周边", "其他"],
+				"remark": ["带防水袋", "带纸箱", "请尽快取件", "有电梯", "需要文件袋", "需要爬楼梯", "到了打电话"]
+			},
+			"batchInfo": {
+				"itemType": ["普货", "服装鞋帽", "食品", "美妆用品", "吧唧", "明星小卡", "谷子", "明星周边", "其他"],
+				"remark": ["带防水袋", "带纸箱", "请尽快取件", "有电梯", "需要文件袋", "需要爬楼梯", "到了打电话"]
+			},
+			"heavyInfo": {
+				"itemType": ["普货", "被褥衣物", "行李箱包", "家具家电", "零食特产", "其他"],
+				"remark": ["需打木架", "易碎品", "需要包装袋", "有电梯", "要当面核重", "需要包装袋", "到了打电话"]
+			},
+			"buyInfo": {
+				"itemType": ["普货", "服装鞋帽", "文件", "美妆用品", "证件", "明星周边", "食品", "日用品", "其他"],
+				"remark": ["带防水袋", "带纸箱", "请尽快取件", "有电梯", "需要文件袋", "需要爬楼梯", "到了打电话"]
+			},
+			"slogan": "https://static.jishengsheng.com/statics/slogan/jxz_slogan.png",
+			"tipsInfo": {
+				"buyMaker": ["下单成功后，请主动联系快递员沟通上门取件时间哦～", "碰到下单失败、快递员联系不上的情况，可更换快递下单~"],
+				"normalMaker": ["下单成功后，请主动联系快递员沟通上门取件时间哦～", "碰到下单失败、快递员联系不上的情况，可更换快递下单~"],
+				"batchMaker": ["下单成功后，请主动联系快递员沟通上门取件时间哦～", "一次邮寄多个包裹时，可以先提前在地址簿新建好收件人~"],
+				"heavyMaker": ["下单成功后，请主动联系快递员沟通上门取件时间哦～", "如果邮寄的物品体积较大，请在打包时尽量压缩包裹体积~"]
+			},
+			"templateList": ["YQwLpQNUqgq6qYbCzbEornbwNW20eqQXMSf3w6dpOK0", "mIOTxNJT7JfWDuR0yvJZw4jURkp29E2bKdlFL9EV8W8", "nh4LZIK7AN4QuvBdFeCYptyoTRlZ8sJTvVB86xibByU"],
+			"hrefInfo": {
+				"mp": "https://mp.weixin.qq.com/s/8skyRF2-7uN2nto0q0n5RA",
+				"tutorial": "https://mp.weixin.qq.com/s/xRvkq9Ygncy3_WV6pFJhpQ"
+			},
+			"shareConfig": {
+				"inviteText": "悄悄告诉你！用这个寄快递只要5元起，快去试试~\\n\\n",
+				"posterHref": "https://static.jishengsheng.com/statics/poster/poster_jixiaozhu.png",
+				"shareTitle": "悄悄告诉你！用这个寄快递只要5元起，快去试试~",
+				"shareImage": "https://static.jishengsheng.com/statics/poster/share_invite_jxs.png",
+				"notifyTitle": "您的好友分享了一条快递信息~",
+				"notifyImage": "https://static.jishengsheng.com/statics/poster/share_notify.png"
+			},
+			"customQr": "https://static.jishengsheng.com/statics/custom/20161718199640_.pic.jpg",
+			"invoiceQr": "https://static.jishengsheng.com/statics/custom/ticket.png",
+			"cacheVersion": "1"
+		},
+		"userId": "KUM8LEX3"
+	},
+	"time": 1722912974733,
+	"sign": "b0ae63a1-11a8-4c96-8b8f-0f1f268d0f3e"
+}

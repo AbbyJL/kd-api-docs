@@ -1,0 +1,94 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家收银台</li>
+        <li class="li2 li3">收银台商家列表</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span>这里显示已开通收银台的商家列表</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                {:BA('breaks/order','','收银订单列表')}
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('breaks/index')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="{$shop_id|default=''}"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="{$shop_name}" class="text"/>
+                                <a mini="select"  w="1000" h="600" href="{:url('shop/select')}" class="sumit">选择商家</a>
+                            </label>
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text"   id="nickname" name="nickname" value="{$nickname}" class="text"/>
+                                <a mini="select"  w="1000" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                                <input style="float: right;" type="submit" value="   搜索"  class="admin-input-button"/>
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="set_id"/></td>
+                        <td class="w50">编号</td>
+                        <td>商家ID</td>
+                        <td>商户名称</td>
+                        <td>优惠方式</td>
+                        <td>扣除折扣/抽成</td>
+                        <td>收银使用次数</td>
+                        <td>当前状态</td>
+                        <td>创建日期</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_set_id" type="checkbox" name="set_id[]" value="{$var.set_id}"/></td>
+                            <td>{$var.set_id}</td>
+                            <td>{$var.shop_id}</td>
+                            <td>{$shops[$var['shop_id']]['shop_name']}</td>
+                            <td>{$types[$var['type_id']]}</td>
+                            <td>
+                                {eq name="var.type_id" value="0"}
+                                	{if condition="!empty($var['deduction'])"}{$var.deduction}折{else/}未设置扣除点数{/if}
+                                {else/}
+                               		 {if condition="!empty($var['vacuum'])"}&yen;{$var.vacuum}元{else/}未设置抽成金额{/if}
+                                {/eq}
+                            </td>
+                            <td>{$var.use_count}</td>
+                            <td>{eq name="var.is_open" value="0"}关闭{else/}开启{/eq}</td>
+                            <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                            <td>
+                                {eq name="var.audit" value="0"}
+                                	{:BA('breaks/audit',array("set_id"=>$var["set_id"]),'审核','act','admin-btn-default')}
+                                {else/}
+                                	<a class="admin-btn-default">已审核</a>
+                                {/eq}
+                                {:BA('breaks/order',array("shop_id"=>$var["shop_id"]),'买单列表','','admin-btn-default')}
+                                {:BA('breaks/edit',array("set_id"=>$var["set_id"]),'编辑','','admin-btn-default')}
+                                {:BA('breaks/delete',array("set_id"=>$var["set_id"]),'删除','act','admin-btn-default')}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/} 
+
+

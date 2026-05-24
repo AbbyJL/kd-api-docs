@@ -1,0 +1,31 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="x-frame" action="{:url('template/edit',array('template_id'=>$detail['template_id']))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                        <tr>
+                            <td class="admin-table-left">价格：</td>
+                            <td class="admin-table-right">
+                                <input name="price" type="text"  value="{:round($detail['price']/100,2)}"  class="admin-sc-add-text-name w150"/>
+                                <code>改模板的销售价格，只针对商家模板有效</code>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td class="admin-table-left">模板简介：</td>
+                            <td class="admin-table-right">
+                                <textarea name="intro" cols="50" rows="6">{$detail['intro']}</textarea>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="编辑" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

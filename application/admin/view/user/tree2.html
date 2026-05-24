@@ -1,0 +1,71 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员管理</li>
+        <li class="li2">会员关系</li>
+        <li class="li2 li3">会员关系列表</li>
+    </ul>
+</div>
+<style>
+.shang, .delivery, .weibo, .qq, .weixin{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.headimgurl{ width:38px; height:38px; border-radius:100%;}
+.tr-tree-1{}
+</style>
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span>会员【{$users.nickname}】下级关系列表</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+          
+        <div class="clear"></div>
+    </div>
+    <form  target="dantiaow_frm" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50">ID</td>
+                    <td>会员账户</td>
+                    <td>手机</td>
+                    <td>当前等级</td>
+                    <td>邀请人</td>
+                    <td>直推人数</td>
+                    <td>团队人数</td>
+                    <td>个人订单业绩</td>
+                    <td>团队订单业绩</td>
+                    <td>加入时间</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                        <tr>
+                            <td>{$var.user_id}</td>
+                            <td>{$var.nickname}</td>
+                            <td>{$var['mobile']}</td>
+                            <td>{$var['rank_name']}</td>
+                            <td>{$var['yao_name']}</td>
+                            <td>{$var['yao_num']}</td>
+                            <td>{$var['tuan_num']}</td>
+                            <td>{:round($var['user_price']/100,2)}</td>
+                            <td>{:round($var['tuan_price']/100,2)}</td>
+                            <td>{$var['time']}</td>
+                            <td>
+                                {:BA('user/tree',array("user_id"=>$var["user_id"],"p"=>$p),'查看下级','','admin-btn-default')}
+                            </td>
+                        </tr>
+                      
+                {/foreach}
+            </table>
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'/} 
+
+

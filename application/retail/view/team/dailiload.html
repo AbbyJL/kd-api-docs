@@ -1,0 +1,42 @@
+{foreach name="list" item="item"}
+       <li class="line">
+           
+       <dt><a class="x4">代理ID - {$item['user_id']}</a><a class="x8 text-right">{$item.reg_time|date='Y-m-d H:i:s',###}</a></dt>
+      
+        
+        <dd class="zhong">
+                <div class="x12">
+                    <p>代理人账户：{$item['nickname']}- UID({$item['user_id']})</p>
+                    <p>代理人手机：{$item['mobile']}</p>
+                    <p>等级：<b class="text-red">{$item['rank']['rank_name']|default='无等级'}</b>-{$item['rank']['rank_id']|default='0'}</p>
+                    <p class="text-red"> 总余额: &yen;{:round($item['money']/100,2)} 元</p>
+                    <p class="text-blue"> 佣金待入账: &yen;{:round($item['upl0']/100,2)} 元</p>
+                    <p class="text-yellow"> 佣金已入账: &yen;{:round($item['upl1']/100,2)} 元</p>
+                    <p class="text-blue"> 积分: {$item['integral']}</p>
+                    <p class="text-red"> 分成费率: {:round($item['stock']/100,2)}%</p>
+              </div>
+          </dd>
+         <dl> 
+           <p class="text-right padding-top">
+                {if condition="$item['ji2'] eq 2 AND $role eq 3"}
+                    <a class="order_detail button button-little bg-yellow" href="{:url('team/dailiedit',array('user_id'=>$item['user_id']))}">编辑</a> 
+                {/if}
+                {if condition="$item['ji2'] eq 1 AND $role eq 2"}
+                    <a class="order_detail button button-little bg-yellow" href="{:url('team/dailiedit',array('user_id'=>$item['user_id']))}">编辑</a> 
+                {/if}
+                {if condition="$item['ji2'] eq 0 AND $role eq 1"}
+                    <a class="order_detail button button-little bg-yellow" href="{:url('team/dailiedit',array('user_id'=>$item['user_id']))}">编辑</a> 
+                {/if}
+            	
+            	<a class="order_detail button button-little bg-green" href="{:url('order/index2',array('user_id'=>$item['user_id']))}">订单</a> 
+            	<a class="order_detail button button-little bg-dot" href="{:url('money/index',array('user_id'=>$item['user_id']))}">财务</a> 
+            	
+            	
+            	<a class="order_detail button button-little bg-blue" href="{:url('team/daili',array('user_id'=>$item['user_id'],'ji'=>$item['ji2']))}">下级</a> 
+            </p>
+        </dl>
+      
+    </li>
+    <div class="blank-10 bg"></div>
+{/foreach}
+

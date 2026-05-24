@@ -1,0 +1,64 @@
+{include file="public:header"}
+<script src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+
+{if condition="$signPackage"} 
+	<script>
+        wx.config({
+            debug: false,
+            appId: "{$signPackage['appId']}",
+            
+            timestamp: "{$signPackage['timestamp']}",
+            nonceStr: "{$signPackage['nonceStr']}",
+            signature: "{$signPackage['signature']}",
+            jsApiList: [
+                'checkJsApi',
+                'invokeMiniProgramAPI',
+                'onMenuShareTimeline',
+                'getLocation',
+                'openLocation',
+                'onMenuShareAppMessage'
+            ],
+            openTagList: ['wx-open-subscribe']
+        });
+    </script>    
+{/if} 
+
+
+
+<div class="list-media-x" id="list-media">
+	<ul>
+	
+        <div class="container">
+			<div class="padding-large">
+				<img src="{:config_weixin_img($CONFIG['site']['wxcode'])}" width="90%">
+			</div>
+			<p class="text-big" style="margin-left:40px;">长按上面二维码，识别添加公众号</p>
+		</div>
+	</ul>
+</div>
+
+
+<script>
+wx.ready(function(){
+	function navigateTo(src){
+		var src = src;
+		console.log(src)
+		if(src){
+			wx.miniProgram.navigateTo({
+				url:'/pages/index/index',
+				success: function(){
+				layer.closeAll();
+					console.log('success')
+				},
+				fail: function(){
+					console.log('fail');
+				},
+				complete:function(){
+					console.log('complete');
+				}
+			});
+		}
+	}		
+});
+
+</script>

@@ -1,0 +1,144 @@
+*{
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	list-style: none;
+}
+html,body{
+	font-size: 16px !important;
+}
+a{
+	color: #333;
+}
+em{
+	font-style: normal;
+}
+button{
+	border: none;
+	outline: none;
+}
+input{
+	border: none;
+	outline: none;
+}
+body{
+	background-color: #fdfdfd;
+}
+header{
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	position: relative;
+	color: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	font-size: 16px;
+	z-index: 1000;
+}
+.header-space{
+	width: 100%;
+	height: 40px;
+}
+.footer-space{
+	width: 100%;
+	height: 50px;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.flex{
+	display: flex;
+}
+.tcolor{
+	background-image: linear-gradient(to right, #e81223 , #e9d2a6);
+}
+.acolor{
+	background-image: linear-gradient(to right, #a82bff , #ff3d62);
+}
+.vcolor{
+	background-image: linear-gradient(to right, #ff417b , #ffa619);
+}
+.footer{
+	width: 100% !important;
+	height: 50px !important;
+	background: #fff !important;
+	position: fixed !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	box-shadow: 0px -3px 13px 0px rgba(25,30,59,0.05) !important;
+}
+.footer li{
+	width: 25%;
+	height: 50px !important;
+	float: left !important;
+}
+.footer li a{
+	width: 100% !important;
+	height: 50px !important;
+	display: block !important;
+	float: left !important;
+}
+.footer li img{
+	width: 30px !important;
+	height: 30px !important;
+	display: block !important;
+	margin: 2px auto 0 !important;
+}
+.footer li p{
+	font-size: 12px !important;
+	height: 20px !important;
+	line-height: 20px !important;
+	text-align: center !important;
+	color: #999 !important;
+	margin-top: -4px !important;
+	margin-bottom: 0 !important;
+}
+.footer li.action p{
+	color: #e81223 !important;
+}
+
+.headers{
+	width: 100%;
+	height: 44px;
+	background-color: #e81223;
+	padding: 0 0.5rem;
+	box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999999;
+}
+.headers-space{
+	width: 100%;
+	height: 44px;
+}
+.headers p{
+	width: 100%;
+	height: 44px;
+	color: #fff;
+	line-height: 44px;
+	text-align: center;
+	font-size: 16px;
+}
+.headers img{
+	height: 20px;
+	position: absolute;
+	top: 12px;
+	left: 0.5rem;
+}
+.headers a{
+	display: inline-block;
+	height: 44px;
+	line-height: 44px;
+	color: #fff;
+	display: inline-block;
+	font-size: 14px;
+	position: absolute;
+	top: 0;
+	right: 0.5rem;
+}

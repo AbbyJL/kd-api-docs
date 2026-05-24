@@ -1,0 +1,124 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+     	<li class="li1">设置</li>
+        <li class="li2">上传设置</li>
+        <li class="li2">参数配置</li>
+    </ul>
+</div>
+<form target="x-frame" action="{:url('upset/edit',array('id'=>$detail['id']))}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="admin-table-left">类型：</td>
+                    <td class="admin-table-right">{$detail.type|default=''}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">存储地区选择</td>
+                    <td class="admin-table-right">
+                    <label>
+                    	<input type="radio" name="para[region]" {eq name="detail[para][region]" value="0"}checked="checked"{/eq} value="0"/>华东
+                    </label>
+                    <label>
+                    	<input type="radio" name="para[region]" {eq name="detail[para][region]" value="1"}checked="checked"{/eq} value="1"/>华北
+                    </label>
+                    <label>
+                    	<input type="radio" name="para[region]" {eq name="detail[para][region]" value="1"}checked="checked"{/eq} value="2"/>华南
+                    </label>
+                    <label>
+                    	<input type="radio" name="para[region]" {eq name="detail[para][region]" value="1"}checked="checked"{/eq} value="3"/>北美
+                    </label>
+                    <label>
+                    	<input type="radio" name="para[region]" {eq name="detail[para][region]" value="1"}checked="checked"{/eq} value="4"/>东南亚
+                    </label>
+                    <code>地区您申请存储的时候选择的哪里就选择哪里，否则上传失败</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">是否开启水印：</td>
+                    <td class="admin-table-right">
+                    	 <label>
+                            <input type="radio" name="para[water]" {eq name="detail[para][water]" value="0"}checked="checked"{/eq} value="0"/>不开启
+                        </label>
+                        <label>
+                            <input type="radio" name="para[water]" {eq name="detail[para][water]" value="1"}checked="checked"{/eq} value="1"/>开启
+                        </label>
+                        <code>水印图片调用附件位置的水印图片请在附件设置那边配置</code>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="admin-table-left">accessKey</td>
+                    <td class="admin-table-right"><input type="text" name="para[accessKey]" value="{$detail[para][accessKey]|default=''}" class="admin-manage-input admin-manage-input2"/>
+                    <code>上面显示那个，不要填写反了，不然无法上传</code>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="admin-table-left">secrectKey：</td>
+                    <td class="admin-table-right"><input type="text" name="para[secrectKey]" value="{$detail[para][secrectKey]|default=''}" class="admin-manage-input admin-manage-input2"/>
+                    <code>下面隐藏那个，注意这一定不要填写反了</code>
+                    </td>
+                </tr>
+
+
+				<tr>
+                    <td class="admin-table-left">七牛云域名domain</td>
+                    <td class="admin-table-right"><input type="text" name="para[domain]" value="{$detail[para][domain]|default=''}" class="admin-manage-input admin-manage-input2"/>
+                   <code>域名不要带前缀，前缀在下面配置，您在七牛云通过审核的域名</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">域名类型https：</td>
+                    <td class="admin-table-right">
+                    	 <label>
+                            <input type="radio" name="para[https]" {eq name="detail[para][https]" value="0"}checked="checked"{/eq} value="0"/>http
+                        </label>
+                        <label>
+                            <input type="radio" name="para[https]" {eq name="detail[para][https]" value="1"}checked="checked"{/eq} value="1"/>https【七牛云那边需要配置ssl，如果您是小程序应用我建议您这边配置】
+                        </label>
+                        <code>【七牛云跟本地模式都生效】如果这里勾选https就返回https的图否则就是http的这个取决于您七牛云那边是如何配置的</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">本地上传返回路径域名</td>
+                    <td class="admin-table-right"><input type="text" name="para[sitehost]" value="{$detail[para][sitehost]|default=''}" class="admin-manage-input admin-manage-input2"/>
+                    <code>【开启本地上传模式下面生效】您当前网站域名，这里要跟设置》》基本设置里面必须一致否则报错 当前本地域名：{$CONFIG[site][host]|default=''} 【最好复制填写】</code>
+                    </td>
+                </tr>
+
+
+
+				<tr>
+                    <td class="admin-table-left">bucket：</td>
+                    <td class="admin-table-right"><input type="text" name="para[bucket]" value="{$detail[para][bucket]|default=''}" class="admin-manage-input"/>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="admin-table-left">timeout：</td>
+                    <td class="admin-table-right"><input type="text" name="para[timeout]" value="{$detail[para][timeout]|default=''}" class="admin-manage-input"/>
+                    <code>超时设置，默认不要更改</code>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="admin-table-left">是否启用：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" <?php if($detail['status'] == 0) echo "checked='checked'";?> name="status" value="0"/>不启用</label>
+                        <label><input type="radio" <?php if($detail['status'] == 1) echo "checked='checked'";?> name="status" value="1"/>启用</label>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}
+

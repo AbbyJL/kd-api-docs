@@ -1,0 +1,119 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">优惠券</li>
+        <li class="li2 li3">优惠券下载</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span>优惠券下载列表，后台可强制失效</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top: 0px; border-top:none; padding-bottom: 0px;">
+            <div class="right">
+                <form  action="{:url('coupondownload/index')}" method="post">  
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k"> 
+                        
+                        
+                            <label>
+                                <span>开始时间</span>
+                                <input type="text" name="bg_date" value="{$bg_date|default=''}"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                            </label>
+                            <label>
+                                <span>结束时间</span>
+                                <input type="text" name="end_date" value="{$end_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                            </label>
+                           
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                            </label>
+                        
+                        
+                            <label>
+                                <span>状态</span>
+                                <select name="audit" class="select">
+                                    <option value="0">全部</option>
+                                    <option value="-1" {eq name="audit" value="-1"}selected="selected"{/eq}>等待审核</option>
+                                    <option value="1" {eq name="audit" value="1"}selected="selected"{/eq}>正常</option>
+                                </select>
+                            </label>
+                            
+                            <label>
+                                <span>手机</span>
+                                <input type="text"  class="admin-input-text"   name="keyword" value="{$keyword|default=''}"/><input type="submit" value=" 搜索"  class="admin-input-button"/>
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form>
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="download_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>类型</td>
+                        <td>优惠券ID</td>
+                        <td>优惠券名称</td>
+                        <td>用户ID</td>
+                        <td>用户手机</td>
+                        <td>使用积分</td>
+                        <td>付款金额</td>
+                        <td>付款状态</td>
+                        <td>创建时间</td>
+                        <td>是否使用</td>
+                        <td>使用时间</td>
+                        <td>失效时间</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_download_id" type="checkbox" name="download_id[]" value="{$var.download_id}"/></td>
+                            <td>{$var.download_id}</td>
+                            <td>
+                                {eq name="var.type" value="0"}未知类型{/eq}
+                                {eq name="var.type" value="1"}满额返礼{/eq}
+                                {eq name="var.type" value="2"}寄件返礼{/eq}
+                                {eq name="var.type" value="3"}新人有礼{/eq}
+                                {eq name="var.type" value="4"}超值券包{/eq}
+                                {eq name="var.type" value="5"}积分兑换{/eq}
+                            </td>
+                            <td>{$var.coupon_id}</td>
+                            <td>{$var.coupon.title}</td>
+                            <td>{$var.user_id}</td>
+                            <td>{$var.mobile}</td>
+                            <td>{$var.integral}</td>
+                            <td>¥{:round($var['money']/100,2)}</td>
+                            <td>
+                                {eq name="var.status" value="0"}未付款{/eq}
+                                {eq name="var.status" value="1"}已付款{/eq}
+                            </td>
+                            <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                            <td>{eq name="var.is_used" value="0"}未使用{else/}已使用{/eq}</td>
+                            <td>{if condition="!empty($var['user_time'])"}{$var.used_time|date='Y-m-d H:i:s',###}{/if}</td>
+                            <td>{$var.coupon.expire_date}</td>
+                            <td>
+                                {eq name="var.is_used" value="0"} 
+                                	{:BA('coupondownload/used',array("download_id"=>$var["download_id"]),'强制失效','act','admin-btn-default')}
+                                {/eq}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                    {:BA('coupondownload/used','','批量强制失效','list','a2')}
+                </div>
+            </div>
+       <form>
+    </div>
+</div>
+{include  file='public:footer'} 

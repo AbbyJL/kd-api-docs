@@ -1,0 +1,65 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">城市设置</li>
+        <li class="li2 li3">选择城市</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+    <p class="admin-attention"><span>注意：</span>点击右侧选择城市按即可添加到系统城市中，左侧的areacode就是当前城市的编码</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin: 10px 20px;">
+            <div class="left">
+                {:BA('city/areacode','','刷新')}
+                {:BA('city/index','','返回城市列表')}
+            </div>
+            <form method="post" action="{:url('city/areacode')}">
+                <div class="right">
+                 <div class="admin-sele-k">
+                    <input type="text" name="keyword" placeholder=" 输入城市名称‘拼音"  value="{$keyword}" class="admin-input-text"/>
+                    <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                </div>
+                </div>
+            </form>
+        </div>
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="city_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>城市名称</td>
+                        <td>高德地区编码</td>
+                        <td>拼音</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_city_id" type="checkbox" name="city_id[]" value="{$var.city_id}"/></td>
+                            <td>{$var.city_id}</td>
+                            <td>{$var.name}</td>
+                            <td>{$var.city_id}</td>
+                            <td>{$var.pinyin}</td>
+                            <td>
+                               {if condition="$var['city_id'] neq $var['city']['city_id']"}
+                                    {:BA('city/add',array("city_id"=>$var["city_id"]),'添加到系统城市列表','act','admin-btn-default')}
+                               {else/}
+                                    已导入
+                               {/if}
+                               
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/}      
+

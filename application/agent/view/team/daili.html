@@ -1,0 +1,36 @@
+{include file='public:header'/}
+
+{if condition="!$is_weixin"}
+    <div class="headers">
+        <img src="/static/default/newwap/img/return.png" onclick="javascript:history.back(-1);">
+        <p>代理管理</p>
+    </div>
+    <div class="headers-space"></div>
+{/if}
+
+{if condition="$is_weixin"}
+    <div class="headers">
+        <p>代理管理</p>
+        <a class="order_detail" href="{:url('team/dailiedit',array('area_id'=>0))}">添加+</a> 
+    </div>
+    <div class="headers-space"></div>
+{/if}
+
+
+<style>
+.list-media-x ul {margin-top:0rem;}
+ul{padding-left: 0px;}
+.list-media-x li {margin-bottom:0rem;}
+</style>
+
+
+<div class="list-media-x" id="list-media">
+	<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	    
+<script>
+	$(document).ready(function(){	 
+		loaddata('{:url("team/dailiload",array("orderStatus"=>$orderStatus,"t"=>$nowtime,"p"=>"0000"))}',$("#list-media ul"), true);
+	});
+</script>
+{include file="public:footer"}

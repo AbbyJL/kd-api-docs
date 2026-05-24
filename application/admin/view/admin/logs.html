@@ -1,0 +1,107 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">系统</li>
+        <li class="li2">管理员</li>
+        <li class="li2 li3">操作日志</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr">
+            <div class="left">
+                {:BA('admin/logs_drop','','清空网站日志，谨慎操作，无法恢复','act','admin-btn-default')}
+            </div>
+            <div class="right">
+                <form method="post" action="{:url('admin/logs')}">
+                 <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                			<label>
+                                <span>按模块：</span>
+                                <select name="request_module" class="select w120">
+                                    <option value="">按模块</option>
+                                    <option value="admin" {if condition="$request_module eq 'admin'"}selected{/if}>admin</option>
+                                    <option value="home" {if condition="$request_module eq 'home'"}selected{/if}>home</option>
+                                </select>
+                            </label>
+                            
+                            <label>
+                                <span>按控制器：</span>
+                                <select name="request_controller" class="select w120">
+                                    <option value="">按控制器</option>
+                                    {foreach name="$controllers" item="vo"}
+                                    <option value="{$vo}" {if condition="$request_controller eq $vo"}selected{/if}>{$vo}</option>
+                                    {/foreach}
+                                </select>
+                            </label>
+                            
+                            <label>
+                                <span>按操作方法：</span>
+                                <select name="request_action" class="select w120">
+                                    <option value="">按操作方法</option>
+                                    {foreach name="$actions" item="vo"}
+                                    <option value="{$vo}" {if condition="$request_action eq $vo"}selected{/if}>{$vo}</option>
+                                    {/foreach}
+                                </select>
+                            </label>
+                            
+                            <label>
+                                <span>按请求类型：</span>
+                                <select name="request_method" class="select w120">
+                                    <option value="">按请求类型</option>
+                                    {foreach name="$methods" item="vo"}
+                                    <option value="{$vo}" {if condition="$request_method eq $vo"}selected{/if}>{$vo}</option>
+                                    {/foreach}				
+                                </select>
+                            </label>
+                            </div>
+        				</div> 
+                    <input type="submit" value="搜索"  class="admin-input-button"/>
+                </form>
+            </div>
+        </div>
+       <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                        <td>ID</td>  
+                        <td>模块</td>
+                        <td>请求类型</td>
+                        <td>操作地址</td>
+                        <td>操作时间</td>
+                        <td>操作系统</td>
+                        <td>操作浏览器</td>
+                        <td>操作地区</td>
+                        <td>操作IP</td>
+                        <td>操作</td>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}" /></td>
+                            <td>{$var.id}</td>
+							<td>{$var.module}</td>
+							<td>{$var.method}</td>
+							<td>{$var.url}</td>
+                            <td>{$var.otime|date="Y-m-d H:i:s",###}</td>
+                            <td>{$var.os}</td>
+                            <td>{$var.browser}</td>
+                            <td>{$var.location}</td>
+                            <td>{$var.ip}</td>
+                        <td>
+                            {:BA('admin/logs_delete',array("id"=>$var["id"]),'删除','act','admin-btn-default')}
+                        </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                    {:BA('admin/logs_delete','','批量删除','list',' a2')}
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{include  file='public:footer'/}      

@@ -1,0 +1,92 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+         <li class="li1">设置</li>
+        <li class="li2">区域设置</li>
+        <li class="li2 li3">城市站点</li>
+    </ul>
+</div>
+<form  target="x-frame" action="{:url('city/create')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+
+                <tr>
+                    <td class="admin-table-left">城市名称：</td>
+                    <td class="admin-table-right"><input type="text" name="data[name]" value="{$detail.name|default=''}" class="admin-manage-input"/>
+					<code>当前城市的名称</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">高德地区编码：</td>
+                    <td class="admin-table-right"><input type="text" name="data[areacode]" value="{$detail.areacode|default=''}" class="admin-manage-input"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">百度地区编码：</td>
+                    <td class="admin-table-right"><input type="text" name="data[CityCode]" value="{$detail.CityCode|default=''}" class="admin-manage-input"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">城市拼音：</td>
+                    <td class="admin-table-right"><input type="text" name="data[pinyin]" value="{$detail.pinyin|default=''}" class="admin-manage-input"/>
+					<code>不要用大写字母，这里是全部小写</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">代理账户：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}" class="admin-manage-input"/>
+                            <input class="admin-sc-add-text-name sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                        </div>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择账户</a>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="admin-table-left">分成比例：</td>
+                    <td class="admin-table-right"><input type="text" name="data[ratio]" value="{:round($detail['ratio']/100,2)}" class="admin-manage-input"/>%
+					<code>代理商分成比例</code>
+                    </td>
+                </tr>
+            	<tr>
+                    <td class="admin-table-left">VIP分成比例：</td>
+                    <td class="admin-table-right"><input type="text" name="data[ratio_vip]" value="{:round($detail['ratio_vip']/100,2)}" class="admin-manage-input"/>%
+					<code>如果当前订单的推荐人是VIP情况下分成比例</code>
+                    </td>
+                </tr>
+
+                
+                 <tr>
+                    <td class="admin-table-left">首字母：</td>
+                    <td class="admin-table-right"><input type="text" name="data[first_letter]" value="{$detail.first_letter|default=''}" class="admin-manage-input"/>
+                        <code>大写字母</code>
+                    </td>
+                </tr>
+                  <tr>
+                    <td class="admin-table-left">城市中心坐标：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            经度<input type="text" name="data[lng]" id="data_lng" value="{$detail.lng|default=''}" class="admin-sc-add-text-name w200" />
+                            纬度 <input type="text" name="data[lat]" id="data_lat" value="{$detail.lat|default=''}" class="admin-sc-add-text-name w200" />
+                        </div>
+                        <a style="margin-left: 10px;" mini="select"  w="880" h="630" href="{:url('index/maps')}" class="admin-sele-xuanze">选择地图</a>
+
+                </tr>
+
+
+                <tr>
+                    <td class="admin-table-left">排序：</td>
+                    <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default=''}" class="admin-manage-input"/>
+                    <code>城市排序</code>
+                    </td>
+                </tr>
+                
+
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}

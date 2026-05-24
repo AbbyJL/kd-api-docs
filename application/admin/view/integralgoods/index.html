@@ -1,0 +1,106 @@
+{include  file='public:header'}
+<style>
+.shang, .qq{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.qq{ background:#09F}
+</style>
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">{$CONFIG.integral.name}商品</li>
+
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <div class="admin-js-nr">
+         <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                {:BA('integralgoods/create','','添加内容')}
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('integralgoods/index')}"> 
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    
+                         <div class="admin-sele-k">
+                            <span>状态</span>
+                            <select name="audit" class="select">
+                                <option value="0"}全部</option>
+                                <option value="-1" {eq name="audit" value="-1"}selected="selected"{/eq}>等待审核</option>
+                                <option value="1" {eq name="audit" value="1"}selected="selected"{/eq>正常</option>
+                            </select>
+                          
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="{$keyword|default=''}" class="admin-input-text"/>
+                            <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                        </div>
+                    
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="goods_id"/></td>           
+                        <td class="w50">ID</td>
+                        <td>产品名称</td>
+                        <td>所属分类</td>
+                        <td>产品图片</td>
+                        <td>兑换{$CONFIG.integral.name}</td>
+                        <td>需要支付金额</td>
+                        <td>市场价格</td>
+                        <td>库存数量</td>
+                        <td>兑换数量</td>
+                        <td>创建时间</td>
+                        <td>是否首页</td>
+                        <td>是否审核</td>
+                        <td>多规格</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_goods_id" type="checkbox" name="goods_id[]" value="{$var.goods_id}" /></td>
+                            <td>{$var.goods_id}</td>
+                            <td>{$var.title}</td>
+                            <td>{$var.cate.cate_name}</td>
+                            <td><img src="{:config_img($var['face_pic'])}" class="w80"/></td>
+                            <td>{$var.integral}</td>
+                            <td>¥{:round($var['money']/100,2)}</td>
+                            <td>{$var.price}</td>
+                            <td>{$var.num}</td>
+                            <td>{$var.exchange_num}</td>
+                            <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                            <td>{eq name="var.is_index" value="0"}否{else/}是{/eq}</td>
+                            <td>{eq name="var.audit" value="0"}等待审核{else/}正常{/eq}</td>
+                            <td>
+                                {eq name="var.is_options" value="1"}
+                                    <span class="shang">支持</span>
+                                {else/}
+                                    <span class="qq">不支持</span>
+                                {/eq}
+                            </td>
+                            <td>
+                                {:BA('integralgoods/edit',array("goods_id"=>$var["goods_id"]),'编辑','','admin-btn-default')}
+                                {:BA('integralgoods/delete',array("goods_id"=>$var["goods_id"]),'删除','act','admin-btn-default')}
+                                {:BA('integralexchange/index',array("goods_id"=>$var["goods_id"]),'兑换列表','','admin-btn-default')}
+                                {eq name="var.audit" value="0"} {:BA('integralgoods/audit',array("goods_id"=>$var["goods_id"]),'审核','act','admin-btn-default')} {/eq}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                    {:BA('integralgoods/delete','','批量删除','list',' a2')}
+                    {:BA('integralgoods/audit','','批量审核','list',' admin-btn-default')}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'} 

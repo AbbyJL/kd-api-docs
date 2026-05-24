@@ -1,0 +1,90 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员管理</li>
+        <li class="li2">会员签到</li>
+        <li class="li2 li3">签到记录</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span>这可以按照用户搜索签到状况</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('user/sign')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+
+                    	<label>
+                            <span>选择城市：</span>
+                             <select name="city_id" id="city_id"  class="select w100"></select>
+                        </label>
+                       <script src="{:url('app/datas/onecity',array('name'=>'cityareas'))}"></script>
+                       <script>
+								var city_id = <?php echo (int)$city_id;?>;
+                                $(document).ready(function () {
+                                    var city_str = ' <option value="0">请选择...</option>';
+                                    for(a in cityareas.city) {
+                                        if(city_id == cityareas.city[a].city_id){
+                                            city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                        }else{
+                                            city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                        }
+                                    }
+                                    $("#city_id").html(city_str);
+                                });
+                        </script>
+                    	<label><span>开始时间</span><input type="text" name="bg_date" placeholder=" 注册开始时间" value="{$bg_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                        <label><span>结束时间</span><input type="text" name="end_date"  placeholder=" 注册结束时间" value="{$end_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+
+                    	<label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                        </label>
+                        <span>订单编号</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/><input type="submit" value=" 搜索"  class="admin-input-button"/>
+                    </div>
+                    </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="sign_id"/></td>
+                    <td class="w50">ID</td>
+                    <td>签到城市</td>
+                    <td>用户ID</td>
+                    <td>用户姓名</td>
+                    <td>奖励积分</td>
+                    <td>签到天数累计</td>
+                    <td>签到日期</td>
+                    <td>签到时间</td>
+                    <td>签到IP</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr>
+                        <td><input class="child_sign_id" type="checkbox" name="sign_id[]" value="{$var.sign_id}"/></td>
+                        <td>{$var.sign_id}</td>
+                        <td>{$var.city.name}</td>
+                        <td>{$var.user_id}</td>
+                        <td>{$users[$var['user_id']]['nickname']}</td>
+                        <td>{$var.integral}</td>
+                        <td>{$var.day}</td>
+                        <td>{$var.last_time|date='Y-m-d',###}</td>
+                        <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                        <td>{$var.create_ip}</td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'/}

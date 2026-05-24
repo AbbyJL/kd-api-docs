@@ -1,0 +1,59 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员绑定</li>
+        <li class="li2 li3">编辑绑定</li>
+    </ul>
+</div>
+<div class="admin-main-sc-add ">
+<div class="admin-table-box">
+        <form target="x-frame" action="{:url('binding_edit',array('connect_id'=>$detail['connect_id'],'p'=>$p))}" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+             <tr>
+                    <td class="admin-table-left">选择用户：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[uid]" value="{$detail.uid|default=''}"/>
+                            <input class="admin-sc-add-text-name w210 sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                        </div>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择用户</a>
+                        <code>可更换用户UID，谨慎操作，因为自己编辑造成的数据错乱，概不负责</code>
+                    </td>
+                </tr>    
+             
+                <tr>
+                    <td class="admin-table-left">open_id：</td>
+                    <td class="admin-table-right"><input type="text" name="data[open_id]" value="{$detail.open_id|default=''}" class="admin-manage-input w210" />
+                    <code>用户的OPEN_ID不懂不要去修改</code>
+                   </td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">openid：</td>
+                    <td class="admin-table-right"><input type="text" name="data[openid]" value="{$detail.openid|default=''}" class="admin-manage-input w210" />
+                    <code>H5网站绑定小程序专用字段不懂别修改，如果当前用户用用户支付失败可清空然后用户重新绑定</code>
+                   </td>
+                </tr>
+                
+                 <tr>
+                    <td class="admin-table-left">姓名：</td>
+                    <td class="admin-table-right"><input type="text" name="data[nickname]" value="{$detail.nickname|default=''}" class="admin-manage-input w210" />
+                    <code>没什么用处，这里可换绑定的姓名，但不是会员姓名，修改无用</code>
+                   </td>
+                </tr>
+              
+            </table>
+               <div style="margin-left:140px;margin-top:20px">
+                 <input type="submit" value="确认编辑" class="admin-btn-small-quren" />
+            </div> 
+
+        </form>
+
+</div>
+
+    </div>
+
+{include  file='public:footer'/}
+

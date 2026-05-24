@@ -1,0 +1,50 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">模版管理</li>
+        <li class="li2">邮件模版</li>
+        <li class="li2 li3">新增模板</li>
+    </ul>
+</div>
+<form  target="x-frame" action="{:url('email/create')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+
+                <tr>
+                    <td class="admin-table-left">全局可用标签：</td>
+                    <td class="admin-table-right" style="font-size: 14px;">站点名称{sitename},客服电话{tel}</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">标签：</td>
+                    <td class="admin-table-right"><input type="text" name="data[email_key]" value="{$detail.email_key|default=''}" class="admin-sc-add-text-name"/>
+
+                    </td>
+                </tr><tr>
+                    <td class="admin-table-left">说明：</td>
+                    <td class="admin-table-right"><textarea  name="data[email_explain]" cols="50" rows="10" >{$detail.email_explain|default=''}</textarea>
+
+                    </td>
+                </tr>
+                
+                <tr><td class="admin-table-left">模版内容：</td><td class="admin-table-right">
+                  <script type="text/plain" id="data_email_tmpl" name="data[data_email_tmpl]" style="width:800px;height:360px;">{$detail.email_tmpl}</script>
+					</td>
+                </tr>
+                {include  file='public:ueditorjs'/} 
+                
+				  <script>
+                        um = UE.getEditor('data_email_tmpl',{
+                            lang: 'zh-cn',
+                            toolbars:[['fullscreen','source','undo','redo','bold','italic','underline','fontborder','backcolor','fontsize','fontfamily','justifyleft','justifyright','justifycenter','justifyjustify','strikethrough', 'superscript','subscript','removeformat','formatmatch','autotypeset', 'blockquote','pasteplain','|','forecolor','backcolor','insertorderedlist','insertunorderedlist','selectall','cleardoc','link','unlink','background','inserttable','print','attachment','emotion','insertimage']],  
+                });
+                   </script> 
+     
+
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}      

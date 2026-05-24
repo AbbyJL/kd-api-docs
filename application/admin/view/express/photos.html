@@ -1,0 +1,71 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">快递订单</li>
+        <li class="li2 li3">回单图片列表</li>
+    </ul>
+</div>
+
+
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span> 回单图片列表 </p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+            	<a class="admin-btn-default-houseMoving tudoukuaijie" href="{:url('express/photos',array('type'=>1))}">刷新</a>
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('express/photos')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                        <span>订单ID</span>
+                        <input type="text" name="order_id" value="{$order_id}" class="admin-input-text"/>
+                        <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                    </div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td class="w50">ID</td>
+                    <td>订单ID</td>
+                    <td>图片</td>
+                    <td>时间</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr>
+                        <td><input class="child_id" type="checkbox" name="id[]" value="{$var.d}"/></td>
+                        <td>{$var.id}</td>
+                        <td>{$var.order_id}</td>
+                        <td>
+                            <a target="_blank" href="{:config_img($var.photo)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($var.photo)}"></a>
+                        </td>
+                        <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                        <td>
+                            {:BA('express/photos_delete',array("id"=>$var["id"]),'删除','act','admin-btn-default')}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+                {:BA('express/photos_delete','','批量删除','list',' a2')}
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'} 
+
+

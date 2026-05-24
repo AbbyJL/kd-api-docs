@@ -1,0 +1,59 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">流量主设置</li>
+    </ul>
+</div>
+<style>
+.profit{text-align:center;color:#333;font-weight:bold;background: #F5F5FB; font-size:18px;}
+</style>
+<p class="admin-attention"><span>注意</span> 流量主设置</p>
+<form  target="x-frame" action="{:url('setting/pay')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+               	
+                
+                
+                <tr><td class="admin-table-right profit" colspan = "2"> 流量主视频广告</td></tr>
+                <tr>
+                    <td class="admin-table-left">首页流量主ID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[unit_id_1]" value="{$CONFIG.pay.unit_id_1}" class="admin-sc-add-text-name w160">
+                        <code>首页流量主广告ID先去小程序后台开启不显示的话留空即可</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">积分兑换页ID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[unit_id_2]" value="{$CONFIG.pay.unit_id_2}" class="admin-sc-add-text-name w160">
+                        <code>积分兑换流量主广告ID先去小程序后台开启不显示的话留空即可</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">订单详细页ID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[unit_id_3]" value="{$CONFIG.pay.unit_id_3}" class="admin-sc-add-text-name w160">
+                        <code>订单详细页面流量主广告ID先去小程序后台开启不显示的话留空即可</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">会员中心ID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[unit_id_4]" value="{$CONFIG.pay.unit_id_4}" class="admin-sc-add-text-name w160">
+                        <code>会员中心广告ID先去小程序后台开启不显示的话留空即可</code>
+                    </td>
+                </tr>
+                
+            
+                
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认保存" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+
+{include  file='public:footer'}  

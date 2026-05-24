@@ -1,0 +1,112 @@
+{include  file='public:header'}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">退货订单</li>
+        <li class="li2 li3">订单列表</li>
+    </ul>
+</div>
+
+
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention">
+        <b>统计信息： 订单数量：<a class="red">{$count}</a></b>
+    </p>
+
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                <a href="{:url('express/tuihuo')}">刷新</a>
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('express/tuihuo')}">
+                     <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="{$bg_date|default=''}"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="{$end_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w100"/>
+                        </label>
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                            </label>
+                            <label>
+                                <span>运单号：</span>
+                                <input type="text" name="dwaybillNo" value="{$waybillNo|default=''}" class="admin-input-text"/>
+                                <input type="submit" class="admin-input-button" value="搜索"/>
+                            </label>
+                            <a href="{:url('tuihuo_export')}" class="admin-input-button">&nbsp;&nbsp;&nbsp;导出</a>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+
+
+
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td>ID</td>
+                    <th>会员ID</th>
+                    <td>运单号</td>
+                    <td>识别图</td>
+                    <td>班次</td>
+                    <td>备注</td>
+                    <td>图片</td>
+                    <td>时间</td>
+                    <td>操作</td>
+                </tr>
+                     {foreach name="list" item="var"}
+                        <tr {eq name="var.type" value="2"}style="background-color:#f7f7f7;"{/eq}>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/></td>
+                            <td>{$var.id}</td>
+                            <td>{$var.user_id}-{$var.user.nickname}</td>
+                            <td>{$var.waybillNo}</td>
+                            <td>
+                                {if condition="$var.img"}
+                                    <a target="_blank" href="{:config_img($var.img)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($var.img)}"></a>
+                                {/if}
+                            </td>
+                            <td>{$var.banci}</td>
+                            <td>{$var.info}</td>
+
+                            <td>
+                                {foreach name="var.photo" item="v"}
+                                <a target="_blank" href="{:config_img($v.photo)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($v.photo)}"></a>
+                                {/foreach}
+                            </td>
+                            <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                            <td>
+                                {:BA('express/tuihuo_edit',array("id"=>$var["id"]),'编辑','','admin-btn-default',600,300)}
+                                {:BA('express/tuihuo_delete',array("id"=>$var["id"]),'删除','act','admin-btn-default')}
+                            </td> 
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+          <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+    
+{include  file='public:footer'} 
+

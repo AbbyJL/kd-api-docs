@@ -1,0 +1,26 @@
+{foreach name="list" item="item"}
+       <li class="line">
+        <dt>
+            <a class="x12">区县ID - {$item['area_id']}</a>
+        </dt>
+        
+        <dd class="zhong">
+                <div class="x12">
+                    <p>代理区县：{$item['Name']}</p>
+                    <p>行政区划：{$item['MergerName']}</p>
+                    <p>代理人账户：{$item['users']['nickname']}- UID({$item['users']['user_id']})</p>
+                    <p>代理人手机：{$item['users']['mobile']}</p>
+                    <p class="text-red"> 费率{:round($item['ratio']/100,2)}%</p>
+                    <p class="text-red"> VIP费率：&yen;{:round($item['ratio_vip']/100,2)}%</p>
+              </div>
+          </dd>
+         <dl> 
+           <p class="text-right padding-top">
+            	<a class="order_detail button button-little bg-yellow" href="{:url('team/dailiedit',array('area_id'=>$item['area_id']))}">编辑</a> 
+            </p>
+        </dl>
+      
+    </li>
+    <div class="blank-10 bg"></div>
+{/foreach}
+

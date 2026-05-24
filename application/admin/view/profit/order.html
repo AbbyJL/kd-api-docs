@@ -1,0 +1,111 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">分销</li>
+        <li class="li2">分销管理</li>
+        <li class="li2 li3">分销列表</li>
+    </ul>
+</div>
+
+<div class="admin-main-js admin-main-sc">
+
+<style>
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker, .gray{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+.gray{ background:#c1c1c1}
+</style>
+		
+<p class="admin-attention"><span>注意：</span> 分销列表</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="border-top: none; margin-top: 0px;">
+            <div class="right">
+                <form method="post" action="{:url('profit/order')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="{$bg_date|default=''}"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150"/>
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="{$end_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150"/>
+                        </label>
+                         <label>
+                            <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                            <input type="text" name="nickname" id="nickname"  value="{$nickname}"   class="text w150"/>
+                            <a style="margin-right: 5px;" mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                        </label>  
+                            <label>
+                                <span>  订单ID：</span>   
+                                <input type="text" name="id" value="{$id|default=''}" class="admin-input-text"/>
+                            
+                                
+                                <input type="submit" class="admin-input-button" value="搜索"/>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="log_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>用户</td>
+                        <td>订单ID</td>
+                        <td>类别</td>
+                        <td>金额</td>
+                        <td>时间</td>
+                        <td>说明</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_log_id" type="checkbox" name="log_id[]" value="{$var.log_id}"/></td>
+                            <td>{$var.log_id}</td>
+                            <td>{$var['users']['nickname']}-【{$var['users']['user_id']}】</td>
+                            <td style="color:#00f;">{$var.order_id}</td>
+                            <td>
+                            	 {eq name="var.type" value="add"}<span class="weixin">邀请奖励</span>{/eq} 
+                                 {eq name="var.type" value="express"}<span class="qq">快递订单</span>{/eq}
+                                 {eq name="var.type" value="area"}<span class="shang">区县代理</span>{/eq}
+                                 {eq name="var.type" value="city"}<span class="weibo">城市代理</span>{/eq}
+                                 {eq name="var.type" value="areas"}<span class="delivery">多个区县代理</span>{/eq}
+                                 {eq name="var.type" value="citys"}<span class="bookworker">多个城市代理</span>{/eq}
+                                 {eq name="var.type" value="rank"}<span class="qq">等级分成</span>{/eq}
+                                 {eq name="var.type" value="direct"}<span class="weixin">满足条件给上级分成</span>{/eq} 
+                                 {eq name="var.type" value="rewards"}<span class="weibo">团队奖励</span>{/eq}
+                                 {eq name="var.type" value="express1"}<span class="qq">等级代理分成</span>{/eq}
+                                 
+                            </td>
+                            <td style="color:#f00;">&yen;{:round($var['money']/100,2)}</td>
+                            <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                            <td>{$var.info}</td>
+                            <td>
+                            	{eq name="var.is_separate" value="0"} 
+                                	{:BA('profit/queren',array("log_id"=>$var["log_id"]),'确认到账','act','admin-btn-default')}
+                                    {:BA('profit/delete',array("log_id"=>$var["log_id"]),'取消分成','act','admin-btn-default')}
+                                {/eq}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/static/default/wap/js/index.js"></script>
+{include  file='public:footer'/}      

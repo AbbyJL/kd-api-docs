@@ -1,0 +1,54 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">广告管理</li>
+        <li class="li2 li3">广告位</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+
+<p class="admin-attention"><span>注意：</span>请按照操作教程添加广告位，添加广告位后再去添加广告然后前台调用qq 9792494,66</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                 {:BA('adsite/create','','添加广告位')}
+                 <a href="{:url('adsite/index')}">刷新本页</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+   
+        <form target="x-frame" method="post">
+            <div class="admin-table-box" style="margin-top:20px; margin-bottom:20px;">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+              
+                    {volist name="place" id="item" key="pl"}
+                        <tr>
+                            <td colspan="4" style="text-align:left;padding-left:20px;font-size:16px;font-weight:bold; background:#F5F5F5">{$item}</td>
+                        </tr>
+                        <tr>
+                        <?php $i=0; ?>
+                        {foreach name="adsite" item="var"}
+                            {if condition="$var['site_place'] eq $pl"}  
+                              <td>
+                                 <b>（{$var.site_id}）</b> &nbsp; {$var.site_name}  &nbsp; <b style="color:#F00">广告数量：{$var.count}</b>
+                                 {:BA('adsite/edit',array("site_id"=>$var["site_id"]),'编辑','','admin-btn-default')}
+                                 {:BA('adsite/delete',array("site_id"=>$var["site_id"]),'删除','act','admin-btn-default')}
+                                 {:BA('ad/index',array("site_id"=>$var["site_id"]),'管理广告','','admin-btn-default')}
+                                 {:BA('ad/create',array("site_id"=>$var["site_id"]),'添加广告','','admin-btn-default')}
+                               </td>
+                               <?php $i++; if($i%2==0) echo '</tr><tr>'; ?> 
+                            {/if}
+                        {/foreach}
+                        	<td style="background:#fff2f2">{:BA('adsite/create',array("site_place"=>$pl),'添加广告位','','admin-btn-default')}</td>
+                        
+                           </tr>
+                    {/volist}
+                </table>
+            </div>
+        </form>
+    
+</div>
+{include  file='public:footer'/} 
+

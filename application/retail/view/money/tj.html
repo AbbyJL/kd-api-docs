@@ -1,0 +1,82 @@
+{include file='public:header'/}
+{if condition="!$is_weixin"}
+    <div class="headers">
+        <img src="/static/default/newwap/img/return.png" onclick="javascript:history.back(-1);">
+        <p>订单统计</p>
+    </div>
+    <div class="headers-space"></div>
+{/if}
+
+<style>
+	ul{ padding-left: 0px;}
+	.list-media-x{ margin-top:2.2rem}
+	#shangjia_tab li{
+	    overflow: hidden;
+	}
+</style>
+
+<style>
+.user-block-top{display:block;overflow:hidden;border-bottom:1px solid #e8e8e8;background:#FFF;box-shadow:0 3px 7px #eaeaea}
+.user-block-top>h2{padding:0 12px;border-bottom:1px solid #F1F1F1;font-size:16px;line-height:40px}
+.user-block-top>h2>a{display:block}
+.user-block-top>ul>li{float:left!important;padding:10px 0;width:20%;text-align:center;font-size:14px}
+.user-block-top>ul>li a span.badge{margin-top:-5px;position:absolute;}
+.user-block-top>ul>li.user-block-money{width:25%!important;}
+.user-block-top>ul>li.user-block-money p{margin-bottom:0px;line-height:inherit}
+.user-block-top>ul>li>a{display:block;border-left:1px solid #F1F1F1;font-size:12px}
+.user-block-top>ul>li:first-child>a{border-left:0}
+.user-block-top>ul>li>a>i{display:block;color:#999;font-size:26px;line-height:30px}
+em{font-style:normal}
+</style>
+
+
+
+<div class="user-block-top">
+    <h2>
+        <b>会员数据</b>
+    </h2>
+    <ul class="x12">
+        <li class="user-block-money"><a><p>今日会员</p><em class="text-red text-big">{$counts.totay_user}</em></a></li>
+        <li class="user-block-money"><a><p>总会员</p><em class="text-big">{$counts.users}</em></a></li>
+        <li class="user-block-money"><a><p>VIP会员</p><em class="text-big">{$counts.users_vip}</em></a></li>
+        <li class="user-block-money"><a><p>企业会员</p><em class="text-big">{$counts.users_company}</em></a></li>
+    </ul>
+</div>
+
+<div class="user-block-top">
+    <h2>
+        <b>订单数据</b>
+    </h2>
+    <ul class="x12">
+        <li class="user-block-money"><a><p>今日金额</p>¥<em class="text-red text-big">{:round($counts['day_exp_1']/100,2)}</em></a></li>
+        <li class="user-block-money"><a><p>今日利润</p>¥<em class="text-big">{:round($counts['day_exp']/100,2)}</em></a></li>
+        <li class="user-block-money"><a><p>本月金额</p>¥<em class="text-big">{:round($counts['m_exp_1']/100,2)}</em></a></li>
+        <li class="user-block-money"><a><p>本月利润</p>¥<em class="text-big">{:round($counts['m_exp']/100,2)}</em></a></li>
+    </ul>
+</div>
+
+<div class="user-block-top">
+    <h2>
+        <b>运营数据</b>
+    </h2>
+    <ul class="x12">
+        <li class="user-block-money"><a><p>总订单金额</p>¥<em class="text-big">{:round($counts['exp_1']/100,2)}</em></a></li>
+        <li class="user-block-money"><a><p>总订单利润</p>¥<em class="text-big">{:round($counts['exp']/100,2)}</em></a></li>
+        <li class="user-block-money"><a><p>今日付款</p>¥<em class="text-red text-big">{:round($counts['day_paymentlogs']/100,2)}</em></a></li>
+        <li class="user-block-money"><a><p>总付款</p>¥<em class="text-big">{:round($counts['paymentlogs']/100,2)}</em></a></li>
+    </ul>
+</div>
+<div class="user-block-top">
+    <h2>
+        <b>提现数据</b>
+    </h2>
+    <ul class="x12">
+        <li class="user-block-money"><a><p>待提现</p>¥<em class="text-red text-big">{:round($counts['user_cash_2']/100,2)}</em></a></li>
+        <li class="user-block-money"><a><p>已提现</p>¥<em class="text-big">{:round($counts['user_cash_1']/100,2)}</em></a></li>
+        <li class="user-block-money"><a><p>总提现</p>¥<em class="text-big">{:round($counts['user_cash']/100,2)}</em></a></li>
+        <li class="user-block-money"><a><p>平台总余额</p>¥<em class="text-big">{:round($counts['money']/100,2)}</em></a></li>
+    </ul>
+</div>
+
+<div class="footer-space"></div>
+{include  file='public:footer'/}

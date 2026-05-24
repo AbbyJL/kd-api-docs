@@ -1,0 +1,23 @@
+{foreach name="list" item="item"}
+       <li class="line">
+        <dt>
+            <a class="x12">代理ID - {$item['user_id']}</a>
+        </dt>
+        
+        <dd class="zhong">
+                <div class="x12">
+                    <p>代理人账户：{$item['nickname']}- UID({$item['user_id']})</p>
+                    <p>代理人手机：{$item['mobile']}</p>
+                    <p class="text-red"> 费率{:round($item['stock']/100,2)}%</p>
+              </div>
+          </dd>
+         <dl> 
+           <p class="text-right padding-top">
+            	<a class="order_detail button button-little bg-yellow" href="{:url('team/dailiedit',array('user_id'=>$item['user_id']))}">编辑</a> 
+            </p>
+        </dl>
+      
+    </li>
+    <div class="blank-10 bg"></div>
+{/foreach}
+

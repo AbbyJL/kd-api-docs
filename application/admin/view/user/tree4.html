@@ -1,0 +1,243 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员管理</li>
+        <li class="li2">会员关系</li>
+        <li class="li2 li3">会员关系列表</li>
+    </ul>
+</div>
+<style>
+.shang, .delivery, .weibo, .qq, .weixin{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.headimgurl{ width:38px; height:38px; border-radius:100%;}
+
+.admin-main-js .admin-js-nr table tr.tree-tr1 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr2 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr3 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr4 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr5 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr6 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr7 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr8 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr9 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr10 td{text-align:left;}
+.admin-main-js .admin-js-nr table tr.tree-tr1 td{margin-left:5px;}
+
+.admin-main-js .admin-js-nr table tr td .tree-td-2{margin-left:5px !important;}
+.admin-main-js .admin-js-nr table tr td .tree-td-3{margin-left:10px !important;}
+.admin-main-js .admin-js-nr table tr td .tree-td-4{margin-left:15px !important;}
+.admin-main-js .admin-js-nr table tr td .tree-td-5{margin-left:20px !important;}
+.admin-main-js .admin-js-nr table tr td .tree-td-6{margin-left:25px !important;}
+.admin-main-js .admin-js-nr table tr td .tree-td-7{margin-left:30px !important;}
+.admin-main-js .admin-js-nr table tr td .tree-td-8{margin-left:35px !important;}
+.admin-main-js .admin-js-nr table tr td .tree-td-9{margin-left:40px !important;}
+.admin-main-js .admin-js-nr table tr td .tree-td-10{margin-left:45px !important;}
+
+.tree-tr2{background-color:#ccc}
+.tree-tr3{background-color:#d2d0d0}
+.tree-tr4{background-color:#dedede}
+.tree-tr5{background-color:#e6e4e4}
+.tree-tr6{background-color:#eae7e7}
+.tree-tr7{background-color:#eae8e8}
+.tree-tr8{background-color:#efebeb}
+.tree-tr9{background-color:#f1ecec}
+.tree-tr10{background-color:#f7f7f7}
+</style>
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span>会员【{$users.nickname}】下级关系列表</p>
+<div class="admin-js-nr">
+    <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+      
+    <div class="clear"></div>
+</div>
+<form  target="dantiaow_frm" method="post">
+    <div class="admin-table-box">
+        <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            <tr>
+                <td>UID</td>
+                <td>会员账户</td>
+                <td>手机</td>
+                <td>当前等级</td>
+                <td>邀请人</td>
+                <td>直推人数</td>
+                <td>团队人数</td>
+                <td>个人订单业绩</td>
+                <td>团队订单业绩</td>
+                <td>加入时间</td>
+            </tr>
+            {foreach name="list" item="var"}
+                {if condition="$var['parent_id'] eq $user_id"}
+                    <tr class="tree-tr1">
+                        <td>{$var.user_id}</td>
+                        <td>{$var.nickname}</td>
+                        <td>{$var['mobile']}</td>
+                        <td>{$var['rank_name']}</td>
+                        <td>{$var['yao_name']}</td>
+                        <td>{$var['yao_num']}</td>
+                        <td>{$var['tuan_num']}</td>
+                        <td>{:round($var['user_price']/100,2)}</td>
+                        <td>{:round($var['tuan_price']/100,2)}</td>
+                        <td>{$var['time']}</td>
+                    </tr>
+                    {foreach name="list" item="v2"}
+                        {if condition="$v2['parent_id'] eq $var['user_id']"}
+                            <tr class="tree-tr2">
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">-{$v2.user_id}</td>
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">{$v2.nickname}</td>
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">{$v2['mobile']}</td>
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">{$v2['rank_name']}</td>
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">{$v2['yao_name']}</td>
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">{$v2['yao_num']}</td>
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">{$v2['tuan_num']}</td>
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">{:round($v2['user_price']/100,2)}</td>
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">{:round($v2['tuan_price']/100,2)}</td>
+                                <td class="tree-td-2" style="padding-left:{$v2.level*10}px">{$v2['time']}</td>
+                            </tr>
+                            {foreach name="list" item="v3"}
+                                {if condition="$v3['parent_id'] eq $v2['user_id']"}
+                                    <tr class="tree-tr3">
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">--{$v3.user_id}</td>
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">{$v3.nickname}</td>
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">{$v3['mobile']}</td>
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">{$v3['rank_name']}</td>
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">{$v3['yao_name']}</td>
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">{$v3['yao_num']}</td>
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">{$v3['tuan_num']}</td>
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">{:round($v3['user_price']/100,2)}</td>
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">{:round($v3['tuan_price']/100,2)}</td>
+                                        <td class="tree-td-3" style="padding-left:{$v3.level*10}px">{$v3['time']}</td>
+                                    </tr>
+                                    {foreach name="list" item="v4"}
+                                        {if condition="$v4['parent_id'] eq $v3['user_id']"}
+                                            <tr class="tree-tr4">
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">---{$v4.user_id}</td>
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">{$v4.nickname}</td>
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">{$v4['mobile']}</td>
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">{$v4['rank_name']}</td>
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">{$v4['yao_name']}</td>
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">{$v4['yao_num']}</td>
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">{$v4['tuan_num']}</td>
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">{:round($v4['user_price']/100,2)}</td>
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">{:round($v4['tuan_price']/100,2)}</td>
+                                                <td class="tree-td-4" style="padding-left:{$v4.level*10}px">{$v4['time']}</td>
+                                            </tr>
+                                            {foreach name="list" item="v5"}
+                                                {if condition="$v5['parent_id'] eq $v4['user_id']"}
+                                                    <tr class="tree-tr5">
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">----{$v5.user_id}</td>
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">{$v5.nickname}</td>
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">{$v5['mobile']}</td>
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">{$v5['rank_name']}</td>
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">{$v5['yao_name']}</td>
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">{$v5['yao_num']}</td>
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">{$v5['tuan_num']}</td>
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">{:round($v5['user_price']/100,2)}</td>
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">{:round($v5['tuan_price']/100,2)}</td>
+                                                        <td class="tree-td-5" style="padding-left:{$v5.level*10}px">{$v5['time']}</td>
+                                                    </tr>
+                                                    {foreach name="list" item="v6"}
+                                                        {if condition="$v6['parent_id'] eq $v5['user_id']"}
+                                                            <tr class="tree-tr6">
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">-----{$v6.user_id}</td>
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">{$v6.nickname}</td>
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">{$v6['mobile']}</td>
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">{$v6['rank_name']}</td>
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">{$v6['yao_name']}</td>
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">{$v6['yao_num']}</td>
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">{$v6['tuan_num']}</td>
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">{:round($v6['user_price']/100,2)}</td>
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">{:round($v6['tuan_price']/100,2)}</td>
+                                                                <td class="tree-td-6" style="padding-left:{$v6.level*10}px">{$v6['time']}</td>
+                                                            </tr>
+                                                            {foreach name="list" item="v7"}
+                                                                {if condition="$v7['parent_id'] eq $v6['user_id']"}
+                                                                    <tr class="tree-tr7">
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">------{$v7.user_id}</td>
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">{$v7.nickname}</td>
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">{$v7['mobile']}</td>
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">{$v7['rank_name']}</td>
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">{$v7['yao_name']}</td>
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">{$v7['yao_num']}</td>
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">{$v7['tuan_num']}</td>
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">{:round($v7['user_price']/100,2)}</td>
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">{:round($v7['tuan_price']/100,2)}</td>
+                                                                        <td class="tree-td-7" style="padding-left:{$v7.level*10}px">{$v7['time']}</td>
+                                                                    </tr>
+                                                                    {foreach name="list" item="v8"}
+                                                                        {if condition="$v8['parent_id'] eq $v7['user_id']"}
+                                                                            <tr class="tree-tr8">
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">-------{$v8.user_id}</td>
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">{$v8.nickname}</td>
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">{$v8['mobile']}</td>
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">{$v8['rank_name']}</td>
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">{$v8['yao_name']}</td>
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">{$v8['yao_num']}</td>
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">{$v8['tuan_num']}</td>
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">{:round($v8['user_price']/100,2)}</td>
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">{:round($v8['tuan_price']/100,2)}</td>
+                                                                                <td class="tree-td-8" style="padding-left:{$v8.level*10}px">{$v8['time']}</td>
+                                                                            </tr>
+                                                                            {foreach name="list" item="v9"}
+                                                                                {if condition="$v9['parent_id'] eq $v8['user_id']"}
+                                                                                    <tr class="tree-tr9">
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">--------{$v9.user_id}</td>
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">{$v9.nickname}</td>
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">{$v9['mobile']}</td>
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">{$v9['rank_name']}</td>
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">{$v9['yao_name']}</td>
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">{$v9['yao_num']}</td>
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">{$v9['tuan_num']}</td>
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">{:round($v9['user_price']/100,2)}</td>
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">{:round($v9['tuan_price']/100,2)}</td>
+                                                                                        <td class="tree-td-9" style="padding-left:{$v9.level*10}px">{$v9['time']}</td>
+                                                                                    </tr>
+                                                                                    {foreach name="list" item="v10"}
+                                                                                        {if condition="$v10['parent_id'] eq $v9['user_id']"}
+                                                                                            <tr class="tree-tr10">
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">---------{$v10.user_id}</td>
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">{$v10.nickname}</td>
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">{$v10['mobile']}</td>
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">{$v10['rank_name']}</td>
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">{$v10['yao_name']}</td>
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">{$v10['yao_num']}</td>
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">{$v10['tuan_num']}</td>
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">{:round($v10['user_price']/100,2)}</td>
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">{:round($v10['tuan_price']/100,2)}</td>
+                                                                                                <td class="tree-td-10" style="padding-left:{$v10.level*10}px">{$v10['time']}</td>
+                                                                                            </tr>
+                                                                                        {/if}
+                                                                                    {/foreach}
+                                                                                {/if}
+                                                                            {/foreach}
+                                                                        {/if}
+                                                                    {/foreach}
+                                                                {/if}
+                                                            {/foreach}
+                                                        {/if}
+                                                    {/foreach}
+                                                {/if}
+                                            {/foreach}
+                                        {/if}
+                                    {/foreach}
+                                {/if}
+                            {/foreach}
+                        {/if}
+                    {/foreach}
+                {/if}
+            {/foreach}
+        </table>
+    </div>
+    <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+        <div class="left">
+        </div>
+    </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'/} 
+
+

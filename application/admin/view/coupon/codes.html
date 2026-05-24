@@ -1,0 +1,132 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">优惠券</li>
+        <li class="li2">兑换码</li>
+        <li class="li2 li3">兑换码列表</li>
+    </ul>
+</div>
+
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>说明：</span> 当前搜索结果：{$count}条 - 优惠券标题{$detail.title}  - 抵扣金额{:round($detail['reduce_price']/100,2)}元</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                <a class="admin-btn-default" href="{:url('coupon/code_export')}">导出兑换码</a>
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('coupon/codes')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                     <label><span>开始时间</span><input type="text" name="bg_date" placeholder=" 注册开始时间" value="{$bg_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                     <label><span>结束时间</span><input type="text" name="end_date"  placeholder=" 注册结束时间" value="{$end_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                     <label>
+                     <span>兑换状态：</span>
+                        <select class="select w120" name="state">
+                            <option {eq name="state" value="0"}selected="selected"{/eq} value="0">请选择</option>
+                            <option {eq name="state" value="1"}selected="selected"{/eq}  value="1">未兑换</option>
+                            <option {eq name="state" value="2"}selected="selected"{/eq}  value="2">已兑换</option>
+                         </select>
+                      </label>
+                   <label>
+                        <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                        <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                    </label>
+                    <label>
+                        <span>兑换码/手机/备注</span>
+                        <input type="text" placeholder="兑换码/手机/备注" name="keyword" value="{$keyword}" class="admin-input-text"/>
+                    </label>
+                    <label>
+                        <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                    </label>
+                </div>
+               </div>
+            </form>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td class="w50">ID</td>
+                    <td>兑换码</td>
+                    <td>兑换人信息</td>
+                    <td>兑换时间</td>
+                    <td>兑换说明</td>
+                    <td>状态</td>
+                    <td>优惠券标题</td>
+                    <td>金额</td>
+                    <td>过期时间</td>
+                    <td>创建时间</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr {if condition="$var['state'] eq 2"}style="background-color:#e8e6e6"{/if}>
+                        <td>{if condition="$var['state'] eq 1"}<input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/>{/if}</td>
+                        <td>{$var.id}</td>
+                        <td>
+                           {if condition="$var['state'] eq 1"}
+                           		<a class="clipboard_btn" data-clipboard-text="{$var['code']}"><b style="color:#06F">{$var['code']}</b>[复制]</a>
+                           {/if}
+                           {if condition="$var['state'] eq 2"}
+                           		{$var['code']}
+                           {/if}
+                        </td>
+                        <td>{$var.users.user_id}-{$var.users.nickname}</td>
+                        <td>{if condition="$var['exchange_time']"}{$var.exchange_time|date='Y-m-d H:i:s',###}{/if}</td>
+                        <td>{$var['exchange_info']}</td>
+                        <td>
+                            {eq name="var.state" value="0"}<span class="weixin">错误</span>{/eq}
+                            {eq name="var.state" value="1"}<span class="weibo">未兑换</span>{/eq}
+                            {eq name="var.state" value="2"}<span class="delivery">已兑换</span>{/eq}
+                        </td>
+                        <td>{$var['coupon_id']}-{$var['coupon']['title']}</td>
+                        <td style="color:#F00">¥{:round($var['coupon']['reduce_price']/100,2)}</td>
+                        <td>{$var['coupon']['expire_date']}</td>
+                        <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                        <td>
+                        	{if condition="$var['state'] eq 1"}
+                            	{:BA('coupon/CodesDelete',array("id"=>$var["id"],"coupon_id"=>$var["coupon_id"],"p"=>$p),'删除','act','admin-btn-small')}
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+                {:BA('coupon/CodesDelete','','批量删除','list',' admin-btn-default')}
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+$(function(){
+	var clipboard = new ClipboardJS('.clipboard_btn');
+	clipboard.on('success', function(e) {
+		console.info('Action:', e.action);
+		console.info('Text:', e.text);
+		console.info('Trigger:', e.trigger);
+		e.clearSelection();
+		layer.msg('复制【'+e.text+'】成功', {icon: 1});
+	});
+	clipboard.on('error', function(e) {
+		console.error('Action:', e.action);
+		console.error('Trigger:', e.trigger);
+		layer.msg('复制失败', {icon: 1});
+	});
+});	
+</script>
+
+
+{include  file='public:footer'/}
+
+

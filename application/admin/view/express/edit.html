@@ -1,0 +1,250 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">订单</li>
+        <li class="li2 li3">编辑订单</li>
+    </ul>
+</div>
+
+    {:BA('express/edit',array("id"=>$detail["id"]),'刷新','','admin-btn-default')}
+    {:BA('express/detail',array("id"=>$detail["id"]),'详情','','admin-btn-default')}
+    {:BA('express/index','','返回','','admin-btn-default')}
+
+<style>
+.profit{text-align: center;color: #ffffff !important;;font-weight: bold;background: #495b6c !important;}
+</style>
+
+    <form target="x-frame" action="{:url('express/edit',array('id'=>$detail['id']))}" method="post">
+        <div class="admin-main-sc-add"  style="margin-top:20px">
+        <div class="admin-table-box"> 
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+            	<tr>
+                    <td class="admin-table-left">其他操作</td>
+                    <td class="admin-table-right">
+                       {include  file='express:operation'}
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td class="admin-table-left">订单ID：</td>
+                    <td class="admin-table-right">{$detail.id|default=''}
+                    </td>
+                </tr>
+            
+                
+                <tr>
+                    <td class="admin-table-left">快递公司：</td>
+                    <td class="admin-table-right"><input type="text" name="data[kuaidi]" value="{$detail.kuaidi|default=''}" class="admin-manage-input"/>
+					<code style="color:#F00">如果您是走的易达云洋德邦接口，千万不要编辑，如果您是走的自定义接口[自定义接口物流轨迹需要对接快递100查询]，这里支持编辑选择快递公司，切记否则会报错</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">运单号：</td>
+                    <td class="admin-table-right"><input type="text" name="data[deliveryId]" value="{$detail.deliveryId|default=''}" class="admin-manage-input"/>
+					<code>默认快递公司返回</code>
+                    </td>
+                </tr>
+            	<tr>
+                    <td class="admin-table-left">渠道单号：</td>
+                    <td class="admin-table-right">{$detail.expressId|default='-'}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">expressNo：</td>
+                    <td class="admin-table-right">{$detail.expressNo|default='-'}
+                    </td>
+                </tr>
+                {if condition="$var['orderNo']"}
+                    <tr>
+                        <td class="admin-table-left">订单号orderNo</td>
+                        <td class="admin-table-right">{$var.orderNo|default='-'}</td>
+                    </tr>
+                {/if}
+                <tr>
+                    <td class="admin-table-left">会员ID：</td>
+                    <td class="admin-table-right"><input type="text" name="data[user_id]" value="{$detail.user_id|default=''}" class="admin-manage-input w80"/>
+					<code>非必要不要修改，程序员调试用</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">寄件人地址</td>
+                </tr>
+				<tr>
+                    <td class="admin-table-left">寄件人名称：</td>
+                    <td class="admin-table-right"><input type="text" name="data[sendName]" value="{$detail.sendName|default=''}" class="admin-manage-input w110"/>
+                    <code>寄件人手机</code>
+                    <input type="text" name="data[sendMobile]" value="{$detail.sendMobile|default=''}" class="admin-manage-input  w210"/>
+                    </td>
+                </tr>
+ 				
+                <tr>
+                    <td class="admin-table-left">寄件城市：</td>
+                    <td class="admin-table-right">
+                    	<input type="text" name="data[senderProvince]" value="{$detail.senderProvince|default=''}" class="admin-manage-input w150">省份
+                        <input type="text" name="data[senderCity]" value="{$detail.senderCity|default=''}" class="admin-manage-input w150">城市
+                        <input type="text" name="data[senderCounty]" value="{$detail.senderCounty|default=''}" class="admin-manage-input w150">区县
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">寄件人地址：</td>
+                    <td class="admin-table-right">
+                    <textarea name="data[sendAddress]" class="sendAddress" cols="50" rows="3">{$detail.sendAddress|default=''}</textarea>
+                    <code>详细地址</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">收件人地址</td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">收件人名称：</td>
+                    <td class="admin-table-right"><input type="text" name="data[receiveName]" value="{$detail.receiveName|default=''}" class="admin-manage-input w110"/>
+                    <code>收件人手机</code>
+                    <input type="text" name="data[receiveMobile]" value="{$detail.receiveMobile|default=''}" class="admin-manage-input  w210"/>
+                    </td>
+                </tr>
+ 				
+                
+                <tr>
+                    <td class="admin-table-left">收件城市：</td>
+                    <td class="admin-table-right">
+                    	<input type="text" name="data[receiveProvince]" value="{$detail.receiveProvince|default=''}" class="admin-manage-input w150">省份
+                        <input type="text" name="data[receiveCity]" value="{$detail.receiveCity|default=''}" class="admin-manage-input w150">城市
+                        <input type="text" name="data[receiveCounty]" value="{$detail.receiveCounty|default=''}" class="admin-manage-input w150">区县
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">收件人地址：</td>
+                    <td class="admin-table-right">
+                    <textarea name="data[receiveAddress]" class="receiveAddress" cols="50" rows="3">{$detail.receiveAddress|default=''}</textarea>
+                    <code>收件人详细地址</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">金额信息</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">支付金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[sumMoneyYuan]" value="{:round($detail['sumMoneyYuan']/100,2)}" class="admin-manage-input w80"/>
+					<code>用户已支付金额</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">原始金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[sumMoneyYuan_old]" value="{:round($detail['sumMoneyYuan_old']/100,2)}" class="admin-manage-input w80"/>
+					<code>原始金额</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">加价金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[sumMoneyYuan_jia]" value="{:round($detail['sumMoneyYuan_jia']/100,2)}" class="admin-manage-input w80"/>
+					<code>加价金额</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">其他信息</td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">订单状态：</td>
+                    <td class="admin-table-right">
+                        <select name="data[orderStatus]" class="admin-sele-Fl jq_type" style="display:inline-block;">
+                        	<option value="0">=请选择=</option>
+                            {foreach name="getorderStatus" key="k" item="item"}
+                               <option {eq name="k" value="$detail.orderStatus"}selected="selected"{/eq}  value="{$k}">{$item}</option>
+                            {/foreach}
+                        </select>
+                        <code>订单状态</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">状态文字说明：</td>
+                    <td class="admin-table-right"><input type="text" name="data[orderStatusName]" value="{$detail.orderStatusName|default=''}" class="admin-manage-input"/>
+					<code>可手动编辑状态文字说明</code>
+                    </td>
+                </tr>
+    			<tr>
+                    <td class="admin-table-left">快递员信息：</td>
+                    <td class="admin-table-right"><input type="text" name="data[realOrderState]" value="{$detail.realOrderState|default=''}" class="admin-manage-input w660"/>
+					<code>默认快递公司返回</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">快递员名字：</td>
+                    <td class="admin-table-right"><input type="text" name="data[realOrderName]" value="{$detail.realOrderName|default=''}" class="admin-manage-input w150"/>
+					<code>快递员名字</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">快递员电话：</td>
+                    <td class="admin-table-right"><input type="text" name="data[realOrderMobile]" value="{$detail.realOrderMobile|default=''}" class="admin-manage-input w150"/>
+					<code>快递员电话</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">取件码：</td>
+                    <td class="admin-table-right"><input type="text" name="data[realOrderCode]" value="{$detail.realOrderCode|default=''}" class="admin-manage-input w150"/>
+					<code>部分快递渠道快递公司返回</code>
+                    </td>
+                </tr>
+        		<tr>
+                    <td class="admin-table-left">差价金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[diffMoneyYuan]" value="{:round($detail['diffMoneyYuan']/100,2)}" class="admin-manage-input w80"/>
+					<code>差价金额默认快递公司返回</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">差价状态：</td>
+                    <td class="admin-table-right">
+                        <select name="data[diffStatus]" class="admin-sele-Fl jq_type" style="display: inline-block;">
+                            {foreach name="getdiffStatus" id="var" key="k"} 
+                                <option value="{$k}" {eq name="k" value="$detail.diffStatus"}selected="selected"{/eq}>{$var}</option>
+                            {/foreach}
+                        </select>
+                        <code>差价状态</code>
+                    </td>
+          		</tr>
+                
+                <tr>
+                    <td class="admin-table-left">下单重量：</td>
+                    <td class="admin-table-right"><input type="text" name="data[wight]" value="{$detail.wight|default=''}" class="admin-manage-input w80"/>
+					<code>下单重量</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">开单重量：</td>
+                    <td class="admin-table-right"><input type="text" name="data[review_weight]" value="{$detail.review_weight|default=''}" class="admin-manage-input w80"/>
+					<code>开单重量</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">下单备注：</td>
+                    <td class="admin-table-right"><input type="text" name="data[remark]" value="{$detail.remark|default=''}" class="admin-manage-input w660"/>
+					<code>下单备注</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">异常说明：</td>
+                    <td class="admin-table-right"><input type="text" name="data[message]" value="{$detail.message|default=''}" class="admin-manage-input w660"/>
+					<code>异常说明</code>
+                    </td>
+                </tr>
+                
+               
+        		
+          
+        
+       
+    </table>
+   <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+</form>
+</div>
+</div>
+{include  file='public:footer'}      

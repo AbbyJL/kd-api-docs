@@ -1,0 +1,138 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员代理</li>
+        <li class="li2 li3">代理信息</li>
+    </ul>
+</div>
+
+<style>
+.selecteds{
+	background: #906;
+}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+.admin-btn-default-houseMoving {
+    font-size: 12px;
+    margin-left: 15px;
+    display: inline-block;
+    margin-top: 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #0265fe;
+    color: #fff;
+    padding: 2px 8px;
+    height: 22px;
+    line-height: 22px;
+}
+</style>
+
+
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span> 业务员列表 </p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+            	<a class="admin-btn-default-houseMoving tudoukuaijie" href="{:url('user/set_edit',array('id'=>0))}">添加</a>
+            	<a class="admin-btn-default-houseMoving tudoukuaijie" href="{:url('user/set',array('type'=>1))}">刷新</a>
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('user/set')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                            <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                            <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                        </label>
+                        
+                        <label>
+                            <span>状态：</span>
+                            <select class="select w100" name="pushType">
+                             	<option {eq name="status" value="0"}selected="selected"{/eq} value="0">=请选择=</option>
+                                <option {eq name="status" value="1"}selected="selected"{/eq}  value="1">未审核</option>
+                                <option {eq name="status" value="2"}selected="selected"{/eq}  value="2">已审核</option>
+                            </select>
+                        </label>
+                            
+                        <span>关键字</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/><input type="submit" value=" 搜索"  class="admin-input-button"/>
+                    </div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td class="w50">ID</td>
+                    <td>用户信息</td>
+                    <td>姓名</td>
+                    <td>手机</td>
+                    <td>微信</td>
+                    <td>具体地址</td>
+                    <td>图片</td>
+                    <td>是否审核</td>
+                    <td>时间</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr {eq name="var.status" value="0"}style="background-color:#f4f4f4"{/eq}>
+                        <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/></td>
+                        <td>{$var.id}</td>
+                        <td>{$var.user.nickname}-{$var.user_id}</td>
+                        <td>{$var.name}</td>
+                        <td>{$var.mobile}</td>
+                        <td><span class="qq">{$var.weixin}</span></td>
+                        <td>{$var.addr}</td>
+                        <td>
+                        	{if condition="$var['img']"}
+                            	<a target="_blank" href="{:config_img($var.img)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($var.img)}"></a>
+                            {/if}
+                        </td>
+                        <td>
+                            {eq name="var.status" value="0"}<span class="delivery">未审核</span>{/eq}
+                            {eq name="var.status" value="1"}<span class="weixin">已审核</span>{/eq}
+                            {eq name="var.status" value="2"}<span class="qq">已审核</span>{/eq}
+                        </td>
+                        <td>
+                            {if condition="$var['create_time']"}
+                                创建时间：{$var.create_time|date="Y-m-d H:i:s",###}
+                            {/if}
+                            {if condition="$var['edit_time']"}
+                                <br>编辑时间：{$var.edit_time|date="Y-m-d H:i:s",###}
+                            {/if}
+                            {if condition="$var['audit_time']"}
+                                <br>审核时间：{$var.audit_time|date="Y-m-d H:i:s",###}
+                            {/if}
+                        </td>
+                        <td>
+                        	{eq name="var.status" value="0"}
+                            	{:BA('city/delivery_status',array("id"=>$var["id"]),'审核','act','admin-btn-default')}
+                            {/eq}
+                        	{:BA('user/set_edit',array("id"=>$var["id"],"p"=>$p),'编辑','','admin-btn-default')}
+                            {:BA('user/set_delete',array("id"=>$var["id"]),'删除','act','admin-btn-default')}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'} 
+
+

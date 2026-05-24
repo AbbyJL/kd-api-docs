@@ -1,0 +1,61 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">会员等级</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span>1：等级请不要随意删除，分销比例如果等级里面有配置按照等级里面没有，反之按照分销里面的订单分成配置</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                {:BA('userrank/create','','添加等级')}
+            </div>
+        </div>
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="rank_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>等级名称</td>
+                        <td>购买等级需要金额</td>
+                        <td>1级订单分成比例</td>
+                        <td>2级订单分成比例</td>
+                        <td>3级订单分成比例</td>
+                        <td>等级图标</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_rank_id" type="checkbox" name="rank_id[]" value="{$var.rank_id}"/></td>
+                            <td>{$var.rank_id}</td>
+                            <td>{$var.rank_name}</td>
+                            <td>{:round($var['price']/100,2)}元</td>
+                            <td>{$var.rate1}%</td>
+                            <td>{$var.rate2}%</td>
+                            <td>{$var.rate3}%</td>
+                            <td><img style="width:38px;" src="{:config_img($var['photo'])}"/></td>
+                            <td>
+                                {:BA('userrank/edit',array("rank_id"=>$var["rank_id"]),'编辑','','admin-btn-default')}
+                                {:BA('coupon/createCodeList',array("rank_id"=>$var["rank_id"]),'添加兑换券','','admin-btn-small')}
+                           	    {:BA('coupon/codesList',array("rank_id"=>$var["rank_id"]),'兑换券列表','','admin-btn-small')}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/} 
+
+
+

@@ -1,0 +1,292 @@
+{include  file='public:header'}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">{$CONFIG.integral.name}商城</li>
+        <li class="li2">{$CONFIG.integral.name}产品</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<div class="admin-main-sc-add ">
+
+    <div class="admin-table-box">
+        <form target="x-frame" action="{:url('integralgoods/edit',array('goods_id'=>$detail['goods_id']))}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                
+                
+                
+                 <tr>
+                    <td class="admin-table-left">产品名称：</td>
+                     <td class="admin-table-right"><input type="text" name="data[title]" value="{$detail.title|default=''}" class="admin-manage-input"/>
+					 <code>积分兑换名称</code>
+                    </td>
+                 </tr>
+                 <tr>
+                    <td class="admin-table-left">选择分类：</td>
+                    <td class="admin-table-right">
+                        <select id="data[cate_id]" name="data[cate_id]" class="form-control admin-sele-Fl w200">
+                            {foreach name="cates" item="var"}
+                                {eq name="var.parent_id" value="0"}
+                                <option value="{$var.cate_id}"  {eq name="var.cate_id" value="$detail.cate_id"}selected="selected"{/eq} >{$var.cate_name}</option>                
+                                {foreach name="cates" item="var2"}
+                                    {eq name="var2.parent_id" value="$var.cate_id"}
+                                    <option value="{$var2.cate_id}"  {eq name="var2.cate_id" value="$detail.cate_id"}selected="selected"{/eq} > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$var2.cate_name}</option>
+                                    {/eq}
+                                {/foreach}
+                                {/eq}
+                            {/foreach}
+                        </select>
+                        <code>请选择分类</code>
+                    </td> 
+                </tr>
+                
+               <tr>
+                    <td class="admin-table-left">上传图片</td>
+                    <td class="admin-table-right">
+                    {php}echo tpl_form_field_image('data[face_pic]',$detail['face_pic'],$detail['face_pic'],'face_pic','',$face_pic = array());{/php}
+                    </td>
+                </tr>
+               <tr>
+                  <td class="admin-table-left">详情图：</td>
+                  <td class="admin-table-right">
+                    <div><div id="moreToUpload">上传图片</div></div>							
+                    <script>                                
+                       var uploader = WebUploader.create({                                    
+                            auto: true,                                    
+                            swf: '/static/default/webuploader/Uploader.swf',                                    
+                            server: '{:url("app/upload/uploadify",array("model"=>""))}',                                    
+                            pick: '#moreToUpload',                                    
+                            fileNumberLimit:10,                                    
+                            resize: true, 
+                            crop: false,  
+                        });                                                               
+                        uploader.on('uploadSuccess', function(file,resporse){                                    
+                            var str = '<span class="admin-table-right-more"><img class="admin-table-right-more-img" src="'+resporse.url+'"><input type="hidden" name="photos[]" value="'+resporse.url+'"/><a>取消</a></span>';
+                            $(".jq_uploads_img").append(str);                                
+                         });                                                            
+                         uploader.on('uploadError',function(file){                                    
+                            layer.msg('上传出错',{icon: 5});                                
+                         });                                
+                         $(document).on("click",".jq_uploads_img a",function(){                                    
+                             $(this).parent().remove();                                
+                         });                            
+                     </script>
+                    <div class="jq_uploads_img">
+                        {foreach name="photos" item="item"}
+                            <span class="jq_uploads_img_span"> 
+                                <img class="jq_uploads_img_span_img" src="{:config_img($item['photo'])}">  
+                                <input type="hidden" name="photos[]" value="{$item.photo}"/>  
+                                <a>取消</a>  
+                            </span>
+                        {/foreach}
+                    </div>					
+                  </td>
+               </tr>
+              
+                <tr>
+                    <td class="admin-table-left">兑换需要{$CONFIG.integral.name}：</td>
+                     <td class="admin-table-right"><input type="text" name="data[integral]" value="{$detail.integral|default=''}" class="admin-manage-input"/>
+					 <code>兑换需要积分</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">需要支付金额：</td>
+                     <td class="admin-table-right"><input type="text" name="data[money]" value="{:round($detail['money']/100,2)}" class="admin-manage-input"/>
+					 <code>需要支付金额留空不需要支付</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">市场售价：</td>
+                    <td class="admin-table-right"><input type="text" name="data[price]" value="{$detail.price|default=''}" class="admin-manage-input"/>
+					<code>当前产品市场售价</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">库存数量：</td>
+                     <td class="admin-table-right"><input type="text" name="data[num]" value="{$detail.num|default=''}" class="admin-manage-input"/>
+					 <code>产品库存</code>
+                    </td>
+                </tr>
+                
+				<style>
+                #options{ display:none}
+                .form-group{ margin-top:20px;}
+                .form-group .input-group{margin-top:10px;}
+                .form-group .delOptions{border:1px solid #1881A4;display: inline-block;line-height: 30px;cursor: pointer;background-color: #09c;color: #fff;padding: 0 15px;}
+                .form-group .addOptions{margin-top:20px;display:inline-block;cursor:pointer;padding: 0 5px;}
+                .form-group .input-group .form-control{border: solid 1px #d5d5d5;height: 30px;line-height: 28px;text-indent: 10px;color: #999;background: 0 0;}
+                .form-group .input-group .input-group-addon{padding: 0 5px;float:inherit;}
+                </style>
+                
+                <tr>
+                    <td class="admin-table-left">启用规格：</td>
+                    <td class="admin-table-right">
+                    <div class="form-group">
+                        <div class="col-sm-9 col-xs-12">
+                            <label class="checkbox-inline"><input type="radio" name="is_options" value="0" {if condition="$detail['is_options'] eq 0"} checked{/if} onclick="$('#options').toggle();"> 未启用</label>
+                            <label class="checkbox-inline"><input type="radio" name="is_options" value="1" {if condition="$detail['is_options'] eq 1"} checked{/if} onclick="$('#options').toggle();"> 启用</label>
+                            <br>
+                            <div id="options" {if condition="$detail['is_options'] eq 1"} style="display:block" {/if}>
+                                <div class="tpl">
+                                
+                                {php}
+                                    {/php}
+                                    {if condition="!empty($options)"}
+                                        {foreach name="$options" item="row"}
+                                            <div class="input-group">
+                                                <input type="hidden" name="options[id][]" value="{$row['id']}">
+                                                <span class="input-group-addon">规格名称</span>
+                                                <input type="text" name="options[name][]" value="{$row['name']}" class="form-control" placeholder="规格名称">
+                                                <span class="input-group-addon">售价</span>
+                                                <input type="text" name="options[price][]" value="{$row['price']}" class="form-control" placeholder="售价">
+                                                <span class="input-group-addon">库存</span>
+                                                <input type="text" name="options[total][]" value="{$row['total']}" class="form-control" placeholder="库存">
+                                                <span class="input-group-addon">排序</span>
+                                                <input type="text" name="options[displayorder][]" value="{$row['displayorder']}" class="form-control" placeholder="排序">
+                                                <span class="input-group-addon"><a href="javascript:;" class="delOptions">删除规格</a></span>
+                                            </div>
+                                        {/foreach}
+                                    {else/}
+                                        <div class="input-group">
+                                            <input type="hidden" name="options[id][]" value="">
+                                            <span class="input-group-addon">规格名称</span>
+                                            <input type="text" name="options[name][]" class="form-control" placeholder="规格名称" value="0">
+                                            <span class="input-group-addon">售价</span>
+                                            <input type="text" name="options[price][]" class="form-control" placeholder="售价" value="0">
+                                            <span class="input-group-addon">库存</span>
+                                            <input type="text" name="options[total][]" class="form-control" placeholder="库存" vlaue="0">
+                                            <span class="input-group-addon">排序</span>
+                                            <input type="text" name="options[displayorder][]" class="form-control" placeholder="排序" value="0">
+                                            <span class="input-group-addon"><a href="javascript:;" class="delOptions">删除规格</a></span>
+                                        </div>
+                                    {/if}
+                                </div>
+                                <a href="javascript:;" class="addOptions admin-btn-default">添加规格</a>
+                            </div>
+                        </div>
+                    </div>
+                    <code>排序数字越大越靠前，启动多规格后，不支持积分兑换功能</code>
+                  </td>
+                 </tr>  
+             
+             
+             
+                <tr>
+                    <td class="admin-table-left">限制单用户兑换数量：</td>
+                     <td class="admin-table-right"><input type="text" name="data[limit_num]" value="{$detail.limit_num|default=''}" class="admin-manage-input"/>
+					 <code>单用户购买数量</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">兑换数量：</td>
+                    <td class="admin-table-right"><input type="text" name="data[exchange_num]" value="{$detail.exchange_num|default=''}" class="admin-manage-input"/>
+					<code>已兑换的数量</code>
+                    </td>
+                </tr>
+                
+              
+                
+         
+                <tr>
+                    <td class="admin-table-left">兑换流程：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[process_details]" cols="50" rows="8">{$detail.process_details}</textarea>
+                        <code>兑换流程</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">注意事项：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[attention_details]" cols="50" rows="8">{$detail.attention_details}</textarea>
+                        <code>注意事项</code>
+                    </td>
+                </tr>
+                
+               <tr>
+                    <td class="admin-table-left">商品简介：</td>
+                    <td class="admin-table-right">
+                        <script type="text/plain" id="data_goods_details" name="data[goods_details]" style="width:800px;height:360px;">{$detail.goods_details}</script>
+                    </td>
+               </tr>
+                  {include  file='public:ueditorjs'} 
+                  <script>
+                   um = UE.getEditor('data_goods_details', {
+                    	lang: 'zh-cn',
+                   		toolbars:[['fullscreen', 'source','undo','redo','bold','italic','underline','fontborder', 'backcolor','fontsize','fontfamily','insertimage']],
+                  });
+                 </script>
+            
+                 <tr>
+                        <td class="admin-table-left">是否显示到首页</td>
+                        <td class="admin-table-right">
+                        <input type="radio" name="data[is_index]" value="0" {if condition="$detail[is_index] eq 0"}checked="checked"{/if}/>否
+                        <input type="radio" name="data[is_index]" value="1" {if condition="$detail[is_index] eq 1"}checked="checked"{/if}/>是
+                        <code>是否推送到首页</code>
+                        </td>
+                 </tr>  
+                       
+                <tr>  
+                    <td class="admin-table-left">固定排名：</td>
+                     <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default='100'}" class="admin-manage-input"/>
+                        <code>默认排序</code>
+                    </td>
+                </tr>
+                   
+                </table>
+                <div style="margin-left:140px;margin-top:20px">
+                <input type="submit" value="确认编辑" class="admin-btn-small-quren"/>
+                <div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	$('.ajaxForm').submit(function(){
+		var is_options = $(':checkbox[name="is_options"]').prop('checked');
+		if(is_options) {
+			var name_flag = price_flag = false;
+			$.each($(':text[name="options[name][]"]'), function(){
+				if(!$.trim($(this).val())) {
+					name_flag = true;
+				}
+				if(!$.trim($(this).next().next().val())) {
+					price_flag = true;
+				}
+			});
+			if(name_flag) {
+				layer.msg('存在没有设置名称的规格项');
+				return false;
+			}
+			if(price_flag) {
+				layer.msg('存在没有设置售价的规格项');
+				return false;
+			}
+		}
+		
+	});
+});
+
+$('.addOptions').click(function(){
+	var html = '<div class="input-group">'+
+					'<input type="hidden" name="options[id][]" value="">'+
+					'<span class="input-group-addon">规格名称</span>'+
+					'<input type="text" name="options[name][]" class="form-control" placeholder="规格名称" value="0">'+
+					'<span class="input-group-addon">售价</span>'+
+					'<input type="text" name="options[price][]" class="form-control" placeholder="售价" value="0">'+
+					'<span class="input-group-addon">库存</span>'+
+					'<input type="text" name="options[total][]" class="form-control" value="0" placeholder="库存">'+
+					'<span class="input-group-addon">排序</span>'+
+					'<input type="text" name="options[displayorder][]" class="form-control" value="0" placeholder="排序">'+
+					'<span class="input-group-addon"><a href="javascript:;" class="" onclick="$(this).parent().parent().remove();"></a></span>'+
+				'</div>';
+	$('#options .tpl').append(html);
+});
+
+$('.delOptions').click(function(){
+	$(this).parent().parent().remove();
+});
+</script>
+
+{include  file='public:footer'}      

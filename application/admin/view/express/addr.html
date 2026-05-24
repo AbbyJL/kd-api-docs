@@ -1,0 +1,89 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">收货地址</li>
+        <li class="li2 li3">地址列表</li>
+    </ul>
+</div>
+
+<style>
+    .shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+    .shang{ background:#F00; }
+    .delivery{ background: #00F; display: none}
+    .weibo{ background:#903;}
+    .qq{ background:#09F}
+    .weixin{ background:#0C0;}
+    .bookworker{ background:#F0C}
+</style>
+
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span> 用户地址列表</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('express/addr')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                        <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                            </label>
+                        <span>关键字</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/><input type="submit" value=" 搜索"  class="admin-input-button"/>
+                    </div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="addr_id"/></td>
+                    <td class="w50">ID</td>
+                    <td>type</td>
+                    <td>会员ID</td>
+                    <td>用户昵称</td>
+                    <td>收货人手机</td>
+                    <td>收货人座机</td>
+                    <td>手机号码</td>
+                    <td>具体地址</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr>
+                        <td><input class="child_addr_id" type="checkbox" name="addr_id[]" value="{$var.addr_id}"/></td>
+                        <td>{$var.addr_id}</td>
+                        <td>{$var.type}</td>
+                        <td>{$var.user_id}{if condition="$var['community_id']"}<span class="weixin">{$var['community']['name']}</span>{/if}</td>
+                        <td>{$var.user.nickname}</td>
+                        <td>{$var.name}</td>
+                        <td>{$var.phone}</td>
+                        <td>{$var.mobile}</td>
+                        <td>{$var.province}{$var.city}{$var.area}{$var.address}</td>
+                        <td>
+                            {:BA('express/addr_delete',array("addr_id"=>$var["addr_id"]),'删除','act','admin-btn-default')}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+                {:BA('express/addr_delete','','批量删除','list',' a2')}
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'} 
+
+

@@ -1,0 +1,68 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">批量下单</li>
+        <li class="li2">快递公司</li>
+        <li class="li2 li3">公司列表</li>
+    </ul>
+</div>
+
+<style>
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px; border:0px solid #dbdbdb!important;}
+.shang{ background:#F00!important; }
+.delivery{ background: #00F!important;}
+.weibo{ background:#903!important;}
+.qq{ background:#09F!important}
+.weixin{ background:#0C0!important;}
+.bookworker{ background:#F0C!important}
+</style>
+
+<div class="admin-main-cate">
+    <p class="admin-attention"><span>注意：</span>批量下单设置请现在设置里面选择接口</p>
+    <div class="admin-js-nr">
+        <form  target="x-frame" method="post">
+            <div class="admin-select-nr" style="border-top: 1px solid #e1e6eb;">
+                <div class="left">
+                    {:BA('batch/cate_create','','添加','','',600,300)}
+                </div>
+                <div class="right">
+                    {:BA('batch/cate_update','','更新','list','admin-btn-default')}
+                </div>
+            </div>
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle; background-color:#FFF;text-align:center;">
+                    <tr bgcolor="#F5F6FA" height="35px;" style="color:#333; font-size:16px; line-height:35px;">
+						<th>ID</th>
+                        <th>名称</th>
+                        <th>图标</th>
+                        <th>加价%</th>
+                        <th>揽收率</th>
+                        <th>是否开启</th>
+                        <th>排序</th>
+                        <th>操作</th>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr height="48px" style="font-size:14px; color:#545454; line-height:48px;{eq name="var.charging" value="0"}background-color:#f1f1f1{/eq}">
+                        	<td>{$var.cate_id}</td>
+                            <td>{$var.cate_name}</td>
+                            <td><img src="{:config_img($var['photo'])}" width="44" height="44"/></td>
+                            <td style="color:#F00">{$var.ratio}%</td>
+                            <td>{$var.lanshou}%</td>
+                            <td>
+                                 {eq name="var.charging" value="0"}关闭{/eq}
+                                 {eq name="var.charging" value="1"}开启{/eq}
+                            </td>
+                            <td><input name="orderby[{$var.cate_id}]" value="{$var.orderby}" type="text" class="admin-menber-input w80"/></td>
+                            <td>
+                                {:BA('batch/cate_edit',array("cate_id"=>$var["cate_id"]),'编辑','','admin-btn-default',600,300)}
+                                {:BA('batch/cate_delete',array("cate_id"=>$var["cate_id"]),'删除','act','admin-btn-default')}
+                            </td>  
+                        </tr>
+                    {/foreach}       
+                </table>
+                {$page}
+        </form>
+    </div>
+    
+    
+{include  file='public:footer'}      

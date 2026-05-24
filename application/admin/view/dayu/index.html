@@ -1,0 +1,89 @@
+{include  file='public:header'/}
+<script src="/public/js/clipboard.min.js"></script>
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">短信管理</li>
+        <li class="li2 li3">短信模板</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin: 10px 20px;">
+            <div class="left">
+                {:BA('dayu/create','','添加内容')}
+                {:BA('dayusms/index','','短信发送记录')}
+            </div>
+        </div>
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="dayu_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>模板名</td>
+                        <td>调用标识</td>
+                        <td>发送成功次数</td>
+                        <td>发送失败次数</td>
+                        <td>阿里云国内模板ID</td>
+                        <td>阿里云国际模板ID</td>
+                        <td>腾讯云模板ID</td>
+                        <td class="w360">说明</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="tag" item="var"}
+                        <tr>
+                            <td><input class="child_dayu_id" type="checkbox" name="dayu_id[]" value="{$var.dayu_id}"/></td>
+                            <td>{$var.dayu_id}</td>
+                            <td>{$var.dayu_name}</td>
+                            <td>{$var.dayu_local}</td>
+                            <td>{$var.num_1}</td>
+                            <td>{$var.num_0}</td>
+                            <td>{$var.dayu_tag}</td>
+                            <td>{$var.dayu_country_tag}</td>
+                            <td>{$var.qcloudsms_id}</td>
+                            <td class="w360"><a class="clipboard_btn" data-clipboard-text="{$var.dayu_note}">{$var.dayu_note}<b style="color:#06F">[点击复制]</b></a></td>
+                            <td>
+                                {:BA('dayu/edit',array("dayu_id"=>$var["dayu_id"]),'编辑','','admin-btn-default')}
+                                {eq name="var.is_open" value="0"} 
+                                	{:BA('dayu/audit',array("dayu_id"=>$var["dayu_id"]),'开启','act','admin-btn-default')} 
+                                {else/}
+                                	{:BA('dayu/delete',array("dayu_id"=>$var["dayu_id"]),'关闭','act','admin-btn-default')}
+                                {/eq}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr">
+                <div class="left">
+                    {:BA('dayu/delete','','批量关闭','list','a2')}
+                    {:BA('dayu/audit','','批量开启','list','admin-btn-default')}
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+<script>
+/*复制插件*/
+$(function(){
+	var clipboard = new ClipboardJS('.clipboard_btn');
+	clipboard.on('success', function(e) {
+		console.info('Action:', e.action);
+		console.info('Text:', e.text);
+		console.info('Trigger:', e.trigger);
+		e.clearSelection();
+		layer.msg('复制【'+e.text+'】成功', {icon: 1});
+	});
+	clipboard.on('error', function(e) {
+		console.error('Action:', e.action);
+		console.error('Trigger:', e.trigger);
+		layer.msg('复制失败', {icon: 1});
+	});
+});	
+</script>
+{include  file='public:footer'/}      

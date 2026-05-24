@@ -1,0 +1,166 @@
+{include  file='public:header'/}
+<style>
+.admin-input-text{width:92px;}
+</style>
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">支付设置</li>
+        <li class="li2 li3">支付日志</li>
+    </ul>
+</div>
+<p class="admin-attention"><span>注意：</span>新版这里可以按照支付订单类型查询日志，还可以按照付款状态等查询日志，已可以高级搜索里面按照时间查询，非常方便，查账功能暂不可用期待更新</p>
+<p class="admin-attention"><span>网站总支付资金统计：</span>
+
+    未付款总金额：&yen;{:round($money_is_paid_0/100,2)}元，
+    已付款：&yen;{:round($money_is_paid_1/100,2)}元
+    <a style="color:#F00; font-weight:bold;">
+    {volist name='types' id='item'}
+        {if condition="$key EQ $st">
+        【{$item}】
+        {/if}
+    {/volist}
+    未付款：&yen;{:round($sum_0/100,2)}元，已付款：&yen;{:round($sum_1/100,2)}元</a>
+</p>
+<div class="admin-main-js admin-main-sc">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('paymentlogs/index')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                     <label><span>开始时间</span><input type="text" name="bg_date" value="{$bg_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                    <label><span>结束时间</span><input type="text" name="end_date" value="{$end_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                        
+                     <label>
+                        <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                        <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                     </label>
+                            
+                      <label>
+                          <span>支付类型：</span>
+                          <select class="select w120" name="type">
+                             <option value="999">请选择类型</option>
+                             {volist name='types' id='item'}
+                                <option {if condition="$key EQ $type"}selected="selected" class="red" {/if}  value="{$key}">{$item}</option>
+                            {/volist}
+                          </select>
+                        </label>
+                        <label>
+                          <span>支付方式：</span>
+                          <select class="select w120" name="code">
+                          	  <option value="999">请选择支付方式</option>
+                              {volist name='codes' id='item'}
+                                <option {if condition="$key EQ $code"}selected="selected" class="red" {/if}  value="{$key}">{$item}</option>
+                            {/volist}
+                          </select>
+                        </label>
+                     
+                        <span>日志订单号:</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/>
+                        <span>原始订单号:</span>
+                        <input type="text" name="order_id" value="{$order_id}" class="admin-input-text"/>
+                        <span>订单号:</span>
+                        <input type="text" name="return_order_id" value="{$return_order_id}" class="admin-input-text"/>
+                        <span>交易:</span>
+                        <input type="text" name="return_trade_no" value="{$return_trade_no}" class="admin-input-text"/>
+                        <input type="submit"value="搜索"class="admin-input-button"/>
+                        <a href="{:url('export')}" class="admin-input-button"> &nbsp;&nbsp;&nbsp;导 出</a>
+                        </div>
+                    </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"
+                   style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="log_id"/></td>
+                    <td>ID</td>
+                    <td>用户</td>
+                    <td>用户姓名</td>
+                    <td>订单编号</td>
+                    <td>支付金额</td>
+                    <td>消费类型</td>
+                    <td>创建时间</td>
+                    <td>支付时间</td>
+                    <td>支付状态</td>
+                    <td>支付类型</td>
+                    <td>订单号</td>
+                    <td>交易号</td>
+                    <td>退款单号</td>
+                    <td>退款金额</td>
+                    <td class="w120">操作</td>
+                </tr>
+
+                {foreach name="list" item="var"}
+                    <tr {eq name="var.is_paid" value="1"}style="background:#f5f5f5"{/eq}>
+                        <td><input class="child_log_id" type="checkbox" name="log_id[]" value="{$var.log_id}"/></td>
+                        <td>{$var.log_id}</td>
+                        <td>{$var.user_id}</td>
+                        <td>{$var.user.nickname}</td>
+                        <td>{$var.order_id}</td>
+                        <td style="color:#00F">&yen;{:round($var['need_pay']/100,2)}</td>
+                        <td>{$var.type}</td>
+                        <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                        <td>
+                            {if condition="$var['pay_time']"}
+                                {$var.pay_time|date='Y-m-d H:i:s',###}
+                            {/if}
+                        </td>
+                        <td>
+                            {eq name="var.is_paid" value="1"}已支付{else/}未支付{/eq}
+                        </td>
+                        <td style="color:#F00">
+                        	{eq name="var.code" value="toutiao"}抖音支付{/eq}
+                        	{eq name="var.code" value="weixin"}公众号支付{/eq}
+                            {eq name="var.code" value="wxapp"}小程序支付{/eq}
+                            {eq name="var.code" value="weixinh5"}微信h5{/eq}
+                            {eq name="var.code" value="native"}微信扫码{/eq}
+                            {eq name="var.code" value="money"}余额支付{/eq}
+                            {eq name="var.code" value="alipay"}支付宝{/eq}
+                        </td>
+                        <td>{$var.return_order_id}</td>
+                        <td>{$var.return_trade_no}</td>
+                        <td>{$var.refund_id}</td>
+                        <td>&yen;{:round($var['refund_fee']/100,2)}</td>
+                        <td class="w120">
+                            {if condition="$var['code'] eq 'weixin'  or $var['code'] eq 'weixinh5'  or $var['code'] eq 'native'  or $var['code'] eq 'wxapp'"}
+                                {:BA('paymentlogs/query',array("log_id"=>$var["log_id"],"p"=>$p),'微信查账','load','admin-btn-default',700,600)}
+                            {/if}
+                            {if condition="$var['code'] eq 'alipay'"}
+                                {:BA('paymentlogs/query',array("log_id"=>$var["log_id"],"p"=>$p),'支付宝查账','load','admin-btn-default',700,600)}
+                            {/if}
+                            {if condition="$var['code'] eq 'money'"}
+                                {:BA('usermoneylogs/index',array("log_id"=>$var["log_id"],"p"=>$p),'余额查账','load','admin-btn-default',700,600)}
+                            {/if}
+                            {if condition="($var['code'] eq 'bank') AND ($var['is_paid'] eq '0')"}
+                                {:BA('paymentlogs/confirm',array("log_id"=>$var["log_id"]),'确认到账','act','admin-btn-small')}
+                            {/if}
+                            {if condition="$var['code'] eq 'bank'"}
+                                {:BA('paymentlogs/detail',array("log_id"=>$var["log_id"],"p"=>$p),'详情','load','admin-btn-small',700,600)}
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+
+
+{include file='public:footer'/}

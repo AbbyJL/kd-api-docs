@@ -1,0 +1,135 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">城市快递</li>
+        <li class="li2 li3">业务员订单</li>
+    </ul>
+</div>
+
+<style>
+.selecteds{
+	background: #906;
+}
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+</style>
+
+
+<div class="admin-main-js admin-main-sc">
+<p class="admin-attention"><span>注意：</span> 业务员订单列表 </p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+            	<a class="admin-btn-default-houseMoving tudoukuaijie" href="{:url('city/delivery_edit',array('id'=>0))}">添加</a>
+            	<a class="admin-btn-default-houseMoving tudoukuaijie" href="{:url('city/delivery',array('type'=>1))}">刷新</a>
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('city/deliveryorder')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                        <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                                <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                            </label>
+                        <span>关键字</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/><input type="submit" value=" 搜索"  class="admin-input-button"/>
+                    </div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id"/></td>
+                    <td class="w50">ID</td>
+                    <td>城市</td>
+                    <td>业务员ID</td>
+                    <td>快递订单ID</td>
+                    <td>快递订单类别</td>
+                    <td>运单号</td>
+                    <td>下单用户信息</td>
+                    <td>取件姓名</td>
+                    <td>取件手机</td>
+                    <td>取件订单状态</td>
+                    <td>图片</td>
+                    <td>打印次数</td>
+                    <td>时间</td>
+                    <td>操作</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr {eq name="var.orderStatus" value="1"}style="background-color:#f4f4f4"{/eq}>
+                        <td><input class="child_id" type="checkbox" name="id[]" value="{$var.id}"/></td>
+                        <td>{$var.id}</td>
+                        <td><span class="qq">{$var.city.name}-{$var.area.area_name}-{$var.business.business_name}-{$var.community.name}</span></td>
+                        <td>
+                            {$var.delivery_id}
+                            {if condition="$var['delivery']['name']"}
+                            	-{$var.delivery.name}
+                            {/if}
+                        </td>
+                        <td>{$var.order_id}-<span class="shang">{$getorderStatus[$var['order']['orderStatus']]}</span></td>
+                        <td><span class="bookworker">{$getCompanyApiTypes[$var['order']['type']]}</span></td>
+                        <td>{$var.deliveryId}</td>
+                        <td>{$var.user.nickname}-{$var.user_id}</td>
+                        <td>{$var.name}</td>
+                        <td>{$var.mobile}</td>
+                        <td>
+                            {eq name="var.orderStatus" value="0"}<span class="delivery">未审核</span>{/eq}
+                            {eq name="var.orderStatus" value="1"}<span class="weixin">等待接单</span>{/eq}
+                            {eq name="var.orderStatus" value="2"}<span class="weibo">已接单</span>{/eq}
+                            {eq name="var.orderStatus" value="3"}<span class="qq">配送中</span>{/eq}
+                            {eq name="var.orderStatus" value="5"}<span class="shang">已退款</span>{/eq}
+                            {eq name="var.orderStatus" value="8"}<span class="bookworker">已完成</span>{/eq}
+                        </td>
+                        <td>
+                        	{if condition="$var['img']"}
+                            	<a target="_blank" href="{:config_img($var.img)}" class="tooltip"><img style="height:48px;width:48px;" src="{:config_img($var.img)}"></a>
+                            {/if}
+                        </td>
+                        <td style="color: #0a8ddf">{$var.dayin_num}</td>
+                        <td>
+                            {if condition="$var[create_time]"}
+                                创建时间：{$var.create_time|date="Y-m-d H:i:s",###}<br>
+                            {/if}
+                            {if condition="$var[delivery_time]"}
+                                接单时间：{$var.delivery_time|date="Y-m-d H:i:s",###}<br>
+                            {/if}
+                            {if condition="$var[refund_time]"}
+                                退款时间：{$var.refund_time|date="Y-m-d H:i:s",###}<br>
+                            {/if}
+                            {if condition="$var[refund_info]"}
+                                退款说明：{$var.refund_info}<br>
+                            {/if}
+                            {if condition="$var[peisong_time]"}
+                                配送时间：{$var.peisong_time|date="Y-m-d H:i:s",###}<br>
+                            {/if}
+                            {if condition="$var[end_time]"}
+                                完成时间：{$var.end_time|date="Y-m-d H:i:s",###}
+                            {/if}
+                        </td>
+                        <td>
+                        	{:BA('city/delivery_order_edit',array("id"=>$var["id"],"p"=>$p),'编辑','','admin-btn-default')}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'} 
+
+

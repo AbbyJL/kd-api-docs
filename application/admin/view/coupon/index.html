@@ -1,0 +1,108 @@
+
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">优惠券</li>
+        <li class="li2"> 优惠列表券</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span>新版优惠券红包用于下单抵扣，【满额返礼】【寄件返礼】【新人有礼】标题具备唯一性，需要这3功能优惠券需要标题为这几个文字微信：tu doucms</p>
+    <div class="admin-js-nr">
+
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                {:BA('coupon/create','','添加')}
+                {:BA('coupon/index','','刷新')}
+            </div>
+            <div class="right">
+                <form action="{:url('coupon/index')}" method="post" style="float:left;">  
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    	<div class="admin-sele-k">
+                    
+                            <span>状态</span>
+                            <select name="audit" class="select">
+                                <option value="0">全部</option>
+                                <option value="-1" {eq name="audit" value="-1"}selected="selected"{/eq}>等待审核</option>
+                                <option value="1" {eq name="audit" value="1"}selected="selected"{/eq}>正常</option>
+                            </select>
+                            <span>关键字:</span>
+                            <input type="text"  class="admin-input-text"   name="keyword" value="{$keyword|default=''}"/>
+                            <input type="submit" value=" 搜索"  class="admin-input-button"/>
+ 						</div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+      
+        
+        <div class="clear"></div>
+    </div>
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="coupon_id"/></td>
+                    <td class="w50">ID</td>
+                    <td>类型</td>
+                    <td>标题</td>
+                    <td>优惠券图片</td>
+                    <td>原价</td>
+                    <td>购买价格</td>
+                    <td>满多少钱</td>
+                    <td>减多少钱</td>
+                    <td>过期日期</td>
+                    <td>限制第几单使用</td>
+                    <td>下载量</td>
+                    <td>单次下载张数</td>
+                    <td>创建时间</td>
+                    <td>操作</td>
+
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr>
+                        <td><input class="child_coupon_id" type="checkbox" name="coupon_id[]" value="{$var.coupon_id}" /></td>
+                        <td>{$var.coupon_id}</td>
+                        <td>
+                        	{eq name="var.type" value="0"}未知类型{/eq}
+                            {eq name="var.type" value="1"}满额返礼{/eq}
+                            {eq name="var.type" value="2"}寄件返礼{/eq}
+                            {eq name="var.type" value="3"}新人有礼{/eq}
+                            {eq name="var.type" value="4"}超值券包{/eq}
+                            {eq name="var.type" value="5"}积分兑换{/eq}
+                        </td>
+                        <td>{$var.title}</td>
+                        <td><img style="width:38px;" src="{:config_img($var['photo'])}"></td>
+                        <td>¥{:round($var['price']/100,2)}</td>
+                        <td>¥{:round($var['money']/100,2)}</td>
+                        <td>¥{:round($var['full_price']/100,2)}</td>
+                        <td>¥{:round($var['reduce_price']/100,2)}</td>
+                        <td>{$var.expire_date}</td>
+                        <td>{$var.limit_num}</td>
+                        <td>{$var.downloads}</td>
+                        <td style="color:#F00">{$var.number}</td>
+                        <td>{$var.create_time|date='Y-m-d H:i',###}</td>
+                        <td>
+                        	{:BA('coupon/createCode',array("coupon_id"=>$var["coupon_id"]),'添加兑换券','','admin-btn-small')}
+                            {:BA('coupon/codes',array("coupon_id"=>$var["coupon_id"]),'兑换券列表','','admin-btn-small')}
+                        	{:BA('coupon/give',array("coupon_id"=>$var["coupon_id"]),'赠送','','admin-btn-default')}
+                            {:BA('coupon/gives',array("coupon_id"=>$var["coupon_id"]),'批量赠送','','admin-btn-small')}
+                            {:BA('coupon/edit',array("coupon_id"=>$var["coupon_id"]),'编辑','','admin-btn-default')}
+                            {:BA('coupon/delete',array("coupon_id"=>$var["coupon_id"]),'删除','act','admin-btn-default')}
+                        </td>
+                    </tr>
+                {/foreach}    
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+                {:BA('coupon/delete','','批量删除','list','a2')}
+                {:BA('coupon/audit','','批量审核','list','admin-btn-default')}
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{include  file='public:footer'} 

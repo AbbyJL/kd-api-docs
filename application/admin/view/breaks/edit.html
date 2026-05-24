@@ -1,0 +1,123 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家收银台</li>
+        <li class="li2 li3">编辑商家收银</li>
+    </ul>
+</div>
+        <form target="x-frame" action="{:url('breaks/edit',array('set_id'=>$detail['set_id']))}" method="post">
+        <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+
+
+        <tr>
+            <td class="admin-table-left">商家：</td>
+            <td class="admin-table-right"> <div class="lt">
+               <input type="hidden" id="shop_id" name="data[shop_id]" value="{$detail.shop_id|default=''}"/>
+               <input type="text" id="shop_name" name="shop_name" value="{$shops.shop_name}"   disabled="disabled" class="admin-manage-input"/>
+               <code>这里无法编辑</code>
+               </div>
+            </td>
+       </tr>
+
+
+        <tr>
+          <td class="admin-table-left">优惠状态：</td>
+            <td class="admin-table-right">
+                 {if condition="$detail[is_open] eq 1"}<span style="color: green;">开启中</span>{else/}<span style="color: red;">关闭</span>{/if}
+            </td>
+        </tr>
+
+        <!--增加开始-->
+        <tr>
+          <td class="admin-table-left">优惠类型：</td>
+            <td class="admin-table-right">
+                 {foreach name="types" key="key" item="item"}
+                      <label><input class="yh_type" type="radio" rel="{$key}" name="data[type_id]" value="{$key}" {if condition="$detail.type_id" value="{$key}"}checked="checked"{/if} />{$item}</label>
+                 {/foreach}
+            </td>
+        </tr>
+
+
+        <tr class="jq_tr jq_tr_2">
+           <td class="admin-table-left" >折扣优惠：</td>
+            <td class="admin-table-right">
+              <input type="hidden" name="data[yh_id]" value="{$detail.yh_id}"/>
+              <input type="text" name="data[discount]" value="{$detail.discount|default=''}" class="admin-sc-add-text-name"/>
+            </td>
+        </tr>
+
+       <tr class="jq_tr jq_tr_2">
+           <td class="admin-table-left" >扣除折扣：</td>
+            <td class="admin-table-right">
+              <input type="text" name="data[deduction]" value="{$detail.deduction|default=''}" class="admin-sc-add-text-name"/>
+              <code>注意，这里一般是0.2-0.6,不太写多了，扣点之前跟商家沟通下</code>
+            </td>
+        </tr>
+
+         <tr class="jq_tr jq_tr_3">
+           <td class="admin-table-left" >满减优惠：</td>
+            <td class="admin-table-right">
+               <input type="hidden" name="data[yh_id]" value="{$detail.yh_id}"/>
+               满<input type="text" name="data[min_amount]" value="{$detail.min_amount|default=''}" class="admin-sc-add-text-name"/>
+               减<input type="text" name="data[amount]" value="{$detail.amount|default=''}" class="admin-sc-add-text-name"/>
+            </td>
+        </tr>
+
+
+        <tr class="jq_tr jq_tr_4">
+           <td class="admin-table-left" >积分抵扣比例：</td>
+            <td class="admin-table-right">
+                <input type="hidden" name="data[set_id]" value="{$detail.set_id}"/>
+                <input type="text" name="data[integralRatio]" value="{$detail.integralRatio|default=''}" class="admin-sc-add-text-name"/>%
+                <code>比如设置10%用户付款100元可抵扣10元</code>
+            </td>
+        </tr>
+
+
+        <tr class="jq_tr jq_tr_3">
+           <td class="admin-table-left" >网站抽成：</td>
+            <td class="admin-table-right">
+              <input type="text" name="data[vacuum]" value="{$detail.vacuum|default=''}" class="admin-sc-add-text-name"/>
+            </td>
+        </tr>
+
+
+
+<script>
+    $(document).ready(function(){
+		var type = "{$detail.type_id}";
+		$(".jq_tr").hide();
+        if(type == 1){
+            var tag = 0;
+			$(".jq_tr_"+type).show();
+        }else if(type == 2){
+            var tag = 1;
+			$(".jq_tr_"+type).show();
+        }else if(type == 3){
+            var tag = 2;
+			$(".jq_tr_"+type).show();
+        }else if(type == 4){
+            var tag = 3;
+			$(".jq_tr_"+type).show();
+        }
+		$(".yh_type").eq(tag).click();
+        $(".yh_type").click(function(){
+            $(".jq_tr").hide();
+            $(".jq_tr_"+$(this).attr('rel')).show();
+        })
+    })
+</script>
+
+
+    </table>
+        <div class="admin-small-qr">
+            <a href="{:url('breaks/edit',array('set_id'=>$detail['set_id']))}" class="admin-btn-default">刷新</a>
+            <input type="submit" value="确认编辑" class="admin-btn-small-quren"/>
+        </div>
+    </form>
+    </div>
+    </div>
+{include  file='public:footer'/}

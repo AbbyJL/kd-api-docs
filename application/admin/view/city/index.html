@@ -1,0 +1,110 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">区域设置</li>
+        <li class="li2 li3">城市站点</li>
+    </ul>
+</div>
+
+<style>
+.shang, .delivery, .weibo, .qq, .weixin, .bookworker{color:#FFF; padding:0 3px; margin:0 2px;}
+.shang{ background:#F00; }
+.delivery{ background: #00F;}
+.weibo{ background:#903;}
+.qq{ background:#09F}
+.weixin{ background:#0C0;}
+.bookworker{ background:#F0C}
+</style>
+
+<div class="admin-main-js">
+    <p class="admin-attention"><span>注意：</span>未来避免出错，城市采用导入模式，并支持本地取件，请设置好首重续重~</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin: 10px 20px;">
+            <div class="left">
+                {:BA('city/create','','添加')}
+                {:BA('city/areacode','','从城市库导入')}
+                {:BA('city/index','','刷新')}
+            </div>
+            <form method="post" action="{:url('city/index')}">
+                <div class="right">
+                 <div class="admin-sele-k">
+                
+                   <label>
+                          <span>审核状态：</span>
+                          <select class="select w120" name="is_open">
+                          	  <option value="999">请选择状态</option>
+                              <option {eq name="is_open" value="999"}selected="selected"{/eq} value="999">请选择</option>
+                              <option {eq name="is_open" value="0"}selected="selected"{/eq}  value="0">未审核</option>
+                              <option {eq name="is_open" value="1"}selected="selected"{/eq}  value="1">已审核</option>
+                          </select>
+                        </label>
+                    <input type="text" name="keyword" placeholder=" 输入城市名称‘拼音"  value="{$keyword}" class="admin-input-text"/>
+                    <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                </div>
+                
+                </div>
+            </form>
+        </div>
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="city_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>站点名称</td>
+                        <td>站点拼音</td>
+                        <td>代理ID</td>
+                        <td>代理昵称</td>
+                        <td class="w50">代理分成费率</td>
+                        <td class="w50">VIP分成费率</td>
+                        <td class="w50">审核状态</td>
+                        <td class="w50">是否本地取件</td>
+                        <td class="w50">首重</td>
+                        <td class="w50">续重</td>
+                        <td>排序</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_city_id" type="checkbox" name="city_id[]" value="{$var.city_id}"/></td>
+                            <td>{$var.city_id}</td>
+                            <td>{$var.name}</td>
+                            <td>{$var.pinyin}</td>
+                            <td>{$var.user_id}</td>
+                            <td>{$var.user.nickname}</td>
+                            <td>{:round($var['ratio']/100,2)}%</td>
+                            <td>{:round($var['ratio_vip']/100,2)}%</td>
+                            <td>{eq name="var.is_open" value="0"}未审核{else/}<a style="color:#F00">已审核</a>{/eq}</td>
+                            <td>
+                            	{eq name="var.open" value="0"}<span class="weixin">否</span>{/eq}
+                                {eq name="var.open" value="1"}<span class="weibo">是</span>{/eq}
+                            </td>
+                            <td style="color:#F00">¥{:round($var['shou']/100,2)}</td>
+                            <td style="color:#00f">¥{:round($var['xu']/100,2)}</td>
+                            <td>{$var.orderby}</td>
+                            <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                            <td>
+                            	{:BA('area/index',array("city_id"=>$var["city_id"]),'区域列表','','admin-btn-default')}
+                                {eq name="var.is_open" value="0"}
+                                	{:BA('city/is_open',array("city_id"=>$var["city_id"]),'审核','act','admin-btn-default')}
+                                {/eq}
+                                {:BA('city/edit',array("city_id"=>$var["city_id"]),'编辑','','admin-btn-small_quxiao')}
+                                {:BA('city/agent',array("city_id"=>$var["city_id"],"area_id"=>0,"type"=>2),'添加代理','','admin-btn-small_quxiao')}
+                                {:BA('city/delete',array("city_id"=>$var["city_id"]),'删除','act','admin-btn-default')}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/}      
+

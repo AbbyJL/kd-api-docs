@@ -1,0 +1,64 @@
+{include  file='public:header'}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">优惠券</li>
+        <li class="li2">优惠券管理</li>
+        <li class="li2 li3">添加卡密</li>
+    </ul>
+</div>
+<div class="admin-main-sc-add">
+	<p class="admin-attention"><span>说明：</span> 添加卡密 </p>
+    <div class="admin-table-box">
+
+        <form target="x-frame" action="{:url('card/createCodes',array('coupon_id'=>$detail['coupon_id']))}" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+            
+              	<tr>
+                    <td  class="admin-table-left">上级ID：</td>
+                    <td class="admin-table-right"><input type="text" name="data[pid]" value="{$detail.pid|default=''}"   class="admin-manage-input w80"/>
+                        <code>上级代理ID</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left">标题：</td>
+                    <td class="admin-table-right"><input type="text" name="data[title]" value="{$detail.title|default=''}"   class="admin-manage-input"/>
+                        <code>标题</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[moneys]" value="{$detail.moneys|default=''}"   class="admin-manage-input w80"/>
+                        <code>金额</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left">总数量：</td>
+                    <td class="admin-table-right"><input type="text" name="data[num]" value="{$detail.num|default=''}"   class="admin-manage-input w80"/>
+                        <code>1-100数量范围，建议50张</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left">过期日期：</td>
+                    <td class="admin-table-right"><input type="text" name="data[expire_date]" value="{$detail.expire_date|default=''}" onfocus="WdatePicker();"  class="admin-input-data"/>
+    				<code>过期时间</code>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td  class="admin-table-left">描述：</td>
+                    <td class="admin-table-right"><textarea  name="data[intro]" cols="50" rows="10" >{$detail.intro|default=''}</textarea>
+    				<code>添加简短的描述</code>
+                    </td>
+                </tr>
+    
+        	</table>
+            <div style="margin-left:140px;margin-top:20px">
+                <input type="submit" value="确认添加" class="admin-btn-small-quren"/>
+            <div>
+</form>
+</div>
+</div>
+{include  file='public:footer'}      

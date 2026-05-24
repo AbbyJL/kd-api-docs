@@ -1,0 +1,133 @@
+
+.jifen_banner{ width: 100%; height: 330px; overflow: hidden;position: relative;}
+.jifen_banner>div.wp{}
+.jifen_person{width: 230px; height: 310px;background: #fff; float: right;margin-top: 10px;opacity: .95;;filter: "alpha(opacity=95)";filter: alpha(opacity=95);-webkit-box-shadow: 0 0 15px rgba(0,0,0,0.1);-moz-box-shadow: 0 0 15px rgba(0,0,0,0.1);box-shadow: 0 0 15px rgba(0,0,0,0.1);}
+.jifen_person:hover {margin-right: 1px;margin-top: 9px;}
+.jifen_person .personal{ width: 210px; height: 60px; margin-top: 30px;}
+.jifen_person .personal img{ width: 60px; height: 60px; border-radius: 60px;float: left;margin-right: 10px;}
+.jifen_person .personal div{ width: 140px;}
+.personal div a{ color: #FF9602; text-decoration: underline;}
+.personal-my{line-height: 20px;}
+.personal-my em{ display: block; text-align: center; color: #EE3F44; font-size: 50px; line-height: 80px;height: 80px;}
+.personal-href a{ width: 47%; line-height: 34px; border: 1px solid #eaeaea; background: #fafafa; text-align: center; border-radius: 2px;}
+.personal-href a:hover {background: #fea501;color: #FFF;border-color: #fea501}
+.personal-btn a, .personal-btn>span{position: relative;width: 100%;display: block; height: 40px; line-height: 40px; text-align: center; background: #fea501;border-radius: 2px;}
+.personal-btn>span {color: #FFF;}
+.personal-btn>span>i {vertical-align: middle;}
+.personal-btn>span:hover>img {display: block;position: absolute;bottom: -19px;left: -250px;}
+
+.jifen-Left{ width: 960px;}
+.jifen-Right{ width: 220px;}
+
+
+.jifen-goods-filter{ border: 0; border-bottom: 1px solid #eaeaea; background: #FAFAFA; height:50px;}
+.jifen-goods-filter>a{ line-height: 50px; height: 50px; width: 90px;}
+.shopList-tab>a.active, .shopList-tab>span.active{ color: #fea501; border-color:#eaeaea; background: #fff; border-bottom: 1px solid #eaeaea; margin-right:0; }
+.jifen-goods-filter .sort_price>span{ margin-top: 13px; margin-left: 5px;}
+.jifen-goods-filter .sort_price>div{ margin-left: 20px;}
+.shopList-tab>a i.a{ color: #fea501;}
+.shopList-form>input.shopList-text{ border-color: #fea501; height: 24px; line-height: 24px; box-sizing: content-box;}
+.shopList-form>input.shopList-button{ background: #fea501; box-sizing: content-box;}
+.jifen-goods-filter  .tabIpnut{padding-top: 0; margin-top: 12px;}
+
+/*jifen-Right-ul*/
+.jifen-Right-ul{ border: 1px solid #eaeaea; border-top:0;box-sizing: content-box; width: 223px;}
+.jifen-Right-img img{ width: 100%;}
+.jifen-Right-ul li{ padding: 10px 0; border-bottom: 1px dashed #eaeaea;text-align: center;position: relative;}
+.jifen-Right-ul li:last-child {border: 0}
+.jifen-Right-ul li a{display: block;padding: 0 10px;}
+.jifen-Right-ul li a>img {width: 200px;}
+.jifen-Right-ul li a h6 {line-height: 22px;margin-top: 5px;font-size: 14px;color: #999;}
+.jifen-Right-ul li>span {position: absolute;height: 30px;line-height: 30px;background: #FEA501;color: #FFF;font-size: 14px;top: 10px;right: 0;padding: 0 10px;opacity: .8;filter: "alpha(opacity=80)";filter: alpha(opacity=80);}
+
+/*jifen-viewALL*/
+.jifen-viewALL{position: relative; border: 1px solid #f1f1f1; padding: 10px; box-sizing: content-box;}
+.jifen-viewALL .vip {width: 100px;height: 100px;display: block;background: url('../images/vip.png') 0 0 no-repeat;z-index: 1;position: absolute;left: 0;top: 0;}
+.jifen-viewLeft{ width: 560px;}
+.jifen-viewLeft img{ width: 370px; height: 370px; margin: auto; display: block;}
+.jifen-viewLeft{position: relative;}
+.jifen-viewRight{ width:560px; border-left: 1px solid #f1f1f1; margin-left: 20px; padding-left:30px;padding-bottom: 20px; box-sizing: content-box; }
+.jifen-viewRight>h5 { line-height: 60px;}
+.jifen-viewRight>div { line-height: 40px;}
+.c_e40036 {line-height: 28px;}
+.jifen-viewRight>div>div.z{ width: 40%;}
+.viewRight_gift{ line-height: 1; margin-top: 10px;}
+.f_26{ font-size: 26px;}
+
+.viewRight-infoShop>.shop_info>h2 {font-size: 15px;}
+.viewRight-infoShop>.shop_info>p {font-size: 14px;color: #999;line-height: 26px;}
+
+.viewRight-infoShop>img{ width: 80px;}
+.viewRight-button{padding: 0 20px; background: #fea501; font-size: 18px; text-align: center; line-height: 40px; border-radius: 4px;}
+.no_vip {background: #ddd;}
+.viewRight-moBtn{ position: relative; width: 190px; height: 40px; line-height: 40px; border: 1px solid #eaeaea; box-sizing: content-box; background: #fff;border-radius: 4px;}
+.viewRight-moBtn canvas{ display: none}
+.viewRight-moBtn i.iconfont.z {font-size: 30px;color: #74775A;margin-left: 15px;}
+.viewRight-moBtn:hover canvas{ width:256px; height:256px; position: absolute; left: -5px; top: 50px; z-index: 51;display: block}
+
+.viewLeft-infoNum>div.Num-add{ width: 18px; height: 32px; margin-left: 5px;}
+.viewLeft-infoNum>div,.viewLeft-infoNum>input{ float: left; line-height: 30px;}
+.viewLeft-infoNum>input{ width: 80px; height: 30px; padding: 0 5px; border: 1px solid #F1F1F1;}
+.viewLeft-infoNum>div span{ display: block; cursor: pointer; height: 14px; width: 18px; float: left; font-size: 10px; line-height: 14px; text-align: center; border: 1px solid #F1F1F1;background: #FFF;}
+.viewLeft-infoNum>div span.prep{ margin-top:2px;}
+
+.jifen-viewRight>div>div.p-bar {height: 8px;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px;background: #e6e6e6;overflow: hidden;width: 400px;margin: 17px 20px 0 0;}
+.p-bar>span {display: block;height: 8px;background: url('../images/jifen-status.png') 0 0}
+
+/*.jifen-Left-tab*/
+.jifen-Left-tab{border-bottom: 2px solid #fea501;line-height: 43px;height: 45px;border-left: 0;}
+.jifen-Left-tab>a{ cursor: pointer; padding: 0 30px;}
+.jifen-Left-tab>a.a,.jifen-Left-tab>a:hover{ background: #fea501; color: #fff}
+.jifen-view-describe>div{ margin: 20px; line-height: 26px;font-size: 14px;color: #999}
+.jifen-view-describe img{ width: 100%;}
+.viewLeft-show{ width: 418px; height: 520px;}
+
+/*goods-viewRight*/
+#viewRight-scroll{ width: 220px; max-height: 900px; overflow: hidden;margin-top: 15px;}
+#viewRight-scroll>ul>li {margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px dashed #F1F1F1}
+#viewRight-scroll>ul>li>h2>span.z {width: 110px;}
+.coupon-view-downUp>div{ display: inline-block; padding: 0 10px; font-size: 16px;}
+div.jiaobiao {position: absolute;width: 129px;right: 0;height: 42px;top: -3px;z-index: 9;}
+div.jiaobiao>em {background: url('../image/jiaobiao.png') 0 0 no-repeat;float: right;width: 43px;height: 40px;display: block;margin-left: 3px; margin-top: -11px;}
+div.jiaobiao>em.best {background-position: 0 -84px;}
+div.jiaobiao>em.hots {background-position: 0 -1px;}
+div.jiaobiao>em.new {background-position: 0 -42px;}
+span.jiaobiao {width: 75px;height: 72px;background: url('../image/jb.png') 0 0;display: block;position: absolute;top: 3px;left: 0;z-index: 1}
+span.jiaobiao.over {background-position: 0 -78px;}
+
+.jifen-Right-rule{ width: 220px;}
+.jifen-Right-rule>h6{ border-bottom: 2px solid #fea501; line-height: 42px;}
+.jifen-Right-rule>div{ padding: 5px 0; line-height:30px;}
+
+
+.dzapp_jifen_list>ul {margin-left: -15px}
+.dzapp_jifen_list>ul>li {position: relative;width: 226px;margin: 15px 0 0 15px;float: left; border: 1px solid #f1f1f1;}
+
+.dzapp_jifen_list>ul>li:hover {box-shadow: 0 0 29px #ececec;}
+
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv {overflow: hidden;position: relative;}
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv>h6 {font-size: 14px;line-height: 30px;color: #666;margin: 0 10px;}
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv>a.pic {width: 226px;height: 226px;overflow: hidden;display: block; border-bottom: 1px solid #f1f1f1;}
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv>a.pic>img {width: 100%}
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv>.p-bar {height: 8px;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px;background: #e6e6e6;overflow: hidden;width: 200px;margin: 10px auto;}
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv>.p-bar>span {display: block;height: 8px;background: url('../images/jifen-status.png') 0 0}
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv>.dzapp_jifen_info {position: relative;width: 230px;margin: 10px auto;}
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv>.dzapp_jifen_info>span {width: 76px;border-left: 1px solid #F1F1F1;float: left;text-align: center;color: #999;}
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv>.dzapp_jifen_info>span:first-child {border: 0}
+.dzapp_jifen_list>ul>li>.jifen-goods-ulDiv>.dzapp_jifen_info>span>em {font-size: 16px;display: block;color: #666}
+
+i.vip {width: 100px;height: 100px;display: block;background: url('../images/vip.png') -25px -3px no-repeat;z-index: 1;position: absolute;left: 0;top: 0;}
+
+.dzapp_jifen_list>ul>li>a.vip {position: absolute;padding: 0 6px;text-align: center;background: #fea501;line-height: 35px;color: #FFF;font-size: 12px;opacity: .85;filter:Alpha(Opacity=85);height: 24px;line-height: 24px;top: 10px;right: 10px;border-radius: 3px}
+.dzapp_jifen_list>ul>li>a.vip.over {background: #bbb}
+
+
+.mask_box{position:fixed;display:none;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.3)}
+.dhPop{border:8px solid #666;border-radius:5px;width:550px;height:420px;background:#fff;margin:0 auto;margin-top:10%;z-index:99}
+.dhPop h2{height:40px;padding-left:15px;font:700 18px/40px 'Microsoft Yahei';color:#666;border-bottom:1px solid #ccc;margin-bottom:15px;background-color:#f8f8f8}
+.dhPop h2 span{float:right;background:url(../images/closed.png) no-repeat center center;width:15px;height:15px;cursor:pointer;display:inline-block;margin:12px 15px 0 0}
+.dhPop h2 span:hover{transform:rotate(-180deg);-o-transform:rotate(-180deg);-webkit-transform:rotate(-180deg);-moz-transform:rotate(-180deg);transition:all .4s ease-out;-o-transition:all .4s ease-out;-moz-transition:all .4s ease-out;-webkit-transition:all .4s ease-out}
+.dhPop table tr td{padding:10px 0;color:#000;padding-left:10px}
+.dhInput{width:122px;height:33px;line-height:33px;padding:0 10px;border:1px solid silver}
+.dhSelect{width:145px;height:33px;line-height:33px;padding:0 10px;border:1px solid silver;text-align:center}
+.subBtn{border:none;color:#fff;width:176px;height:51px;font:400 18px/51px 'Microsoft Yahei';text-align:center;background:#fea501;color:#fff;border-radius:5px}

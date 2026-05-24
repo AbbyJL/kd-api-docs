@@ -1,0 +1,53 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">模板管理</li>
+        <li class="li2 li3">添加模板</li>
+    </ul>
+</div>
+    <p class="admin-attention"><span>注意：</span>如果没有模板ID请登录</p>
+<form  target="x-frame" action="{:url('dayu/create')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+               <tr>
+                    <td class="admin-table-left">模板名：</td>
+                    <td class="admin-table-right"><input type="text" name="data[dayu_name]" class="admin-manage-input" value="{$info.dayu_name}" />
+                    <code>模板说明，不要随意改动</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">本地调用：</td>
+                    <td class="admin-table-right"><input style="border: 1px red solid;" type="text" name="data[dayu_local]" class="admin-manage-input" value="{$info.dayu_local}" />
+                    <code>这里是本地调用的标签，不要随意修改，开发中这里按照规则写清楚</code></td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">阿里云国内模板ID：</td>
+                    <td class="admin-table-right"><input type="text" name="data[dayu_tag]" class="admin-manage-input" value="{$info.dayu_tag}"/>
+                    <code>这里是阿里云短信后台那边已审核的国内短信模板的ID，只支持11位国内手机号段发送</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">阿里云国际模板ID：</td>
+                    <td class="admin-table-right"><input type="text" name="data[dayu_country_tag]" class="admin-manage-input" value="{$info.dayu_country_tag}"/>
+                    <code>跟国内的模板ID不一样，一样需要审核，需要00+国家编码+手机号模式发送</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">腾讯云模板ID：</td>
+                    <td class="admin-table-right"><input type="text" name="data[qcloudsms_id]" class="admin-manage-input" value="{$info.qcloudsms_id}"/>
+                    <code>这里是腾讯云短信后台那边已审核的短信模板的ID，请确认跟腾讯云后台的一致，否则无法发送短信</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">说明：</td>
+                    <td class="admin-table-right"><textarea  name="data[dayu_note]" cols="50" rows="10" >{$info.dayu_note}</textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}

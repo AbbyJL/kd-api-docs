@@ -1,0 +1,64 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1"></li>
+        <li class="li2">管理</li>
+        <li class="li2 li3">等级</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span>1：请不要随意删除等级你可编辑但是不要删除。2：等级ID代表等级权重，必须123456这样排列中途不可更改。</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                {:BA('guide/rank_create','','添加等级')}
+            </div>
+        </div>
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="rank_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>等级名称</td>
+                        <td>升级方式</td>
+                        <td>1级分成费率</td>
+                        <td>2级分成费率</td>
+                        <td>3级分成费率</td>
+                        <td>等级图标</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_rank_id" type="checkbox" name="rank_id[]" value="{$var.rank_id}"/></td>
+                            <td>{$var.rank_id}</td>
+                            <td>{$var.rank_name}</td>
+                            <td>
+                            	{if condition="$var[type] eq 0"}未选择{/if}
+                                {if condition="$var[type] eq 1"}直接购买等级{/if}
+                                {if condition="$var[type] eq 3"}升级需要累计分佣多少钱{/if}
+                            </td>
+                            <td>{:round($var['rate1']/100,2)}%</td>
+                            <td>{:round($var['rate2']/100,2)}%</td>
+                            <td>{:round($var['rate3']/100,2)}%</td>
+                            <td><img style="width:38px;" src="{:config_img($var['photo'])}"/></td>
+                            <td>
+                                {:BA('guide/rank_edit',array("rank_id"=>$var["rank_id"]),'编辑','','admin-btn-default')}
+                                {:BA('guide/rank_delete',array("rank_id"=>$var["rank_id"]),'删除','act','admin-btn-default')}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/} 
+
+
+

@@ -1,0 +1,132 @@
+{include  file='public:header'/}
+<script src="/public/js/clipboard.min.js"></script>
+
+
+<style>
+.admin-table-left { width: 200px;}
+.profit{ text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+.dd{margin-left:5px;}
+.dd-input{width:20px; height:20px;}
+</style>
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">聚推客</li>
+        <li class="li2 li3">聚推客设置</li>
+    </ul>
+</div>
+<div class="admin-main-cate">
+    <p class="admin-attention"><span>注意：</span>聚推客常用API</p>
+</div>       
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/jutuike')}" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+            
+            	   <tr>
+                        <td class="admin-table-right profit" colspan="2">基础设置</td>
+                   </tr>
+                       
+                   <tr>
+                        <td  class="admin-table-left">默认推广人UID：</td>
+                        <td class="admin-table-right">
+                            <input type="text" name="data[uid]" value="{$CONFIG.jutuike.uid}" class="admin-sc-add-text-name admin-manage-input w80">
+                            <code>默认推广人的会员ID</code>
+                        </td>
+                    </tr>
+                   <tr>
+                        <td class="admin-table-right profit" colspan="2">推广联盟参数配置</td>
+                   </tr>
+                   
+                   <tr>
+                     <td class="admin-table-left">开启聚客cps功能：</td>
+                     <td class="admin-table-right">
+                        <label><input type="radio" name="data[juke]" {eq name="CONFIG.jutuike.juke" value="0"}checked="checked"{/eq} value="0"/>关闭</label>
+                        <label><input type="radio" name="data[juke]" {eq name="CONFIG.jutuike.juke" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                        <br><code>开启聚客cps功能，开启后会员中心以及首页都会展示话费充值，电影，点餐，周边优惠等功能</code>
+                      </td>
+                   </tr>
+                       
+                   <tr>
+                        <td  class="admin-table-left">聚推客联盟pub_id：</td>
+                        <td class="admin-table-right">
+                            <input type="text" name="data[jutuike_pub_id]" value="{$CONFIG.jutuike.jutuike_pub_id}" class="admin-sc-add-text-name admin-manage-input w260">
+                            <code>【美团+优惠+点餐+电影】聚推客联盟身份IDpub_id申请：https://pub.jutuike.com</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  class="admin-table-left">聚推客联盟apikey：</td>
+                        <td class="admin-table-right">
+                            <input type="text" name="data[jutuike_apikey]" value="{$CONFIG.jutuike.jutuike_apikey}" class="admin-sc-add-text-name admin-manage-input w260">
+                            <code>【美团+优惠+点餐+电影】聚推客联盟身份IDapikey申请：https://pub.jutuike.com</code>
+                        </td>
+                    </tr>
+                    
+              
+                    <tr>
+                        <td  class="admin-table-left">蚂蚁星会员ID：</td>
+                        <td class="admin-table-right">
+                            <input type="text" name="data[haojingke_uid]" value="{$CONFIG.jutuike.haojingke_uid}" class="admin-sc-add-text-name admin-manage-input w260">
+                            <code>【充值】蚂蚁星球会员ID申请：http://www.haojingke.com</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  class="admin-table-left">蚂蚁星球apikey：</td>
+                        <td class="admin-table-right">
+                            <input type="text" name="data[haojingke_apikey]" value="{$CONFIG.jutuike.haojingke_apikey}" class="admin-sc-add-text-name admin-manage-input w260">
+                            <code>【充值】蚂蚁星球apikey申请：http://www.haojingke.com</code>
+                        </td>
+                    </tr>
+                	<tr>
+                        <td  class="admin-table-left">蚂蚁星球secret：</td>
+                        <td class="admin-table-right">
+                            <input type="text" name="data[haojingke_secret]" value="{$CONFIG.jutuike.haojingke_secret}" class="admin-sc-add-text-name admin-manage-input w260">
+                            <code>【充值】蚂蚁星球球secret申请：http://www.haojingke.com</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="admin-table-right profit" colspan="2">推广URL可配置到导航</td>
+                    </tr>
+                	<tr>
+                        <td  class="admin-table-left">推广URL：</td>
+                        <td class="admin-table-right">
+                            <br><code>周边旅游：plugin://menpiao-plugin/home?pub_id={$CONFIG.jutuike.jutuike_pub_id}&sid=1</code>
+                            <br><code>周边优惠：plugin://bdshPlugin/index?pub_id={$CONFIG.jutuike.jutuike_pub_id}&channel=1</code>
+                            <br><code>大牌点餐：plugin://jtkDc/index?pub_id={$CONFIG.jutuike.jutuike_pub_id}&channel=1</code>
+                            <br><code>特价电影：plugin-private://wx89752980e795bfde/pages/index/index?pub_id={$CONFIG.jutuike.jutuike_pub_id}&channel=1</code>
+                        </td>
+                    </tr>
+                
+               
+            </table>
+            <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+        </form>
+    </div>
+</div>
+
+
+
+
+<script>
+
+$(function(){
+	var clipboard = new ClipboardJS('.clipboard_btn');
+	clipboard.on('success', function(e) {
+		console.info('Action:', e.action);
+		console.info('Text:', e.text);
+		console.info('Trigger:', e.trigger);
+		e.clearSelection();
+		layer.msg('复制【'+e.text+'】成功', {icon: 1});
+	});
+	clipboard.on('error', function(e) {
+		console.error('Action:', e.action);
+		console.error('Trigger:', e.trigger);
+		layer.msg('复制失败', {icon: 1});
+	});
+});	
+</script>
+
+
+
+{include  file='public:footer'/}      

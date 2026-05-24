@@ -1,0 +1,42 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">退货系统</li>
+        <li class="li2">退货订单</li>
+        <li class="li2 li3">编辑订单</li>
+    </ul>
+</div>
+
+    {:BA('express/tuihuo_edit',array("id"=>$detail["id"]),'刷新','','admin-btn-default')}
+    {:BA('express/tuihuo','','返回','','admin-btn-default')}
+
+
+    <form target="x-frame" action="{:url('express/tuihuo_edit',array('id'=>$detail['id']))}" method="post">
+        <div class="admin-main-sc-add"  style="margin-top:20px">
+        <div class="admin-table-box"> 
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+
+                <tr>
+                    <td class="admin-table-left">快运单号：</td>
+                    <td class="admin-table-right"><input type="text" name="data[waybillNo]" value="{$detail.waybillNo|default=''}" class="admin-manage-input">
+					<code>运单号</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">班次：</td>
+                    <td class="admin-table-right"><input type="text" name="data[banci]" value="{$detail.banci|default=''}" class="admin-manage-input">
+                        <code>班次</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">备注：</td>
+                    <td class="admin-table-right"><input type="text" name="data[info]" value="{$detail.info|default=''}" class="admin-manage-input">
+                        <code>备注</code>
+                    </td>
+                </tr>
+        </table>
+   <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+</form>
+</div>
+</div>
+{include  file='public:footer'}      

@@ -1,0 +1,56 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">模版管理</li>
+        <li class="li2">短信模版</li>
+        <li class="li2 li3">新增模板</li>
+    </ul>
+</div>
+<form  target="x-frame" action="{:url('sms/create')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="admin-table-left">标签：</td>
+                    <td class="admin-table-right"><input type="text" name="data[sms_key]" value="{$detail.sms_key}" class="admin-manage-input">
+                    <code>这里填写您开发模板过程中的标签，请按照规则填写，sms_控制器名称_方法名称_通知对象，比如：sms_fram_order_user</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">说明：</td>
+                    <td class="admin-table-right"><input type="text"  name="data[sms_explain]" value="{$detail.sms_explain}" class="admin-manage-input">
+					<code>短信模板的说明，比如填写农家乐用户下单通知</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">短信宝模版配置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">短信宝模版：</td>
+                    <td class="admin-table-right"><textarea  name="data[sms_tmpl]" cols="50" rows="5" >{$detail.sms_tmpl}</textarea>
+                    <code>【{sitename}】模板内容，开头必须带上签名</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">飞鸽短信配置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">飞鸽模板：</td>
+                    <td class="admin-table-right"><textarea  name="data[sms_tmp]" cols="50" rows="5" >{$detail.sms_tmp}</textarea>
+                    <br><code>1.$$为可变值；可代替任意多个字符，一般建议搞一个字符即可</code>
+					<br><code>2.接口传参方式 变量A||变量B</code>
+                    <br><code>3.平台模板短信使用方式 变量A||变量B</code>
+                    <br><code>4.示例:您的验证码为$$，5分钟内有效，请勿泄露。</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">飞鸽模版ID：</td>
+                    <td class="admin-table-right"><input type="text"  name="data[sms_tmpl1]" value="{$detail.sms_tmpl1}" class="admin-manage-input">
+                    <code>飞鸽审核的模板ID</code>
+                    </td>
+                </tr>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}      

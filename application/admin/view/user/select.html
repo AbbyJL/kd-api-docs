@@ -1,0 +1,95 @@
+{include  file='public:header'/}
+<style>
+.admin-main-js .admin-js-nr table tr td {height:20px;padding-top:7px;line-height:20px;padding-bottom:7px;}
+</style>
+<div class="admin-main-js admin-main-sc">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('user/select',array('id'=>$id,'show'=>$show))}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    	<div class="admin-sele-k">
+
+                    	<label>
+                            <span>用户等级：</span>
+                            <select name="rank_id" class="select w100">
+                                <option value="0">请选择</option>
+                                {foreach name="ranks" item="item"}
+                                    <option {eq name="item.rank_id" value="$rank_id"}selected="selected"{/eq}  value="{$item.rank_id}">{$item.rank_name}</option>
+                                {/foreach}
+                            </select>
+                        </label>
+
+                        <label>
+                             <span>排序：</span>
+                             <select class="select w120" name="order">
+                                 <option {eq name="order" value="999"}selected="selected"{/eq} value="999">请选择排序</option>
+                                 <option {eq name="order" value="1"}selected="selected"{/eq} value="1">注册时间从高到低</option>
+                                 <option {eq name="order" value="2"}selected="selected"{/eq} value="2">注册时间从低到高</option>
+                                 <option {eq name="order" value="3"}selected="selected"{/eq} value="3">用户余额从高到低</option>
+                                 <option {eq name="order" value="4"}selected="selected"{/eq} value="4">用户余额从低到高</option>
+                                 <option {eq name="order" value="5"}selected="selected"{/eq} value="5">用户积分从高到低</option>
+                                 <option {eq name="order" value="6"}selected="selected"{/eq} value="6">用户积分低到高</option>
+                             </select>
+                        </label>
+                        <span>UID/账户/手机号</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/>
+                        <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                        </div>
+                    </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50">ID</td>
+                    <td>账户</td>
+                    <td>姓名</td>
+                    <td>手机</td>
+                    <td>等级</td>
+                    <td>余额</td>
+                    <td>积分</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr>
+                        <td><input type="radio" name="user_id"   rel="{$var.nickname}" value="{$var.user_id}" />{$var.user_id}</td>
+                        <td>{$var.account}</td>
+                        <td>{$var.nickname}</td>
+                        <td>{$var.mobile}</td>
+                        <td>{$rank[$var['rank_id']]['rank_name']|default='无等级'}</td>
+                        <td>&yen;{:round($var['money']/100,2)}元</td>
+                        <td>{$var.integral}</td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+                <input style="border:1px solid #dbdbdb; width: 100px; height: 38px; line-height: 38px; text-align: center;" type="button" id="select_btn" class="admin-btn-default" value="确定选择" />
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+    $(document).ready(function (e) {
+        $("#select_btn").click(function () {
+            $("input[name='user_id']").each(function (a) {
+                if ($(this).prop("checked") == true) {
+                    parent.selectCallBack('user_id', 'nickname', $(this).val(), $(this).attr('rel'));
+                }
+            });
+        });
+
+    });
+</script>
+{include  file='public:footer'/}
+
+

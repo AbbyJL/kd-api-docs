@@ -1,0 +1,66 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2"> 帮助文章</li>
+        <li class="li2 li3">文章列表</li>
+
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span> 帮助文章列表</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                {:BA('express/article_create','','添加')}
+            </div>
+            <div class="right">
+                <form class="" method="post"  action="{:url('express/article')}"> 
+
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <span>关键字</span>
+                        <input type="text"  class="admin-input-text" name="keyword" value="{$keyword}"/>
+                        <input type="submit" value="搜索"  class="admin-input-button"/>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="article_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>标题</td>
+                        <td>连接</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_article_id" type="checkbox" name="article_id[]" value="{$var.article_id}" /></td>
+                            <td>{$var.article_id}</td>
+                            <td>{$var.title}</td>
+                            <td>{$CONFIG.site.host}/wap/index/article/article_id/{$var['article_id']}</td>
+                            <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                            <td>
+                                {:BA('express/article_edit',array("article_id"=>$var["article_id"]),'编辑','','admin-btn-default')}
+                                {:BA('express/article_delete',array("article_id"=>$var["article_id"]),'删除','act','admin-btn-default')}
+                                <a target="_blank" href="/wap/index/article/article_id/{$var['article_id']}" class="admin-btn-default ">浏览</a>
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                    {:BA('express/article_delete','','批量删除','list','a2')}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'} 
+

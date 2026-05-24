@@ -1,0 +1,42 @@
+{include file='public:header'/}
+
+
+{if condition="!$is_weixin"}
+    <div class="headers">
+        <img src="/static/default/newwap/img/return.png" onclick="javascript:history.back(-1);">
+        <p>{$detail[nickname]}财务记录</p>
+    </div>
+    <div class="headers-space"></div>
+{/if}
+
+{if condition="$is_weixin"}
+	<style>
+	   #shangjia_tab {
+		top:0px;
+		border-bottom: 1px #f5f5f5 solid;
+	}
+</style>
+{/if}
+
+<style>
+.list-media-x ul {margin-top:0rem;}
+ul{padding-left: 0px;}
+.list-media-x li {margin-bottom:0rem;}
+</style>
+
+<ul id="shangjia_tab">
+   <li class="x6"><a href="{:url('money/index',array('user_id'=>$user_id,'type'=>''))}" {eq name="type" value=""}class="on"{/eq}>全部</a></li>
+   <li class="x6"><a href="{:url('money/index',array('user_id'=>$user_id,'type'=>'express'))}" {eq name="type" value="express"}class="on"{/eq}>订单分成</a></li>
+</ul>	
+
+<div class="blank-40 bg"></div>
+<div class="list-media-x" id="list-media">
+	<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	    
+<script>
+	$(document).ready(function(){	 
+		loaddata('{:url("money/load",array("user_id"=>$user_id,"type"=>$type,"t"=>$nowtime,"p"=>"0000"))}',$("#list-media ul"), true);
+	});
+</script>
+{include file="public:footer"}

@@ -1,0 +1,75 @@
+{include  file='public:header'/}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">常用设置</li>
+        <li class="li2 li3">抖音小程序</li>
+    </ul>
+</div>
+
+
+<style>
+	.admin-table-left{width:180px !important;}
+	.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+	.api{text-align: center;color: #ffffff !important;;font-weight: bold;background: #495b6c !important;}
+</style>
+
+<div class="admin-main-cate">
+</div>
+
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/toutiao')}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+
+            	<tr>
+                  <td class="admin-table-right profit" colspan="2">抖音小程序小程序参数配置</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">抖音小程序AppID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[AppID]" value="{$CONFIG['toutiao']['AppID']}" class="admin-sc-add-text-name w260"/>
+                        <code>小程序AppID不要有前后空格</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">抖音小程序Secret：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[Secret]" value="{$CONFIG['toutiao']['Secret']}" class="admin-sc-add-text-name w360"/>
+                        <code>小程序Secret不要有前后空格</code>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="admin-table-left">抖音支付token：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[token]" value="{$CONFIG['toutiao']['token']}" class="admin-sc-add-text-name w260"/>
+                        <code>支付》支付方式管理》支付设置》token</code>
+                    </td>
+                </tr>
+              
+               <tr>
+                    <td class="admin-table-left">抖音支付SALT：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[SALT]" value="{$CONFIG['toutiao']['SALT']}" class="admin-sc-add-text-name w360"/>
+                        <code>支付》支付方式管理》支付设置》SALT</code>
+                    </td>
+                </tr>
+              
+                
+            
+
+            </table>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+  </div>
+</div>
+
+
+{include  file='public:footer'/}
+
+

@@ -1,0 +1,123 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家收银台</li>
+        <li class="li2 li3">收营台列表</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+    <p class="admin-attention"><span>注意：</span>显示收营台订单列表  实付金额：&yen;{:round($need_pay/100,2)}元，已成功支付笔数：{$count}笔，实际优惠金额&yen;{:round($yh/100,2)}元</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+        
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('breaks/order')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                        
+                            <label>
+                                <span>开始时间</span>
+                                <input type="text" name="bg_date" value="{$bg_date|default=''}"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150"/>
+                            </label>
+                            <label>
+                                <span>结束时间</span>
+                                <input type="text" name="end_date" value="{$end_date|default=''}" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150"/>
+                            </label>
+                        
+                        	
+                            <label>
+                                <span>状态：</span>
+                                <select class="select w120" name="status">
+                                    <option {eq name="status" value="0"}selected="selected"{/eq}  value="0">未支付</option>
+               						<option {eq name="status" value="1"}selected="selected"{/eq}  value="1">已支付</option>
+                                 </select>
+                           </label>
+                                
+                          <label>
+                             <span>排序：</span>
+                             <select class="select w120" name="order">
+                                   <option {eq name="order" value="1"}selected="selected"{/eq}  value="1">时间降序</option>
+                                   <option {eq name="order" value="2"}selected="selected"{/eq}  value="2">时间升序</option>
+                                   <option {eq name="order" value="3"}selected="selected"{/eq}  value="3">实付金额降序</option>
+                                   <option {eq name="order" value="4"}selected="selected"{/eq}  value="4">实付金额升序</option>
+                             </select>
+                           </label> 
+                       
+                            
+                            
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="{$shop_id|default=''}"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="{$shop_name}" class="text"/>
+                                <a mini="select"  w="1000" h="600" href="{:url('shop/select')}" class="sumit">选择商家</a>
+                            </label>
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                                <input type="text"   id="nickname" name="nickname" value="{$nickname}" class="text"/>
+                                <a mini="select"  w="1000" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                             </label>    
+                                
+                             <label>
+                                <span>编号</span>
+                                <input type="text" placeholder="输入订单编号" name="keyword" value="{$keyword}"  class="admin-input-text">
+                            </label>   
+                                
+                                <input style="float: right;" type="submit" value="   搜索"  class="admin-input-button"/>
+                           
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="order_id"/></td>
+                        <td class="w50">订单ID</td>
+                        <td>买单用户</td>
+                        <td>买单用户ID</td>
+                        <td>商户名称</td>
+                        <td>商户ID</td>
+                        <td>买单金额</td>
+                        <td>未参与优惠金额</td>
+                        <td>优惠金额</td>
+                        <td>实际付款金额</td>
+                        <td>状态</td>
+                        <td>下单时间</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_order_id" type="checkbox" name="order_id[]" value="{$var.order_id}"/></td>
+                            <td>{$var.order_id}</td>
+                            <td>{$users[$var['user_id']]['nickname']}</td>
+                            <td>{$var.user_id}</td>
+                            <td>{$shops[$var['shop_id']]['shop_name']}</td>
+                            <td>{$var.shop_id}</td>
+                            <td>{$var.amount}</td>
+                            <td>{$var.exception}</td>
+                            <td>
+                            	{php}
+                                	$yh_money = $var['amount']-$var['need_pay']
+                                {/php}
+                                {$yh_money}
+                            </td>
+                            <td>{$var.need_pay}</td>
+                            <td>{if condition="$var.status eq 1"}<span class="text-green">已支付</span>{else/}未支付{/if}</td>
+                            <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/} 
+
+

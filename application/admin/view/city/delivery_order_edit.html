@@ -1,0 +1,84 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">快递</li>
+        <li class="li2">城市快递</li>
+        <li class="li2 li3">操作业务员订单</li>
+    </ul>
+</div>
+<div class="admin-main-sc-add ">
+    <div class="admin-table-box">
+        <form target="x-frame" action="{:url('city/delivery_order_edit',array('id'=>$detail['id']))}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+              
+                <tr>
+                    <td class="admin-table-left">配送员ID：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            <input type="hidden" id="delivery_id" name="data[delivery_id]" value="{$detail.delivery_id|default=''}" class="admin-manage-input"/>
+                            <input class="admin-sc-add-text-name sj" type="text" name="nickname" id="nickname"  value="{$delivery.name}"/>
+                        </div>
+                        <a mini="select"  w="920" h="600" href="{:url('city/select',array('id'=>$detail['id'],'city_id'=>$detail['city_id']))}" class="admin-sele-xuanze">选择配送员</a>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="admin-table-left">运单号：</td>
+                    <td class="admin-table-right"><input type="text" name="data[deliveryId]" value="{$detail.deliveryId|default=''}" class="admin-manage-input w160">
+                    <code>运单号</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">图片</td>
+                    <td class="admin-table-right">
+                    {php}echo tpl_form_field_image('data[img]',$detail['img'],$detail['img'],'img','',$options = array());{/php}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">姓名：</td>
+                    <td class="admin-table-right"><input type="text" name="data[name]" value="{$detail.name|default=''}" class="admin-manage-input w160">
+                    <code>姓名</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">电话：</td>
+                    <td class="admin-table-right"><input type="text" name="data[mobile]" value="{$detail.mobile|default=''}" class="admin-manage-input w160">
+                    <code>电话</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">备注：</td>
+                    <td class="admin-table-right"><input type="text" name="data[info]" value="{$detail.info|default=''}" class="admin-manage-input w160">
+                    <code>备注</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">金额：</td>
+                    <td class="admin-table-right"><input type="text" name="data[money]" value="{:round($detail['money']/100,2)}" class="admin-manage-input w80">
+                    <code>备用字段</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">订单状态</td>
+                    <td class="admin-table-right">
+                    <input type="radio" name="data[orderStatus]" value="0" {if condition="$detail[orderStatus] eq 0"}checked="checked"{/if}/>未审核
+                    <input type="radio" name="data[orderStatus]" value="1" {if condition="$detail[orderStatus] eq 1"}checked="checked"{/if}/>等待接单
+                    <input type="radio" name="data[orderStatus]" value="2" {if condition="$detail[orderStatus] eq 2"}checked="checked"{/if}/>已接单
+                    <input type="radio" name="data[orderStatus]" value="3" {if condition="$detail[orderStatus] eq 3"}checked="checked"{/if}/>配送中
+                    <input type="radio" name="data[orderStatus]" value="5" {if condition="$detail[orderStatus] eq 5"}checked="checked"{/if}/>已退款
+                    <input type="radio" name="data[orderStatus]" value="8" {if condition="$detail[orderStatus] eq 8"}checked="checked"{/if}/>已完成
+                    <code>订单状态最多就是点击下接单请不要设置为一退款，已完成，这些状态应该是取件员自己操作</code>
+                    </td>
+               </tr>
+               
+           
+            </table>
+            <div class="admin-small-qr"><input type="submit" value="确认编辑" class="admin-btn-small-quren"/></div>
+        </form>
+    </div>
+</div>
+
+
+
+
+{include file="public:footer"}

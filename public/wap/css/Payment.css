@@ -1,0 +1,26 @@
+body, html {
+    height: 100%;
+    overflow: hidden;
+	background: #ECEFF8;
+}
+b, i, sav, em {
+    display: block;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    font-family: "微软雅黑"
+}
+
+.user-detail{ background:#fff; display:inline-block; width:100%; vertical-align:top;}
+.user-detail .user-con{ height:1.4rem; line-height:1.4rem; position:relative}
+.user-detail .user-con:after{ content:"";left: 0;bottom: 0;width: 100%;height: 2px;position: absolute;border-bottom: 1px solid #ddd;-webkit-transform-origin: 0 100%;transform-origin: 0 100%; -webkit-transform: scaleY(.5);transform: scaleY(.5);}
+.user-detail .user-con *{ height:100%; font-size:0.45rem; padding:0 15px;}
+.user-detail .user-con b{ float:left;}
+.user-detail .user-con i{ float:right; color:#9EB2B3}
+.user-form{ height:1.4rem; line-height:1.4rem; position:relative; margin-top:10px; background:#FFF}
+.user-form:after{ content:"";left: 0;bottom: 0;width: 100%;height: 2px;position: absolute;border-bottom: 1px solid #ddd;-webkit-transform-origin: 0 100%;transform-origin: 0 100%; -webkit-transform: scaleY(.5);transform: scaleY(.5);}
+.user-form:before{ content:"";left: 0;top: -1px;width: 100%;height: 1px;position: absolute;border-top: 1px solid #ddd;-webkit-transform-origin: 0 100%;transform-origin: 0 100%; -webkit-transform: scaleY(.5);transform: scaleY(.5);}
+.user-form *{ height:100%; font-size:0.45rem; float:left;}
+.user-form b{ width:3rem; padding-left:15px;} 
+.user-form i{ width:calc(100% - 3rem); width:-webkit-calc(100% - 3rem);} 
+.user-form i input{ width:100%; border:none; background:none; font-size:0.45rem}

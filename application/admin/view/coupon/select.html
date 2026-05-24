@@ -1,0 +1,74 @@
+{include  file='public:header'}
+
+<style>
+.admin-input-text{ width:100px !important}
+</style>
+
+<div class="admin-main-js admin-main-sc">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="right">    
+                <form class="admin-search-form" method="post" action="{:url('coupon/select')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                        <div class="admin-sele-k">
+                            <label>
+                                <span>关键字:</span>
+                                <input type="text" name="keyword" value="{$keyword}" class="admin-input-text w120" />
+                            </label>
+                            <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                        </div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form  target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="w50">ID</td>
+                    <td>优惠券名称</td>
+                    <td>优惠券满减</td>
+                    <td>过期日期</td>
+                    <td>商铺名称</td>
+                </tr>
+                {foreach name="list" item="var"}
+                    <tr>
+                        <td><input rel="{$var.title}"  type="radio" name="coupon_id" value="{$var.coupon_id}"/> {$var.coupon_id}</td>
+                        <td>{$var.title}</td>
+                        <td>满{:round($var['full_price']/100,2)}减{:round($var['reduce_price']/100,2)}</td>
+                        <td>{$var.expire_date}</td>
+                        <td>{$var.shop.shop_name}</td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+                <input style="border:1px solid #dbdbdb; width: 100px; height: 38px; line-height: 38px; text-align: center;" type="button" id="select_btn" class="admin-btn-default" value="确定选择" />
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+	$(document).ready(function(e){
+		$("#select_btn").click(function(){
+			$("input[name='coupon_id']").each(function(a){
+				if($(this).prop("checked") == true){
+					parent.selectCallBack('coupon_id','coupon_title',$(this).val(),$(this).attr('rel'));
+				}
+			});
+		});
+
+	});
+</script>
+    
+    
+{include  file='public:footer'} 
+
+

@@ -1,0 +1,63 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">支付设置</li>
+        <li class="li2">小程序支付</li>
+        <li class="li2 li3">小程序支付安装</li>
+    </ul>
+</div>
+<p class="admin-attention"><span>注意：</span>请填写完毕后检查空格，注意前面空格跟后面空格，如果有空格直接导致无法支付！</p>
+<form target="x-frame" action="{:url('payment/install',array('payment_id'=>$detail['payment_id']))}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="admin-table-left">支付方式:</td>
+                    <td class="admin-table-right">
+                        <img src="/static/default/wap/image/pay/{$detail.logo}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">支付方式介绍:</td>
+                    <td class="admin-table-right" style="font-size: 14px;">
+                        {$detail.contents}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">小程序AppId：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[appid]" value="{$detail.setting.appid}" class="admin-sc-add-text-name w200" />
+                        <code>小程序后台的AppId不要填写公众号的</code>
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="admin-table-left">小程序AppSecret：</td>
+                    <td class="admin-table-right">
+                          <input type="text" name="data[appsecret]" value="{$detail.setting.appsecret}"  class="admin-sc-add-text-name w360" />
+                          <code>小程序后台的AppSecret,不要填写公众号的</code>
+                    </td>
+                </tr>  
+                 <tr>
+                    <td class="admin-table-left">商户ID：</td>
+                    <td class="admin-table-right">
+                          <input type="text" name="data[mchid]" value="{$detail.setting.mchid}"  class="admin-sc-add-text-name w200" />
+                          <code>小程序后台左侧微信支付，不要填写公众号的</code>
+                    </td>
+                </tr>
+				     <tr>
+                    <td class="admin-table-left">商户密钥：</td>
+                    <td class="admin-table-right">
+                          <input type="text" name="data[appkey]" value="{$detail.setting.appkey}"  class="admin-sc-add-text-name w360" />
+                          <code>小程序后台自己设置的，记得不要有空格，否则支付失败！</code>
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确定安装" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}      
+
+
+

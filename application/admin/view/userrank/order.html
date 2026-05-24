@@ -1,0 +1,114 @@
+{include  file='public:header'/}
+<style>
+.admin-input-text{width:92px;}
+</style>
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员等级</li>
+        <li class="li2 li3">等级订单</li>
+    </ul>
+</div>
+<p class="admin-attention"><span>注意：</span>会员购买VIP订单qq 330686020</p>
+<div class="admin-main-js admin-main-sc">
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+            </div>
+            <div class="right">
+                <form class="admin-search-form" method="post" action="{:url('userrank/order')}">
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    <div class="admin-sele-k">
+                     <label><span>开始时间</span><input type="text" name="bg_date" value="{$bg_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                    <label><span>结束时间</span><input type="text" name="end_date" value="{$end_date|default=''}"onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" class="text"/></label>
+                        
+                     <label>
+                        <input type="hidden" id="user_id" name="user_id" value="{$user_id|default=''}"/>
+                        <input type="text" name="nickname" id="nickname"  value="{$nickname}"  class="text"/>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="sumit">选择用户</a>
+                     </label>
+                            
+                      
+                       <label>
+                          <span>支付状态：</span>
+                          <select class="select w120" name="status">
+                          	  <option value="999">请选择状态</option>
+                              <option {eq name="status" value="999"}selected="selected"{/eq} value="999">请选择</option>
+                              <option {eq name="status" value="0"}selected="selected"{/eq}  value="0">未付款</option>
+                              <option {eq name="status" value="1"}selected="selected"{/eq}  value="1">已付款</option>
+                          </select>
+                        </label>
+                        <span>日志订单号:</span>
+                        <input type="text" name="keyword" value="{$keyword}" class="admin-input-text"/>
+                        <input type="submit"value="搜索"class="admin-input-button"/>
+                        </div>
+                    </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+            
+    <form target="x-frame" method="post">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"
+                   style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="log_id"/></td>
+                    <td>ID</td>
+                    <td>用户</td>
+                    <td>用户姓名</td>
+                    <td>支付金额</td>
+                    <td>创建时间</td>
+                    <td>支付时间</td>
+                    <td>支付状态</td>
+                    <td>支付类型</td>
+                    <td>订单号</td>
+                    <td>交易号</td>
+                </tr>
+
+                {foreach name="list" item="var"}
+                    <tr {eq name="var.is_paid" value="1"}style="background:#f5f5f5"{/eq}>
+                        <td><input class="child_log_id" type="checkbox" name="log_id[]" value="{$var.log_id}"/></td>
+                        <td>{$var.log_id}</td>
+                        <td>{$var.user_id}</td>
+                        <td>{$var.user.nickname}</td>
+                        <td style="color:#00F">&yen;{:round($var['need_pay']/100,2)}</td>
+                        <td>{$var.create_time|date='Y-m-d H:i:s',###}</td>
+                        <td>
+                            {if condition="$var['pay_time']"}
+                                {$var.pay_time|date='Y-m-d H:i:s',###}
+                            {/if}
+                        </td>
+                        <td>
+                            {eq name="var.is_paid" value="1"}已支付{else/}未支付{/eq}
+                        </td>
+                        <td style="color:#F00">
+                            {eq name="var.code" value="wxapp"}小程序支付{/eq}
+                        </td>
+                        <td>
+                            {if condition="$var['return_order_id']"}
+                                <button onclick="clipboard1({$var["log_id"]})" class="clipboard-copy btn_1_{$var["log_id"]}" data-clipboard-text="{$var.return_order_id}">复制订单号</button>
+                            {/if}
+                        </td>
+                        <td>
+                            {if condition="$var['return_trade_no']"}
+                            	<button onclick="clipboard2({$var["log_id"]})" class="clipboard-copy btn_2_{$var["log_id"]}" data-clipboard-text="{$var.return_trade_no}">复制交易号</button>
+                            {/if}
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$page}
+        </div>
+        <div class="admin-select-nr" style="margin-bottom:0px;border-bottom:none;">
+            <div class="left">
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+
+
+{include file='public:footer'/}

@@ -1,0 +1,78 @@
+@charset "gb2312";
+/* CSS Document */
+#music_audio_btn {
+	position: absolute;
+	right: 10px;
+	top: 28px;
+	z-index: 200;
+	display: none;
+	width: 50px;
+	height: 50px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+.music_loading_background {
+	background-image: url(music_loading.gif);
+	background-size: 30px 30px;
+	opacity: 0.5;
+	background-position: center center;
+}
+.music_loading_yinfu {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 30px;
+	height: 30px;
+	background-image: url(music_yinfu.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.music_play_yinfu {
+	background-image: url(music.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 60px 60px;
+}
+.music_rotate {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 30px;
+	height: 30px;
+	background-size: 100% 100%;
+	background-image: url(music_off.png);
+	-webkit-animation: rotating 1.2s linear infinite;
+	-moz-animation: rotating 1.2s linear infinite;
+	-o-animation: rotating 1.2s linear infinite;
+	animation: rotating 1.2s linear infinite;
+}
+@-webkit-keyframes rotating {
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+	to {
+		-webkit-transform: rotate(360deg);
+	}
+}
+@keyframes rotating {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+@-moz-keyframes rotating {
+	from {
+		-moz-transform: rotate(0deg);
+	}
+	to {
+		-moz-transform: rotate(360deg);
+	}
+}
+.music_off {
+	background-image: url(music_no.png);
+	background-size: 30px 30px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}

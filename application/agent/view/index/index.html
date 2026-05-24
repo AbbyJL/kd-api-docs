@@ -1,0 +1,96 @@
+{include file="public:header" /}
+<style type="text/css" media="all">
+    .seller-member-set{
+        max-width: 8rem;
+        overflow: hidden;
+    }
+	.b{ font-size:18px!important;; font-weight:bold!important;}
+</style>
+
+<div class="seller-member-top">
+	<img src="{:config_img($CONFIG['site']['logo'])}" >
+	<p>{$CONFIG['site']['sitename']} UID-{$MEMBER['user_id']}</p>
+	<p><span>{$MEMBER['nickname']}</span><span>{$roleName}</span></p>
+	<div class="seller-member-top-money">
+		<ul>
+			<li>
+				<p class="b">{$counts.day_express}</p>
+				<p>今日团队订单</p>
+			</li>
+			<li>
+				<p class="b">{$counts.express}</p>
+				<p>总团队订单</p>
+			</li>
+			<li>
+				<p class="b">{$counts.totay_user}</p>
+				<p>今日新增团队</p>
+			</li>
+			<li>
+				<p class="b">{$counts.users}</p>
+				<p>总团队人数</p>
+			</li>
+		</ul>
+	</div>
+	<a class="seller-member-set" href="{:url('index/set')}">设置</a>
+</div>
+
+
+<div class="seller-member-nav-list">
+	<ul>
+		<li>
+			<a href="{:url('index/set')}">
+				<img src="/static/default/newwap/img/szsh.png" >
+				<p>基本设置</p>
+			</a>
+		</li>
+	
+    
+    	{if condition="$role eq 2"}
+            <li>
+                <a href="{:url('team/daili')}">
+                    <img src="/static/default/newwap/img/yhqgl.png" >
+                    <p>代理列表</p>
+                </a>
+            </li>
+        {/if}
+    
+    	<li>
+			<a href="{:url('money/index')}">
+				<img src="/static/default/newwap/img/jifen.png" >
+				<p>财务管理</p>
+			</a>
+		</li>
+    
+    
+		<li>
+			<a href="{:url('team/index')}">
+				<img src="/static/default/newwap/img/pjgl.png" >
+				<p>业务员管理</p>
+			</a>
+		</li>
+	
+		<li>
+			<a href="{:url('order/index')}">
+				<img src="/static/default/newwap/img/sytdd.png" >
+				<p>订单管理</p>
+			</a>
+		</li>
+        
+        
+	</ul>
+</div>
+
+<div class="seller-member-btn" onclick="location='{:url('passport/logout')}'">
+	<button>注销登录</button>
+</div>
+
+
+
+
+{include  file='public:footer'/}
+
+
+    
+
+
+

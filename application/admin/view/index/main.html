@@ -1,0 +1,432 @@
+{include  file='public:header'/}
+<script src="/public/js/clipboard.min.js"></script>
+<script src="/public/js/highcharts/highcharts.js"></script>
+<script src="/public/js/highcharts/modules/exporting.js"></script>
+<style>
+body{background:#F1F1F1;}
+.admin-attention {
+    height: inherit;
+}
+.red{ font-size:28px!important;color:#F00}
+.admin-btn-default-order {
+    font-size: 12px;
+    margin-left: 15px;
+    display: inline-block;
+    margin-top: 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #b2b9b9;
+    color: #fff;
+    padding: 2px 8px;
+    height: 22px;
+    line-height: 22px;
+}
+.admin-btn-default-push {
+    font-size: 12px;
+    margin-left: 15px;
+    display: inline-block;
+    margin-top: 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background:#fb5100;
+    color: #fff;
+    padding: 2px 8px;
+    height: 22px;
+    line-height: 22px;
+}
+.admin-btn-default-push b.b {
+	margin-top: -15px;
+    position: absolute;
+    background-color: #e33;
+    margin-left:-10px;
+}
+.admin-btn-default-order b.b {
+	margin-top: -15px;
+    position: absolute;
+    background-color: #e33;
+    margin-left:-10px;
+}
+.badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #999;
+    border-radius: 2em;
+}
+.mypanel {
+    height: 280px;
+}
+.mypanel .mypanel-body .n{
+	padding:3px;
+}
+</style>
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">后台首页</li>
+        <li class="li2">待办事项</li>
+        <li class="li2 li3">事项列表</li>
+        {if condition="$warning['is_ip'] eq 1"}
+            {if condition="!empty($admin['username'])"}
+           	  <span style="float:right">尊敬的&nbsp;{$admin.username}&nbsp;您上次登录IP跟本次登录IP地址不一致，建议您立即修改密码！</span>
+            {/if}
+		{/if}
+    </ul>
+</div>
+
+
+
+<div class="admin-main-js admin-main-sc">
+    <div class="comiis_19ditu ">
+        <ul class="admin-ditu-bg cl masonry" style="position:relative; height:100%;">
+
+
+            <p class="attention">
+                <a class="admin-btn-default">快捷功能：</a>
+                <a class="admin-btn-default tudoukuaijie" href="{:url('express/index')}">管理订单</a>
+                <a class="admin-btn-default tudoukuaijie" href="{:url('express/push')}">管理推送消息</a>
+                <a class="admin-btn-default tudoukuaijie" href="{:url('user/index')}">管理会员</a>
+                <a class="admin-btn-default-push tudoukuaijie confirm-rst-btn" data-info="你确定要清除会员海报吗？" href="{:url('index/deleteqrcode')}">清理会员海报</a>
+                <a class="admin-btn-default-push tudoukuaijie confirm-rst-btn" data-info="重置TOKEN？" href="{:url('index/clearToken')}">重置TOKEN</a>
+                <a class="admin-btn-default-push tudoukuaijie" id="handlePush">执行全渠道推送信息更新<b class="b badge">{$pushcount}</b></a>
+            </p>
+             <p class="attention">
+                <a class="admin-btn-default">推送/计划任务URL配置：</a>
+                <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/push')}">易达推送URL[复制]</a>
+                <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/push1')}">云洋推送URL[复制]</a>
+                <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/push3')}">京东推送URL[复制]</a>
+                <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/push4')}">快递鸟推送URL[复制]</a>
+                <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/push5')}">跨越推送URL[复制]</a>
+                <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/push6')}">领航当日达推送URL[复制]</a>
+                <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/push7')}">q必达推送URL[复制]</a>
+			    <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/push9')}">云腾旺店管家[复制]</a>
+		       <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/push8')}">众发物流回调URL[复制]</a>
+                <a class="admin-btn-small tudoukuaijie clipboard_btn" data-clipboard-text="{$CONFIG.site.host}{:url('app/api/handlePush')}">新版全渠道更新状态URL[点击复制]</a>
+            </p>
+            <p class="attention" style="margin-top:20px;">
+                <a class="admin-btn-default">订单统计：</a>
+                {foreach name="getOrderStatus" item="item"}
+                    <a class="admin-btn-default-order tudoukuaijie id-{$item.id}" href="{:url('express/index',array('orderStatus'=>$item['id']))}">{$item.name}<b class="b badge"> {$item.count}</b></a>
+                {/foreach}
+            </p>
+
+           <div class="flex-items todayboxs" style="margin-top:30px;">
+				<a class="flex-item" href="{:url('paymentlogs/index')}">
+					<img class="icon" src="/static/default/wap/img/Block-2.png">
+					<div class="text">
+						<div class="num today_member_count red">{:round($counts['day_paymentlogs']/100,2)}</div>
+						<div class="title">今日付款金额</div>
+					</div>
+				</a>
+                <a class="flex-item" href="{:url('paymentlogs/index')}">
+					<img class="icon" src="/static/default/wap/img/Block-2.png">
+					<div class="text">
+						<div class="num today_member_count">{:round($counts['paymentlogs']/100,2)}</div>
+						<div class="title">网站总付款金额</div>
+					</div>
+				</a>
+                <a class="flex-item" href="{:url('express/index')}">
+					<img class="icon" src="/static/default/wap/img/Block-3.png">
+					<div class="text">
+						<div class="num today_member_count red">{$counts.day_express}</div>
+						<div class="title">今日订单</div>
+					</div>
+				</a>
+                <a class="flex-item" href="{:url('express/index')}">
+					<img class="icon" src="/static/default/wap/img/Block-5.png">
+					<div class="text">
+						<div class="num today_member_count">{$counts.express}</div>
+						<div class="title">总订单</div>
+					</div>
+				</a>
+                  <a class="flex-item" href="{:url('usercash/index')}">
+					<img class="icon" src="/static/default/wap/img/Block-6.png">
+					<div class="text">
+						<div class="num today_member_count red">{:round($counts['money_cash_day']/100,2)}</div>
+						<div class="title">今日提现</div>
+					</div>
+				</a>
+                <a class="flex-item" href="{:url('user/index')}">
+					<img class="icon" src="/static/default/wap/img/Block-1.png">
+					<div class="text">
+						<div class="num today_member_count red">{$counts.totay_user}</div>
+						<div class="title">今日新增会员</div>
+					</div>
+				</a>
+                <a class="flex-item" href="{:url('user/index')}">
+					<img class="icon" src="/static/default/wap/img/Block-7.png">
+					<div class="text">
+						<div class="num today_member_count">{$counts.users}</div>
+						<div class="title">网站总会员</div>
+					</div>
+				</a>
+
+		</div>
+
+        <div class="row-panel">
+			<div class="row-panel-7">
+				<div class="mypanel tasks-panel">
+					<div class="mypanel-heading">系统概况</div>
+					<div class="mypanel-body">
+
+
+						<div class="flex-items tasks">
+
+							<div class="flex-item">
+								<div>登录账户</div>
+								<a class="num hasnum goods_stock_notice_count" href="{:url('admin/index')}">{$admin.username}</a>
+							</div>
+
+                            <div class="flex-item">
+								<div>登录角色</div>
+								<a class="num hasnum goods_stock_notice_count" href="{:url('admin/index')}">{$ROLE['role_name']|default="系统管理员"}</a>
+							</div>
+
+                            <div class="flex-item">
+								<div>登录IP</div>
+								<a class="num hasnum goods_stock_notice_count" href="{:url('admin/index')}">{$admin.last_ip}</a>
+							</div>
+                          </div>
+
+                          <div class="flex-items tasks">
+                            <div class="flex-item">
+								<div>系统更新版本</div>
+								<a class="num hasnum goods_stock_notice_count" href="{:url('admin/index')}">{$v}</a>
+							</div>
+
+
+                            <div class="flex-item">
+								<div>PHP版本</div>
+								<a class="num hasnum goods_stock_notice_count" href="{:url('admin/index')}">{:phpversion()}</a>
+							</div>
+
+                            <div class="flex-item">
+								<div>管理员手机号</div>
+								<a class="num hasnum goods_stock_notice_count" href="{:url('admin/index')}">{$admin.mobile}</a>
+							</div>
+                           </div>
+                           <div class="flex-items tasks">
+
+                            <div class="flex-item">
+								<div>今日新增会员</div>
+								<a class="num hasnum goods_stock_notice_count" href="{:url('user/index')}">{$counts.totay_user}</a>
+							</div>
+
+
+                            <div class="flex-item">
+								<div>认证会员</div>
+								<a class="num hasnum goods_stock_notice_coun" href="{:url('user/index')}">{$counts.user_moblie}</a>
+							</div>
+
+                            <div class="flex-item">
+								<div>网站总会员</div>
+								<a class="num hasnum goods_stock_notice_count" href="{:url('user/index')}">{$counts.users}</a>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="row-panel-5">
+				<div class="mypanel">
+					<div class="mypanel-heading">推送实时汇报数据 <b id="jstime"></b><span id="huoqu" style="margin-left:20px;color:#F00;font-size:14px;"></span></div>
+					<div class="mypanel-body headings">
+                       
+					</div>
+				</div>
+			</div>
+		</ul>
+    <div class="cl"></div>
+    </div>
+</div>
+<div class="row-panel-5">
+    <div class="mypanel">
+        <div class="mypanel-heading">会员数据统计</div>
+        <div class="mypanel-body">
+            <div class="ibox-loading" id="echarts-line-chart-loading" style="display: none;"></div>
+            <div class="chat-box" id="container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-panel-5">
+    <div class="mypanel">
+        <div class="mypanel-heading">订单数量统计</div>
+        <div class="mypanel-body">
+            <div class="ibox-loading" id="echarts-line-chart-loading" style="display: none;"></div>
+            <div class="chat-box" id="container1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-panel-5">
+    <div class="mypanel">
+        <div class="mypanel-heading">支付笔数</div>
+        <div class="mypanel-body">
+            <div class="ibox-loading" id="echarts-line-chart-loading" style="display: none;"></div>
+            <div class="chat-box" id="container2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+	$(function (){
+		$('#container').highcharts({
+			title:{
+			text: '会员时间段（{$bg_date} - {$end_date}）内趋势',x: - 20},
+			subtitle:{
+			text: "{$CONFIG['site']['sitename']}",x: - 20},
+			xAxis:{
+			type: 'category',	
+			labels: {
+				rotation: -45
+			},
+			categories:[{$data.day}]},
+			
+			yAxis:{title:{text:'单位人'},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			},
+			series: [{
+			name: '当日添加数量',
+			data: [{$data.num}]
+			}]
+		});
+		
+		$('#container1').highcharts({
+			title:{
+			text: '订单数量（{$bg_date} - {$end_date}）内趋势',x: - 20},
+			subtitle:{
+			text: "{$CONFIG['site']['sitename']}",x: - 20},
+			xAxis:{
+				type: 'category',	
+				labels: {
+					rotation: -35
+				},
+			categories:[{$data1.day}]},
+			yAxis:{title:{text:'单位人'},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			},
+			series: [{
+			name: '当日订单',
+			data: [{$data1.num}]
+			}]
+		});
+		
+		$('#container2').highcharts({
+			title:{
+			text: '支付笔数（{$bg_date} - {$end_date}）内趋势',x: - 20},
+			subtitle:{
+			text: "{$CONFIG['site']['sitename']}",x: - 20},
+			xAxis:{
+				type: 'category',	
+				labels: {
+					rotation: -35
+				},
+			categories:[{$data2.day}]},
+			yAxis:{title:{text:'单位人'},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			},
+			series: [{
+			name: '当日付款笔数',
+			data: [{$data2.num}]
+			}]
+		});
+	});
+</script>
+
+
+
+<script>
+$(document).ready(function(){
+	
+	
+	$("#handlePush").click(function(){
+		var url = "{:url('app/api/handlePush')}";
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: '',
+			success: function(data){
+			  if(data.c == 0){
+				 parent.layer.msg(data.msg,{icon:1})
+			  }else{
+				  parent.layer.msg(data.msg,{icon:1})
+			  }
+			}
+		});
+	});
+});
+</script>
+
+<script src="/static/default/wap/js/jquery.timers-1.2.js"></script>
+<script>
+$(function(){
+	var clipboard = new ClipboardJS('.clipboard_btn');
+	clipboard.on('success', function(e) {
+		console.info('Action:', e.action);
+		console.info('Text:', e.text);
+		console.info('Trigger:', e.trigger);
+		e.clearSelection();
+		layer.msg('复制【'+e.text+'】成功', {icon: 1});
+	});
+	clipboard.on('error', function(e) {
+		console.error('Action:', e.action);
+		console.error('Trigger:', e.trigger);
+		layer.msg('复制失败', {icon: 1});
+	});
+});	
+
+
+function showTime(){
+	var curTime = new Date();
+	$("#jstime").html(curTime.toLocaleTimeString());
+	setTimeout("showTime()",1000)
+}
+$(function (){showTime()})
+ 
+
+
+
+
+var i = 0;
+$("#huoqu").html('数据加载中...');
+function showGetPushData(){
+   var url = '{:url("app/api/getPushData")}';
+	$.get(url,function(data){
+		i++;
+		$("#huoqu").html('第【'+i+'】次获取新数据获取成功...');
+		$(".headings").html(data);
+	}, 'html');
+};
+$('body').everyTime('5s','B',function(){
+	$("#huoqu").html('数据重新获取中...');
+	showGetPushData();
+},5000);
+	
+
+
+</script>
+
+{include  file='public:footer'/}

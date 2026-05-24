@@ -1,0 +1,114 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">运营</li>
+        <li class="li2"> 广告管理</li>
+        <li class="li2 li3"> 广告列表</li>
+    </ul>
+</div>
+<div class="admin-main-js admin-main-sc">
+
+    <p class="admin-attention">
+         注意：
+         {if condition="$site_id"}
+            <span>当前广告ID【{$site_id}】</span>
+         {/if}
+         广告删除是软删除,图片广告需要上传图片，代码广告可以不用上传图片，文字广告不需要填写图片和代码两项微信：jintao cms
+    </p>
+    
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin-top:0px;border-top:none;">
+            <div class="left">
+                 {if condition="$site_id"}
+                    {:BA('ad/create',array('site_id'=>$site_id),'添加广告')}
+                    {:BA('ad/index','','显示全部广告')}
+                 {/if}
+                 <a href="{:url('ad/index',array('site_id'=>$site_id))}">刷新本页</a>
+            </div>
+            <div class="right">
+                <form class="" method="post"  action="{:url('ad/index')}"> 
+
+                    <div class="admin-sele-hidden" id="admin-sele-hidden">
+                    	<div class="admin-sele-k">
+                    
+                    	<label>
+                           <span>城市：</span>
+                           <select class="select w120" name="city_id">
+                              <option {eq name="city_id" value="999"}selected="selected"{/eq} value="999">选择城市</option>
+                                {foreach name="citys" key="key" item="item"}
+                                    <option {eq name="city_id" value="$item['city_id']"}selected="selected"{/eq}  value="{$item['city_id']}">{$item.name}</option>
+                                {/foreach}
+                          </select>
+                        </label>
+                        
+                        <label>
+                           <span>广告位：</span>
+                           <select class="select w120" name="site_id">
+                              <option {eq name="site_id" value="999"}selected="selected"{/eq} value="999">选择广告位</option>
+                                {foreach name="sites" key="key" item="item"}
+                                    <option {eq name="site_id" value="$item['site_id']"}selected="selected"{/eq}  value="{$item['site_id']}">{$item.site_name}</option>
+                                {/foreach}
+                          </select>
+                        </label>
+                        
+                     
+                       
+                    	<label>
+                            <span>关键字</span>
+                            <input type="text"  class="admin-input-text" name="keyword" value="{$keyword}"/>
+                            <input type="submit" value="搜索"  class="admin-input-button"/>
+                        </label>
+                       </div> 
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="ad_id"/></td>
+                        <td>ID</td>
+                        <td>广告ID</td>
+                        <td>所属广告位</td>
+                        <td>广告名称</td>
+                        <td>广告图片</td>
+                        <td>连接</td>
+                        <td>开始时间</td>
+                        <td>结束时间</td>
+                        <td>排序</td>
+                        <td>操作</th>
+                </tr>
+                    {foreach name="list" item="var"}
+                <tr {eq name="var.is_wxapp" value="1"}style="background:#f4f4f4"{/eq}>
+                    <td><input class="child_ad_id" type="checkbox" name="ad_id[]" value="{$var.ad_id}" /></td>
+                    <td>{$var.ad_id}</td>
+                    <td>{$var.site_id}</td>
+                    <td>{$sites[$var['site_id']]['site_name']}</td>
+                    <td>{$var.title}</td>
+                    <td><a href="{:config_weixin_img($var['photo'])}" class="tooltip"><img src="{:config_img($var['photo'])}" class="w120"></a></td>
+                    <td>{$var.link_url}</td>
+                    <td>{$var.bg_date}</td>
+                    <td>{$var.end_date}</td>
+                    <td>{$var.orderby}</td>
+                    <td>
+                        {:BA('ad/edit',array("ad_id"=>$var["ad_id"]),'编辑','','admin-btn-default')}
+                        {:BA('ad/delete',array("ad_id"=>$var["ad_id"]),'删除','act','admin-btn-default')}
+                    </td>
+                </tr>
+            {/foreach}
+                    <tr>
+                        <td colspan="20">
+                            {:BA('ad/delete','','批量删除','list',' admin-piliang-caozuo')}
+                        </td>
+                    </tr>
+                </table>
+                {$page}
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/} 
+

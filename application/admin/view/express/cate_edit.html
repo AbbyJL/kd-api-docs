@@ -1,0 +1,216 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">快递公司</li>
+        <li class="li2 li3">编辑快递公司</li>
+    </ul>
+</div>
+<style>
+.admin-table-left{width: 200px;}
+.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC; }
+</style>
+
+<p class="admin-attention"><span>说明：</span> 请不要自己添加快递公司</p>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form target="x-frame" action="{:url('express/cate_edit',array('cate_id'=>$detail['cate_id']))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                        
+                        
+                        <tr>
+                            <td class="admin-table-left" >API接口选择：</td>
+                            <td class="admin-table-right">
+                                <select name="data[type]" class="admin-sele-Fl jq_type" style="display: inline-block;">
+                                    {volist name="getCompanyApiTypes" id="var"} 
+                                        <option value="{$i}" {eq name="i" value="$detail.type"}selected="selected"{/eq}>{$var}</option>
+                                    {/volist}
+                                </select>
+                                <br><code>1：一般选择易达或者云洋接口</code>
+                                <br><code>2：更多平台联系</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">易达大写标识符：</td>
+                            <td class="admin-table-right"><input type="text" name="data[pinyin]" value="{$detail.pinyin|default=''}" class="admin-manage-input w160"/>
+                            <code>易达大写标识符：京东:JD 圆通:YTO 申通新:STO-INT 德邦:DOP 极兔:JT 顺丰:SF 韵达:YUND 中通:ZTO 菜鸟：CNSD 百世：BEST</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">云洋billType：</td>
+                            <td class="admin-table-right"><input type="text" name="data[pinyin2]" value="{$detail.pinyin2|default=''}" class="admin-manage-input w160"/>
+                            <code>云洋billType：京东1 圆通3 申通4 德邦2 极兔5 顺丰6 中通7 韵达8 跨越9 顺心捷达21 丹鸟22 百世24 菜鸟24 EMS25</code>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="admin-table-left">公司名称：</td>
+                            <td class="admin-table-right"><input type="text" name="data[cate_name]" value="{$detail.cate_name|default=''}" class="admin-manage-input w160"/>
+                            <code>快递公司名称</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">快递公司说明：</td>
+                            <td class="admin-table-right"><input type="text" name="data[tag]" value="{$detail.tag|default=''}" class="admin-manage-input w360"/>
+                            <code>20个字之内</code>
+                            </td>
+                       </tr>
+                        
+                       
+                       <tr><td class="admin-table-right profit" colspan = "2"> 加价设置 </td></tr>  
+                       <tr>
+                            <td class="admin-table-left">加价百分比：</td>
+                            <td class="admin-table-right"><input type="text" name="data[ratio]" value="{$detail.ratio|default=''}" class="admin-manage-input w80"/>%
+                            <code>加价百分比【总返回价格加上百分比，易达部分渠道采用这里的百分比】</code>
+                            </td>
+                        </tr>
+                        
+                       <tr><td class="admin-table-right profit" colspan = "2"> 首重加价设置 </td></tr> 
+                       <tr>
+                            <td class="admin-table-left">首重加价模式</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[priceA_type]" value="0" {if condition="$detail[priceA_type] eq 0"}checked="checked"{/if}/>百分比加价
+                            <input type="radio" name="data[priceA_type]" value="1" {if condition="$detail[priceA_type] eq 1"}checked="checked"{/if}/>固定加价
+                            <code>直接返回首重续重，部分渠道返回首重续重，如返回首重续重的加价模式为总重的百分比【{$detail.ratio|default=''}%】</code>
+                            </td>
+                       </tr> 
+                       <tr>
+                            <td class="admin-table-left">首重价格加价百分比：</td>
+                            <td class="admin-table-right"><input type="text" name="data[priceA_ratio]" value="{$detail.priceA_ratio|default=''}" class="admin-manage-input w80"/>%
+                            <code>首重价格加价百分比</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">首重价格加价固定金额：</td>
+                            <td class="admin-table-right"><input type="text" name="data[priceA_price]" value="{$detail.priceA_price|default=''}" class="admin-manage-input w80"/>元
+                            <code>首重价格加价固定金额</code>
+                            </td>
+                       </tr>
+                       <tr><td class="admin-table-right profit" colspan = "2"> 续重加价设置 </td></tr> 
+                       <tr>
+                            <td class="admin-table-left">续重加价模式</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[priceB_type]" value="0" {if condition="$detail[priceB_type] eq 0"}checked="checked"{/if}/>百分比加价
+                            <input type="radio" name="data[priceB_type]" value="1" {if condition="$detail[priceB_type] eq 1"}checked="checked"{/if}/>固定加价
+                            <code>续重加价模式</code>
+                            </td>
+                       </tr> 
+                       <tr>
+                            <td class="admin-table-left">续重价格加价百分比：</td>
+                            <td class="admin-table-right"><input type="text" name="data[priceB_ratio]" value="{$detail.priceB_ratio|default=''}" class="admin-manage-input w80"/>%
+                            <code>续重价格加价百分比</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">续重价格加价固定金额：</td>
+                            <td class="admin-table-right"><input type="text" name="data[priceB_price]" value="{$detail.priceB_price|default=''}" class="admin-manage-input w80"/>元
+                            <code>续重价格加价固定金额</code>
+                            </td>
+                        </tr>
+                      
+                      
+                       
+                       <tr><td class="admin-table-right profit" colspan = "2"> 保价与预约设置 </td></tr> 
+                       <tr>
+                            <td class="admin-table-left">是否开启保价</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[is_bao]" value="0" {if condition="$detail[is_bao] eq 0"}checked="checked"{/if} />关闭保价
+                            <input type="radio" name="data[is_bao]" value="1" {if condition="$detail[is_bao] eq 1"}checked="checked"{/if} />开启保价
+                            <code>是否开启保价保价</code>
+                            </td>
+                       </tr>  
+                       <tr>
+                            <td class="admin-table-left">保价费率：</td>
+                            <td class="admin-table-right">
+                                <input type="text" name="data[baojia_rate]" value="{$detail['baojia_rate']}" class="admin-sc-add-text-name w80">
+                                <code>开启保价模式下留空默认值0.005一般快递公司都差不多有上浮下浮，方便计算，就取一个中间值，如果你想赚钱，设置0.01就算非常高的了</code>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td class="admin-table-left">是否开启预约时间</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[is_yuyue]" value="0" {if condition="$detail[is_yuyue] eq 0"}checked="checked"{/if} />关闭预约时间
+                            <input type="radio" name="data[is_yuyue]" value="1" {if condition="$detail[is_yuyue] eq 1"}checked="checked"{/if} />开启预约时间
+                            <code>建议顺丰开启，其他关闭</code>
+                            </td>
+                       </tr> 
+                       
+                       <tr><td class="admin-table-right profit" colspan = "2"> 揽收率设置 </td></tr> 
+                       <tr>
+                            <td class="admin-table-left">48小时揽收率：</td>
+                            <td class="admin-table-right"><input type="text" name="data[lanshou]" value="{$detail.lanshou|default=''}" class="admin-manage-input w80"/>%
+                            <code>留空或者填写0不展示</code>
+                            </td>
+                        </tr>
+                        
+                        <tr><td class="admin-table-right profit" colspan = "2"> 会员折扣 </td></tr>
+                        <tr>
+                            <td class="admin-table-left">等级折扣：</td>
+                            <td class="admin-table-right">
+                                {foreach name="ranks" item="var"}
+                                    <code>{$var['rank_name']}</code>
+                                    <input type="hidden" name="options[id][]" value="{$var['rank_id']}">
+                                    <input type="hidden" name="options[rank_id][]" value="{$var['rank_id']}">
+                                    <input type="text" name="options[zhe][]" value="{$var['zhe']}" class="admin-manage-input w80">折【9-10之间的数字】
+                                {/foreach}
+                                <code>折扣大于10不打折，留空不打折，负数不打折【9-10之间的数字可带小数点】</code>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="admin-table-left">公司电话：</td>
+                            <td class="admin-table-right"><input type="text" name="data[tel]" value="{$detail.tel|default=''}" class="admin-manage-input w360"/>
+                            <code>公司电话</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">公司说明：</td>
+                            <td class="admin-table-right">
+                                <textarea name="data[info]" cols="50" rows="5">{$detail.info}</textarea>
+								<br><code>【京东】12小时内取件，有快递员信息可打电话，急件慎用</code>
+                                <br><code>【圆通】17点前下单当天取件，下单30分钟左右快递会联系您，严格按照体积重量收费</code>
+                                <br><code>【申通】下单后12个小时内取件，急件慎用</code>
+                                <br><code>【韵达】下单后12个小时内取件</code>
+                                <br><code>【顺丰】下单后2个小时内取件</code>
+                                <br><code>【中通】快递人员上门取件慢，下单后12个小时内取件</code>
+                                <br><code>【德邦】单边超过1.6m,三边超3m会收取超长费</code>
+                                <br><code>【极兔】下单后12-24个小时内取件，急件慎用</code>
+                            </td>
+                        </tr>
+                       
+                        
+                        <tr>
+                            <td class="admin-table-left">上传图片</td>
+                            <td class="admin-table-right">
+                            {php}echo tpl_form_field_image('data[photo]',$detail['photo'],$detail['photo'],'photo','',$options = array());{/php}
+                            </td>
+                        </tr> 
+            			
+                        
+                      
+                        
+                        <tr><td class="admin-table-right profit" colspan = "2"> 排序设置 </td></tr> 
+                        <tr>
+                            <td class="admin-table-left">排序：</td>
+                            <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default=''}" class="admin-manage-input"/>
+                                <code>数字越小越高</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">是否开启</td>
+                            <td class="admin-table-right">
+                            <input type="radio" name="data[firstPrice]" value="0" {if condition="$detail[firstPrice] eq 0"}checked="checked"{/if} />开启
+                            <input type="radio" name="data[firstPrice]" value="1" {if condition="$detail[firstPrice] eq 1"}checked="checked"{/if} />关闭
+                            <code>当前公司是否开启</code>
+                            </td>
+                        </tr> 
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确认保存" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>

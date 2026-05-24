@@ -1,0 +1,348 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+	<ul>
+		<li class="li1">设置</li>
+		<li class="li2">基本设置</li>
+		<li class="li2 li3">站点设置</li>
+	</ul>
+</div>
+<p class="admin-attention">站点设置参数不能漏掉</p>
+<form target="x-frame" action="{:url('setting/site')}" method="post">
+	<div class="admin-main-sc-add">
+		<div class="admin-table-box">
+			<table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px" style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#fff;">
+			<tr>
+				<td class="admin-table-left">
+					站点名称：
+				</td>
+				<td class="admin-table-right">
+					<input type="text" name="data[sitename]" value="{$CONFIG.site.sitename}" class="admin-sc-add-text-name"/>
+					<code>注意这个不是网站的Title，一般建议是网站名称，在seo设置中调用</code>
+				</td>
+			</tr>
+		</tr>
+
+			<tr>
+				<td class="admin-table-left">站点网址：</td>
+				<td class="admin-table-right">
+					<input type="text" name="data[host]" value="{$CONFIG.site.host}" class="admin-sc-add-text-name"/>
+					<code>例如：https://www.xxxxxx.comm 如果您必须用https访问就必须加上https开头【必须填写否则无法下单】</code>
+				</td>
+			</tr>
+          
+            
+            <tr>
+				<td class="admin-table-left">
+					强制开通https：
+				</td>
+				<td class="admin-table-right">
+					<label><input type="radio" name="data[https]" {eq name="CONFIG.site.https" value="1"}checked="checked"{/eq} value="1"  />开启</label>
+					<label><input type="radio" name="data[https]" {eq name="CONFIG.site.https" value="0"}checked="checked"{/eq}  value="0"  />关闭</label>
+					<code style="color:#F00">注意，打开后全站默认加https访问，请先配置CA证书成功后开启这个功能</code>
+				</td>
+			</tr>
+
+
+			<tr>
+				<td class="admin-table-left">网站LOGO：</td>
+				<td class="admin-table-right">
+					<div style="width:200px;height:150px; float: left;">
+						<input type="hidden" name="data[logo]" value="{$CONFIG.site.logo}" id="data_logo" />
+						<div id="fileToUpload">
+							上传网站LOGO
+						</div>
+					</div>
+					<div style="width:200px;height:150px; float: left;">
+						<img id="logo_img" width="100" hight="100" src="{:config_img($CONFIG['site']['logo'])}" />
+					</div>
+					<script>
+						var uploader = WebUploader.create({
+						auto: true,
+						swf: '/static/default/webuploader/Uploader.swf',
+						server: '{:url("app/upload/uploadify",array("model"=>""))}',
+						pick: '#fileToUpload',
+						resize: true,
+					});
+					uploader.on('uploadSuccess',function(file,resporse){
+						$("#data_logo").val(resporse.url);
+						$("#logo_img").attr('src',resporse.url).show();
+					});
+					uploader.on('uploadError',function(file){
+						layer.msg('上传出错', {icon: 5});
+					});
+                    </script>
+				</td>
+			</tr>
+			<tr>
+				<td class="admin-table-left">公众号二维码：</td>
+				<td class="admin-table-right">
+					<div style="width:200px;height:150px; float: left;">
+						<input type="hidden" name="data[wxcode]" value="{$CONFIG.site.wxcode}" id="data_wxcode" />
+						<div id="fileToUpload2">
+							上传公众号二维码
+						</div>
+					</div>
+					<div style="width:200px;height:150px; float: left;">
+						<img id="wxcode_img" width="100" hight="100" src="{:config_img($CONFIG['site']['wxcode'])}" />
+					</div>
+					<script>
+						var uploader = WebUploader.create({
+						auto: true,
+						swf: '/static/default/webuploader/Uploader.swf',
+						server: '{:url("app/upload/uploadify",array("model"=>""))}',
+						pick: '#fileToUpload2',
+						resize: true,
+					});
+					uploader.on('uploadSuccess',function(file,resporse){
+						$("#data_wxcode").val(resporse.url);
+						$("#wxcode_img").attr('src',resporse.url).show();
+					});
+					uploader.on('uploadError', function(file){
+						layer.msg('上传出错', {icon: 5});
+					});
+                    </script>
+				</td>
+			</tr>
+			<tr>
+            	<td class="admin-table-left">小程序码：</td>
+				<td class="admin-table-right">
+					<div style="width:200px;height:150px; float: left;">
+						<input type="hidden" name="data[wxappcode]" value="{$CONFIG.site.wxappcode}" id="data_wxappcode" />
+						<div id="fileToUpload3">
+							上传小程序码
+						</div>
+					</div>
+					<div style="width:200px;height:150px; float:left;">
+						<img id="wxappcode_img" width="100" hight="100" src="{:config_img($CONFIG['site']['wxappcode'])}"/>
+					</div>
+					<script>
+						var uploader = WebUploader.create({
+						auto: true,
+						swf: '/static/default/webuploader/Uploader.swf',
+						server: '{:url("app/upload/uploadify",array("model"=>""))}',
+						pick: '#fileToUpload3',
+						resize: true,
+					});
+					uploader.on('uploadSuccess',function(file,resporse){
+						$("#data_wxappcode").val(resporse.url);
+						$("#wxappcode_img").attr('src',resporse.url).show();
+					});
+					uploader.on('uploadError',function(file){
+						layer.msg('上传出错', {icon: 5});
+					});
+                    </script>
+				</td>
+			</tr>
+           <tr>
+            	<td class="admin-table-left">佣金规则二维码：</td>
+				<td class="admin-table-right">
+					<div style="width:200px;height:150px; float: left;">
+						<input type="hidden" name="data[wxqcode6]" value="{$CONFIG.site.wxqcode6}" id="data_wxqcode6" />
+						<div id="fileToUpload6">
+							佣金规则二维码
+						</div>
+					</div>
+					<div style="width:200px;height:150px; float:left;">
+						<img id="wxqcode_img" width="100" hight="100" src="{:config_img($CONFIG['site']['wxqcode6'])}"/>
+					</div>
+					<script>
+						var uploader = WebUploader.create({
+						auto: true,
+						swf: '/static/default/webuploader/Uploader.swf',
+						server: '{:url("app/upload/uploadify",array("model"=>""))}',
+						pick: '#fileToUpload6',
+						resize: true,
+					});
+					uploader.on('uploadSuccess',function(file,resporse){
+						$("#data_wxqcode6").val(resporse.url);
+						$("#wxqcode6_img").attr('src',resporse.url).show();
+					});
+					uploader.on('uploadError',function(file){
+						layer.msg('上传出错', {icon: 5});
+					});
+                    </script>
+				</td>
+			</tr> 
+            <tr>
+            	<td class="admin-table-left">交流大厅二维码：</td>
+				<td class="admin-table-right">
+					<div style="width:200px;height:150px; float: left;">
+						<input type="hidden" name="data[wxqcode]" value="{$CONFIG.site.wxqcode}" id="data_wxqcode" />
+						<div id="fileToUpload4">
+							交流大厅二维码
+						</div>
+					</div>
+					<div style="width:200px;height:150px; float:left;">
+						<img id="wxqcode_img" width="100" hight="100" src="{:config_img($CONFIG['site']['wxqcode'])}"/>
+					</div>
+					<script>
+						var uploader = WebUploader.create({
+						auto: true,
+						swf: '/static/default/webuploader/Uploader.swf',
+						server: '{:url("app/upload/uploadify",array("model"=>""))}',
+						pick: '#fileToUpload4',
+						resize: true,
+					});
+					uploader.on('uploadSuccess',function(file,resporse){
+						$("#data_wxqcode").val(resporse.url);
+						$("#wxqcode_img").attr('src',resporse.url).show();
+					});
+					uploader.on('uploadError',function(file){
+						layer.msg('上传出错', {icon: 5});
+					});
+                    </script>
+				</td>
+			</tr>
+            
+
+			<tr>
+				<td class="admin-table-left">客服QQ：</td>
+				<td class="admin-table-right">
+					<input type="text" name="data[qq]" value="{$CONFIG.site.qq}" class="admin-sc-add-text-name " />
+					<code>前台模板显示调用</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="admin-table-left">电话：</td>
+				<td class="admin-table-right">
+					<input type="text" name="data[tel]" value="{$CONFIG.site.tel}" class="admin-sc-add-text-name " />
+					<code>前台模板显示调用，建议填写座机</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="admin-table-left">邮件：</td>
+				<td class="admin-table-right">
+					<input type="text" name="data[email]" value="{$CONFIG.site.email}" class="admin-sc-add-text-name " />
+					<code>前台模板显示调用，建议填写自己的常用邮箱</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="admin-table-left">ICP备案：</td>
+				<td class="admin-table-right">
+					<input type="text" name="data[icp]" value="{$CONFIG.site.icp}" class="admin-sc-add-text-name " />
+					<code>前台模板显示调用，建议真实填写</code>
+				</td>
+			</tr>
+
+			<tr>
+                    <td class="admin-table-left">默认城市：</td>
+                    <td class="admin-table-right">
+                        <select id="city_id" name="data[city_id]" class="admin-sc-add-text-name sogn">
+                        	<option value="0">必须选择默认城市</option>
+                            <?php  foreach($citys as $val){?>
+                            <option <?php if($val['city_id'] == $CONFIG['site']['city_id']) echo 'selected="selected"' ;?> value="{$val.city_id}">{$val.name}</option>
+                            <?php }?>
+                        </select>
+                        <code>请填写您的默认城市，手机版无法定位到的时候自动跳转到此U城市</code>
+                    </td>
+                </tr>
+			<tr>
+				<td class="admin-table-left" style="padding-right:0px;">默认城市坐标：</td>
+				<td class="admin-table-right">
+                    经度 <input type="text" id="data_lng" name="data[lng]" value="{$CONFIG.site.lng}" class="admin-sc-add-text-name " />
+                    纬度 <input type="text" id="data_lat" name="data[lat]" value="{$CONFIG.site.lat}" class="admin-sc-add-text-name " />
+					<code>关系到全局默认，请认真填写，这里的默认城市坐标应该跟站点设置里面的坐标一致</code>
+				</td>
+			</tr>
+
+            <script>
+			//筛选子分类的时候触发
+			$(function(){
+				$("#city_id").on("change",function(){
+				var city_id = $("#city_id").val();
+				$.post('{:url("city/getcitydata")}',{city_id:city_id},function(res){
+					if(res.code == '1'){
+						$("#data_lng").val(res.lng);//赋值
+						$("#data_lat").val(res.lat);//赋值
+					}
+					if(res.code == '0'){
+						layer.msg(res.msg,{icon:2});
+					}
+				},'json');
+				});
+			});
+			</script>
+
+			<tr>
+				<td class="admin-table-left">全局通知手机号码</td>
+				<td class="admin-table-right">
+					<input type="text" name="data[config_mobile]" value="{$CONFIG.site.config_mobile}" class="admin-sc-add-text-name " />
+					<code>填写有有的场景需要通知给管理员的手机号</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="admin-table-left">全局通知邮箱</td>
+				<td class="admin-table-right">
+					<input type="text" name="data[config_email]" value="{$CONFIG.site.config_email}" class="admin-sc-add-text-name " />
+					<code>这里是在必要情况下，给站长发邮箱的时候的接受信箱。</code>
+				</td>
+			</tr>
+
+            <tr>
+				<td class="admin-table-left">站点标题：</td>
+				<td class="admin-table-right">
+					<input type="text" name="data[title]" value="{$CONFIG.site.sitename}" class="admin-sc-add-text-name " style="width:660px;"/>
+					<code>seo设置中调用</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="admin-table-left">站点关键字：</td>
+				<td class="admin-table-right">
+					<textarea name="data[keyword]" cols="50" rows="5">{$CONFIG.site.keyword}</textarea>
+					<code>seo设置中调用，建议认真填写</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="admin-table-left">站点描述：</td>
+				<td class="admin-table-right">
+					<textarea name="data[description]" cols="50" rows="5">{$CONFIG.site.description}</textarea>
+					<code>seo设置中调用</code>
+				</td>
+			</tr>
+			
+             <tr>
+                <td  class="admin-table-left">聚推客联盟：</td>
+                <td class="admin-table-right">
+                    <input type="text" name="data[pub_id]" value="{$CONFIG.site.pub_id}" class="admin-sc-add-text-name admin-manage-input w260">
+                    <code>聚推客联盟身份IDpub_id申请：https://pub.jutuike.com</code>
+                </td>
+            </tr>
+         
+            <tr>
+                <td  class="admin-table-left">蚂蚁星球：</td>
+                <td class="admin-table-right">
+                    <input type="text" name="data[apikey]" value="{$CONFIG.site.apikey}" class="admin-sc-add-text-name admin-manage-input w260">
+                    <code>蚂蚁星球apikey申请：http://www.haojingke.com</code>
+                </td>
+            </tr>
+                
+			<tr>
+				<td class="admin-table-left">
+					是否关闭网站：
+				</td>
+				<td class="admin-table-right">
+					<label><input type="radio" name="data[web_close]" {eq name="CONFIG.site.web_close" value="0"}checked="checked"{/eq} value="0"  />开启</label>
+					<label><input type="radio" name="data[web_close]" {eq name="CONFIG.site.web_close" value="1"}checked="checked"{/eq}  value="1"  />关闭</label>
+					<code style="color:#F00">这里不要动</code>
+				</td>
+			</tr>
+          
+
+
+			<tr>
+				<td class="admin-table-left">关闭网站原因：</td>
+				<td class="admin-table-right">
+					<textarea name="data[web_close_title]" cols="50" rows="4">{$CONFIG.site.web_close_title}</textarea>
+					<code style="color:#F00">这里不要动</code>>
+				</td>
+			</tr>
+
+
+			</table>
+		</div>
+		<div class="admin-small-qr">
+			<input type="submit" value="确认保存" class="admin-btn-small-quren"/>
+		</div>
+	</div>
+</form>
+{include file='public:footer'/}

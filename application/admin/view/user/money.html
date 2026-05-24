@@ -1,0 +1,31 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="x-frame" action="{:url('user/money',array('user_id'=>$user_id,'p'=>$p))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                        <tr>
+                            <td class="admin-table-left">余额：</td>
+                            <td class="admin-table-right">
+                                <input name="money" type="text" class="admin-sc-add-text-name w150"/>
+                                <code>减少余额输入负数</code>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td class="admin-table-left">原由：</td>
+                            <td class="admin-table-right">
+                                <textarea name="intro" cols="50" rows="6"></textarea>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确定保存" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
