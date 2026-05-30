@@ -1,0 +1,69 @@
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;{if $info.id}编辑{else/}添加{/if}应用&lt;/title&gt;
+    &lt;link rel="stylesheet" href="/public/admin/css/public.css"&gt;
+    &lt;link rel="stylesheet" href="/public/admin/css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="nav"&gt;
+    &lt;span class="icon"&gt;&lt;i class="iconfont icon-xiangmuguanli"&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;span class="name"&gt;{if $info.id}编辑{else/}添加{/if}应用&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="form-box" style="max-width: 800px; margin: 20px;"&gt;
+    &lt;form action="{:url('save')}" method="post" class="form-horizontal"&gt;
+        {if $info.id}
+        &lt;input type="hidden" name="id" value="{$info.id}"&gt;
+        {/if}
+        
+        &lt;div class="form-group"&gt;
+            &lt;label class="control-label"&gt;应用名称 &lt;span style="color: #f00;"&gt;*&lt;/span&gt;&lt;/label&gt;
+            &lt;div class="control-input"&gt;
+                &lt;input type="text" name="appName" value="{$info.app_name}" class="form-control" required&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label class="control-label"&gt;联系人&lt;/label&gt;
+            &lt;div class="control-input"&gt;
+                &lt;input type="text" name="userName" value="{$info.user_name}" class="form-control"&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label class="control-label"&gt;联系电话&lt;/label&gt;
+            &lt;div class="control-input"&gt;
+                &lt;input type="text" name="mobile" value="{$info.mobile}" class="form-control"&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label class="control-label"&gt;备注&lt;/label&gt;
+            &lt;div class="control-input"&gt;
+                &lt;textarea name="remark" class="form-control" rows="3"&gt;{$info.remark}&lt;/textarea&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label class="control-label"&gt;状态&lt;/label&gt;
+            &lt;div class="control-input"&gt;
+                &lt;label&gt;&lt;input type="radio" name="status" value="1" {if !$info.id || $info.status == 1}checked{/if}&gt; 启用&lt;/label&gt;
+                &lt;label style="margin-left: 20px;"&gt;&lt;input type="radio" name="status" value="0" {if $info.id &amp;&amp; $info.status == 0}checked{/if}&gt; 禁用&lt;/label&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label class="control-label"&gt;&amp;nbsp;&lt;/label&gt;
+            &lt;div class="control-input"&gt;
+                &lt;button type="submit" class="btn btn-primary"&gt;保存&lt;/button&gt;
+                &lt;a href="{:url('index')}" class="btn btn-default"&gt;返回&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;

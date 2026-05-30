@@ -1,0 +1,105 @@
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;应用管理&lt;/title&gt;
+    &lt;link rel="stylesheet" href="/public/admin/css/public.css"&gt;
+    &lt;link rel="stylesheet" href="/public/admin/css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="nav"&gt;
+    &lt;span class="icon"&gt;&lt;i class="iconfont icon-xiangmuguanli"&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;span class="name"&gt;开放API应用管理&lt;/span&gt;
+    &lt;div class="add"&gt;
+        &lt;a href="{:url('add')}" class="btn btn-primary"&gt;添加应用&lt;/a&gt;
+        &lt;a href="{:url('logs')}" class="btn btn-default"&gt;请求日志&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="search"&gt;
+    &lt;form action="" method="get"&gt;
+        &lt;input type="text" name="keyword" value="{$keyword}" placeholder="搜索应用名称/APP Key" class="form-control" style="width: 300px;"&gt;
+        &lt;button type="submit" class="btn btn-primary"&gt;搜索&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+
+&lt;div class="table-box"&gt;
+    &lt;table class="table table-striped"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;ID&lt;/th&gt;
+                &lt;th&gt;应用名称&lt;/th&gt;
+                &lt;th&gt;APP Key&lt;/th&gt;
+                &lt;th&gt;联系人&lt;/th&gt;
+                &lt;th&gt;联系电话&lt;/th&gt;
+                &lt;th&gt;状态&lt;/th&gt;
+                &lt;th&gt;创建时间&lt;/th&gt;
+                &lt;th&gt;操作&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            {volist name="list" id="vo"}
+            &lt;tr&gt;
+                &lt;td&gt;{$vo.id}&lt;/td&gt;
+                &lt;td&gt;{$vo.app_name}&lt;/td&gt;
+                &lt;td&gt;{$vo.app_key}&lt;/td&gt;
+                &lt;td&gt;{$vo.user_name}&lt;/td&gt;
+                &lt;td&gt;{$vo.mobile}&lt;/td&gt;
+                &lt;td&gt;
+                    {if $vo.status == 1}
+                    &lt;span class="label label-success"&gt;启用&lt;/span&gt;
+                    {else/}
+                    &lt;span class="label label-danger"&gt;禁用&lt;/span&gt;
+                    {/if}
+                &lt;/td&gt;
+                &lt;td&gt;{$vo.create_time|date='Y-m-d H:i:s'}&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;a href="{:url('add', ['id'=&gt;$vo.id])}" class="btn btn-xs btn-info"&gt;编辑&lt;/a&gt;
+                    &lt;a href="javascript:void(0)" onclick="showSecret({$vo.id})" class="btn btn-xs btn-warning"&gt;查看密钥&lt;/a&gt;
+                    &lt;a href="javascript:void(0)" onclick="resetSecret({$vo.id})" class="btn btn-xs btn-default"&gt;重置密钥&lt;/a&gt;
+                    &lt;a href="javascript:void(0)" onclick="deleteApp({$vo.id})" class="btn btn-xs btn-danger"&gt;删除&lt;/a&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            {/volist}
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;script src="/public/admin/js/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="/public/admin/js/layer/layer.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+function showSecret(id) {
+    $.get('{:url("showSecret")}', {id: id}, function(res) {
+        if (res.code == 0) {
+            layer.open({
+                type: 1,
+                title: '应用密钥',
+                content: '&lt;div style="padding: 20px;"&gt;' +
+                    '&lt;p&gt;&lt;strong&gt;APP Key：&lt;/strong&gt;&lt;code&gt;' + res.data.appKey + '&lt;/code&gt;&lt;/p&gt;' +
+                    '&lt;p&gt;&lt;strong&gt;APP Secret：&lt;/strong&gt;&lt;code&gt;' + res.data.appSecret + '&lt;/code&gt;&lt;/p&gt;' +
+                    '&lt;p style="color: #f00; margin-top: 10px;"&gt;请妥善保管密钥，切勿泄露！&lt;/p&gt;' +
+                    '&lt;/div&gt;',
+                area: ['500px', '300px']
+            });
+        } else {
+            layer.msg('获取失败');
+        }
+    }, 'json');
+}
+
+function resetSecret(id) {
+    layer.confirm('确定要重置密钥吗？重置后旧密钥将失效', {icon: 3}, function(index) {
+        window.location.href = '{:url("resetSecret")}?id=' + id;
+    });
+}
+
+function deleteApp(id) {
+    layer.confirm('确定要删除该应用吗？', {icon: 3}, function(index) {
+        window.location.href = '{:url("delete")}?id=' + id;
+    });
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;

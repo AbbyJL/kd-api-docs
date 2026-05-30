@@ -1,0 +1,78 @@
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;请求日志&lt;/title&gt;
+    &lt;link rel="stylesheet" href="/public/admin/css/public.css"&gt;
+    &lt;link rel="stylesheet" href="/public/admin/css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="nav"&gt;
+    &lt;span class="icon"&gt;&lt;i class="iconfont icon-xiangmuguanli"&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;span class="name"&gt;API请求日志&lt;/span&gt;
+    &lt;div class="add"&gt;
+        &lt;a href="{:url('index')}" class="btn btn-default"&gt;返回应用列表&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="search"&gt;
+    &lt;form action="" method="get"&gt;
+        &lt;select name="appId" class="form-control" style="width: 200px;"&gt;
+            &lt;option value=""&gt;全部应用&lt;/option&gt;
+            {volist name="apps" id="vo"}
+            &lt;option value="{$vo.id}" {if $appId == $vo.id}selected{/if}&gt;{$vo.app_name}&lt;/option&gt;
+            {/volist}
+        &lt;/select&gt;
+        &lt;button type="submit" class="btn btn-primary"&gt;筛选&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+
+&lt;div class="table-box"&gt;
+    &lt;table class="table table-striped"&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;ID&lt;/th&gt;
+                &lt;th&gt;应用名称&lt;/th&gt;
+                &lt;th&gt;API地址&lt;/th&gt;
+                &lt;th&gt;请求方式&lt;/th&gt;
+                &lt;th&gt;IP地址&lt;/th&gt;
+                &lt;th&gt;请求参数&lt;/th&gt;
+                &lt;th&gt;请求时间&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            {volist name="list" id="vo"}
+            &lt;tr&gt;
+                &lt;td&gt;{$vo.id}&lt;/td&gt;
+                &lt;td&gt;{$vo.app_name}&lt;/td&gt;
+                &lt;td&gt;{$vo.api_url}&lt;/td&gt;
+                &lt;td&gt;{$vo.request_method}&lt;/td&gt;
+                &lt;td&gt;{$vo.ip}&lt;/td&gt;
+                &lt;td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"&gt;
+                    &lt;a href="javascript:void(0)" onclick="showParams('{$vo.request_params|addslashes}')" title="点击查看"&gt;{$vo.request_params}&lt;/a&gt;
+                &lt;/td&gt;
+                &lt;td&gt;{$vo.create_time|date='Y-m-d H:i:s'}&lt;/td&gt;
+            &lt;/tr&gt;
+            {/volist}
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;script src="/public/admin/js/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="/public/admin/js/layer/layer.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+function showParams(params) {
+    layer.open({
+        type: 1,
+        title: '请求参数',
+        content: '&lt;div style="padding: 20px; max-height: 400px; overflow-y: auto;"&gt;' +
+            '&lt;pre&gt;' + params + '&lt;/pre&gt;' +
+            '&lt;/div&gt;',
+        area: ['800px', '500px']
+    });
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
