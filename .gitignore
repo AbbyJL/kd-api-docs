@@ -29,3 +29,9 @@ composer.phar
 # Temporary files
 *.tmp
 *.temp
+
+# Large archives
+*.zip
+*.rar
+*.tar.gz
+*.7z
