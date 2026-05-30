@@ -1,244 +1,244 @@
 
-&lt;!DOCTYPE html&gt;
-&lt;html lang="zh-CN"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;快递开放API文档&lt;/title&gt;
-    &lt;link rel="stylesheet" href="css/style.css"&gt;
-    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div class="container"&gt;
-        &lt;!-- 侧边栏 --&gt;
-        &lt;aside class="sidebar"&gt;
-            &lt;div class="logo"&gt;
-                &lt;i class="fas fa-box"&gt;&lt;/i&gt;
-                &lt;span&gt;快递API&lt;/span&gt;
-            &lt;/div&gt;
-            &lt;nav class="nav-menu"&gt;
-                &lt;a href="#overview" class="nav-item active"&gt;
-                    &lt;i class="fas fa-home"&gt;&lt;/i&gt;
-                    &lt;span&gt;概述&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;a href="#auth" class="nav-item"&gt;
-                    &lt;i class="fas fa-key"&gt;&lt;/i&gt;
-                    &lt;span&gt;认证方式&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;a href="#error" class="nav-item"&gt;
-                    &lt;i class="fas fa-exclamation-triangle"&gt;&lt;/i&gt;
-                    &lt;span&gt;错误码&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;div class="nav-divider"&gt;&lt;/div&gt;
-                &lt;div class="nav-group-title"&gt;API接口&lt;/div&gt;
-                &lt;a href="#api-token" class="nav-item"&gt;
-                    &lt;i class="fas fa-sign-in-alt"&gt;&lt;/i&gt;
-                    &lt;span&gt;获取AccessToken&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;a href="#api-estimate" class="nav-item"&gt;
-                    &lt;i class="fas fa-calculator"&gt;&lt;/i&gt;
-                    &lt;span&gt;运费预估&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;a href="#api-create" class="nav-item"&gt;
-                    &lt;i class="fas fa-plus-circle"&gt;&lt;/i&gt;
-                    &lt;span&gt;创建订单&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;a href="#api-query" class="nav-item"&gt;
-                    &lt;i class="fas fa-search"&gt;&lt;/i&gt;
-                    &lt;span&gt;查询订单&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;a href="#api-track" class="nav-item"&gt;
-                    &lt;i class="fas fa-route"&gt;&lt;/i&gt;
-                    &lt;span&gt;查询轨迹&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;a href="#api-cancel" class="nav-item"&gt;
-                    &lt;i class="fas fa-times-circle"&gt;&lt;/i&gt;
-                    &lt;span&gt;取消订单&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;a href="#api-express" class="nav-item"&gt;
-                    &lt;i class="fas fa-truck"&gt;&lt;/i&gt;
-                    &lt;span&gt;快递列表&lt;/span&gt;
-                &lt;/a&gt;
-                &lt;div class="nav-divider"&gt;&lt;/div&gt;
-                &lt;a href="#sdk" class="nav-item"&gt;
-                    &lt;i class="fas fa-code"&gt;&lt;/i&gt;
-                    &lt;span&gt;PHP SDK&lt;/span&gt;
-                &lt;/a&gt;
-            &lt;/nav&gt;
-        &lt;/aside&gt;
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>快递开放API文档</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-box"></i>
+                <span>快递API</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#overview" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>概述</span>
+                </a>
+                <a href="#auth" class="nav-item">
+                    <i class="fas fa-key"></i>
+                    <span>认证方式</span>
+                </a>
+                <a href="#error" class="nav-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>错误码</span>
+                </a>
+                <div class="nav-divider"></div>
+                <div class="nav-group-title">API接口</div>
+                <a href="#api-token" class="nav-item">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>获取AccessToken</span>
+                </a>
+                <a href="#api-estimate" class="nav-item">
+                    <i class="fas fa-calculator"></i>
+                    <span>运费预估</span>
+                </a>
+                <a href="#api-create" class="nav-item">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>创建订单</span>
+                </a>
+                <a href="#api-query" class="nav-item">
+                    <i class="fas fa-search"></i>
+                    <span>查询订单</span>
+                </a>
+                <a href="#api-track" class="nav-item">
+                    <i class="fas fa-route"></i>
+                    <span>查询轨迹</span>
+                </a>
+                <a href="#api-cancel" class="nav-item">
+                    <i class="fas fa-times-circle"></i>
+                    <span>取消订单</span>
+                </a>
+                <a href="#api-express" class="nav-item">
+                    <i class="fas fa-truck"></i>
+                    <span>快递列表</span>
+                </a>
+                <div class="nav-divider"></div>
+                <a href="#sdk" class="nav-item">
+                    <i class="fas fa-code"></i>
+                    <span>PHP SDK</span>
+                </a>
+            </nav>
+        </aside>
 
-        &lt;!-- 主内容区 --&gt;
-        &lt;main class="main-content"&gt;
-            &lt;!-- 概述 --&gt;
-            &lt;section id="overview" class="section"&gt;
-                &lt;h1&gt;&lt;i class="fas fa-book"&gt;&lt;/i&gt; 快递开放API文档&lt;/h1&gt;
-                &lt;div class="info-card"&gt;
-                    &lt;div class="info-item"&gt;
-                        &lt;i class="fas fa-link info-icon" style="background: #3b82f6;"&gt;&lt;/i&gt;
-                        &lt;div&gt;
-                            &lt;div class="info-label"&gt;协议&lt;/div&gt;
-                            &lt;div class="info-value"&gt;HTTPS&lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class="info-item"&gt;
-                        &lt;i class="fas fa-file-code info-icon" style="background: #10b981;"&gt;&lt;/i&gt;
-                        &lt;div&gt;
-                            &lt;div class="info-label"&gt;数据格式&lt;/div&gt;
-                            &lt;div class="info-value"&gt;JSON&lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class="info-item"&gt;
-                        &lt;i class="fas fa-language info-icon" style="background: #f59e0b;"&gt;&lt;/i&gt;
-                        &lt;div&gt;
-                            &lt;div class="info-label"&gt;字符编码&lt;/div&gt;
-                            &lt;div class="info-value"&gt;UTF-8&lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;p class="section-desc"&gt;本文档描述了快递系统开放API的使用方法，包括认证方式、接口说明等。&lt;/p&gt;
-            &lt;/section&gt;
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 概述 -->
+            <section id="overview" class="section">
+                <h1><i class="fas fa-book"></i> 快递开放API文档</h1>
+                <div class="info-card">
+                    <div class="info-item">
+                        <i class="fas fa-link info-icon" style="background: #3b82f6;"></i>
+                        <div>
+                            <div class="info-label">协议</div>
+                            <div class="info-value">HTTPS</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-file-code info-icon" style="background: #10b981;"></i>
+                        <div>
+                            <div class="info-label">数据格式</div>
+                            <div class="info-value">JSON</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-language info-icon" style="background: #f59e0b;"></i>
+                        <div>
+                            <div class="info-label">字符编码</div>
+                            <div class="info-value">UTF-8</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="section-desc">本文档描述了快递系统开放API的使用方法，包括认证方式、接口说明等。</p>
+            </section>
 
-            &lt;!-- 认证方式 --&gt;
-            &lt;section id="auth" class="section"&gt;
-                &lt;h2&gt;认证方式&lt;/h2&gt;
-                &lt;h3&gt;签名机制&lt;/h3&gt;
-                &lt;p&gt;所有API请求都需要通过签名验证，签名生成方式如下：&lt;/p&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;签名算法&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;signature = md5(appKey + timestamp + nonce + appSecret)&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-                &lt;h3&gt;公共请求参数&lt;/h3&gt;
-                &lt;table class="table"&gt;
-                    &lt;thead&gt;
-                        &lt;tr&gt;
-                            &lt;th&gt;参数名&lt;/th&gt;
-                            &lt;th&gt;类型&lt;/th&gt;
-                            &lt;th&gt;必填&lt;/th&gt;
-                            &lt;th&gt;说明&lt;/th&gt;
-                        &lt;/tr&gt;
-                    &lt;/thead&gt;
-                    &lt;tbody&gt;
-                        &lt;tr&gt;&lt;td&gt;appKey&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;应用Key&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;timestamp&lt;/td&gt;&lt;td&gt;int&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;当前时间戳（秒），误差不超过5分钟&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;nonce&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;随机字符串&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;signature&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;签名&lt;/td&gt;&lt;/tr&gt;
-                    &lt;/tbody&gt;
-                &lt;/table&gt;
-                &lt;h3&gt;响应格式&lt;/h3&gt;
-                &lt;p&gt;成功响应：&lt;/p&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;JSON&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;{
+            <!-- 认证方式 -->
+            <section id="auth" class="section">
+                <h2>认证方式</h2>
+                <h3>签名机制</h3>
+                <p>所有API请求都需要通过签名验证，签名生成方式如下：</p>
+                <div class="code-block">
+                    <div class="code-header">签名算法</div>
+                    <pre><code>signature = md5(appKey + timestamp + nonce + appSecret)</code></pre>
+                </div>
+                <h3>公共请求参数</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>参数名</th>
+                            <th>类型</th>
+                            <th>必填</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>appKey</td><td>string</td><td><span class="badge badge-required">是</span></td><td>应用Key</td></tr>
+                        <tr><td>timestamp</td><td>int</td><td><span class="badge badge-required">是</span></td><td>当前时间戳（秒），误差不超过5分钟</td></tr>
+                        <tr><td>nonce</td><td>string</td><td><span class="badge badge-required">是</span></td><td>随机字符串</td></tr>
+                        <tr><td>signature</td><td>string</td><td><span class="badge badge-required">是</span></td><td>签名</td></tr>
+                    </tbody>
+                </table>
+                <h3>响应格式</h3>
+                <p>成功响应：</p>
+                <div class="code-block">
+                    <div class="code-header">JSON</div>
+                    <pre><code>{
     "code": 0,
     "msg": "success",
     "data": { ... }
-}&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-                &lt;p&gt;失败响应：&lt;/p&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;JSON&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;{
+}</code></pre>
+                </div>
+                <p>失败响应：</p>
+                <div class="code-block">
+                    <div class="code-header">JSON</div>
+                    <pre><code>{
     "code": 4001,
     "msg": "错误信息",
     "data": null
-}&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-            &lt;/section&gt;
+}</code></pre>
+                </div>
+            </section>
 
-            &lt;!-- 错误码 --&gt;
-            &lt;section id="error" class="section"&gt;
-                &lt;h2&gt;错误码说明&lt;/h2&gt;
-                &lt;table class="table"&gt;
-                    &lt;thead&gt;
-                        &lt;tr&gt;
-                            &lt;th&gt;错误码&lt;/th&gt;
-                            &lt;th&gt;说明&lt;/th&gt;
-                        &lt;/tr&gt;
-                    &lt;/thead&gt;
-                    &lt;tbody&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-success"&gt;0&lt;/span&gt;&lt;/td&gt;&lt;td&gt;成功&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;4001&lt;/span&gt;&lt;/td&gt;&lt;td&gt;缺少必要的认证参数&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;4002&lt;/span&gt;&lt;/td&gt;&lt;td&gt;请求已过期&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;4003&lt;/span&gt;&lt;/td&gt;&lt;td&gt;应用不存在或已被禁用&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;4004&lt;/span&gt;&lt;/td&gt;&lt;td&gt;签名验证失败&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;5001&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件/收件地址信息不完整&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;6001&lt;/span&gt;&lt;/td&gt;&lt;td&gt;外部订单号不能为空&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;6002&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件人或收件人信息不完整&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;6003&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单已存在&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;7001&lt;/span&gt;&lt;/td&gt;&lt;td&gt;缺少查询参数&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;7002&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单不存在&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;8001&lt;/span&gt;&lt;/td&gt;&lt;td&gt;缺少查询参数&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;8002&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单不存在&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;9001&lt;/span&gt;&lt;/td&gt;&lt;td&gt;缺少订单参数&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;9002&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单不存在&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;9003&lt;/span&gt;&lt;/td&gt;&lt;td&gt;当前订单状态不允许取消&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;&lt;span class="badge badge-danger"&gt;9004&lt;/span&gt;&lt;/td&gt;&lt;td&gt;取消失败&lt;/td&gt;&lt;/tr&gt;
-                    &lt;/tbody&gt;
-                &lt;/table&gt;
-            &lt;/section&gt;
+            <!-- 错误码 -->
+            <section id="error" class="section">
+                <h2>错误码说明</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>错误码</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="badge badge-success">0</span></td><td>成功</td></tr>
+                        <tr><td><span class="badge badge-danger">4001</span></td><td>缺少必要的认证参数</td></tr>
+                        <tr><td><span class="badge badge-danger">4002</span></td><td>请求已过期</td></tr>
+                        <tr><td><span class="badge badge-danger">4003</span></td><td>应用不存在或已被禁用</td></tr>
+                        <tr><td><span class="badge badge-danger">4004</span></td><td>签名验证失败</td></tr>
+                        <tr><td><span class="badge badge-danger">5001</span></td><td>寄件/收件地址信息不完整</td></tr>
+                        <tr><td><span class="badge badge-danger">6001</span></td><td>外部订单号不能为空</td></tr>
+                        <tr><td><span class="badge badge-danger">6002</span></td><td>寄件人或收件人信息不完整</td></tr>
+                        <tr><td><span class="badge badge-danger">6003</span></td><td>订单已存在</td></tr>
+                        <tr><td><span class="badge badge-danger">7001</span></td><td>缺少查询参数</td></tr>
+                        <tr><td><span class="badge badge-danger">7002</span></td><td>订单不存在</td></tr>
+                        <tr><td><span class="badge badge-danger">8001</span></td><td>缺少查询参数</td></tr>
+                        <tr><td><span class="badge badge-danger">8002</span></td><td>订单不存在</td></tr>
+                        <tr><td><span class="badge badge-danger">9001</span></td><td>缺少订单参数</td></tr>
+                        <tr><td><span class="badge badge-danger">9002</span></td><td>订单不存在</td></tr>
+                        <tr><td><span class="badge badge-danger">9003</span></td><td>当前订单状态不允许取消</td></tr>
+                        <tr><td><span class="badge badge-danger">9004</span></td><td>取消失败</td></tr>
+                    </tbody>
+                </table>
+            </section>
 
-            &lt;!-- API接口: 获取AccessToken --&gt;
-            &lt;section id="api-token" class="section"&gt;
-                &lt;div class="api-header"&gt;
-                    &lt;span class="method method-post"&gt;POST&lt;/span&gt;
-                    &lt;div class="api-info"&gt;
-                        &lt;h3&gt;获取AccessToken&lt;/h3&gt;
-                        &lt;p class="api-path"&gt;/openapi/getAccessToken&lt;/p&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;p&gt;获取接口调用凭证，有效期7200秒。&lt;/p&gt;
-                &lt;h4&gt;响应示例&lt;/h4&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;JSON&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;{
+            <!-- API接口: 获取AccessToken -->
+            <section id="api-token" class="section">
+                <div class="api-header">
+                    <span class="method method-post">POST</span>
+                    <div class="api-info">
+                        <h3>获取AccessToken</h3>
+                        <p class="api-path">/openapi/getAccessToken</p>
+                    </div>
+                </div>
+                <p>获取接口调用凭证，有效期7200秒。</p>
+                <h4>响应示例</h4>
+                <div class="code-block">
+                    <div class="code-header">JSON</div>
+                    <pre><code>{
     "code": 0,
     "msg": "success",
     "data": {
         "accessToken": "xxx",
         "expiresIn": 7200
     }
-}&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-            &lt;/section&gt;
+}</code></pre>
+                </div>
+            </section>
 
-            &lt;!-- API接口: 运费预估 --&gt;
-            &lt;section id="api-estimate" class="section"&gt;
-                &lt;div class="api-header"&gt;
-                    &lt;span class="method method-post"&gt;POST&lt;/span&gt;
-                    &lt;div class="api-info"&gt;
-                        &lt;h3&gt;运费预估&lt;/h3&gt;
-                        &lt;p class="api-path"&gt;/openapi/estimate&lt;/p&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;h4&gt;请求参数&lt;/h4&gt;
-                &lt;table class="table"&gt;
-                    &lt;thead&gt;
-                        &lt;tr&gt;
-                            &lt;th&gt;参数名&lt;/th&gt;
-                            &lt;th&gt;类型&lt;/th&gt;
-                            &lt;th&gt;必填&lt;/th&gt;
-                            &lt;th&gt;说明&lt;/th&gt;
-                        &lt;/tr&gt;
-                    &lt;/thead&gt;
-                    &lt;tbody&gt;
-                        &lt;tr&gt;&lt;td&gt;senderProvince&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件省份&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;senderCity&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件城市&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;senderDistrict&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件区县&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;senderAddress&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件详细地址&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveProvince&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件省份&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveCity&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件城市&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveDistrict&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件区县&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveAddress&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件详细地址&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;weight&lt;/td&gt;&lt;td&gt;float&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;重量(kg)&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;length&lt;/td&gt;&lt;td&gt;float&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;长(cm)&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;width&lt;/td&gt;&lt;td&gt;float&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;宽(cm)&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;height&lt;/td&gt;&lt;td&gt;float&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;高(cm)&lt;/td&gt;&lt;/tr&gt;
-                    &lt;/tbody&gt;
-                &lt;/table&gt;
-                &lt;h4&gt;响应示例&lt;/h4&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;JSON&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;{
+            <!-- API接口: 运费预估 -->
+            <section id="api-estimate" class="section">
+                <div class="api-header">
+                    <span class="method method-post">POST</span>
+                    <div class="api-info">
+                        <h3>运费预估</h3>
+                        <p class="api-path">/openapi/estimate</p>
+                    </div>
+                </div>
+                <h4>请求参数</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>参数名</th>
+                            <th>类型</th>
+                            <th>必填</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>senderProvince</td><td>string</td><td><span class="badge badge-required">是</span></td><td>寄件省份</td></tr>
+                        <tr><td>senderCity</td><td>string</td><td><span class="badge badge-required">是</span></td><td>寄件城市</td></tr>
+                        <tr><td>senderDistrict</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>寄件区县</td></tr>
+                        <tr><td>senderAddress</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>寄件详细地址</td></tr>
+                        <tr><td>receiveProvince</td><td>string</td><td><span class="badge badge-required">是</span></td><td>收件省份</td></tr>
+                        <tr><td>receiveCity</td><td>string</td><td><span class="badge badge-required">是</span></td><td>收件城市</td></tr>
+                        <tr><td>receiveDistrict</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>收件区县</td></tr>
+                        <tr><td>receiveAddress</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>收件详细地址</td></tr>
+                        <tr><td>weight</td><td>float</td><td><span class="badge badge-required">是</span></td><td>重量(kg)</td></tr>
+                        <tr><td>length</td><td>float</td><td><span class="badge badge-optional">否</span></td><td>长(cm)</td></tr>
+                        <tr><td>width</td><td>float</td><td><span class="badge badge-optional">否</span></td><td>宽(cm)</td></tr>
+                        <tr><td>height</td><td>float</td><td><span class="badge badge-optional">否</span></td><td>高(cm)</td></tr>
+                    </tbody>
+                </table>
+                <h4>响应示例</h4>
+                <div class="code-block">
+                    <div class="code-header">JSON</div>
+                    <pre><code>{
     "code": 0,
     "msg": "success",
     "data": {
@@ -254,56 +254,56 @@
         ],
         "totalCount": 1
     }
-}&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-            &lt;/section&gt;
+}</code></pre>
+                </div>
+            </section>
 
-            &lt;!-- API接口: 创建订单 --&gt;
-            &lt;section id="api-create" class="section"&gt;
-                &lt;div class="api-header"&gt;
-                    &lt;span class="method method-post"&gt;POST&lt;/span&gt;
-                    &lt;div class="api-info"&gt;
-                        &lt;h3&gt;创建订单&lt;/h3&gt;
-                        &lt;p class="api-path"&gt;/openapi/createOrder&lt;/p&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;h4&gt;请求参数&lt;/h4&gt;
-                &lt;table class="table"&gt;
-                    &lt;thead&gt;
-                        &lt;tr&gt;
-                            &lt;th&gt;参数名&lt;/th&gt;
-                            &lt;th&gt;类型&lt;/th&gt;
-                            &lt;th&gt;必填&lt;/th&gt;
-                            &lt;th&gt;说明&lt;/th&gt;
-                        &lt;/tr&gt;
-                    &lt;/thead&gt;
-                    &lt;tbody&gt;
-                        &lt;tr&gt;&lt;td&gt;outOrderNo&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;外部订单号&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;senderName&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件人姓名&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;senderMobile&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件人电话&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;senderProvince&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件省份&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;senderCity&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件城市&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;senderDistrict&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件区县&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;senderAddress&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;寄件详细地址&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveName&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件人姓名&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveMobile&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件人电话&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveProvince&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件省份&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveCity&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件城市&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveDistrict&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件区县&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;receiveAddress&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;收件详细地址&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;expressType&lt;/td&gt;&lt;td&gt;int&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;快递类型&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;weight&lt;/td&gt;&lt;td&gt;float&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-required"&gt;是&lt;/span&gt;&lt;/td&gt;&lt;td&gt;重量(kg)&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;length&lt;/td&gt;&lt;td&gt;float&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;长(cm)&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;width&lt;/td&gt;&lt;td&gt;float&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;宽(cm)&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;height&lt;/td&gt;&lt;td&gt;float&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;高(cm)&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;goodsName&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;物品名称&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;remark&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;备注&lt;/td&gt;&lt;/tr&gt;
-                    &lt;/tbody&gt;
-                &lt;/table&gt;
-                &lt;h4&gt;响应示例&lt;/h4&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;JSON&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;{
+            <!-- API接口: 创建订单 -->
+            <section id="api-create" class="section">
+                <div class="api-header">
+                    <span class="method method-post">POST</span>
+                    <div class="api-info">
+                        <h3>创建订单</h3>
+                        <p class="api-path">/openapi/createOrder</p>
+                    </div>
+                </div>
+                <h4>请求参数</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>参数名</th>
+                            <th>类型</th>
+                            <th>必填</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>outOrderNo</td><td>string</td><td><span class="badge badge-required">是</span></td><td>外部订单号</td></tr>
+                        <tr><td>senderName</td><td>string</td><td><span class="badge badge-required">是</span></td><td>寄件人姓名</td></tr>
+                        <tr><td>senderMobile</td><td>string</td><td><span class="badge badge-required">是</span></td><td>寄件人电话</td></tr>
+                        <tr><td>senderProvince</td><td>string</td><td><span class="badge badge-required">是</span></td><td>寄件省份</td></tr>
+                        <tr><td>senderCity</td><td>string</td><td><span class="badge badge-required">是</span></td><td>寄件城市</td></tr>
+                        <tr><td>senderDistrict</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>寄件区县</td></tr>
+                        <tr><td>senderAddress</td><td>string</td><td><span class="badge badge-required">是</span></td><td>寄件详细地址</td></tr>
+                        <tr><td>receiveName</td><td>string</td><td><span class="badge badge-required">是</span></td><td>收件人姓名</td></tr>
+                        <tr><td>receiveMobile</td><td>string</td><td><span class="badge badge-required">是</span></td><td>收件人电话</td></tr>
+                        <tr><td>receiveProvince</td><td>string</td><td><span class="badge badge-required">是</span></td><td>收件省份</td></tr>
+                        <tr><td>receiveCity</td><td>string</td><td><span class="badge badge-required">是</span></td><td>收件城市</td></tr>
+                        <tr><td>receiveDistrict</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>收件区县</td></tr>
+                        <tr><td>receiveAddress</td><td>string</td><td><span class="badge badge-required">是</span></td><td>收件详细地址</td></tr>
+                        <tr><td>expressType</td><td>int</td><td><span class="badge badge-optional">否</span></td><td>快递类型</td></tr>
+                        <tr><td>weight</td><td>float</td><td><span class="badge badge-required">是</span></td><td>重量(kg)</td></tr>
+                        <tr><td>length</td><td>float</td><td><span class="badge badge-optional">否</span></td><td>长(cm)</td></tr>
+                        <tr><td>width</td><td>float</td><td><span class="badge badge-optional">否</span></td><td>宽(cm)</td></tr>
+                        <tr><td>height</td><td>float</td><td><span class="badge badge-optional">否</span></td><td>高(cm)</td></tr>
+                        <tr><td>goodsName</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>物品名称</td></tr>
+                        <tr><td>remark</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>备注</td></tr>
+                    </tbody>
+                </table>
+                <h4>响应示例</h4>
+                <div class="code-block">
+                    <div class="code-header">JSON</div>
+                    <pre><code>{
     "code": 0,
     "msg": "success",
     "data": {
@@ -313,39 +313,39 @@
         "status": 0,
         "statusName": "待付款"
     }
-}&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-            &lt;/section&gt;
+}</code></pre>
+                </div>
+            </section>
 
-            &lt;!-- API接口: 查询订单 --&gt;
-            &lt;section id="api-query" class="section"&gt;
-                &lt;div class="api-header"&gt;
-                    &lt;span class="method method-post"&gt;POST&lt;/span&gt;
-                    &lt;div class="api-info"&gt;
-                        &lt;h3&gt;查询订单&lt;/h3&gt;
-                        &lt;p class="api-path"&gt;/openapi/queryOrder&lt;/p&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;h4&gt;请求参数（三选一）&lt;/h4&gt;
-                &lt;table class="table"&gt;
-                    &lt;thead&gt;
-                        &lt;tr&gt;
-                            &lt;th&gt;参数名&lt;/th&gt;
-                            &lt;th&gt;类型&lt;/th&gt;
-                            &lt;th&gt;必填&lt;/th&gt;
-                            &lt;th&gt;说明&lt;/th&gt;
-                        &lt;/tr&gt;
-                    &lt;/thead&gt;
-                    &lt;tbody&gt;
-                        &lt;tr&gt;&lt;td&gt;orderId&lt;/td&gt;&lt;td&gt;int&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单ID&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;orderNo&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单号&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;outOrderNo&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;外部订单号&lt;/td&gt;&lt;/tr&gt;
-                    &lt;/tbody&gt;
-                &lt;/table&gt;
-                &lt;h4&gt;响应示例&lt;/h4&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;JSON&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;{
+            <!-- API接口: 查询订单 -->
+            <section id="api-query" class="section">
+                <div class="api-header">
+                    <span class="method method-post">POST</span>
+                    <div class="api-info">
+                        <h3>查询订单</h3>
+                        <p class="api-path">/openapi/queryOrder</p>
+                    </div>
+                </div>
+                <h4>请求参数（三选一）</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>参数名</th>
+                            <th>类型</th>
+                            <th>必填</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>orderId</td><td>int</td><td><span class="badge badge-optional">否</span></td><td>订单ID</td></tr>
+                        <tr><td>orderNo</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>订单号</td></tr>
+                        <tr><td>outOrderNo</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>外部订单号</td></tr>
+                    </tbody>
+                </table>
+                <h4>响应示例</h4>
+                <div class="code-block">
+                    <div class="code-header">JSON</div>
+                    <pre><code>{
     "code": 0,
     "msg": "success",
     "data": {
@@ -364,39 +364,39 @@
         "amount": 15.00,
         "createTime": "2024-01-01 12:00:00"
     }
-}&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-            &lt;/section&gt;
+}</code></pre>
+                </div>
+            </section>
 
-            &lt;!-- API接口: 查询轨迹 --&gt;
-            &lt;section id="api-track" class="section"&gt;
-                &lt;div class="api-header"&gt;
-                    &lt;span class="method method-post"&gt;POST&lt;/span&gt;
-                    &lt;div class="api-info"&gt;
-                        &lt;h3&gt;查询物流轨迹&lt;/h3&gt;
-                        &lt;p class="api-path"&gt;/openapi/queryTrack&lt;/p&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;h4&gt;请求参数（三选一）&lt;/h4&gt;
-                &lt;table class="table"&gt;
-                    &lt;thead&gt;
-                        &lt;tr&gt;
-                            &lt;th&gt;参数名&lt;/th&gt;
-                            &lt;th&gt;类型&lt;/th&gt;
-                            &lt;th&gt;必填&lt;/th&gt;
-                            &lt;th&gt;说明&lt;/th&gt;
-                        &lt;/tr&gt;
-                    &lt;/thead&gt;
-                    &lt;tbody&gt;
-                        &lt;tr&gt;&lt;td&gt;orderId&lt;/td&gt;&lt;td&gt;int&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单ID&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;orderNo&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单号&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;waybillNo&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;运单号&lt;/td&gt;&lt;/tr&gt;
-                    &lt;/tbody&gt;
-                &lt;/table&gt;
-                &lt;h4&gt;响应示例&lt;/h4&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;JSON&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;{
+            <!-- API接口: 查询轨迹 -->
+            <section id="api-track" class="section">
+                <div class="api-header">
+                    <span class="method method-post">POST</span>
+                    <div class="api-info">
+                        <h3>查询物流轨迹</h3>
+                        <p class="api-path">/openapi/queryTrack</p>
+                    </div>
+                </div>
+                <h4>请求参数（三选一）</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>参数名</th>
+                            <th>类型</th>
+                            <th>必填</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>orderId</td><td>int</td><td><span class="badge badge-optional">否</span></td><td>订单ID</td></tr>
+                        <tr><td>orderNo</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>订单号</td></tr>
+                        <tr><td>waybillNo</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>运单号</td></tr>
+                    </tbody>
+                </table>
+                <h4>响应示例</h4>
+                <div class="code-block">
+                    <div class="code-header">JSON</div>
+                    <pre><code>{
     "code": 0,
     "msg": "success",
     "data": {
@@ -413,40 +413,40 @@
             }
         ]
     }
-}&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-            &lt;/section&gt;
+}</code></pre>
+                </div>
+            </section>
 
-            &lt;!-- API接口: 取消订单 --&gt;
-            &lt;section id="api-cancel" class="section"&gt;
-                &lt;div class="api-header"&gt;
-                    &lt;span class="method method-post"&gt;POST&lt;/span&gt;
-                    &lt;div class="api-info"&gt;
-                        &lt;h3&gt;取消订单&lt;/h3&gt;
-                        &lt;p class="api-path"&gt;/openapi/cancelOrder&lt;/p&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;h4&gt;请求参数（三选一）&lt;/h4&gt;
-                &lt;table class="table"&gt;
-                    &lt;thead&gt;
-                        &lt;tr&gt;
-                            &lt;th&gt;参数名&lt;/th&gt;
-                            &lt;th&gt;类型&lt;/th&gt;
-                            &lt;th&gt;必填&lt;/th&gt;
-                            &lt;th&gt;说明&lt;/th&gt;
-                        &lt;/tr&gt;
-                    &lt;/thead&gt;
-                    &lt;tbody&gt;
-                        &lt;tr&gt;&lt;td&gt;orderId&lt;/td&gt;&lt;td&gt;int&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单ID&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;orderNo&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;订单号&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;outOrderNo&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;外部订单号&lt;/td&gt;&lt;/tr&gt;
-                        &lt;tr&gt;&lt;td&gt;reason&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;span class="badge badge-optional"&gt;否&lt;/span&gt;&lt;/td&gt;&lt;td&gt;取消原因&lt;/td&gt;&lt;/tr&gt;
-                    &lt;/tbody&gt;
-                &lt;/table&gt;
-                &lt;h4&gt;响应示例&lt;/h4&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;JSON&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;{
+            <!-- API接口: 取消订单 -->
+            <section id="api-cancel" class="section">
+                <div class="api-header">
+                    <span class="method method-post">POST</span>
+                    <div class="api-info">
+                        <h3>取消订单</h3>
+                        <p class="api-path">/openapi/cancelOrder</p>
+                    </div>
+                </div>
+                <h4>请求参数（三选一）</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>参数名</th>
+                            <th>类型</th>
+                            <th>必填</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>orderId</td><td>int</td><td><span class="badge badge-optional">否</span></td><td>订单ID</td></tr>
+                        <tr><td>orderNo</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>订单号</td></tr>
+                        <tr><td>outOrderNo</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>外部订单号</td></tr>
+                        <tr><td>reason</td><td>string</td><td><span class="badge badge-optional">否</span></td><td>取消原因</td></tr>
+                    </tbody>
+                </table>
+                <h4>响应示例</h4>
+                <div class="code-block">
+                    <div class="code-header">JSON</div>
+                    <pre><code>{
     "code": 0,
     "msg": "success",
     "data": {
@@ -454,23 +454,23 @@
         "orderNo": "KF202401011200001",
         "msg": "取消成功"
     }
-}&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-            &lt;/section&gt;
+}</code></pre>
+                </div>
+            </section>
 
-            &lt;!-- API接口: 快递列表 --&gt;
-            &lt;section id="api-express" class="section"&gt;
-                &lt;div class="api-header"&gt;
-                    &lt;span class="method method-post"&gt;POST&lt;/span&gt;
-                    &lt;div class="api-info"&gt;
-                        &lt;h3&gt;获取快递公司列表&lt;/h3&gt;
-                        &lt;p class="api-path"&gt;/openapi/getExpressList&lt;/p&gt;
-                    &lt;/div&gt;
-                &lt;/div&gt;
-                &lt;h4&gt;响应示例&lt;/h4&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;JSON&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;{
+            <!-- API接口: 快递列表 -->
+            <section id="api-express" class="section">
+                <div class="api-header">
+                    <span class="method method-post">POST</span>
+                    <div class="api-info">
+                        <h3>获取快递公司列表</h3>
+                        <p class="api-path">/openapi/getExpressList</p>
+                    </div>
+                </div>
+                <h4>响应示例</h4>
+                <div class="code-block">
+                    <div class="code-header">JSON</div>
+                    <pre><code>{
     "code": 0,
     "msg": "success",
     "data": {
@@ -486,17 +486,17 @@
         ],
         "totalCount": 1
     }
-}&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-            &lt;/section&gt;
+}</code></pre>
+                </div>
+            </section>
 
-            &lt;!-- PHP SDK --&gt;
-            &lt;section id="sdk" class="section"&gt;
-                &lt;h2&gt;PHP SDK&lt;/h2&gt;
-                &lt;p&gt;使用提供的 SDK 可以快速集成接口：&lt;/p&gt;
-                &lt;div class="code-block"&gt;
-                    &lt;div class="code-header"&gt;PHP&lt;/div&gt;
-                    &lt;pre&gt;&lt;code&gt;&amp;lt;?php
+            <!-- PHP SDK -->
+            <section id="sdk" class="section">
+                <h2>PHP SDK</h2>
+                <p>使用提供的 SDK 可以快速集成接口：</p>
+                <div class="code-block">
+                    <div class="code-header">PHP</div>
+                    <pre><code>&lt;?php
 require 'KdApiSdk.php';
 
 // 初始化SDK
@@ -530,12 +530,12 @@ try {
 } catch (Exception $e) {
     echo "错误：" . $e-&gt;getMessage();
 }
-?&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-                &lt;/div&gt;
-            &lt;/section&gt;
-        &lt;/main&gt;
-    &lt;/div&gt;
+?&gt;</code></pre>
+                </div>
+            </section>
+        </main>
+    </div>
 
-    &lt;script src="js/main.js"&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+    <script src="js/main.js"></script>
+</body>
+</html>
